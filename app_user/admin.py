@@ -8,7 +8,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display  = ('id', 'user_uuid', 'email', 'username','is_active', 'created_at', 'updated_at')
     search_fields = ['email', 'user_uuid',]
     list_filter = ['is_active',] #  'industry', 'country',
-    readonly_fields = ['created_at', 'updated_at']
+    readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
     # fieldsets = [
     #     (None, {'fields': ['profile_pic_preview','profile_pic']}),
     #     ('USER PROFILE', {'fields': ['user','industry', 'birthdate','gender', 'country']}),

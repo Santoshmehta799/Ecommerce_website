@@ -5,5 +5,5 @@ from app_verification import views
 app_name="app_verification"
 
 urlpatterns = [
-    path('tril/', views.verification_home, name="verification_name"),
+    path('', views.verification_home, name="verification_home"),
 ]

@@ -5,5 +5,5 @@ from app_user import views
 app_name="app_user"
 
 urlpatterns = [
-    path('tril/', views.auth_home, name="auth_name"),
+    path('', views.auth_home, name="auth_name"),
 ]

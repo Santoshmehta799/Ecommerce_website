@@ -1,9 +1,13 @@
 import uuid
+import os.path
+from uuid import uuid4
+from os.path import join
 from django.db import models
 from app_user.models import User
+from common import validators
+from common import helpers
 from common.models import ModelMixin
 from django.utils.translation import gettext_lazy as _
-
 # Create your models here.
 
 
@@ -44,3 +48,20 @@ class GstDetail(ModelMixin):
     class Meta:
         verbose_name = _('Verification - GST Details')
         verbose_name_plural = _('Verification - GST Details')
+
+
+# class RepresentativeDetail(ModelMixin):
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="user_gst_detail",
+#         default=True,null=True,blank=True)
+#     representative_name = models.CharField(max_length=20, blank=True, null=True)
+#     representative_image = models.FileField(
+#         upload_to=helpers.FileUploadPath('representative_proof'),
+#         validators=[validators.image_validator],
+#         help_text="please Uploaded Documents above."
+#     )
+
+
+#     class Meta:
+#         verbose_name = _('Verification - Representative Detail')
+#         verbose_name_plural = _('Verification - Representative Detail')

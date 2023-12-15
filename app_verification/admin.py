@@ -7,7 +7,7 @@ class GstDetailAdmin(admin.ModelAdmin):
     list_display  = ('id', 'user', 'company_gst_number', 'is_active', 'legal_name_of_business', 'created_at', 'updated_at')
     search_fields = ['email', 'company_gst_number',]
     list_filter = ['is_active',]
-    readonly_fields = ['created_at', 'updated_at']
+    readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
     # fieldsets = [
     #     (None, {'fields': ['profile_pic_preview','profile_pic']}),
     #     ('USER PROFILE', {'fields': ['user','industry', 'birthdate','gender', 'country']}),

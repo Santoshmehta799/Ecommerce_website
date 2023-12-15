@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     # apps registrations
     'app_user',
     'app_verification',
+    'app_dashboard',
 
 ]
 
@@ -56,10 +58,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'app.urls'
 
+TEMPLATES_DIRS = os.path.join(BASE_DIR,'templates')
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_DIRS, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,6 +137,18 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+# STATIC_ROOT = os.path.join(BASE_DIR,'static')
+
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -141,3 +156,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = "app_user.User"
+
+
+# # corsheaders settings
+# # https://pypi.org/project/django-cors-headers/
+# CORS_ALLOWED_ORIGINS = [
+#     #"https://example.com",
+#     #"https://sub.example.com",
+#     "http://localhost:3000",
+#     # "http://127.0.0.1:3000",
+# ]
+
+# # Email Credentials
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER', 'ravipatel4075@gmail.com') # gmail email id to send email
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', 'kdbdvzlidscvjhnt') # gmail password
+# ADMIN_EMAILS = ['ravichovatiya120@gmail.com',] # admin emails
+
+# # urls define of api
+# LOGIN_URL = '/api/login/'
