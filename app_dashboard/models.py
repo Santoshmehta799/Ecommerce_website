@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 class States(ModelMixin):
     name = models.CharField(max_length=225,unique=True)
+    state_code = models.CharField(max_length=10, null=True, blank=True)
     is_active = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
@@ -28,7 +29,7 @@ class Cities(ModelMixin):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"{self.state.name}"
+        return f"{self.state.name} - {self.pin_code}"
 
     def save(self, *args, **kwargs):
         if self.name:

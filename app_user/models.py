@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 from common.models import ModelMixin
 from django.core.mail import send_mail
-from managers.user_managers import UserManager
+from app_user.managers.user_managers import UserManager
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.validators import UnicodeUsernameValidator
