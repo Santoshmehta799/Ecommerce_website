@@ -69,7 +69,7 @@
     background-color: #262626!important;
 }
 
-.booter-logo-info{
+.footer-logo-info{
     font-size: 13px;
     color: #999;
     font-weight: normal;
@@ -102,4 +102,53 @@
 .form-label-normal-font-style{
     font-size:14px;
     color:black;
+}
+
+/* Banner */
+
+.custom-main-banner {
+    position: relative;
+    height: 599px;
+}
+
+.custom-main-banner img {
+    height:100%;
+    width:85%;
+    float: right;
+}
+
+.carousel-content-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 47%;
+    height: 100%;
+    display: flex;
+    z-index: 10;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: black; /* Text color */
+    padding: 20px; /* Adjust the padding as needed */
+    box-sizing: border-box;
+}
+
+/* Media query for screens up to 720px */
+@media (max-width: 768px) {
+    .carousel-content-container {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: 7%;
+    }
+
+    .custom-main-banner {
+        height: 100%;
+        position: static;
+    }
+
+    .custom-main-banner img {
+        height:100%;
+        width:100%;
+    }
 }

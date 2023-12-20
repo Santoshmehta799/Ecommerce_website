@@ -13,6 +13,7 @@
         {% block metablock %}{% endblock metablock %}
         <!-- Include Bootstrap CSS -->
         <link href="{% static 'seventh-square/assets/css/bootstrap/bootstrap.min.css' %}" rel="stylesheet" />
+        <link href="{% static 'seventh-square/assets/css/custom-theme.css' %}" rel="stylesheet" />
         <link href="{% static 'seventh-square/assets/css/custom.css' %}" rel="stylesheet" />
         {% block cssblock %}{% endblock cssblock %}
         
@@ -20,7 +21,7 @@
     <body>
         <!-- Header Start -->
         {% if user.is_authenticated %}
-        {% include 'seventh-square/layout/header.html' %}
+        {% include 'seventh-square/layout/header-unauth.html' %}
         {% else %}
         {% include 'seventh-square/layout/header-unauth.html' %}
         {% endif %}

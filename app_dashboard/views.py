@@ -1,19 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-# Create your views here.
-
-import json
-import time
-from django.core.management.base import BaseCommand
-# from app_package.models import Packages, Features
-from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 
 def index_page(request):
+    if request.user.is_authenticated:
+        return redirect('app_dashboard:dashboard-page')
     return render(request, 'seventh-square/index.html')
 
-
-def dashboard_home(request):
-    return HttpResponse('this is home page for dashboard')
+@login_required
+def dashboard_page(request):
+    return render(request, 'app_dashboard/dashboard.html')
 
 

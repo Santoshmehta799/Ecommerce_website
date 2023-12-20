@@ -4,6 +4,28 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
+<div class="container-fluid">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <!-- Background image and content container -->
+                <div class="custom-main-banner">
+                    <!-- Background image -->
+                    <img src="{% static 'seventh-square/assets/img/banner/main-banner.png' %}" alt="Main Banner">
+    
+                    <!-- Content below the image on smaller screens -->
+                    <div class="carousel-content carousel-content-container text-start">
+                        <h2 class="px-5">Reach out to the $600 billion+ industry from your office</h2>
+                        <p class="px-5">Figure as per Industry Estimates for Home Interiors & Construction Industry</p>
+                        <a href="javascript:void(0);" class="mx-5 btn btn-brand">Become a Seller</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more carousel items as needed -->
+        </div>
+    </div>
+</div>
+  
 
 
 {% endblock content %}
