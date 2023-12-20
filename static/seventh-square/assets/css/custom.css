@@ -1,0 +1,105 @@
+/* Logo */
+
+.navbar-brand img {
+    width: 150px; /* Adjust the logo size */
+}
+/* Navaigation */
+.navbar-nav .nav-item .nav-link {
+    color: white; /* Default color */
+}
+
+.bg-brand-orange {
+    background-color: rgba(255, 127, 0, 1);
+}
+
+.text-brand-orange {
+    color: rgba(255, 127, 0, 1) !important;
+}
+
+.brand-underline:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .navbar-brand img {
+        width: 100px; /* Adjust the logo size */
+    }
+
+    .navbar-toggler {
+        padding: 3px;
+        z-index: 1500;
+    }
+
+    .bg-brand-orange {
+        background-color: transparent;
+    }
+
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Initially hidden off-screen */
+        width: 65%; /* Adjust the width as needed */
+        height: 100vh; /* Full viewport height */
+        transition: right 0.5s ease-in-out; /* Adjust the transition speed */
+        background-color: black; /* Adjust the background color */
+        z-index: 1000;
+        padding-top: 60px; /* Adjust padding-top if needed */
+    }
+
+    .navbar-nav .nav-link {
+        margin-bottom: 5px; /* Add spacing between menu items */
+        border-bottom: 2px solid rgba(255, 127, 0, 1); /* Brand color border */
+        display: block;
+        padding: 8px 15px; /* Adjust padding as needed */
+    }
+
+    .navbar-toggler.custom-toggler:focus + .navbar-collapse {
+        right: 0;
+    }
+}
+
+
+/* Footer Code */
+.footer-background{
+    background: #353535;
+    color:white;
+}
+
+.footer-callus-background{
+    background-color: #262626!important;
+}
+
+.booter-logo-info{
+    font-size: 13px;
+    color: #999;
+    font-weight: normal;
+}
+
+.footer-color{
+    color: #999999;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.footer-color-hover:hover{
+    color: white !important;
+    text-decoration: underline !important;
+}
+
+.footer-brand-color-hover:hover{
+    color: #fd7e14 !important;
+    font-size: 14px;
+    cursor: pointer;
+    }
+
+.footer-white-color-hover:hover{
+    color: white !important;
+    /* font-size: 14px; */
+    cursor: pointer;
+}
+
+
+.form-label-normal-font-style{
+    font-size:14px;
+    color:black;
+}

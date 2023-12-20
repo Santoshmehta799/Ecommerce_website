@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include, path
+from app_dashboard.views import index_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', index_page, name="index-page"),
+    path('dashboard/',include('app_dashboard.urls')),
     path('user/',include('app_user.urls')),
     path('verification/',include('app_verification.urls')),
-    path('dashboard/',include('app_dashboard.urls')),
 ]

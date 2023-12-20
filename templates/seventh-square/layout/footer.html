@@ -1,0 +1,191 @@
+{% load static %}
+<footer class="footer-background text-white pt-4">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-3 footer-navigation text-light text-left mb-3">
+        <a class="" href="/">
+          <img class="mx-5" width="100px;" src="{% static 'seventh-square/assets/img/logo/white-logo.png' %}">
+        </a>
+        <div class="text-left mx-3">
+          <p class="booter-logo-info mt-5 footer-white-color-hover">Sell Building Materials &amp; Home Interior Products on India's first dedicated E-commerce Marketplace for Construction</p>
+        </div>
+        <ul class="list-unstyled mx-3 p-0 m-0">
+          <li class="p-0 m-0 link-offset-2">
+            <a class="text-decoration-none footer-color footer-white-color-hover" href="https://mail.google.com/mail/u/0/#inbox?compose=new">seller@seventhsq.com<br></a>
+          </li>
+          <li class="p-0 m-0 link-offset-2">
+              <a class="text-decoration-none footer-color footer-white-color-hover" href="tel:+91-9024139976">+91-9024139976</a>
+          </li>
+        </ul>
+
+      </div>
+      <div class="col-sm-12 col-md-6 footer-navigation text-light text-left mb-3">
+        <div class="row {% if not user.is_authenticated %}offset-1{% endif %}">
+           <div class="{% if user.is_authenticated %}col-3{% else %}col-3{% endif %}">
+              <h5 class="text-light mb-3" style="font-size: 14px;"><strong>Policy</strong></h5>
+              <div>
+                 <ul class="list-unstyled">
+                    <li class="my-2"><a href="/Cancellation-Return-Policy/"
+                       class="text-decoration-none footer-color footer-color-hover">Cancellation & return</a>
+                    </li>
+                    <li class="my-2"><a href="/shippingpolicy/"
+                       class="text-decoration-none footer-color footer-color-hover">Shipping</a>
+                    </li>
+                    <li class="my-2"><a href="/Paymentpolicy"
+                       class="text-decoration-none footer-color footer-color-hover">Payment<br></a>
+                    </li>
+                    <li class="my-2"><a href="/guidelines/"
+                       class="text-decoration-none footer-color footer-color-hover">Seller
+                       Guidelines<br></a>
+                    </li>
+                 </ul>
+              </div>
+           </div>
+           <div class="{% if user.is_authenticated %}col-3{% else %}col-3{% endif %}">
+              <h5 class="text-light mb-3" style="font-size: 14px;"><strong>Resources</strong></h5>
+              <div>
+                 <ul class="list-unstyled">
+                    <li class="my-2"><a href="/sellwithus/"
+                       class="text-decoration-none footer-color footer-color-hover">Why Sell with Us?</a>
+                    </li>
+                    <li class="my-2"><a href="/how-it-works/"
+                       class="text-decoration-none footer-color footer-color-hover">How
+                       it Works<br></a>
+                    </li>
+                    <li class="my-2"><a href="/advertise-with-us/"
+                       class="text-decoration-none footer-color footer-color-hover">Advertise with Us<br></a>
+                    </li>
+                    <li class="my-2"><a href="/pricing&commision/"
+                       class="text-decoration-none footer-color footer-color-hover">Pricing
+                       & Commissions<br></a>
+                    </li>
+                    <li class="my-2"><a href="/pricecalculator/"
+                       class="text-decoration-none footer-color footer-color-hover">Price
+                       Calculator<br></a>
+                    </li>
+                 </ul>
+              </div>
+           </div>
+           <div class="{% if user.is_authenticated %}col-3{% else %}col-3{% endif %}">
+              <h5 class="text-light mb-3" style="font-size: 14px;"><strong>Help</strong>
+              </h5>
+              <div>
+                 <ul class="list-unstyled">
+                    <li class="my-2"><a href="/about-us/"
+                       class="text-decoration-none footer-color footer-color-hover">About Seventh Square <br></a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="my-2"><a href="/"
+                       class="text-decoration-none footer-color footer-color-hover">Seller Registration</a>
+                    </li>
+                    {% else %}
+                    <li class="my-2"><a href="/account/register/"
+                       class="text-decoration-none footer-color footer-color-hover">Seller Registration</a>
+                    </li>
+                    {% endif %}
+                    <li class="my-2"><a href="/forum/"
+                       class="text-decoration-none footer-color footer-color-hover">Seller
+                       Forum<br></a>
+                    </li>
+                    <li class="my-2"><a href="/help-center"
+                       class="text-decoration-none footer-color footer-color-hover">Help Center<br></a></li>
+                    <li class="my-2"><a href="/learningcenter/"
+                       class="text-decoration-none footer-color footer-color-hover">Learning Center<br></a></li>
+                    <li class="my-2"><a href="/faq/"
+                       class="text-decoration-none footer-color footer-color-hover">Frequently
+                       Asked Questions<br></a>
+                    </li>
+                 </ul>
+              </div>
+           </div>
+           <div class="{% if user.is_authenticated %}col-3{% else %}col-4 d-none{% endif %}">
+              <h5 class="text-light mb-3" style="font-size: 14px;"><strong>Account</strong></h5>
+              <div>
+                 <ul class="list-unstyled">
+                    <li class="my-2"><a href="/account/"
+                       class="text-decoration-none footer-color footer-color-hover">Profile <br></a>
+                    </li>
+                    <li class="my-2"><a href="/orders/current-orders/"
+                       class="text-decoration-none footer-color footer-color-hover">Current Orders</a>
+                    </li>
+                    <li class="my-2"><a href="/inventory/active-products/"
+                       class="text-decoration-none footer-color footer-color-hover">Active Products</a>
+                    </li>
+                    <li class="my-2"><a href="/price_on_request/"
+                       class="text-decoration-none footer-color footer-color-hover">Customer Enquiry<br></a>
+                    </li>
+                    <li class="my-2"><a href="/payments/"
+                       class="text-decoration-none footer-color footer-color-hover">Payment History<br></a></li>
+                 </ul>
+              </div>
+           </div>
+        </div>
+     </div>
+      <div class="col-md-3">
+        <form method="POST" action="/callbackus/">
+          {% csrf_token %}
+          <div class="form-group">
+            <div class="float-right" style="float: right; padding-right:20px;">
+              <label class="text-light" for="exampleInputEmail1">Talk to us Directly</label>
+            </div>
+            <input type="text" name="email" class="form-control my-2 footer-callus-background" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Email / Phone" style="color: white;::placeholder { color: white; opacity: 1; }">
+            <textarea name="msg" class="form-control my-2 footer-callus-background" id="exampleFormControlTextarea1" placeholder="Write your message here" rows="3" style="color: white;::placeholder { color: white; opacity: 1; }"></textarea>
+          </div>
+          <button type="submit" class="btn btn-black float-right" style="float: right; padding-right:20px; background:#7C7777" onclick="showme()">Send Message</button>
+        </form>
+      </div>
+    </div>
+    
+    <div class="row mt-4 mt-md-1">
+      <div class="col-md-4 text-right ">
+        <span>Copyright © 2021
+          <a class="text-white text-decoration-none footer-white-color-hover" href="#">Seventh Square Internet Pvt. Ltd.</a>
+        </span>
+      </div>
+      <div class="col-md-4 mt-4 mt-md-0">
+        <div class="row">
+          <div class="col-md-4">
+            <span>
+              <a class="footer-color text-decoration-none footer-white-color-hover" href="https://seller.seventhsq.com/privacypolicy/">Privacy Policy</a>
+            </span>
+          </div>
+          <div class="col-md-4">
+            <span>
+              <a class="footer-color text-decoration-none footer-white-color-hover" href="https://seller.seventhsq.com/terms/">Terms of Use</a>
+            </span>
+
+          </div>
+          <div class="col-md-4">
+            <span>
+              <a class="footer-color text-decoration-none footer-white-color-hover" href="/terms/">Sitemap</a>
+            </span>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3 mt-4 mt-md-0">
+        <div class="d-inline-block px-1 border-start border-white d-none d-sm-inline-block">&nbsp;</div>
+        <div class="d-inline-block px-1">
+          <a href="https://www.facebook.com/Seventh-Square-101727191683337/" target="_blank">
+            <img class="img-fluid" width="26px;" src="{% static 'seventh-square/assets/email/facebook.png' %}" />
+          </a>
+        </div>
+        <div class="d-inline-block px-1">
+          <a href="https://www.instagram.com/seventhsquare/" target="_blank">
+            <img class="img-fluid" width="26px;" src="{% static 'seventh-square/assets/email/instagram.png' %}" />
+          </a>
+        </div>
+        <div class="d-inline-block px-1">
+          <a href="https://www.linkedin.com/company/seventh-square" target="_blank">
+            <img class="img-fluid" width="26px;" src="{% static 'seventh-square/assets/email/linkedin.png' %}" />
+          </a>
+        </div>
+        <div class="d-inline-block px-1">
+          <a href="https://twitter.com/SeventhSq" target="_blank">
+            <img class="img-fluid" width="26px;" src="{% static 'seventh-square/assets/email/twitter.png' %}" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
