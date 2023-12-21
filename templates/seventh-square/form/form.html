@@ -1,0 +1,75 @@
+{% load widget_tweaks %}
+
+{% if form.non_field_errors %}
+    <div class="col-sm-12">
+        <div class="alert alert-danger" role="alert">
+            {% for error in form.non_field_errors %}
+                <p {% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    {% if error %}
+    <div class="col-sm-12">
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+    </div>
+    {% endif %}
+{% endif %}
+
+{% for field in form %}
+    {% if field.field.widget.input_type == 'checkbox' %}
+        <div class="form-group {% if not form.half or field.html_name not in form.half %}col-md-12{% else %}col-md-6{% endif %} mb-3">
+            <div class="form-check">
+                {% include 'seventh-square/form/checkbox-layout.html' %}
+                <label class="form-check-label" for="{{field.id_for_label}}">{{field.label|safe}}&nbsp;{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
+                <span id="{{field.id_for_label}}Error"></span>
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <div class="invalid-feedback">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    {% elif field.field.widget.input_type == 'date' %}
+        <div class="{% if not form.half or field.html_name not in form.half %}col-md-12{% else %}col-md-6{% endif %} mb-3">
+            <label for="{{field.id_for_label}}">{{field.label|safe}}&nbsp;{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
+            {% include 'seventh-square/form/date-layout.html' %}
+        </div>
+    {% elif field.field.widget.input_type == 'file' %}
+        <div class="border py-2 {% if not form.half or field.html_name not in form.half %}col-md-12{% else %}col-md-12{% endif %} mb-3">
+            <div class="custom-file mb-3">
+                {% include 'seventh-square/form/image-layout.html' %}
+                <label class="custom-file-label" for="{{field.id_for_label}}">{{field.label|safe}}&nbsp;{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
+            </div>
+            {% if field.value %}
+                <div class="card mt-2">
+                    <div class="card-body p-1">
+                        <div class="card-body p-1 bg-white rounded">
+                            <div class="alert alert-primary alert-dismissible fade show my-2 pl-2 pr-5" role="alert">
+                                <div class="alert-body">
+                                    <a href="/media/{{field.value}}" download>{{field.value}}</a>
+                                </div>
+                                {% comment %} <button type="button" class="close text-dark" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    {% elif field.field.widget.input_type == 'hidden' %}
+        {% include 'seventh-square/form/hidden-layout.html' %}
+    {% else %}
+        <div class="{% if not form.half or field.html_name not in form.half %}col-md-12{% else %}col-md-6{% endif %} mb-3">
+            <label for="{{field.id_for_label}}">{{field.label|safe}}&nbsp;{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
+            {% include 'seventh-square/form/input-layout.html' %}
+        </div>
+    {% endif %}
+{% endfor %}
+
+

@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # apps registrations
+    # third party pakages
+    'widget_tweaks',
+
+    # django app
     'app_user',
     'app_verification',
     'app_dashboard',
@@ -141,9 +144,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-
 # STATIC_ROOT = os.path.join(BASE_DIR,'static')
-
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
@@ -158,6 +159,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "app_user.User"
 
 
+APP_LOGIN_URL ='/login/'
+
 
 # # corsheaders settings
 # # https://pypi.org/project/django-cors-headers/
@@ -168,6 +171,7 @@ AUTH_USER_MODEL = "app_user.User"
 #     # "http://127.0.0.1:3000",
 # ]
 
+
 # # Email Credentials
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
@@ -177,5 +181,21 @@ AUTH_USER_MODEL = "app_user.User"
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', 'kdbdvzlidscvjhnt') # gmail password
 # ADMIN_EMAILS = ['ravichovatiya120@gmail.com',] # admin emails
 
+
+
 # # urls define of api
 # LOGIN_URL = '/api/login/'
+
+# bootstrap messages alert
+from django.contrib.messages import constants as message_constants
+MESSAGE_LEVEL = message_constants.DEBUG
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-info',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}

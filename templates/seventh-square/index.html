@@ -2,31 +2,302 @@
 {% load static %}
 {% block title %}{% endblock title %}
 {% block metablock %}{% endblock metablock %}
-{% block cssblock %}{% endblock cssblock %}
+{% block cssblock %}
+    <link rel="stylesheet" href="{% static 'seventh-square/assets/css/bs-stepper/bs-stepper.min.css' %}" />
+{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <!-- Background image and content container -->
-                <div class="custom-main-banner">
-                    <!-- Background image -->
-                    <img src="{% static 'seventh-square/assets/img/banner/main-banner.png' %}" alt="Main Banner">
-    
-                    <!-- Content below the image on smaller screens -->
-                    <div class="carousel-content carousel-content-container text-start">
-                        <h2 class="px-5">Reach out to the $600 billion+ industry from your office</h2>
-                        <p class="px-5">Figure as per Industry Estimates for Home Interiors & Construction Industry</p>
-                        <a href="javascript:void(0);" class="mx-5 btn btn-brand">Become a Seller</a>
+    <div class="container-fluid">
+        <div class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <!-- Background image and content container -->
+                    <div class="custom-main-banner">
+                        <!-- Background image -->
+                        <img src="{% static 'seventh-square/assets/img/banner/main-banner.png' %}" alt="Main Banner">
+        
+                        <!-- Content below the image on smaller screens -->
+                        <div class="carousel-content carousel-content-container text-start">
+                            <h2 class="px-md-5">Reach out to the $600 billion+ industry from your office</h2>
+                            <p class="px-md-5">Figure as per Industry Estimates for Home Interiors & Construction Industry</p>
+                            <a href="javascript:void(0);" class="mx-md-5 btn btn-brand">Become a Seller</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more carousel items as needed -->
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row py-5">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-3 ">
+                        <div class="bg-brand-box px-3 py-4 rounded my-3 mx-3 h-75">
+                            <span class="text-brand fs-2">17+</span>
+                            <p class="fw-bolder">Product Categories</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 ">
+                        <div class="bg-brand-box px-3 py-4 rounded my-3 mx-3 h-75">
+                            <span class="text-brand fs-2">120+</span>
+                            <p class="fw-bolder">Product Types</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 ">
+                        <div class="bg-brand-box px-3 py-4 rounded my-3 mx-3 h-75">
+                            <span class="text-brand fs-2">2000+</span>
+                            <p class="fw-bolder">Indian Cities</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-3 ">
+                        <div class="bg-brand-box px-3 py-4 rounded my-3 mx-3 h-75">
+                            <span class="text-brand fs-2">1%</span>
+                            <p class="fw-bolder">Lowest Commission on Sale*</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Add more carousel items as needed -->
         </div>
+
+        <div class="row py-5">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-12 col-md-6 pt-2 my-auto mx-auto">
+                        <div class="px-3 mx-2 mx-md-0">
+                            <h5 class="">Why sell with Seventh Square?</h5>
+                            <p class="w-75">All the benefits that come with selling on Seventh Square are designed to help you sell more, and make it easier to grow your business</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 pt-2">
+                        <div class="row border rounded p-3 m-3 m-md-0">
+                            <div class="col-md-12 p-3">
+                                <h5>
+                                    <a href="javascript:void(0);" class="text-brand">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                        </svg></a>&nbsp;Bigger & Better Clientele 
+                                </h5>
+                                <p class="pl-4 pb-3 font-size-14px border-bottom">Reach Clients all over India. Sell to Builders & Developers, Contractors & Construction Firms, Architects, Institutions and Individual Home Buyers from a single dashboard</p>
+                            </div>
+                            <div class="col-md-12 p-3">
+                                <h5>
+                                    <a href="javascript:void(0);" class="text-brand">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                            <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                                        </svg></a>&nbsp;Customer Services 
+                                </h5>
+                                <p class="pl-4 pb-3 font-size-14px border-bottom">Superior Services to clients such as One-stop shop for Building Materials & Home Interiors, Automatic Invoicing & Tax Management, Delivery & Order scheduling for bigger projects, third-party financing etc. for free</p>
+                            </div>
+                            <div class="col-md-12 p-3">
+                                <h5>
+                                    <a href="javascript:void(0);" class="text-brand">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                            <path d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z"/>
+                                        </svg></a>&nbsp;Seventh Square Specialty 
+                                </h5>
+                                <p class="pl-4 pb-3 font-size-14px border-bottom">Receive orders & quote updates on text, whatsapp, email & call. Track payments in your dashboard. Dedicated Relationship Manager for all your doubts & queries; and much more...</p>
+                            </div>
+                            <div class="col-md-12 p-3">
+                                <h5>
+                                    <a href="javascript:void(0);" class="text-brand">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
+                                        </svg></a>&nbsp;Simplest Pricing 
+                                </h5>
+                                <p class="pl-4 font-size-14px">Easy to understand pricing structure so you know all the costs associated and plan your online strategy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-5">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h4 class="text-dark">How it works ?</h4>
+                    </div>
+                </div>
+                <div class="row pt-2 px-5">
+                    <div class="col-md-12 d-none d-md-block bg-brand-box pt-4">
+                        <div id="stepperForm" class="bs-stepper linear">
+                            <div class="bs-stepper-header" role="tablist">
+                            <div class="step" data-target="#test1">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="test1" aria-selected="false">
+                                    <span class="bs-stepper-circle bg-brand">1</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line bg-brand"></div>
+                            <div class="step" data-bs-skip data-target="#test2">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="test2" aria-selected="false">
+                                    <span class="bs-stepper-circle bg-brand">2</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line bg-brand"></div>
+                            <div class="step" data-target="#test3">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="test3" aria-selected="false">
+                                    <span class="bs-stepper-circle bg-brand">3</span>
+                                </button>
+                            </div>
+                            <div class="bs-stepper-line bg-brand"></div>
+                            <div class="step" data-target="#test4">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="test4" aria-selected="false">
+                                    <span class="bs-stepper-circle bg-brand">4</span>
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-none d-md-block bg-brand-box pb-5">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="bs-stepper-label text-dark custom-bs-stepper-contain">Register with us and complete your profile</span>
+                            </div>
+                            <div class="col-md-3 d-flex justify-content-end">
+                                <span class="bs-stepper-label text-dark custom-bs-stepper-contain">Upload your product portfolio</span>
+                            </div>
+                            <div class="col-md-3 d-flex justify-content-end">
+                                <span class="bs-stepper-label text-dark custom-bs-stepper-contain">Start Receiving & Fulfilling Orders</span>
+                            </div>
+                            <div class="col-md-3 d-flex justify-content-end">
+                                <span class="bs-stepper-label text-dark custom-bs-stepper-contain">Receive your payments directly in bank</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 d-block d-md-none py-3 bg-brand-box">
+                        <div class="row">
+                            <div class="col-3">
+                                <div id="stepper4" class="bs-stepper vertical linear">
+                                    <div class="bs-stepper-header" role="tablist">
+                                        <div class="step" data-target="#test-vl-1">
+                                            <button type="button" class="step-trigger py-2 px-1" role="tab" id="stepper4trigger1" aria-controls="test-vl-1" aria-selected="true">
+                                                <span class="bs-stepper-circle bg-brand">1</span>
+                                            </button>
+                                        </div>
+                                        <div class="bs-stepper-line" style="bg-brand"></div>
+                                        <div class="step" data-target="#test-vl-2">
+                                            <button type="button" class="step-trigger py-2 px-1" role="tab" id="stepper4trigger2" aria-controls="test-vl-2" aria-selected="true">
+                                                <span class="bs-stepper-circle bg-brand">2</span>
+                                            </button>
+                                        </div>
+                                        <div class="bs-stepper-line" style="bg-brand"></div>
+                                        <div class="step" data-target="#test-vl-3">
+                                            <button type="button" class="step-trigger py-2 px-1" role="tab" id="stepper4trigger3" aria-controls="test-vl-3" aria-selected="true">
+                                                <span class="bs-stepper-circle bg-brand">3</span>
+                                            </button>
+                                        </div>
+                                        <div class="bs-stepper-line" style="bg-brand"></div>
+                                        <div class="step" data-target="#test-vl-3">
+                                            <button type="button" class="step-trigger py-2 px-1" role="tab" id="stepper4trigger4" aria-controls="test-vl-3" aria-selected="true">
+                                                <span class="bs-stepper-circle bg-brand">4</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-9">
+                                <div class="row">
+                                    <div class="col-12 my-3 py-1">
+                                        <span>Register with us and complete your profile</span>
+                                    </div>
+                                    <div class="col-12 my-3 py-1">
+                                        <span>Upload your product portfolio</span>
+                                    </div>
+                                    <div class="col-12 my-3 py-1">
+                                        <span>Start receiving orders. Check status in Dashboard</span>
+                                    </div>
+                                    <div class="col-12 my-3 py-1">
+                                        <span>Receive your payments directly in bank</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-5">
+            <div class="col-md-12 text-center">
+                <h4 class="text-dark">Register as a Seller with Seventh Square</h4>
+                <p>Become a seller with us by filling this form. To sell with Seventh Square, you need</p>
+            </div>
+            <div class="col-md-12 text-center">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-6 col-md-3 p-2 m-2 reg-square-shadow my-2 mx-5" style="height:120px;width:162px;">
+                        <span class="text-brand font-size-36px-lh-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-telephone" viewBox="0 0 16 16">
+                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
+                            </svg>
+                        </span>
+                        <p class="fs-5 mt-3">Contact details</p>
+                    </div>
+                    <div class="col-6 col-md-3 p-2 m-2 reg-square-shadow my-2 mx-5" style="height:120px;width:162px;">
+                        <span class="text-brand font-size-36px-lh-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
+                                <path d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2Zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672Z"/>
+                                <path d="M13.5 9a.5.5 0 0 1 .5.5V11h1.5a.5.5 0 1 1 0 1H14v1.5a.5.5 0 1 1-1 0V12h-1.5a.5.5 0 0 1 0-1H13V9.5a.5.5 0 0 1 .5-.5Z"/>
+                              </svg>
+                        </span>
+                        <p class="fs-5 mt-3">GSTIN</p>
+                    </div>
+                    <div class="col-6 col-md-3 p-2 m-2 reg-square-shadow my-2 mx-5" style="height:120px;width:162px;">
+                        <span class="text-brand font-size-36px-lh-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-vcard" viewBox="0 0 16 16">
+                                <path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm4-2.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5ZM9 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4A.5.5 0 0 1 9 8Zm1 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5Z"/>
+                                <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H8.96c.026-.163.04-.33.04-.5C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1.006 1.006 0 0 1 1 12V4Z"/>
+                            </svg>
+                        </span>
+                        <p class="fs-5 mt-3">Business Info</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 text-center mt-5 mt-md-3">
+                <p>Our team will contact you after you’ve filled the form. For any queries, check our 
+                    <a class="text-brand" href="javascript:void(0);">FAQ Page</a> or <a href="javascript:void(0);" class="v-class-resp options text-brand" data-toggle="modal"
+                    data-target="#requestacallback2" id="arrange_callback">arrange a callback</a></p>
+            </div>
+        </div>
+
+        <div class="row py-5" id="register-section">
+            <!-- Messages Start -->
+            {% include 'seventh-square/layout/messages.html' %}
+            <!-- Messages END -->
+            <div class="col-md-10 mx-auto col-xl-5 col-10">
+                <h5 class="text-capitalize text-center lh-lg">Register your seller account</h5>
+                <p class="text-center">Create your account to start selling</p>
+                <form method="post" action="{% url 'app_user:auth-signup' %}" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="row">
+                        {% include 'seventh-square/form/form-auth.html' %}
+                    </div>
+                    <button type="submit" class="btn btn-brand w-100">CONTINUE</button>
+                </form>
+                <div class="text-center my-3">
+                    <div class="my-2">
+                        <a class="text-capitalize" href="javascript:void(0);" style="color:#4f4f4f">Need Help?</a>
+                    </div>
+                    <div class="my-2">
+                        Already have an account? <a class="text-capitalize" href="{% url 'app_user:auth-signin' %}" style="color:#4f4f4f">Login here</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
-</div>
   
-
-
 {% endblock content %}
-{% block jsblock %}{% endblock jsblock %}
+{% block jsblock %}
+    <script>
+        $(document).ready(function () {
+            // Get the parent element by ID and append the button and span
+            $('#yourElementId').append('<input type="button" name="send_otp" class="btn btn-secondary text-wrap py-2 mt-1 form-control" style="font-size:9px;" value="SEND OTP" id="id_send_otp">');
+            $('#yourElementId').append('<span id="id_send_otpError"></span>');
+        });
+    </script>
+
+
+
+{% endblock jsblock %}

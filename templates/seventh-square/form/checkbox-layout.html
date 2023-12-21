@@ -1,0 +1,15 @@
+{% load widget_tweaks %}
+{% if form.is_bound %}
+    {% if field.errors %}
+        {% render_field field class+="form-check-input is-invalid" title=field.name %}
+    {% else %}
+        {% render_field field class+="form-check-input is-valid" title=field.name %}
+    {% endif %}
+{% else %}
+    {% render_field field class+="form-check-input" title=field.name %}
+{% endif %}
+{% if field.help_text %}
+    <small class="form-text text-muted">
+        {{ field.help_text|safe }}
+    </small>
+{% endif %}

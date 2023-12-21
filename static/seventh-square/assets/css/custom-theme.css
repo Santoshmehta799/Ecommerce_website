@@ -196,6 +196,11 @@
     --bs-btn-disabled-border-color: rgba(255, 127, 0, 1);
 }
 
+.bg-brand {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-theme-rgb), var(--bs-bg-opacity)) !important;
+}
+
 .text-brand {
     --bs-text-opacity: 1;
     color: rgba(var(--bs-theme-rgb), var(--bs-text-opacity)) !important;
