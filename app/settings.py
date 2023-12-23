@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'app_user',
     'app_verification',
     'app_dashboard',
+    'app_context'
 
 ]
 

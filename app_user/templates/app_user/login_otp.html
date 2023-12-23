@@ -4,7 +4,42 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-    <h1>This is login-otp page</h1>
+    <section class="background sec-small">
+        <div class="row film-small" style="margin: auto; justify-content: center; height: 400px;">
+            <div class="col-6" id="login-pic">
+                <img class="d-none d-lg-block" src="/static/staticfiles/img/Login.png" style="width: 60%;margin: auto;">
+            </div>            
+            <div class="col-12 col-md-6 register">
+                <form class="text-center" method="POST" action="/account/login/" id="form-style">
+                    {%csrf_token%}
+                    <p class="text-para-small" style="text-align: left;font-weight: 500;padding: 10px 0px 10px 0px;font-size: 1.25rem;">Login using OTP</p>
+                    <p style="text-align: left;">We will send an OTP to your registered mobile number.</p>
+                    <div class="form-group" id="Mob-div" style="flex-direction: inherit  !important;">
+                        <input class="form-control" style="background: rgb(256,256,256,0.5); border: solid 1px #6c757d;height: 35px;font-size: 1rem;" pattern="[0-9]{10}" id = "login_otp_mobile_or_email" title="Mobile Number  e.g 6390239022" name="mobileNumber" required
+                        placeholder="Mobile Number" maxlength="10" >
+                        <button type="button" style="background: rgb(256,256,256,0.5); border: solid 1px #6c757d;padding: 0;width: 114px;text-transform: none;color:rgb(39, 39, 39)" id = "login_otp_mobile_or_email_submit" onclick="myFunction_two()" class="btn btn-secondary" >Send OTP</button>
+                        
+                    </div>
+                    <!-- <div id="error-message" style="color: red;"></div> -->
+                    <div class="form-group" id='Mob-div'>
+                        <input class="form-control" style="background: rgb(256,256,256,0.5); border: solid 1px #6c757d;height: 35px;font-size: 1rem;display: none;" id="myDIV" name="otp" required placeholder="Enter OTP" maxlength="10">
+                        <button class='btn btn-black' type='submit'>Login</button>
+                    </div>
+                
+                </form>
+                <div class="alert"></div>
+                <div>
+                    
+                    <u>
+                        <a class="text-capitalize already" href="/account/login/" style="color:#4f4f4f">Go back to Login Page</a>
+                    </u>
+                </div>
+                <hr class="custom-2" style="margin: 0;">
+                
+                
+            </div>            
+        </div>
+    </section>
 
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}

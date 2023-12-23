@@ -1,0 +1,72 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}{% endblock cssblock %}
+{% block content %}
+    <div class="container-fluid gst-background">
+        <div class="row p-5">
+            <div class="col-12 col-md-9 mx-auto bg-white p-5">
+                <div class="row">
+                    <div class="col-md-10 mx-auto px-4">
+
+                        <div>
+                            <h3 class="text-center">You've reached the finish line!</h3>
+                            <p class="text-center my-4"> Tell us about yourself and the company you represent, so we know who to address. Please use names mentioned in the official documents as these will help us in verification.</p>
+                        </div>
+
+                        <div class="mx-5 px-md-5">
+                            <form method="POST" action="" id="" >
+                                {%csrf_token%}
+                                <h4 class="text-capitalize text-center mt-2">Enter your details</h4>
+                                <div class="form-group my-3">
+                                    <input class="form-control" type="text" value="{{request.user.Representativename|default_if_none:''}}" name="Representativename" required placeholder="Representative Name">
+                                </div>
+                                <div class="form-group my-3">
+                                    <input class="form-control" type="text" value="{{request.user.companyName|default_if_none:''}}" name="companyName" required placeholder="Company Name">
+                                </div>
+                                <div class="form-group">
+                                    <button href ="Seller_login.html" class="btn btn-brand w-100" type="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5 class="text-left">Frequently Asked Questions</h5>
+                            <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingOne">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        What should I provide in Company Name?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            Please provide full legal name in the company name. This helps us verify and onboard only genuine sellers.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="headingTwo">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Which city should be mentioned?
+                                        </button>
+                                    </h2>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                        <div class="accordion-body">
+                                            In case of multiple locations, please enter the city where the company is registered.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock content %}
+{% block jsblock %}{% endblock jsblock %}

@@ -1,0 +1,38 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}{% endblock cssblock %}
+{% block content %}
+    <br />
+    <div class="col-sm-12 col-md-4 offset-sm-0 offset-md-4"
+    style="text-align: center;box-shadow: 0px 0px 5px; padding: 20px; background-color: #F8F8F8;">
+        <h2 class="text-capitalize" style="margin: 20px; font-family: 'Crimson text"><strong>Reset Password</strong></h2>
+        <form class="text-center" method="POST" action="/account/resetpassword_new_mobile/" id="form-style">
+            {%csrf_token%}
+
+            <div class="form-group" style="padding: 20px;">
+                <input class="form-control" name="password" type="password" id="pass1" placeholder="Enter New Password">
+                <input class="form-control" name="password" type="password" id="pass2" style="margin-top: 10px;"
+                    oninput="checkPass2(this)" placeholder="Re-enter Password">
+                <span id="error" style="margin-top: 10px; color:red"> </span>
+
+                <input class="form-control" name="idd" style="margin-top: 10px;" id="iddd"
+                    placeholder="Re-enter Password" hidden>
+                <input class="form-control" name="otpp" style="margin-top: 10px;" id="otpp"
+                    placeholder="Re-enter Password" hidden>
+            </div>
+            <div class="form-group" style="margin: 0px;padding: 37px;padding-top: 0px;">
+                <button class="btn btn-primary btn-block" type="submit" style="background: #6e717d;" id="reset_p">Reset
+                    Password</button>
+
+            </div>
+            <a class="already" href="/help-center/"
+                style="float: center;color: #091030;text-align: center;font-family: Open Sans, sans-serif ;">Need Help?
+                Contact Support</a>
+        </form>
+    </div>
+    </div>
+
+{% endblock content %}
+{% block jsblock %}{% endblock jsblock %}

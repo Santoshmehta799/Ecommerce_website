@@ -6,6 +6,21 @@ pin_validator = validators.RegexValidator(
     regex='^[0-9]{6}$'
 )
 
+phone_validator = validators.RegexValidator(
+    regex='^[0-9]*$',
+    message='Invalid phone number.'
+)
+
+gst_validator = validators.RegexValidator(
+    regex='^[0-9][1-9][A-Z]{3}[PCHABGJLFT][A-Z][0-9]{4}[A-Z][0-9][Z][a-zA-Z0-9]$',
+    message='Invalid GST Number.'
+)
+
+country_validator = validators.RegexValidator(
+    regex='^[A-Z]{2}$',
+    message='Invalid characters in country.'
+)
+
 
 
 def image_validator(self):

@@ -65,14 +65,8 @@ def login_otp(request):
 def sendmessage(request):
     return render(request, 'app_user/sendmessage.html')
 
-def get_detail(request):
-    return render(request, 'app_user/gst_detail.html')
-
-def general_detail(request):
-    return render(request, 'app_user/general_detail.html')
-
 def account_settings(request):
-    return render(request, 'app_user/account_settings.html')
+    return render(request, 'app_user/general_detail.html')
 
 def reset_password(request):
     return render(request, 'app_user/reset_password.html')
@@ -82,6 +76,16 @@ def confirmation_mail(request):
 
 def reset_new_password(request):
     return render(request, 'app_user/reset_new_password.html')
+
+def reset_otp(request):
+    return render(request, 'app_user/reset_otp.html')
+
+def forgot_mobile_otp(request):
+    return render(request, 'app_user/email-templates/forgot_mobile_otp.html')
+
+def forgot_email_verify_page(request):
+    return render(request, 'app_user/email-templates/forgot_email_verify_page.html')
+
 
 
 

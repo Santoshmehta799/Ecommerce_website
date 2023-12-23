@@ -4,39 +4,39 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid login-background">
-    <div class="row p-5">
-        <div class="col-12 col-md-5 mx-auto bg-white p-4">
-            <div class="text-center">
-                <h4 class="text-capitalize" ><strong>Welcome to Seller Panel</strong></h4>
-                <a class="text-dark" href="/?#register-section">New Seller? Register Here</a>
-            </div>
-            <form class="pt-4" method="POST" action="{% url 'app_user:auth-signin' %}" id="form-style">
-                {% csrf_token %}
-                <div class="form-group my-4">
-                    <input class="form-control" type="text" required name="mobileNumber" placeholder="Email/Contact No.">
+    <div class="container-fluid login-background">
+        <div class="row p-5">
+            <div class="col-12 col-md-5 mx-auto bg-white p-4">
+                <div class="text-center">
+                    <h4 class="text-capitalize" ><strong>Welcome to Seller Panel</strong></h4>
+                    <a class="text-dark" href="/?#register-section">New Seller? Register Here</a>
                 </div>
-                <div class="form-group my-4">
-                    <input class="form-control" required name="password"
-                        placeholder="Password"><span toggle="#password-field" onclick="myFunction()" class="ion ion-eye field-icon toggle-password" style="font-size: 22px;"></span>
-                </div>
-                <div class="float-left my-4">                     
-                    <a class="text-decoration-none text-dark" href="/account/login_otp/">Login with OTP</a>
-                </div>
-                <div class="form-group">
-                    <button class="btn btn-brand w-100" type="submit">Log In</button>
-                </div>
-                {% if message %}
-                    <div class="alert alert-danger">{{ message }}</div>
-                {% endif %}
-                <div class="mt-2 text-center">
-                    <a class="d-block text-decoration-none text-dark" href="/account/forgot-password/">Forgot Password?</a>
-                    <a class="d-block text-decoration-none text-dark" href="/help-center/">Need Help?</a>
-                </div>
-            </form>
-        </div>            
+                <form class="pt-4" method="POST" action="{% url 'app_user:auth-signin' %}" id="form-style">
+                    {% csrf_token %}
+                    <div class="form-group my-4">
+                        <input class="form-control" type="text" required name="mobileNumber" placeholder="Email/Contact No.">
+                    </div>
+                    <div class="form-group my-4">
+                        <input class="form-control" required name="password"
+                            placeholder="Password"><span toggle="#password-field" onclick="myFunction()" class="ion ion-eye field-icon toggle-password" style="font-size: 22px;"></span>
+                    </div>
+                    <div class="float-left my-4">                     
+                        <a class="text-decoration-none text-dark" href="/account/login_otp/">Login with OTP</a>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-brand w-100" type="submit">Log In</button>
+                    </div>
+                    {% if message %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                    {% endif %}
+                    <div class="mt-2 d-flex align-items-end flex-column mt-2">
+                        <a class="text-dark mt-1" href="{% url "app_user:forgot-password" %}">Forgot Password?</a>
+                        <a class="text-dark mt-1" href="/help-center/">Need Help?</a>
+                    </div>
+                </form>
+            </div>            
+        </div>
     </div>
-</div>
 
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}

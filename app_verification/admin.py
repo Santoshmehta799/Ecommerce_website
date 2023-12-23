@@ -15,3 +15,21 @@ class GstDetailAdmin(admin.ModelAdmin):
     #     ('EMAIL DETAILS', {'fields': ['alternate_email']}),
     #     ('VARIFY DETAILS', {'fields': ['otp','otp_send','is_verify','expiry_date','created_at','updated_at']}),
     # ]
+
+
+@admin.register(models.RepresentativeDetail)
+class RepresentativeDetailAdmin(admin.ModelAdmin):
+    list_display  = ('id', 'user', 'representative_name', 'created_at', 'updated_at')
+    search_fields = ['user__email', 'representative_name',]
+    list_filter = []
+    readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
+
+
+@admin.register(models.UserPhoneVerified)
+class UserPhoneVerifiedAdmin(admin.ModelAdmin):
+    list_display  = ('id', 'user', 'country', 'ph_number', 'is_verified', 'created_at', 'updated_at')
+    search_fields = ['user__email', 'ph_number',]
+    list_filter = ['is_verified', ]
+    readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
+
+    

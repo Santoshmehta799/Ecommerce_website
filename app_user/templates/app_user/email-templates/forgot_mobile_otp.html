@@ -1,0 +1,42 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}{% endblock cssblock %}
+{% block content %}
+{% if message is not None %}
+<div class="alert alert-{{color}} text-center" style="margin:0">
+    <strong>{{message}}</strong>
+</div>
+{%endif%}
+<br/>
+<div class="col-sm-12 col-md-4 offset-sm-0 offset-md-4"
+    style="text-align: center;box-shadow: 0px 0px 5px; padding: 20px; background-color: #F8F8F8;" >
+    <!-- <h2 class="text-capitalize" style="margin: 10px; font-family: 'Crimson text"><strong>cation</strong></h2> -->
+    <form class="text-center" method="POST" action="/account/resetpassword_mobile" id="form-style">
+        {%csrf_token%}
+        
+        <div class="form-group" style="padding: 10px;">
+            <h6 style="padding: 15px; color: #858796;">Please enter the OTP sent to your registered phone number to reset the password</h6>
+            <input class="form-control" name="otpp" id="otpp"
+                placeholder="Otp" >
+            <input class="form-control" name="idd" value="{{ idd }}"  id= "iddd"
+                placeholder="Otp" hidden >
+        </div>
+        <div class="form-group" style="margin: 0px;padding: 0px 37px;padding-top: 0px;">
+            <button
+                class="btn btn-primary btn-block" type="submit" style="background: #6e717d;" onclick="send_save()">Verify Otp</button>
+        </div>
+    </form>
+          
+    <p class="already" style="float: center;color: #091030;text-align: center;font-family: Open Sans, sans-serif ; margin-top: 20px;">Didn't receive the OTP? 
+      <button type="submit" id="resend" onclick="reloadPage()" style="border: none; border-bottom: #091030;">Resend</button>
+      <input class="form-control" name="mobileNumber" style="margin-top: 10px;" id="mobileNumber"  hidden >
+    </p> 
+            
+    <a class="already" href="/help-center/" style="float: center;color: #091030;text-align: center;font-family: Open Sans, sans-serif ;">Need Help? Contact Support</a>
+
+</div>
+
+{% endblock content %}
+{% block jsblock %}{% endblock jsblock %}

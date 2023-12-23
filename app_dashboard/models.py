@@ -56,7 +56,7 @@ class Cities(ModelMixin):
 
     def save(self, *args, **kwargs):
         if self.name:
-            self.name = self.name.upper()
+            self.name = self.name.lower()
         super().save(*args, **kwargs)
 
     class Meta:
