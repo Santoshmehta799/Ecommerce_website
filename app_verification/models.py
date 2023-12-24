@@ -81,7 +81,6 @@ class UserPhoneVerified(ModelMixin):
         default=enums.CountryWithDialCodeEnums.IN,
         validators=[validators.country_validator],
     )
-    
     ph_number = models.CharField(max_length=15, validators=[validators.phone_validator])
     otp = models.CharField(max_length=6, default='', blank=True)
     otp_send = models.BooleanField(default=False)
@@ -98,6 +97,31 @@ class UserPhoneVerified(ModelMixin):
 
     def __str__(self):
         return self.user.username
+    
+    
+class TempPhoneVerified(ModelMixin):
+    '''
+        This model is used while registration, this will work
+        to verify user mobile number.
+    '''
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    country = models.CharField(
+        choices=enums.CountryWithDialCodeEnums,
+        max_length=50,
+        default=enums.CountryWithDialCodeEnums.IN,
+        validators=[validators.country_validator],
+    )
+    ph_number = models.CharField(max_length=15, validators=[validators.phone_validator])
+    otp = models.CharField(max_length=6, default='', blank=True)
+    otp_send = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _("Verification - Temp Phone Verification")
+        verbose_name_plural = _("Verification - Temp Phone Verification")
+
+    def __str__(self):
+        return f"{self.ph_number} - {self.otp} - {self.is_verified}"
         
 
 

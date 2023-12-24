@@ -20,19 +20,10 @@
 
 {% for field in form %}
     {% if field.field.widget.input_type == 'checkbox' %}
-        <div class="mb-3 
-            {% if form.half_2 and field.html_name in form.half_2 %}col-md-2
-            {% elif form.half_3 and field.html_name in form.half_3 %}col-md-3
-            {% elif form.half_4 and field.html_name in form.half_4 %}col-md-4
-            {% elif form.half and field.html_name in form.half %}col-md-6
-            {% elif form.half_7 and field.html_name in form.half_7 %}col-md-7
-            {% elif form.half_8 and field.html_name in form.half_8 %}col-md-8
-            {% elif form.half_9 and field.html_name in form.half_9 %}col-md-9
-            {% elif form.half_10 and field.html_name in form.half_10 %}col-md-10
-            {% else %}col-md-12{% endif %}">
+        <div class="mb-3 {% if form.half_2 and field.html_name in form.half_2 %}col-md-2{% elif form.half_3 and field.html_name in form.half_3 %}col-md-3{% elif form.half_4 and field.html_name in form.half_4 %}col-md-4{% elif form.half and field.html_name in form.half %}col-md-6{% elif form.half_7 and field.html_name in form.half_7 %}col-md-7{% elif form.half_8 and field.html_name in form.half_8 %}col-md-8{% elif form.half_9 and field.html_name in form.half_9 %}col-md-9{% elif form.half_10 and field.html_name in form.half_10 %}col-md-10{% else %}col-md-12{% endif %}">
             <div class="form-check">
-                {% include 'seventh-square/form/checkbox-layout.html' %}
                 <label class="form-check-label" for="{{field.id_for_label}}">{{field.label|safe}}</label>
+                {% include 'seventh-square/form/checkbox-layout.html' %}
                 <span id="{{field.id_for_label}}Error"></span>
                 {% if field.errors %}
                     {% for error in field.errors %}
@@ -44,30 +35,12 @@
             </div>
         </div>
     {% elif field.field.widget.input_type == 'date' %}
-        <div class="mb-3
-            {% if form.half_2 and field.html_name in form.half_2 %}col-md-2
-            {% elif form.half_3 and field.html_name in form.half_3 %}col-md-3
-            {% elif form.half_4 and field.html_name in form.half_4 %}col-md-4
-            {% elif form.half and field.html_name in form.half %}col-md-6
-            {% elif form.half_7 and field.html_name in form.half_7 %}col-md-7
-            {% elif form.half_8 and field.html_name in form.half_8 %}col-md-8
-            {% elif form.half_9 and field.html_name in form.half_9 %}col-md-9
-            {% elif form.half_10 and field.html_name in form.half_10 %}col-md-10
-            {% else %}col-md-12{% endif %}">
+        <div class="mb-3 {% if form.half_2 and field.html_name in form.half_2 %}col-md-2 {% elif form.half_3 and field.html_name in form.half_3 %}col-md-3 {% elif form.half_4 and field.html_name in form.half_4 %}col-md-4 {% elif form.half and field.html_name in form.half %}col-md-6 {% elif form.half_7 and field.html_name in form.half_7 %}col-md-7 {% elif form.half_8 and field.html_name in form.half_8 %}col-md-8 {% elif form.half_9 and field.html_name in form.half_9 %}col-md-9 {% elif form.half_10 and field.html_name in form.half_10 %}col-md-10 {% else %}col-md-12{% endif %}">
             <label for="{{field.id_for_label}}">{{field.label|safe}}&nbsp;{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
             {% include 'seventh-square/form/date-layout.html' %}
         </div>
     {% elif field.field.widget.input_type == 'file' %}
-        <div class="border py-2 mb-3
-            {% if form.half_2 and field.html_name in form.half_2 %}col-md-12
-            {% elif form.half_3 and field.html_name in form.half_3 %}col-md-12
-            {% elif form.half_4 and field.html_name in form.half_4 %}col-md-12
-            {% elif form.half and field.html_name in form.half %}col-md-12
-            {% elif form.half_7 and field.html_name in form.half_7 %}col-md-12
-            {% elif form.half_8 and field.html_name in form.half_8 %}col-md-12
-            {% elif form.half_9 and field.html_name in form.half_9 %}col-md-12
-            {% elif form.half_10 and field.html_name in form.half_10 %}col-md-12
-            {% else %}col-md-12{% endif %}">
+        <div class="border py-2 mb-3 {% if form.half_2 and field.html_name in form.half_2 %}col-md-12 {% elif form.half_3 and field.html_name in form.half_3 %}col-md-12 {% elif form.half_4 and field.html_name in form.half_4 %}col-md-12 {% elif form.half and field.html_name in form.half %}col-md-12 {% elif form.half_7 and field.html_name in form.half_7 %}col-md-12 {% elif form.half_8 and field.html_name in form.half_8 %}col-md-12 {% elif form.half_9 and field.html_name in form.half_9 %}col-md-12 {% elif form.half_10 and field.html_name in form.half_10 %}col-md-12 {% else %}col-md-12{% endif %}">
             <div class="custom-file mb-3">
                 {% include 'seventh-square/form/image-layout.html' %}
                 <label class="custom-file-label" for="{{field.id_for_label}}">{{field.label|safe}}&nbsp;{% if field.field.required %}<span class="required">*</span>{% endif %}</label>
@@ -90,18 +63,11 @@
             {% endif %}
         </div>
     {% elif field.field.widget.input_type == 'hidden' %}
-        {% include 'seventh-square/form/hidden-layout.html' %}
+        <div class="mb-3 {% if form.half_2 and field.html_name in form.half_2 %}col-md-2{% elif form.half_3 and field.html_name in form.half_3 %}col-md-3{% elif form.half_4 and field.html_name in form.half_4 %}col-md-4{% elif form.half and field.html_name in form.half %}col-md-6{% elif form.half_7 and field.html_name in form.half_7 %}col-md-7{% elif form.half_8 and field.html_name in form.half_8 %}col-md-8{% elif form.half_9 and field.html_name in form.half_9 %}col-md-9{% elif form.half_10 and field.html_name in form.half_10 %}col-md-10{% else %}col-md-12{% endif %}">
+            {% include 'seventh-square/form/hidden-layout.html' %}
+        </div>
     {% else %}
-        <div class="mb-3 
-            {% if form.half_2 and field.html_name in form.half_2 %}col-md-2
-            {% elif form.half_3 and field.html_name in form.half_3 %}col-md-3
-            {% elif form.half_4 and field.html_name in form.half_4 %}col-md-4
-            {% elif form.half and field.html_name in form.half %}col-md-6
-            {% elif form.half_7 and field.html_name in form.half_7 %}col-md-7
-            {% elif form.half_8 and field.html_name in form.half_8 %}col-md-8
-            {% elif form.half_9 and field.html_name in form.half_9 %}col-md-9
-            {% elif form.half_10 and field.html_name in form.half_10 %}col-md-10
-            {% else %}col-md-12{% endif %}">
+        <div class="mb-3 {% if form.half_2 and field.html_name in form.half_2 %}col-md-2{% elif form.half_3 and field.html_name in form.half_3 %}col-md-3{% elif form.half_4 and field.html_name in form.half_4 %}col-md-4{% elif form.half and field.html_name in form.half %}col-md-6{% elif form.half_7 and field.html_name in form.half_7 %}col-md-7{% elif form.half_8 and field.html_name in form.half_8 %}col-md-8{% elif form.half_9 and field.html_name in form.half_9 %}col-md-9{% elif form.half_10 and field.html_name in form.half_10 %}col-md-10{% else %}col-md-12{% endif %}">
             {% comment %} <label for="{{field.id_for_label}}">{{field.label|safe}}&nbsp;{% if field.field.required %}<span class="required">*</span>{% endif %}</label> {% endcomment %}
             {% include 'seventh-square/form/input-layout.html' %}
         </div>

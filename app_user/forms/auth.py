@@ -17,43 +17,38 @@ class RegisterForm(forms.Form):
     half = []
     half_7 = []
     half_8 = []
-    half_9 = ['email', 'mobile_number',]
+    half_9 = ['mobile_number',]
     half_10 = []
 
     field_order = ['mobile_number', 'mobile_send_otp', 'resend_otp', 'mobile_otp',
-        'email', 'email_send_otp', 'email_otp', 'password', 'terms_and_conditions']
+        'email', 'password', 'terms_and_conditions']
 
     email = forms.EmailField(
         max_length=60,
         label="Email",
-        widget=forms.TextInput(
-            attrs={
-                'placeholder': 'Email', 
-            }
-        ),
     )
 
-    email_send_otp = forms.CharField(
-        required=False,
-        widget=forms.TextInput(
-            attrs={
-                'type': 'button',
-                'class':'btn btn-secondary text-wrap py-2 mt-1',
-                'style':'font-size:9px;', 
-                'value': 'SEND OTP'
-            }
-        ),
-    )
+    # email_send_otp = forms.CharField(
+    #     required=False,
+    #     widget=forms.TextInput(
+    #         attrs={
+    #             'type': 'button',
+    #             'class':'btn btn-secondary text-wrap py-2 mt-1',
+    #             'style':'font-size:9px;', 
+    #             'value': 'SEND OTP'
+    #         }
+    #     ),
+    # )
 
-    email_otp = OTPField(
-        label="Email OTP",
-        required=True,
-        widget=forms.HiddenInput(
-            attrs={ 
-                'placeholder': 'Enter OTP',
-            }
-        ),
-    )
+    # email_otp = OTPField(
+    #     label="Email OTP",
+    #     required=True,
+    #     widget=forms.HiddenInput(
+    #         attrs={ 
+    #             'placeholder': 'Enter OTP',
+    #         }
+    #     ),
+    # )
 
 
     mobile_number = forms.CharField(
@@ -62,7 +57,8 @@ class RegisterForm(forms.Form):
         required=True,
         widget=forms.TextInput(
             attrs={
-                'placeholder': 'Mobile Number'
+                'placeholder': 'Mobile Number',
+                'onkeyup': 'PhoneNumberExist(this.value);',
             }
         ),
     )
@@ -74,7 +70,8 @@ class RegisterForm(forms.Form):
                 'type': 'button',
                 'class':'btn btn-secondary text-wrap py-2 mt-1',
                 'style':'font-size:9px;', 
-                'value': 'SEND OTP'
+                'value': 'SEND OTP',
+                'onclick': 'SendOtpToContactNunber(this.value);',
             }
         ),
     )
@@ -85,6 +82,8 @@ class RegisterForm(forms.Form):
         widget=forms.HiddenInput(
             attrs={
                 'placeholder': 'Enter OTP',
+                'onkeyup': 'VerifySendedContactNunber(this.value);',
+                'maxlength':'6',
             }
         ),
     )
@@ -108,5 +107,6 @@ class RegisterForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
         self.fields['email'].widget.attrs.update({
-            'onkeyup': 'EmailExist(this.value);',
+            # 'onkeyup': 'EmailExist(this.value);',
+            'placeholder': 'Email'
         })

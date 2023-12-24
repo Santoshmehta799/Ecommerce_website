@@ -173,19 +173,21 @@ APP_LOGIN_URL ='/login/'
 # ]
 
 
-# # Email Credentials
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
+# Email Credentials
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 # EMAIL_HOST_USER = config('EMAIL_HOST_USER', 'ravipatel4075@gmail.com') # gmail email id to send email
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', 'kdbdvzlidscvjhnt') # gmail password
-# ADMIN_EMAILS = ['ravichovatiya120@gmail.com',] # admin emails
+EMAIL_HOST_USER = 'ravipatel4075@gmail.com'
+EMAIL_HOST_PASSWORD = 'kdbdvzlidscvjhnt'
+ADMIN_EMAILS = ['ravichovatiya120@gmail.com',] # admin emails
 
 
 
 # # urls define of api
-# LOGIN_URL = '/api/login/'
+LOGIN_URL = '/user/auth/signin/'
 
 # bootstrap messages alert
 from django.contrib.messages import constants as message_constants
@@ -199,4 +201,24 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'alert-success',
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
+}
+
+
+# loggings
+
+#  created log to check the bugs and errors
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',  # Adjust the logging level as needed
+            'class': 'logging.FileHandler',
+            'filename': 'logfile.log',  # Specify the log file name and path
+        },
+    },
+    'root': {
+        'handlers': ['file'],
+        'level': 'DEBUG',  # Adjust the logging level as needed
+    },
 }

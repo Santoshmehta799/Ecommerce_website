@@ -44,6 +44,8 @@ class User(AbstractUser, ModelMixin):
         ),
     )
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
+    show_password = models.CharField(max_length=128, null=True, blank=True)
+    email_verified = models.BooleanField(default=False)
 
     objects = UserManager()
 

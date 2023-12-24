@@ -10,14 +10,18 @@ urlpatterns = [
     # Authentication
     path('auth/signup/', views.signup, name="auth-signup"),
     path('auth/signin/', views.signin, name="auth-signin"),
+    path('emailVerification/<uidb64>/<token>/', views.activate, name='emailActivate'),
 
     # ajax
     path('email-check/', views.email_check_ajax, name='email_check_ajax'),
+    path('phone-number-check/',views.phone_number_check,name="phone-number-check"),
+    path('auth/login-otp/', views.login_otp, name="auth-login-otp"),
+    path('auth/signin-otp/', views.signin_otp, name="auth-signin-otp"),
+    path('auth/verify-signin-otp/', views.verify_signin_otp, name="verify-auth-signin-otp"),
 
     # Forgot-Password
     path('forgot-password/', views.forgot_password, name="forgot-password"),
 
-    path('auth/login-otp/', views.login_otp, name="auth-login-otp"),
     path('auth/sendmessage/', views.sendmessage, name="auth-sendmessage"),
 
     path('account-settings/', views.account_settings, name="account-settings"),

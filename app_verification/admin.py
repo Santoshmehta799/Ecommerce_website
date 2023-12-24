@@ -32,4 +32,13 @@ class UserPhoneVerifiedAdmin(admin.ModelAdmin):
     list_filter = ['is_verified', ]
     readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
 
+
+
+@admin.register(models.TempPhoneVerified)
+class TempPhoneVerifiedAdmin(admin.ModelAdmin):
+    list_display  = ('id', 'country', 'ph_number', 'is_verified', 'created_at', 'updated_at')
+    search_fields = ['ph_number',]
+    list_filter = ['is_verified', ]
+    readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
+
     
