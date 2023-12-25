@@ -1,19 +1,23 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from app import settings
-from app_user.forms.auth import RegisterForm
+from app_user.forms.auth import LoginForm, RegisterForm
 from app_verification.methods import generate_otp, registration_otp_send
-from app_user.methods.auth import admin_register_methods
+from app_user.methods.auth import auth_login
 from app_user.models import User
 from django.contrib import messages
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
 from app_user.tokens import account_activation_token
+from django.contrib import auth
 
 from app_verification.models import TempPhoneVerified, UserPhoneVerified
+from common.enums import UserAuthIdentifierType, UserStatusEnums
 # Create your views here.
 
 
@@ -21,7 +25,35 @@ def auth_home(request):
     return HttpResponse("hello , testing!")
 
 def signin(request):
-    return render(request, 'app_user/signin.html')
+    # http://127.0.0.1:8000/dashboard/
+    success = ""
+    error = ""
+    if request.user and request.user.is_authenticated:
+        return redirect('app_dashboard:dashboard-page')
+    
+    next_url = request.GET.get("next")
+    print('next_url ->', next_url)
+    form = LoginForm(request.POST or None)
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        status, msg = auth_login(request, username, password)
+        # print('statusv-->',status)
+        if status == True:
+            if next_url:
+                # print('enter hear...')
+                messages.success(request,f"Welcome <b>{username}</b>.")
+                return redirect(next_url)
+            messages.success(request,f"Welcome <b>{username}</b>.")
+            return redirect('app_verification:get-detail')
+        else:
+            error = msg
+    context = {
+        'error' : error,
+        'success' : success,
+        'form' : form,
+    }
+    return render(request, 'app_user/signin.html', context)
 
 def activate(request, uidb64, token):
     try:
@@ -151,6 +183,12 @@ def forgot_mobile_otp(request):
 
 def forgot_email_verify_page(request):
     return render(request, 'app_user/mail/forgot_email_verify_page.html')
+
+def auth_logout(request):
+    logout(request)
+    return redirect('app_user:auth-signin')
+
+
 
 
 

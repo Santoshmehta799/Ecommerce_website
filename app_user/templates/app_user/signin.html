@@ -6,29 +6,24 @@
 {% block content %}
     <div class="container-fluid login-background">
         <div class="row p-5">
+            <!-- Messages Start -->
+            {% include 'seventh-square/layout/messages.html' %}
+            <!-- Messages END -->
             <div class="col-12 col-md-5 mx-auto bg-white p-4">
                 <div class="text-center">
                     <h4 class="text-capitalize" ><strong>Welcome to Seller Panel</strong></h4>
                     <a class="text-dark" href="/?#register-section">New Seller? Register Here</a>
                 </div>
-                <form class="pt-4" method="POST" action="{% url 'app_user:auth-signin' %}" id="form-style">
+                <form method="post" action="{% url 'app_user:auth-signin' %}"  id="basic-form" class="needs-validation" novalidate="novalidate">
                     {% csrf_token %}
-                    <div class="form-group my-4">
-                        <input class="form-control" type="text" required name="mobileNumber" placeholder="Email/Contact No.">
+                    <div class="row mt-3">
+                        {% include 'seventh-square/form/form-auth.html' %}
                     </div>
-                    <div class="form-group my-4">
-                        <input class="form-control" required name="password"
-                            placeholder="Password"><span toggle="#password-field" onclick="myFunction()" class="ion ion-eye field-icon toggle-password" style="font-size: 22px;"></span>
-                    </div>
-                    <div class="float-left my-4">                     
+                    <div class="float-left my-2">                     
                         <a class="text-decoration-none text-dark" href="/account/login_otp/">Login with OTP</a>
                     </div>
-                    <div class="form-group">
-                        <button class="btn btn-brand w-100" type="submit">Log In</button>
-                    </div>
-                    {% if message %}
-                        <div class="alert alert-danger">{{ message }}</div>
-                    {% endif %}
+                    <button type="submit" id="submit-basic-form" class="btn btn-brand w-100">LOGIN IN</button>
+
                     <div class="mt-2 d-flex align-items-end flex-column mt-2">
                         <a class="text-dark mt-1" href="{% url "app_user:forgot-password" %}">Forgot Password?</a>
                         <a class="text-dark mt-1" href="/help-center/">Need Help?</a>
@@ -39,4 +34,12 @@
     </div>
 
 {% endblock content %}
-{% block jsblock %}{% endblock jsblock %}
+{% block jsblock %}
+
+    <script>
+        $(document).ready (function () {  
+            $("#basic-form").validate();  
+        });
+    </script>
+
+{% endblock jsblock %}

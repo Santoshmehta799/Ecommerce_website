@@ -6,13 +6,14 @@ from app_user.models import User
 from app_user import tokens
 from django.contrib import auth
 from app_verification.models import UserPhoneVerified
-from common.enums import UserStatusEnums
+from common.enums import UserAuthIdentifierType, UserStatusEnums
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.utils.encoding import smart_str,force_bytes, DjangoUnicodeDecodeError
 from django.utils.html import strip_tags
 from django.core.mail import send_mail, BadHeaderError,EmailMultiAlternatives
+import re
 
 
 def send_registration_mail(mail_subject, current_site,template_path, user,):
@@ -91,4 +92,67 @@ def login(form, request):
         return True
     else:
         return False
+    
+
+def check_mobile_or_email(field_value):
+    status = False
+    login_type = None
+
+    # Regular expressions for mobile number and email
+    mobile_pattern = re.compile(r'^\d{10}$')
+    email_pattern = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+
+    # Check if the field value matches the patterns
+    if mobile_pattern.match(field_value):
+        status = True
+        login_type = UserAuthIdentifierType.PH_NUMBER.value
+    elif email_pattern.match(field_value):
+        status = True
+        login_type = UserAuthIdentifierType.EMAIL.value
+    else:
+        status = False
+        login_type = UserAuthIdentifierType.UnKNOWN.value
+    return status, login_type
+
+def auth_login(request, username, password):
+    status = False
+    msg = ""
+    
+    check_status, login_type = check_mobile_or_email(username)
+    print('---->', check_status, login_type)
+
+    auth_username = None
+    if check_status == True:
+        if login_type == UserAuthIdentifierType.EMAIL:
+            try:
+                user = User.objects.filter(email = username.lower()).first()
+                auth_username = user.email
+            except:
+                msg = "invalid credentials for Email Found."
+
+        elif login_type == UserAuthIdentifierType.PH_NUMBER:
+            try:
+                phone_number = UserPhoneVerified.objects.filter(ph_number = username, 
+                    is_verified=UserStatusEnums.VERIFIED).first().user.email
+                auth_username = phone_number
+            except:
+                msg = "invalid credentials for Mobile Number Found."
+        else:
+            msg = " 1. invalid credentials Found."
+
+        if auth_username:
+            auth_user = auth.authenticate(
+                username = username,
+                password=password
+            )
+            if auth_user is not None:
+                auth.login(request, user)
+                status = True
+        else:
+            msg = "2. invalid credentials Found."
+    else:
+        msg = "3. invalid credentials Found."
+
+    return status, msg
+
     

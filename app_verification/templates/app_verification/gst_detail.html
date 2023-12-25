@@ -14,20 +14,19 @@
                             <p class="text-center"> You're a step closer to selling on India's first Home Improvement & Construction Material marketplace. Reach out to consumers across the country and grow your business with us right from your office. Please enter your GSTIN to move forward.</p>
                         </div>
                         <div class="mx-5 px-md-5">
-                            <form method="POST" action="">
+                            <form method="post" action="{% url 'app_verification:get-detail' %}" id="basic-form" class="needs-validation" novalidate="novalidate">
                                 {%csrf_token%}
                                 <h4 class="text-capitalize text-center mt-2"> Verify your GSTIN</h4>
-                                <div class="form-group">
-                                    <input class="form-control" type="text"  name="companyGSTNumber" value="{{request.user.companyGSTNumber|default_if_none:''}}" placeholder="GST No." oninput="this.value = this.value.toUpperCase()"/>
+                                {% if message in message %}
+                                    <div class="alert alert-danger">{{ message }}</div>
+                                {% endif %}
+                                <div class="row">
+                                    {% include 'seventh-square/form/form-auth.html' %}
                                 </div>
-                                <div id="terms-error" class="invalid-feedback d-none">check the details. Go to next page only after verification is done. 
+                                <div id="terms-error" class="invalid-feedback d-none">
+                                    check the details. Go to next page only after verification is done. 
                                 </div>
-                                    {% if message in message %}
-                                        <div class="alert alert-danger">{{ message }}</div>
-                                    {% endif %}
-                                <div class="form-group">
-                                    <button class="btn btn-brand w-100 mt-3" type="submit" >Continue</button>
-                                </div>
+                                    <button class="btn btn-brand w-100" type="submit" >Continue</button>
                             </form>
                         </div>
 
@@ -74,10 +73,39 @@
                         </div>
                     </div>
                 </div>
-    
             </div>
         </div>
     </div>
 
 {% endblock content %}
-{% block jsblock %}{% endblock jsblock %}
+{% block jsblock %}
+    <script>
+                
+        $(document).ready (function () {  
+            var token = $("input[name=csrfmiddlewaretoken]").val();
+            $("#basic-form").validate({
+                rules: {
+                    company_gst_number: {
+                        required: true,
+                        gstregex: true,
+                        remote: {
+                            url: "/verification/gst-check/",
+                            type: "post",
+                            data: {'csrfmiddlewaretoken': token}
+                        }
+                    },
+                },
+                messages: {
+                    company_gst_number: {
+                        required: "This field is required.",
+                        remote: "GST Number already exist."
+                    }
+                },
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        });
+    </script>
+
+{% endblock jsblock %}

@@ -10,6 +10,7 @@ urlpatterns = [
     # Authentication
     path('auth/signup/', views.signup, name="auth-signup"),
     path('auth/signin/', views.signin, name="auth-signin"),
+    path('auth/logout/', views.auth_logout, name="auth-logout"),
     path('emailVerification/<uidb64>/<token>/', views.activate, name='emailActivate'),
 
     # ajax

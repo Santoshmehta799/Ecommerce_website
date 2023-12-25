@@ -160,9 +160,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "app_user.User"
 
 
-APP_LOGIN_URL ='/login/'
-
-
 # # corsheaders settings
 # # https://pypi.org/project/django-cors-headers/
 # CORS_ALLOWED_ORIGINS = [
@@ -222,3 +219,13 @@ LOGGING = {
         'level': 'DEBUG',  # Adjust the logging level as needed
     },
 }
+
+# sendbox authentication
+
+SANDBOX_AUTH_TOKEN_URL = "https://api.sandbox.co.in/authenticate"
+SANDBOX_GST_VERIFY_URL = "https://api.sandbox.co.in/gsp/public/gstin"
+SANDBOX_CIN_VERIFY_URL = "https://api.sandbox.co.in/mca/companies"
+SANDBOX_PAN_VERIFY_URL = "https://api.sandbox.co.in/pans"
+SANDBOX_BANK_VERIFY_URL = "https://api.sandbox.co.in/bank"
+SANDBOX_API_KEY = "key_live_zZJHlCovjAIx5mg7FZio1G3jFG5mnMyv"
+SANDBOX_SECRET_KEY = "secret_live_Fwu14Q1dlNRhbVFmVOx7XVingFi6abUu"

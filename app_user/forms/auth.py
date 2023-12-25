@@ -28,29 +28,6 @@ class RegisterForm(forms.Form):
         label="Email",
     )
 
-    # email_send_otp = forms.CharField(
-    #     required=False,
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             'type': 'button',
-    #             'class':'btn btn-secondary text-wrap py-2 mt-1',
-    #             'style':'font-size:9px;', 
-    #             'value': 'SEND OTP'
-    #         }
-    #     ),
-    # )
-
-    # email_otp = OTPField(
-    #     label="Email OTP",
-    #     required=True,
-    #     widget=forms.HiddenInput(
-    #         attrs={ 
-    #             'placeholder': 'Enter OTP',
-    #         }
-    #     ),
-    # )
-
-
     mobile_number = forms.CharField(
         max_length=10,
         label="Mobile Number",
@@ -110,3 +87,18 @@ class RegisterForm(forms.Form):
             # 'onkeyup': 'EmailExist(this.value);',
             'placeholder': 'Email'
         })
+
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        max_length=60,
+        required = True,
+        widget= forms.TextInput(attrs={'placeholder':'Email/Contact No.'}),
+    )
+
+    password = forms.CharField(
+        required = True,
+        widget= forms.PasswordInput(attrs={'placeholder':'Password'}),
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)

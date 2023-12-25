@@ -304,14 +304,10 @@
                 mobileNumberParentElement.classList.add('mb-0');
             }
 
-            
-            
             if (/^\d{10}$/.test(mobileNumberValue)) {
                 mobileSendOtp.disabled = false;
-                //alert("Valid mobile number: " + mobileNumberValue);
             } else {
                 mobileSendOtp.disabled = true;
-                //alert("Mobile number must have exactly 10 digits.");
             }
         };
     </script>

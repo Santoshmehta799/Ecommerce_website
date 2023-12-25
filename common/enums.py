@@ -1,6 +1,14 @@
 from enum import Enum
 from django.db.models import TextChoices
 
+# app_usser
+
+class UserAuthIdentifierType(TextChoices):
+    PH_NUMBER = ('PH_NUMBER', 'PH_NUMBER')
+    EMAIL = ('EMAIL', 'EMAIL')
+    UnKNOWN = ('UnKNOWN', 'UnKNOWN')
+
+
 # app_verification
 class UserStatusEnums(TextChoices):
     PENDING = ('PENDING', 'PENDING')

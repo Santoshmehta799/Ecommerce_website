@@ -13,13 +13,9 @@ from django.utils.translation import gettext_lazy as _
 
 class GstDetail(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="user_gst_detail",
-        default=True,null=True,blank=True)
-    company_gst_number = models.CharField(
-        max_length=15,
-        unique=True,
-        validators=[validators.gst_validator]
-    )
+    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="user_gst_detail")
+    company_gst_number = models.CharField(max_length=15, unique=True,
+        validators=[validators.gst_validator])
     legal_name_of_business = models.CharField(max_length=225,null=True,blank=True)
     state_jurisdiction = models.CharField(max_length=225,null=True,blank=True)
     state_jurisdiction_code = models.CharField(max_length=225, null=True, blank=True)
