@@ -34,5 +34,6 @@ urlpatterns = [
     path('forgot-email-verify-page/', views.forgot_email_verify_page, name="forgot-email-verify-page"),
 
 
-
+    # profile 
+    path('profile/', views.profile, name="profile"),
 ]

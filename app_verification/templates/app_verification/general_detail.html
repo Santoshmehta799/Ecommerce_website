@@ -16,14 +16,14 @@
                         </div>
 
                         <div class="mx-5 px-md-5">
-                            <form method="POST" action="" id="" >
+                            <form method="post" action="{% url 'app_verification:general-detail' %}" id="basic-form" class="needs-validation" novalidate="novalidate" >
                                 {%csrf_token%}
                                 <h4 class="text-capitalize text-center mt-2">Enter your details</h4>
                                 <div class="form-group my-3">
-                                    <input class="form-control" type="text" value="{{request.user.Representativename|default_if_none:''}}" name="Representativename" required placeholder="Representative Name">
+                                    <input class="form-control" type="text" value="{{request.user.Representativename|default_if_none:''}}" name="representative_name" required placeholder="Representative Name">
                                 </div>
                                 <div class="form-group my-3">
-                                    <input class="form-control" type="text" value="{{request.user.companyName|default_if_none:''}}" name="companyName" required placeholder="Company Name">
+                                    <input class="form-control" type="text" value="{{request.user.companyName|default_if_none:''}}" name="company_name" required placeholder="Company Name">
                                 </div>
                                 <div class="form-group">
                                     <button href ="Seller_login.html" class="btn btn-brand w-100" type="submit">Submit</button>

@@ -1,0 +1,125 @@
+{% load static %}
+<a href="/"><button class="list-group-item list-group-item-action"
+	style="border-style: none;padding: 10px 10px 2px 0px;font-size: 14px;background: transparent;"><i
+	class="fa fa-home"
+	></i><span>Home</span></button></a>
+<button class="list-group-item list-group-item-action border-white accordion expanded"
+	style=""><i
+	class="material-icons"
+	>shopping_cart</i><span>Orders</span></button>
+<div class="panel">
+	<a href="/orders/current-orders/"><button
+		class="list-group-item list-group-item-action border-white"
+		><i
+		class="material-icons"
+		>shopping_cart</i><span>Current
+	Orders</span></button></a>
+	<a href="/orders/past-orders/"><button
+		class="list-group-item list-group-item-action border-white"
+		><i
+		class="material-icons"
+		>shopping_cart</i><span>Past
+	Orders</span></button></a>
+</div>
+<button class="list-group-item list-group-item-action border-white accordion expanded"
+	style=""><i
+	class="icon ion-cube"
+	></i><span>Products</span></button>
+<div class="panel">
+	<a href="/inventory/add-new-product/"><button
+		class="list-group-item list-group-item-action border-white"
+		><i
+		class="icon ion-cube"
+		></i><span>Add new
+	Product</span></button></a>
+	<a href="/inventory/active-products/"><button
+		class="list-group-item list-group-item-action border-white"
+		><i
+		class="icon ion-cube"
+		></i><span>Active
+	Products</span></button></a>
+</div>
+<a href="/price_on_request/"><button class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fas fa-money-bill"
+	></i><span>Customer Enquiry</span></button></a>
+<a href="/payments/"><button class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fas fa-cash-register"
+	></i><span>Payment
+History</span></button></a>
+<a href="/reportandperformance/"><button class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fas fa-file-signature"
+	></i><span>Reports
+&amp; Performance</span></button></a>
+<a href="/customer-reviews/"><button class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="material-icons"
+	style="margin-left: 5px;margin-right: 5px;font-size: 17px;">rate_review</i><span>Customer
+Reviews</span></button></a>
+<a href="/help-center/"><button class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="material-icons"
+	>contact_mail</i><span>Help Center</span></button></a>
+<h6 style="font-weight: 900; padding-top: 20px; color: white;">LEGAL</h6>
+<a href="/faq/"><button class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fas fa-question-circle"
+	></i><span>General
+FAQ's</span></button></a>
+<a href="/marketplace/"><button
+	class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="icon ion-document-text"
+	style="margin-left: 5px;margin-right: 5px;font-size: 20px;"></i><span>Seller
+Agreement</span></button></a>
+<a href="/guidelines/"><button
+	class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fas fa-book-reader"
+	></i><span>Seller
+Guidelines</span></button></a>
+<a href="/terms/"><button class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fas fa-business-time"
+	style=" margin-left: 5px; margin-right: 5px;"></i><span>Terms Of
+use</span></button></a>
+<h6 style="font-weight: 900; padding-top: 20px; color: white;">SOCIAL HANDLES</h6>
+<hr style="margin: 0px;width: 80%; color: white;">
+<a href="https://www.facebook.com/Seventh-Square-101727191683337/"
+	target="_blank"><button class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fab fa-facebook-f"
+	style="margin-left: 5px;margin-right: 5px; font-size: 15px;"></i><span>Facebook&nbsp;</span></button></a>
+<a href="https://www.instagram.com/seventhsquare/" target="_blank"><button
+	class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="icon ion-social-instagram"
+	style="font-size: 20px; margin-left: 5px;margin-right: 5px;"></i><span>Instagram</span></button></a>
+<a href="https://www.linkedin.com/company/seventh-square" target="_blank"><button
+	class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fab fa-linkedin-in"
+	style=" margin-left: 5px;margin-right: 5px;font-size: 15px;"></i><span>LinkedIn</span></button></a>
+<a href="https://in.pinterest.com/seventhsq" target="_blank"><button
+	class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fab fa-pinterest-p"
+	style="font-size: 20px; margin-left: 5px;margin-right: 5px;"></i><span>Pinterest</span></button></a>
+<a href="https://twitter.com/SeventhSq" class="list-group-item list-group-item-action border-white"
+	style=""><i
+	class="fab fa-twitter"
+	style=" margin-left: 5px; margin-right: 5px;"></i><span>Twitter</span></a>
+{% comment %} 
+<p class="list-group-item list-group-item-action border-white"
+	style="background: transparent;border-style: none;padding: 10px 10px 2px 0px;font-size: 13px;"><i
+	class="fa fa-user"
+	style=" margin-left: 5px; margin-right: 5px;"></i>
+	<span>Relationship Manager    </span>
+	<span style="margin-left: 26px;" id="r_name">{{ account.assigned_rmanager.Name |default_if_none:"" }}    </span> <br>
+	<span style="margin-left: 26px;" >P- &nbsp; <span  id="r_phone"> {{account.assigned_rmanager.Phone_Number |default_if_none:"" }}     </span> <br>
+	<span style="margin-left: 26px;">E- &nbsp; <span  id="r_email">{{account.assigned_rmanager.Email |default_if_none:"" }}     </span> <br> 
+	<span style="margin-left: 26px;"> <u>  Direct Message </u>    </span> <br> 
+</p>
+{% endcomment %}

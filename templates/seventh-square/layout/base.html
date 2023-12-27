@@ -13,17 +13,30 @@
         {% block metablock %}{% endblock metablock %}
         <!-- Include Bootstrap CSS -->
         <link href="{% static 'seventh-square/assets/css/bootstrap/bootstrap.min.css' %}" rel="stylesheet" />
+        <!-- Include Fonts CSS -->
+        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/fontawesome-all.min.css' %}"> {% endcomment %}
+        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/font-awesome.min.css' %}"> {% endcomment %}
+        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/ionicons.min.css' %}"> {% endcomment %}
+        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/line-awesome.min.css' %}"> {% endcomment %}
+        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/material-icons.min.css' %}"> {% endcomment %}
+        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/simple-line-icons.min.css' %}"> {% endcomment %}
+        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/typicons.min.css' %}"> {% endcomment %}
+        <!-- Overwritten/Custom CSS -->
         <link href="{% static 'seventh-square/assets/css/custom-theme.css' %}" rel="stylesheet" />
-        <link href="{% static 'seventh-square/assets/css/custom.css' %}" rel="stylesheet" />
+        {% if user.is_authenticated %}
+            <link href="{% static 'seventh-square/assets/css/custom.css' %}" rel="stylesheet" />
+        {% else %}
+            <link href="{% static 'seventh-square/assets/css/custom-unauth.css' %}" rel="stylesheet" />
+        {% endif %}
         {% block cssblock %}{% endblock cssblock %}
         
     </head>
     <body>
         <!-- Header Start -->
         {% if user.is_authenticated %}
-        {% include 'seventh-square/layout/header-unauth.html' %}
+            {% include 'seventh-square/layout/header.html' %}
         {% else %}
-        {% include 'seventh-square/layout/header-unauth.html' %}
+            {% include 'seventh-square/layout/header-unauth.html' %}
         {% endif %}
         
         
@@ -37,15 +50,28 @@
         
         <!-- Footer Start -->
         {% if user.is_authenticated %}
-        {% include 'seventh-square/layout/footer.html' %}
+            {% include 'seventh-square/layout/footer.html' %}
         {% else %}
-        {% include 'seventh-square/layout/footer.html' %}
+            {% include 'seventh-square/layout/footer.html' %}
         {% endif %}
         
         <script src="{% static 'seventh-square/assets/js/bootstrap/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'seventh-square/assets/js/jquery.min.js' %}"></script>
         <script src="{% static 'seventh-square/assets/js/jquery.validate.min.js' %}"></script>
         <script src="{% static 'seventh-square/assets/js/custom.js' %}" ></script>
+        <script>
+            $(document).on('click', function (e) {
+              // Close the menu if the click is outside the navbar-collapse
+              if (!$(e.target).closest('.navbar-collapse').length && $('.navbar-collapse').hasClass('show')) {
+                $('.navbar-toggler').click();
+              }
+            });
+          
+            // Prevent closing the menu when clicking inside the navbar-collapse
+            $('.navbar-collapse').on('click', function (e) {
+              e.stopPropagation();
+            });
+          </script>
         {% block jsblock %}{% endblock jsblock %}
     </body>
     </html>

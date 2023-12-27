@@ -184,6 +184,11 @@ def forgot_mobile_otp(request):
 def forgot_email_verify_page(request):
     return render(request, 'app_user/mail/forgot_email_verify_page.html')
 
+@login_required()
+def profile(request):
+    return render(request, 'app_user/profile.html')
+
+
 def auth_logout(request):
     logout(request)
     return redirect('app_user:auth-signin')

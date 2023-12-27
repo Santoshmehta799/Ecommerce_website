@@ -1,13 +1,13 @@
 import uuid
 from django.db import models
 from django.utils import timezone
+from common import enums
 from common.models import ModelMixin
 from django.core.mail import send_mail
 from app_user.managers.user_managers import UserManager
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.validators import UnicodeUsernameValidator
-
 # Create your models here.
 
 
@@ -75,3 +75,24 @@ class User(AbstractUser, ModelMixin):
         Sends an email to this User.
         '''
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class ProfileSettings(ModelMixin):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_profile_setting")
+    receive_order_update_whatsapp =models.BooleanField(default=False)
+    receive_order_update_call = models.BooleanField(default=False)
+    receive_order_update_email = models.BooleanField(default=False)
+    receive_payment_update_whatsapp = models.BooleanField(default=False)
+    receive_payment_update_call = models.BooleanField(default=False)
+    receive_payment_update_email = models.BooleanField(default=False)
+    order_handling_time = models.CharField(choices=enums.OrderHandlingTimeEnums.choices)
+    order_cutt_off_time = models.CharField(choices=enums.OrderCuttOffTime.choices)
+
+    class Meta:
+        verbose_name = _("Auth - Profile Settings")
+        verbose_name_plural = _("Auth - Profile Settings")
+
+    def __str__(self):
+        return self.user.username
+    

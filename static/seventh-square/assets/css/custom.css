@@ -1,4 +1,8 @@
 /* Logo */
+.navbar-brand{
+    margin-left:20px;
+}
+
 .navbar-brand img {
     width: 150px; /* Adjust the logo size */
 }
@@ -20,9 +24,27 @@
     text-decoration: underline;
 }
 
+.custom-navbar-padding{
+    height:70px;
+}
+
 @media (max-width: 768px) {
     .navbar-brand img {
-        width: 100px; /* Adjust the logo size */
+        width: 136px; /* Adjust the logo size */
+        height:40px;
+    }
+
+    .sidebar-brand-logo-width{
+        width: 136px; /* Adjust the logo size */
+        height:40px;
+    }
+
+    .same-padding{
+        padding: 15px 16px 15px 80px;
+    }
+
+    .custom-navbar-padding{
+        height:70px;
     }
 
     .navbar-toggler {
@@ -39,7 +61,7 @@
         top: 0;
         right: -100%; /* Initially hidden off-screen */
         width: 65%; /* Adjust the width as needed */
-        height: 100vh; /* Full viewport height */
+        height: 100vh; /* [Full viewport height */
         transition: right 0.5s ease-in-out; /* Adjust the transition speed */
         background-color: black; /* Adjust the background color */
         z-index: 1000;
@@ -92,6 +114,34 @@
     background-position: right center;
     background-size: 100% 100%;
 }
+
+/* Sidebar Code */
+
+.custom-sidebar-col-width{
+    width: 22.1%;
+}
+
+.custom-main-col-width{
+    width: 77.9%;
+}
+
+@media (max-width: 768px) {
+
+    .custom-sidebar-col-width{
+        width: 0%;
+
+    }
+    
+    .custom-main-col-width{
+        width: 100%;
+    }
+    
+}
+
+.bg-brand-sidebar {
+    background-color: #4C5864 !important;
+}
+
 
 
 

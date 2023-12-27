@@ -3,10 +3,10 @@ from app_verification.models import GstDetail
 
 
 class GstDetailForms(forms.ModelForm):
+    half = []
     half_2 = []
     half_3 = []
     half_4 = []
-    half = []
     half_7 = []
     half_8 = []
     half_9 = []

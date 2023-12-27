@@ -3,6 +3,11 @@ from django.conf import settings
 import requests
 import logging
 import json
+from app.settings import SANDBOX_GST_VERIFY_URL
+import app_user
+from app_user.models import User
+from app_verification.models import GstDetail
+
 
 OTP_LENGTH = 6
 def generate_otp():
@@ -38,143 +43,67 @@ def sendbox_authentication():
 
         response1 = requests.request("POST", url_sandbox, headers=headers)
         resp_dict = json.loads(response1.text) 
-        print('resp_dict -->', resp_dict)
+        # print('resp_dict -->', resp_dict)
         access_token = resp_dict['access_token']
     except:
         print('sandbox credentials not found!')
+    return access_token
 
 
-# def gst_verification_step(company_gst_number, request):
-#     print('GST Verification start here if selected')
-#     status = True
-#     message = 'Pending Gst Verification'
-#     redirect = '/account/gstindetail/'
-#     resp_dict = None
+def gst_verification_step(company_gst_number, request):
+    user = request.user
+    print('=====================>>> GST Verification start here if selected')
+    status = True
+    msg = 'Pending Gst Verification'
+    # redirect = '/account/gstindetail/'
+    # resp_dict = None
 
-#     user = request.user
-#     if not user:
-#         status = False
-#         message = 'User is not found ...'
+    if status == True and company_gst_number != '':
+        access_token = sendbox_authentication()
+        print("===========>>accesstoken==>>",access_token)
 
-#     account = None
-#     if status:    
-#         account = Account.objects.get(id = user.id)
-#         if not account:
-#             status = False
-#             message = 'No account credentials found'
+        url_gst_sand = f'{SANDBOX_GST_VERIFY_URL}/{company_gst_number}'
+        print("=========>>>>>>>>>>>>>gst-url",url_gst_sand)
+        
+        try:
+            headers = {
+                "Accept": "application/json",
+                "x-api-key": f"{settings.SANDBOX_API_KEY}",
+                "Authorization": access_token,
+                "x-api-version": "1.0"
+            }
+            gst_verification_response = requests.request('GET',url_gst_sand, headers=headers)
+            resp_dict = json.loads(gst_verification_response.text)
+            if resp_dict['code'] == 200:
+                data = resp_dict['data']
+                gst_detail = GstDetail(
+                    user=user,
+                    company_gst_number=data['gstin'],
+                    legal_name_of_business=data['lgnm'] if 'lgnm' in data else None,
+                    state_jurisdiction=data['stj'] if 'stj' in data else None,
+                    state_jurisdiction_code=data['stjCd']  if 'stjCd' in data else None,
+                    constitution_of_business=data['ctb']  if 'ctb' in data else None,
+                    taxpayer_type=data['nba'][0] if 'nba' in data else None,  # Assuming 'nba' is a list and you want the first item
+                    nature_of_business_activity=', '.join(data['nba']) if 'nba' in data else None,
+                    gstn_status=data['sts'] if 'sts' in data else None,
+                    last_updated_date=data['lstupdt'] if 'lstupdt' in data else None,
+                    trade_name=data['tradeNam'] if 'tradeNam' in data else None,
+                    date_of_registration=data['rgdt'] if 'rgdt' in data else None,
+                    response_json=resp_dict  # Save the entire response if needed
+                    # is_active=
+                )
 
-#     if status == True and company_gst_number != '':
-#         access_token = sendbox_authentication()
+                gst_detail.save()
+                print("Check the request status -->", resp_dict)
+            else:
+                status = False
+                msg = "Invalid requesrt. status code found 200 Not Fonund"
+                
+        except:
+            status = False
+            msg = "Gst Verification Failed, No response from api.."
 
-#         url_gst_sand = f'{settings.SANDBOX_GST_VERIFY_URL}/{company_gst_number}'
-#         headers = {
-#             "Accept": "application/json",
-#             "x-api-key": f"{settings.SANDBOX_API_KEY}",
-#             "Authorization": access_token,
-#             "x-api-version": "1.0"
-#         } 
-#         response_bank_sand = requests.request("GET", url_gst_sand, headers=headers)
-
-#         print("ssssssssssssss",response_bank_sand.text)
-#         resp_dict = json.loads(response_bank_sand.text) 
-#         print("Check the request status -->", resp_dict)
-#         print("resp_dict-------------------------------------")
-#         print(resp_dict['code'])
-
-#         # records fatch and get 200 response
-#         if resp_dict['code'] == 200:
-#             try:
-#                 sandbox_msg =str(resp_dict['data']['error_code'])
-#                 if(sandbox_msg=="NOGSTIN" or sandbox_msg== "SWEB_9035"):
-#                     if(sandbox_msg=="NOGSTIN"):
-#                         print("No gst")
-#                         status = False
-#                         message = "No records found"
-
-#                     if(sandbox_msg=="SWEB_9035"):
-#                         print("kkkkkkkkkkkkkkkkkkkkkkkkwrong gst")
-#                         status = False
-#                         message = "Invalid GSTIN / UID"
-#             except Exception as e :
-#                 message = e
-#                 status = False
-#                 print(e)
-#                 pass
-
-#             print("rrrrrrrrrrrrrrrrrrrrr",resp_dict['data'])
-            
-#             account.companyGSTNumber = company_gst_number
-#             gst_details, created = GST_API_User_data.objects.get_or_create(User_id=user)
-            
-#             print("gst_details")
-#             print(gst_details)
-#             try:
-#                 if(resp_dict['data']['lgnm']):
-#                     gst_details.Legal_Name_of_Business=resp_dict['data']['lgnm']
-#                 if(resp_dict['data']['stj']):
-#                     gst_details.State_Jurisdiction=resp_dict['data']['stj']
-#                 if(resp_dict['data']['rgdt']):
-#                     gst_details.Date_of_Registration=resp_dict['data']['rgdt']
-#                 if(resp_dict['data']['ctb']):
-#                     gst_details.Constitution_of_Business=resp_dict['data']['ctb']
-#                 if(resp_dict['data']['dty']):
-#                     gst_details.Taxpayer_type=resp_dict['data']['dty']
-#                 if(resp_dict['data']['nba']):
-#                     gst_details.Nature_of_Business_Activity=resp_dict['data']['nba']
-#                 if(resp_dict['data']['sts']):
-#                     gst_details.GSTN_status=resp_dict['data']['sts']
-#                 # if(resp_dict['data']['lstupddt']):
-#                 #     gst_details[0].Last_Updated_Date=resp_dict['data']['lstupddt']
-#                 if(resp_dict['data']['stjCd']):
-#                     gst_details.State_Jurisdiction_Code=resp_dict['data']['stjCd']
-#                 if(resp_dict['data']['tradeNam']):
-#                     gst_details.Trade_Name=resp_dict['data']['tradeNam']
-#                 # if(resp_dict['data']['pradr']['addr']):
-#                 #     gst_details[0].Additional_place_of_business_address=resp_dict['data']['pradr']['addr']
-#                 if(resp_dict['data']['pradr']['addr']['bnm']):
-#                     gst_details.Building_Name=resp_dict['data']['pradr']['addr']['bnm']
-#                 if(resp_dict['data']['pradr']['addr']['st']):
-#                     gst_details.Street=resp_dict['data']['pradr']['addr']['st'] 
-#                 if(resp_dict['data']['pradr']['addr']['loc']):
-#                     gst_details.Location=resp_dict['data']['pradr']['addr']['loc']
-#                 if(resp_dict['data']['pradr']['addr']['stcd']):
-#                     gst_details.state_name=resp_dict['data']['pradr']['addr']['stcd']
-#                 if(resp_dict['data']['pradr']['addr']['flno']):
-#                     gst_details.floor_nbr=resp_dict['data']['pradr']['addr']['flno']
-#                 if(resp_dict['data']['pradr']['addr']['pncd']):
-#                     gst_details.pin_code = resp_dict['data']['pradr']['addr']['pncd']
-#                 if(resp_dict['data']['pradr']['addr']['stcd']):
-#                         gst_details.State_name_repeat=resp_dict['data']['pradr']['addr']['stcd']
-#                 if(resp_dict['data']['pradr']['addr']['pncd']):
-#                     gst_details.Pin_Code_repeat=resp_dict['data']['pradr']['addr']['pncd']
-
-#                 gst_details.save()
-#                 status = True
-#                 message = "Gst Details Saved Successfully."
-#                 redirect = '/account/generaldetail'
-#             except Exception as e :
-#                 message = e
-#                 status = False
-#                 print(e)
-#                 pass
-
-
-#             if(account.companyGSTNumber !='' or company_gst_number !=''):      
-#                 account.Gstdetails_done=True
-#                 account.gstIn=True
-#                 account.save()
-
-#                 status = True
-#                 message = "Gst Details Saved Successfully."
-#                 redirect = '/account/generaldetail'
-
-#         else :
-#             status = False
-#             reason = resp_dict['message']
-#             message = f"Can't process your request. {reason}"
-
-#     print('get verification variables ->', status, message, redirect, resp_dict, company_gst_number)
-#     return status, message, redirect, resp_dict
+    return status, msg
 
 
 

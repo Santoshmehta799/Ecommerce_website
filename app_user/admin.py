@@ -16,3 +16,10 @@ class UserAdmin(admin.ModelAdmin):
     #     ('EMAIL DETAILS', {'fields': ['alternate_email']}),
     #     ('VARIFY DETAILS', {'fields': ['otp','otp_send','is_verify','expiry_date','created_at','updated_at']}),
     # ]
+
+@admin.register(models.ProfileSettings)
+class ProfileSettingsAdmin(admin.ModelAdmin):
+    list_display  = ('id', 'user', 'receive_order_update_whatsapp', 'receive_order_update_call', 'created_at', 'updated_at')
+    search_fields = ['user__email']
+    readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
+

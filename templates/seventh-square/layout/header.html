@@ -1,0 +1,29 @@
+{% load static %}
+<nav class="navbar navbar-expand-md custom-navbar-padding navbar-dark bg-black">
+    <div class="px-md-0 px-3 p-1">
+        <!-- Offcanvas Toggle Button on the Left -->
+        <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvas" aria-controls="navbarOffcanvas" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Brand Logo -->
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'seventh-square/assets/img/logo/white-logo.png' %}" alt="Logo Image">
+        </a>
+
+        <!-- Offcanvas Container -->
+        <div class="offcanvas offcanvas-start w-75" tabindex="-1" id="navbarOffcanvas" aria-labelledby="navbarOffcanvasLabel">
+            <div class="offcanvas-header same-padding bg-black">
+                <div class="offcanvas-title" id="navbarOffcanvasLabel">
+                    <img class="sidebar-brand-logo-width" src="{% static 'seventh-square/assets/img/logo/white-logo.png' %}" alt="Logo Image">
+                </div>
+            </div>
+
+            <!-- Offcanvas Body (Your Menu Items) -->
+            <div class="offcanvas-body d-md-none">
+                {%include 'seventh-square/layout/sidebar.html' %}
+                {% comment %} <ul class="navbar-nav"></ul> {% endcomment %}
+            </div>
+        </div>
+    </div>
+</nav>

@@ -25,5 +25,7 @@ urlpatterns = [
     path('dashboard/',include('app_dashboard.urls')),
     path('user/',include('app_user.urls')),
     path('verification/',include('app_verification.urls')),
+    path('inventory/',include('app_inventory.urls')),
+
     # path('context/',include('app_context.urls')),
 ]
