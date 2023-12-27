@@ -10,247 +10,250 @@
 {% include 'seventh-square/layout/messages.html' %}
 <!-- Messages END -->
 <div class="col-12 col-md-12 bg-white">
-<div class="row pl-0">
-	<!-- Col-3 is written as sidebar -->
-	<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
-		<div class="row pt-4">
-			<div class="col-12">
-				{%include 'seventh-square/layout/sidebar.html' %}
+	<div class="row pl-0">
+		<!-- Col-3 is written as sidebar -->
+		<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
+			<div class="row pt-4">
+				<div class="col-12">
+					{%include 'seventh-square/layout/sidebar.html' %}
+				</div>
 			</div>
 		</div>
-	</div>
-	<div class="custom-main-col-width">
-		<div class="row px-4 pt-3">
-			<div class="col-md-12">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
-						<li class="breadcrumb-item active" aria-current="page">Your Profile</li>
-					</ol>
-				</nav>
+		<div class="custom-main-col-width">
+			<div class="row px-4 pt-3">
+				<div class="col-md-12">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Your Profile</li>
+						</ol>
+					</nav>
+				</div>
 			</div>
-		</div>
-		<div class="row px-4">
-			<div class="col-md-12 px-3">
-				<h2 class="text-left" >Seller Profile</h2>
+			<div class="row px-4">
+				<div class="col-md-12 px-3">
+					<h2 class="text-left" >Seller Profile</h2>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-12">
-				<div class="card border border-0 p-3">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-12">
-								<h5 class="d-inline-block  mb-0">Account Info</h5>
-								<a href="" class="text-black pb-1" data-toggle="modal">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-										<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-									</svg>
-								</a>
+			<div class="row">
+				<div class="col-12">
+					<div class="card border border-0 p-3">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-12">
+									<h5 class="d-inline-block  mb-0">Account Info</h5>
+									<a href="" class="text-black pb-1" data-toggle="modal">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+										</svg>
+									</a>
+								</div>
+								<div class="col-12 col-md-11">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Name</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Phone Number</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Email ID</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="email" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Password</label>
+										</div>
+										<div class="col-9">
+											<input disabled id="password-field" class="form-control icon-wrapper input">
+										</div>
+									</div>
+								</div>
 							</div>
-							<div class="col-12 col-md-11">
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Name</label>
-									</div>
-									<div class="col-9">
-										<input readonly type="text" class="form-control">
-									</div>
+							<div class="row py-5">
+								<div class="col-12">
+									<h5 class="d-inline-block  mb-0">Seller Info</h5>
+									<a href="" class="text-black pb-1" data-toggle="modal">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+										</svg>
+									</a>
 								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Phone Number</label>
+								<div class="col-12 col-md-11">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Company Legal Name</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
 									</div>
-									<div class="col-9">
-										<input readonly type="text" class="form-control">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Company Address</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
 									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Email ID</label>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">GSTIN</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="email" class="form-control">
+										</div>
 									</div>
-									<div class="col-9">
-										<input readonly type="email" class="form-control">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Company Verification</label>
+										</div>
+										<div class="col-9">
+											<div class="row">
+												<div class="col-6">
+													<select class="form-select">
+														<option disabled selected value="">dsd</option>
+													</select>
+												</div>
+												<div class="col-6">
+													<input readonly type="email" class="form-control">
+												</div>
+											</div>
+										</div>
 									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Password</label>
-									</div>
-									<div class="col-9">
-										<input disabled id="password-field" class="form-control icon-wrapper input">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">About Brand</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="email" class="form-control">
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-						<div class="row my-5">
-							<div class="col-12">
-								<h5 class="d-inline-block  mb-0">Seller Info</h5>
-								<a href="" class="text-black pb-1" data-toggle="modal">
-									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-										<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-									</svg>
-								</a>
-							</div>
-							<div class="col-12 col-md-11">
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Company Legal Name</label>
-									</div>
-									<div class="col-9">
-										<input readonly type="text" class="form-control">
-									</div>
+							<div class="row py-3">
+								<div class="col-12">
+									<h5 class="d-inline-block  mb-0">Account Settings</h5>
 								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Company Address</label>
-									</div>
-									<div class="col-9">
-										<input readonly type="text" class="form-control">
-									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">GSTIN</label>
-									</div>
-									<div class="col-9">
-										<input readonly type="email" class="form-control">
-									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Company Verification</label>
-									</div>
-									<div class="col-9">
-										<div class="row">
-											<div class="col-6">
-												<select class="form-select">
-													<option disabled selected value="">dsd</option>
+								<div class="col-12 col-md-11">
+									<div class="row">
+										<div class="col-6">
+											<label class="my-2">Set Default Order Processing Time</label>
+											<div class="col-md-6">
+												<select class="form-select"  name="oht" aria-placeholder="Estimated Delivery time" >
+													<option value="{{account.Order_handling_time}}" hidden>Same Day</option>
+													<option value="">Select Days</option>
+													<option value="0">Same Day</option>
+													<option value="1">1 Day</option>
+													<option value="2">2 Days</option>
+													<option value="3">3 Days</option>
+													<option value="4">4 Days</option>
+													<option value="5">5 Days</option>
+													<option value="6">6 Days</option>
+													<option value="7">7 Days</option>
+													<option value="8">8 Days</option>
+													<option value="9">9 Days</option>
+													<option value="10">10 Days</option>
+													<option value="+10">More than 10 Days</option>
 												</select>
 											</div>
-											<div class="col-6">
-												<input readonly type="email" class="form-control">
-											</div>
 										</div>
-									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">About Brand</label>
-									</div>
-									<div class="col-9">
-										<input readonly type="email" class="form-control">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row my-5">
-							<div class="col-12">
-								<h5 class="d-inline-block  mb-0">Account Settings</h5>
-							</div>
-							<div class="col-12 col-md-11">
-								<div class="row">
-									<div class="col-6">
-										<label class="my-2">Set Default Order Processing Time</label>
-										<div class="col-md-6">
-											<select class="form-select"  name="oht" aria-placeholder="Estimated Delivery time" >
-												<option value="{{account.Order_handling_time}}" hidden>Same Day</option>
-												<option value="">Select Days</option>
-												<option value="0">Same Day</option>
-												<option value="1">1 Day</option>
-												<option value="2">2 Days</option>
-												<option value="3">3 Days</option>
-												<option value="4">4 Days</option>
-												<option value="5">5 Days</option>
-												<option value="6">6 Days</option>
-												<option value="7">7 Days</option>
-												<option value="8">8 Days</option>
-												<option value="9">9 Days</option>
-												<option value="10">10 Days</option>
-												<option value="+10">More than 10 Days</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-6">
-										<label class="my-2"> Set Default Order Cut off time</label>
 										<div class="col-6">
-											<select class="form-select" name="" aria-placeholder="Estimated Delivery time" >
-												<option value="">Select Time</option>
-												<option value="00:00">12.00 AM</option>
-												<option value="00:30">12.30 AM</option>
-												<option value="01:00">01.00 AM</option>
-												<option value="01:30">01.30 AM</option>
-												<option value="02:00">02.00 AM</option>
-												<option value="02:30">02.30 AM</option>
-												<option value="03:00">03.00 AM</option>
-												<option value="03:30">03.30 AM</option>
-												<option value="04:00">04.00 AM</option>
-												<option value="04:30">04.30 AM</option>
-												<option value="05:00">05.00 AM</option>
-												<option value="05:30">05.30 AM</option>
-												<option value="06:00">06.00 AM</option>
-												<option value="06:30">06.30 AM</option>
-												<option value="07:00">07.00 AM</option>
-												<option value="07:30">07.30 AM</option>
-												<option value="08:00">08.00 AM</option>
-												<option value="08:30">08.30 AM</option>
-												<option value="09:00">09.00 AM</option>
-												<option value="09:30">09.30 AM</option>
-												<option value="10:00">10.00 AM</option>
-												<option value="10:30">10.30 AM</option>
-												<option value="11:00">11.00 AM</option>
-												<option value="11:30">11.30 AM</option>
-												<option value="12:00">12.00 PM</option>
-												<option value="12:30">12.30 PM</option>
-												<option value="13:00">01.00 PM</option>
-												<option value="13:30">01.30 PM</option>
-												<option value="14:00">02.00 PM</option>
-												<option value="14:30">02.30 PM</option>
-												<option value="15:00">03.00 PM</option>
-												<option value="15:30">03.30 PM</option>
-												<option value="16:00">04.00 PM</option>
-												<option value="16:30">04.30 PM</option>
-												<option value="17:00">05.00 PM</option>
-												<option value="17:30">05.30 PM</option>
-												<option value="18:00">06.00 PM</option>
-												<option value="18:30">06.30 PM</option>
-												<option value="19:00">07.00 PM</option>
-												<option value="19:30">07.30 PM</option>
-												<option value="20:00">08.00 PM</option>
-												<option value="20:30">08.30 PM</option>
-												<option value="21:00">09.00 PM</option>
-												<option value="21:30">09.30 PM</option>
-												<option value="22:00">10.00 PM</option>
-												<option value="22:30">10.30 PM</option>
-												<option value="23:00">11.00 PM</option>
-												<option value="23:30">11.30 PM</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-12">
-										<div class="d-block">
-											<h5 class="mt-4 font-size-10px open-sans-font"><strong> Notifications & Communications Settings </strong></h5>
-										</div>
-										<div class="row">
+											<label class="my-2"> Set Default Order Cut off time</label>
 											<div class="col-6">
-												<label for="a"> <span class="font-size-16px"> Receive Order Updates</span></label> <br>
-												<label class="font-size-14px" for="ROW"><input type="checkbox" id="ROW" name="ROW" {% if account.Receive_Order_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label> <br>
-												<label class="font-size-14px" for="ROC"><input type="checkbox" id="ROC" name="ROC" {% if account.Receive_Order_call %} checked{% endif %}>&nbsp;&nbsp;Call</label> <br>
-												<label class="font-size-14px" for="ROE"><input type="checkbox" id="ROE" name="ROE" {% if account.Receive_Order_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label>
+												<select class="form-select" name="" aria-placeholder="Estimated Delivery time" >
+													<option value="">Select Time</option>
+													<option value="00:00">12.00 AM</option>
+													<option value="00:30">12.30 AM</option>
+													<option value="01:00">01.00 AM</option>
+													<option value="01:30">01.30 AM</option>
+													<option value="02:00">02.00 AM</option>
+													<option value="02:30">02.30 AM</option>
+													<option value="03:00">03.00 AM</option>
+													<option value="03:30">03.30 AM</option>
+													<option value="04:00">04.00 AM</option>
+													<option value="04:30">04.30 AM</option>
+													<option value="05:00">05.00 AM</option>
+													<option value="05:30">05.30 AM</option>
+													<option value="06:00">06.00 AM</option>
+													<option value="06:30">06.30 AM</option>
+													<option value="07:00">07.00 AM</option>
+													<option value="07:30">07.30 AM</option>
+													<option value="08:00">08.00 AM</option>
+													<option value="08:30">08.30 AM</option>
+													<option value="09:00">09.00 AM</option>
+													<option value="09:30">09.30 AM</option>
+													<option value="10:00">10.00 AM</option>
+													<option value="10:30">10.30 AM</option>
+													<option value="11:00">11.00 AM</option>
+													<option value="11:30">11.30 AM</option>
+													<option value="12:00">12.00 PM</option>
+													<option value="12:30">12.30 PM</option>
+													<option value="13:00">01.00 PM</option>
+													<option value="13:30">01.30 PM</option>
+													<option value="14:00">02.00 PM</option>
+													<option value="14:30">02.30 PM</option>
+													<option value="15:00">03.00 PM</option>
+													<option value="15:30">03.30 PM</option>
+													<option value="16:00">04.00 PM</option>
+													<option value="16:30">04.30 PM</option>
+													<option value="17:00">05.00 PM</option>
+													<option value="17:30">05.30 PM</option>
+													<option value="18:00">06.00 PM</option>
+													<option value="18:30">06.30 PM</option>
+													<option value="19:00">07.00 PM</option>
+													<option value="19:30">07.30 PM</option>
+													<option value="20:00">08.00 PM</option>
+													<option value="20:30">08.30 PM</option>
+													<option value="21:00">09.00 PM</option>
+													<option value="21:30">09.30 PM</option>
+													<option value="22:00">10.00 PM</option>
+													<option value="22:30">10.30 PM</option>
+													<option value="23:00">11.00 PM</option>
+													<option value="23:30">11.30 PM</option>
+												</select>
 											</div>
-											<div class="col-6">
-												<label for="a"> <span class="font-size-16px"> Receive Payment Updates</span> </label> <br>
-												<label class="font-size-14px" for="RPW"><input type="checkbox" id="RPW" name="RPW" {% if account.Receive_Payment_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label><br>
-												<label class="font-size-14px" for="RPC"><input type="checkbox" id="RPC" name="RPC" {% if account.Receive_Payment_call %} checked{% endif %}>&nbsp;&nbsp;Call</label><br>
-												<label class="font-size-14px" for="RPE"><input type="checkbox" id="RPE" name="RPE" {% if account.Receive_Payment_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label>
+										</div>
+										<div class="col-12">
+											<div class="d-block">
+												<h5 class="mt-4 font-size-10px open-sans-font"><strong> Notifications & Communications Settings </strong></h5>
+											</div>
+											<div class="row py-3">
+												<div class="col-6">
+													<label for="a"> <span class=""> Receive Order Updates</span></label> <br>
+													<label class="font-size-14px" for="ROW"><input type="checkbox" id="ROW" name="ROW" {% if account.Receive_Order_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label> <br>
+													<label class="font-size-14px" for="ROC"><input type="checkbox" id="ROC" name="ROC" {% if account.Receive_Order_call %} checked{% endif %}>&nbsp;&nbsp;Call</label> <br>
+													<label class="font-size-14px" for="ROE"><input type="checkbox" id="ROE" name="ROE" {% if account.Receive_Order_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label>
+												</div>
+												<div class="col-6">
+													<label for="a"> <span class=""> Receive Payment Updates</span> </label> <br>
+													<label class="font-size-14px" for="RPW"><input type="checkbox" id="RPW" name="RPW" {% if account.Receive_Payment_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label><br>
+													<label class="font-size-14px" for="RPC"><input type="checkbox" id="RPC" name="RPC" {% if account.Receive_Payment_call %} checked{% endif %}>&nbsp;&nbsp;Call</label><br>
+													<label class="font-size-14px" for="RPE"><input type="checkbox" id="RPE" name="RPE" {% if account.Receive_Payment_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label>
+												</div>
+												<div class="col-12 mt-3">
+													<button class="btn btn-brand px-5" type="submit">Save</button>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-12 mt-3">
-									<button class="btn btn-brand px-5" type="submit">Save</button>
-								</div>
-								<div class="d-block">
+							</div>
+							<div class="row py-3">
+								<div class="col-12">
 									<h5 class="d-inline-block mb-0">Bank Account Info</h5>
 									<a href="" class="text-black pb-1" data-toggle="modal">
 										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
@@ -258,42 +261,48 @@
 										</svg>
 									</a>
 								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Bank Account Number</label>
+								<div class="col-12 col-md-11">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Bank Account Number</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
 									</div>
-									<div class="col-9">
-										<input readonly type="text" class="form-control">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Account Holder Name</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
 									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Account Holder Name</label>
-									</div>
-									<div class="col-9">
-										<input readonly type="text" class="form-control">
-									</div>
-								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">IFSC Code</label>
-									</div>
-									<div class="col-9">
-										<input readonly type="text" class="form-control">
-									</div>
-								</div>
-								<div class="my-5">
-									<div class="d-block">
-										<h5 class="d-inline-block  mb-0">Warehouse</h5>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">IFSC Code</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
 									</div>
 								</div>
-								<div class="row my-3">
-									<div class="col-3">
-										<label for="inputPassword6" class="col-form-label">Address</label>
+							</div>
+							<div class="row py-3">
+								<div class="col-12">
+									<div class="my-5">
+										<div class="d-block">
+											<h5 class="d-inline-block  mb-0">Warehouse</h5>
+										</div>
 									</div>
-									<div class="col-sm-7">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Address</label>
+										</div>
 										<div class="col-sm-7">
-											<textarea readonly class="form-control"></textarea>
+											<div class="col-sm-7">
+												<textarea readonly class="form-control"></textarea>
+											</div>
 										</div>
 									</div>
 								</div>

@@ -13,14 +13,6 @@
         {% block metablock %}{% endblock metablock %}
         <!-- Include Bootstrap CSS -->
         <link href="{% static 'seventh-square/assets/css/bootstrap/bootstrap.min.css' %}" rel="stylesheet" />
-        <!-- Include Fonts CSS -->
-        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/fontawesome-all.min.css' %}"> {% endcomment %}
-        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/font-awesome.min.css' %}"> {% endcomment %}
-        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/ionicons.min.css' %}"> {% endcomment %}
-        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/line-awesome.min.css' %}"> {% endcomment %}
-        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/material-icons.min.css' %}"> {% endcomment %}
-        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/simple-line-icons.min.css' %}"> {% endcomment %}
-        {% comment %} <link rel="stylesheet" href="{% static 'seventh-square/assets/fonts/font-awesome/typicons.min.css' %}"> {% endcomment %}
         <!-- Overwritten/Custom CSS -->
         <link href="{% static 'seventh-square/assets/css/custom-theme.css' %}" rel="stylesheet" />
         {% if user.is_authenticated %}
