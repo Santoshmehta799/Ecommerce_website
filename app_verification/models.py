@@ -4,6 +4,7 @@ from datetime import datetime
 from uuid import uuid4
 from os.path import join
 from django.db import models
+from app_dashboard.models import Cities, States
 from app_user.models import User
 from common import enums, validators
 from common import helpers
@@ -123,6 +124,8 @@ class CompanyBasicDetail(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_company_detail")
     company_name = models.CharField(max_length=255, unique=True)
+    about_brand = models.CharField(max_length=500, null=True, blank=True)
+
 
     class Meta:
         verbose_name = _("Verification - Company Basic Detail")
@@ -132,9 +135,30 @@ class CompanyBasicDetail(ModelMixin):
         return f"{self.user.username} - {self.company_name} "
     
 
+class CompanyAddressDetail(ModelMixin):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_company_address")
+    address_line_1 = models.CharField(max_length=200,blank=True,null=True)
+    address_line_2 = models.CharField(max_length=200,blank=True,null=True)
+    state = models.ForeignKey(States, on_delete=models.DO_NOTHING)
+    city = models.ForeignKey(Cities, on_delete=models.DO_NOTHING)
+    pin_code = models.CharField(max_length=6,validators=[validators.pin_validator], 
+        null=True, blank=True)
+    latitude = models.FloatField(blank=True,null=True)
+    longitude = models.FloatField(blank=True,null=True)
+    is_verified = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = _("Verification - Company Address Detail")
+        verbose_name_plural = _("Verification - Company Address Detail")
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.address_line_1} "
+    
+
 class BankVerification(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_Bank_verification")
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_bank_verification")
     account_holder = models.CharField(max_length=255)
     account_number = models.CharField(max_length=20,unique=True)
     ifsc = models.CharField(max_length=11)

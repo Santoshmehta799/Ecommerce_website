@@ -17,23 +17,52 @@
 							<div class="col-12"> {%include 'seventh-square/layout/sidebar.html' %} </div>
 						</div>
 					</div>
+                    <div class="custom-main-col-width bg-brand-custom-main-col">
+                        <div class="row px-4 pt-1">
+                            
+							<div class="col-md-9">
+                                <div class="row">
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h2><strong id="greet"></strong></h2>
+                                        <span>Here's what your dashboard looks like </span>
+                                    </div>
+                                </div>
+                                <div class="row px-0 pt-3 text-center">
+                                    <div class="col-md-3 col-6">
+                                        <p>Pending Orders</p>
+                                        <h1 class="text-dark">0</h1>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <p>Customer Enquiries</p>
+                                        <h1 class="text-dark">0</h1>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <p>Shipments Today</p>
+                                        <h1 class="text-dark">0</h1>
+                                    </div>
+                                    <div class="col-md-3 col-6">
+                                        <p>Return Requests</p>
+                                        <h1 class="text-dark">0</h1>
+                                    </div>
+                                </div>
+							</div>
+                            <div class="col-md-3 border border-start border-dark-subtle border-top-0 border-end-0 border-bottom-0">
+
+                            </div>
+						</div>
+                       
+                    </div>
+                    
 					<div class="col" style="padding: 10px 20px;">
-                        <h2 style="color: rgb(0,0,0);margin: 0px;font-size: 35px;font-family: 'Crimson Text', serif !important;  "><strong id="greet" style="font-family: 'Crimson Text', serif !important;  "></strong></h2>
-                        <script>
-                            //var l = window.location.pathname.split('/')[1];
-                            //document.getElementById('lastword').innerHTML = l;
-                            var myDate = new Date();
-                            var hrs = myDate.getHours();
-                            var geet;
-            
-                            if (hrs < 12)
-                                geet = 'Good Morning';
-                            else if (hrs >= 12 && hrs <= 17)
-                                geet = 'Good Afternoon';
-                            else if (hrs >= 17 && hrs <= 24)
-                                geet = 'Good Evening';
-                            document.getElementById('greet').innerHTML = geet;
-                        </script>
+                        
                         <span>Here's what your dashboard looks like </span>
                         <div class="row" style="margin-top: 30px;margin-right: 3px;margin-left: 3px;">
                             <div class="col-6 col-lg-3" style="text-align: center; margin-top: 10px;"><span
@@ -50,7 +79,7 @@
                             <div class="col-6 col-lg-3 dashborder"
                                 style="text-align: center; margin-top: 10px;border-color: rgb(210,210,210);border-right-width: 1px;border-right-style: solid;border-left-width: 1px;border-left-style: solid;">
                                 <span style="font-size: 16px;"><i class="material-icons"
-                                        style="padding-right: 8px;font-size: 18px;"></i>Customer Enquiries</span>
+                                        style="padding-right: 8px;font-size: 18px;">question_answer</i>Customer Enquiries</span>
                                 <div class="row" style="margin: 0px;">
                                     <div class="col"><span style="font-size: 50px;"><strong>0</strong></span></div>
                                 </div>
@@ -363,4 +392,18 @@
 		</div>
 	</div>
 {% endblock content %}
-{% block jsblock %}{% endblock jsblock %}
+{% block jsblock %}
+    <script>
+        var myDate = new Date();
+        var hrs = myDate.getHours();
+        var geet;
+
+        if (hrs < 12)
+            geet = 'Good Morning';
+        else if (hrs >= 12 && hrs <= 17)
+            geet = 'Good Afternoon';
+        else if (hrs >= 17 && hrs <= 24)
+            geet = 'Good Evening';
+        document.getElementById('greet').innerHTML = geet;
+    </script>
+{% endblock jsblock %}

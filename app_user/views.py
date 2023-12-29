@@ -15,9 +15,10 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
 from app_user.tokens import account_activation_token
 from django.contrib import auth
+from app_dashboard.models import Cities, States
 
 from app_verification.models import TempPhoneVerified, UserPhoneVerified
-from common.enums import UserAuthIdentifierType, UserStatusEnums
+from common.enums import OrderCuttOffTime, OrderHandlingTimeEnums, PanCinDetailEnums, UserAuthIdentifierType, UserStatusEnums
 # Create your views here.
 
 
@@ -26,28 +27,30 @@ def auth_home(request):
 
 def signin(request):
     # http://127.0.0.1:8000/dashboard/
+    # http://127.0.0.1:8000/user/auth/logout
     success = ""
     error = ""
     if request.user and request.user.is_authenticated:
         return redirect('app_dashboard:dashboard-page')
     
-    next_url = request.GET.get("next")
-    print('next_url ->', next_url)
     form = LoginForm(request.POST or None)
     if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        status, msg = auth_login(request, username, password)
-        # print('statusv-->',status)
-        if status == True:
-            if next_url:
-                # print('enter hear...')
+        if form.is_valid():
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            status, msg = auth_login(request, username, password)
+            # print('statusv-->',status)
+            if status == True:
+                next_url = request.GET.get("next")
+                if next_url:
+                    # print('enter hear...')
+                    messages.success(request,f"Welcome <b>{username}</b>.")
+                    return redirect(next_url)
+                print('enter else', next_url )
                 messages.success(request,f"Welcome <b>{username}</b>.")
-                return redirect(next_url)
-            messages.success(request,f"Welcome <b>{username}</b>.")
-            return redirect('app_verification:get-detail')
-        else:
-            error = msg
+                return redirect('app_verification:get-detail')
+            else:
+                error = msg
     context = {
         'error' : error,
         'success' : success,
@@ -186,7 +189,25 @@ def forgot_email_verify_page(request):
 
 @login_required()
 def profile(request):
-    return render(request, 'app_user/profile.html')
+    success = ""
+    error = ""
+
+    if request.method == 'POST':
+        print(request.data)
+
+    
+
+    context = {
+        "success": success,
+        "error": error,
+        "pan_cin_choices" : PanCinDetailEnums.choices,
+        "state_obj": States.objects.filter(country__name='INDIA'),
+        "city_obj" : Cities.objects.filter(state__country__name='INDIA'),
+        "order_cut_off_time": OrderCuttOffTime.choices, 
+        "order_handing_time" : OrderHandlingTimeEnums.choices,
+        
+    }
+    return render(request, 'app_user/profile.html', context)
 
 
 def auth_logout(request):

@@ -7,6 +7,7 @@ from app.settings import SANDBOX_GST_VERIFY_URL
 import app_user
 from app_user.models import User
 from app_verification.models import GstDetail
+from datetime import datetime
 
 
 OTP_LENGTH = 6
@@ -52,7 +53,7 @@ def sendbox_authentication():
 
 def gst_verification_step(company_gst_number, request):
     user = request.user
-    print('=====================>>> GST Verification start here if selected')
+    # print('=====================>>> GST Verification start here if selected')
     status = True
     msg = 'Pending Gst Verification'
     # redirect = '/account/gstindetail/'
@@ -60,10 +61,10 @@ def gst_verification_step(company_gst_number, request):
 
     if status == True and company_gst_number != '':
         access_token = sendbox_authentication()
-        print("===========>>accesstoken==>>",access_token)
+        # print("===========>>accesstoken==>>",access_token)
 
         url_gst_sand = f'{SANDBOX_GST_VERIFY_URL}/{company_gst_number}'
-        print("=========>>>>>>>>>>>>>gst-url",url_gst_sand)
+        # print("=========>>>>>>>>>>>>>gst-url",url_gst_sand)
         
         try:
             headers = {
@@ -74,27 +75,31 @@ def gst_verification_step(company_gst_number, request):
             }
             gst_verification_response = requests.request('GET',url_gst_sand, headers=headers)
             resp_dict = json.loads(gst_verification_response.text)
+            # print('resp_dict ----->', resp_dict)
             if resp_dict['code'] == 200:
                 data = resp_dict['data']
-                gst_detail = GstDetail(
-                    user=user,
-                    company_gst_number=data['gstin'],
-                    legal_name_of_business=data['lgnm'] if 'lgnm' in data else None,
-                    state_jurisdiction=data['stj'] if 'stj' in data else None,
-                    state_jurisdiction_code=data['stjCd']  if 'stjCd' in data else None,
-                    constitution_of_business=data['ctb']  if 'ctb' in data else None,
-                    taxpayer_type=data['nba'][0] if 'nba' in data else None,  # Assuming 'nba' is a list and you want the first item
-                    nature_of_business_activity=', '.join(data['nba']) if 'nba' in data else None,
-                    gstn_status=data['sts'] if 'sts' in data else None,
-                    last_updated_date=data['lstupdt'] if 'lstupdt' in data else None,
-                    trade_name=data['tradeNam'] if 'tradeNam' in data else None,
-                    date_of_registration=data['rgdt'] if 'rgdt' in data else None,
-                    response_json=resp_dict  # Save the entire response if needed
-                    # is_active=
-                )
+                try:
+                    gst_detail = GstDetail(
+                        user=user,
+                        company_gst_number=data['gstin'],
+                        legal_name_of_business=data['lgnm'] if 'lgnm' in data else None,
+                        state_jurisdiction=data['stj'] if 'stj' in data else None,
+                        state_jurisdiction_code=data['stjCd']  if 'stjCd' in data else None,
+                        constitution_of_business=data['ctb']  if 'ctb' in data else None,
+                        taxpayer_type=data['nba'][0] if 'nba' in data else None,  # Assuming 'nba' is a list and you want the first item
+                        nature_of_business_activity=', '.join(data['nba']) if 'nba' in data else None,
+                        gstn_status=data['sts'] if 'sts' in data else None,
+                        last_updated_date=data['lstupdt'] if 'lstupdt' in data else None,
+                        trade_name=data['tradeNam'] if 'tradeNam' in data else None,
+                        date_of_registration=datetime.strptime(data['rgdt'], '%d/%m/%Y').date() if 'rgdt' in data else None,
+                        is_active=True,
+                        response_json=resp_dict  # Save the entire response if needed
+                    )
+                    gst_detail.save()
+                except Exception as e:
+                    print('Error:', e)
 
-                gst_detail.save()
-                print("Check the request status -->", resp_dict)
+                # print("Check the request status -->", resp_dict)
             else:
                 status = False
                 msg = "Invalid requesrt. status code found 200 Not Fonund"

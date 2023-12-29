@@ -6,3 +6,6 @@ from django.http import HttpResponse
 
 def inventory (request):
     return HttpResponse("This is inventory home page")
+
+def add_inventory(request):
+    return render(request, 'app_inventory/inventory_add.html')

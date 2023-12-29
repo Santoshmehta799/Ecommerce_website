@@ -2,306 +2,530 @@
 {% load static %}
 {% block title %}Seller Profile | Seventh Square Seller{% endblock title %}
 {% block metablock %}{% endblock metablock %}
-{% block cssblock %}{% endblock cssblock %}
+{% block cssblock %}
+<style>
+    .bg-brand-custom-main-col{
+    	background-color: #F5F5F5!important;
+    }
+    
+    .custom-model-min-width{
+    	min-width: 44.5%;
+    }
+</style>
+{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-<div class="row">
-<!-- Messages Start -->
-{% include 'seventh-square/layout/messages.html' %}
-<!-- Messages END -->
-<div class="col-12 col-md-12 bg-white">
-	<div class="row pl-0">
-		<!-- Col-3 is written as sidebar -->
-		<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
-			<div class="row pt-4">
-				<div class="col-12">
-					{%include 'seventh-square/layout/sidebar.html' %}
-				</div>
-			</div>
-		</div>
-		<div class="custom-main-col-width">
-			<div class="row px-4 pt-3">
-				<div class="col-md-12">
-					<nav aria-label="breadcrumb">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="/">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Your Profile</li>
-						</ol>
-					</nav>
-				</div>
-			</div>
-			<div class="row px-4">
-				<div class="col-md-12 px-3">
-					<h2 class="text-left" >Seller Profile</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-12">
-					<div class="card border border-0 p-3">
-						<div class="card-body">
-							<div class="row">
-								<div class="col-12">
-									<h5 class="d-inline-block  mb-0">Account Info</h5>
-									<a href="" class="text-black pb-1" data-toggle="modal">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-										</svg>
-									</a>
-								</div>
-								<div class="col-12 col-md-11">
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Name</label>
-										</div>
-										<div class="col-9">
-											<input readonly type="text" class="form-control">
-										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Phone Number</label>
-										</div>
-										<div class="col-9">
-											<input readonly type="text" class="form-control">
-										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Email ID</label>
-										</div>
-										<div class="col-9">
-											<input readonly type="email" class="form-control">
-										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Password</label>
-										</div>
-										<div class="col-9">
-											<input disabled id="password-field" class="form-control icon-wrapper input">
-										</div>
-									</div>
-								</div>
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Messages Start --> 
+				{% include 'seventh-square/layout/messages.html' %}
+			<!-- Messages END -->
+			<div class="col-12 col-md-12 bg-white">
+				<div class="row pl-0">
+					<!-- Col-3 is written as sidebar -->
+					<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
+						<div class="row pt-4 px-4">
+							<div class="col-12"> {%include 'seventh-square/layout/sidebar.html' %} </div>
+						</div>
+					</div>
+					<div class="custom-main-col-width bg-brand-custom-main-col">
+						<div class="row px-4 pt-3">
+							<div class="col-md-12">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a href="/">Home</a></li>
+										<li class="breadcrumb-item active" aria-current="page">Your Profile</li>
+									</ol>
+								</nav>
 							</div>
-							<div class="row py-5">
-								<div class="col-12">
-									<h5 class="d-inline-block  mb-0">Seller Info</h5>
-									<a href="" class="text-black pb-1" data-toggle="modal">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-										</svg>
-									</a>
-								</div>
-								<div class="col-12 col-md-11">
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Company Legal Name</label>
-										</div>
-										<div class="col-9">
-											<input readonly type="text" class="form-control">
-										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Company Address</label>
-										</div>
-										<div class="col-9">
-											<input readonly type="text" class="form-control">
-										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">GSTIN</label>
-										</div>
-										<div class="col-9">
-											<input readonly type="email" class="form-control">
-										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Company Verification</label>
-										</div>
-										<div class="col-9">
-											<div class="row">
-												<div class="col-6">
-													<select class="form-select">
-														<option disabled selected value="">dsd</option>
-													</select>
-												</div>
-												<div class="col-6">
-													<input readonly type="email" class="form-control">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">About Brand</label>
-										</div>
-										<div class="col-9">
-											<input readonly type="email" class="form-control">
-										</div>
-									</div>
-								</div>
+						</div>
+						<div class="row px-4">
+							<div class="col-md-12 px-3">
+								<h2 class="text-left">Seller Profile</h2>
 							</div>
-							<div class="row py-3">
-								<div class="col-12">
-									<h5 class="d-inline-block  mb-0">Account Settings</h5>
-								</div>
-								<div class="col-12 col-md-11">
-									<div class="row">
-										<div class="col-6">
-											<label class="my-2">Set Default Order Processing Time</label>
-											<div class="col-md-6">
-												<select class="form-select"  name="oht" aria-placeholder="Estimated Delivery time" >
-													<option value="{{account.Order_handling_time}}" hidden>Same Day</option>
-													<option value="">Select Days</option>
-													<option value="0">Same Day</option>
-													<option value="1">1 Day</option>
-													<option value="2">2 Days</option>
-													<option value="3">3 Days</option>
-													<option value="4">4 Days</option>
-													<option value="5">5 Days</option>
-													<option value="6">6 Days</option>
-													<option value="7">7 Days</option>
-													<option value="8">8 Days</option>
-													<option value="9">9 Days</option>
-													<option value="10">10 Days</option>
-													<option value="+10">More than 10 Days</option>
-												</select>
+						</div>
+						<div class="row mx-2 mb-4">
+							<div class="col-12">
+								<div class="card border border-0 p-3">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-12">
+												<h5 class="d-inline-block  mb-0">Account Info</h5>&nbsp; <a href="javascript:void(0);" type="button" class="btn text-black pb-1" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#accountInfoDropdown"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill align-top" viewBox="0 0 16 16">
+														<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+													</svg> </a> <!-- Start Account Info Modal -->
+												<div class="modal fade" id="accountInfoDropdown" data-bs-keyboard="false" tabindex="-1" aria-labelledby="accountInfoDropdownLabel" aria-hidden="true">
+													<div class="modal-dialog custom-model-min-width">
+														<div class="modal-content">
+															<div class="modal-header border-0 pb-2">
+																<h1 class="modal-title fs-4" id="accountInfoDropdownLabel">Account Info</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body pt-2"> 
+																<form class="row" method="post" action=""  id="account-info-basic-form" class="needs-validation" novalidate="novalidate">
+																	{% csrf_token %}
+																	<div class="col-md-12">
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_first_name" class="col-form-label">Name</label> </div>
+																			<div class="col-12"> <input type="text" value="{{request.user.first_name}}" required id="id_first_name" name="first_name" class="form-control"> </div>
+																		</div>
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_ph_number" class="col-form-label">Mobile Number</label> </div>
+																			<div class="col-12"> <input type="text" value="{{ request.user.user_phone_number.ph_number }}" required id="id_ph_number" class="form-control" name="ph_number" placeholder="Number"> </div>
+																		</div>
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_email" class="col-form-label">Email</label> </div>
+																			<div class="col-12"> <input type="email" value="{{ request.user.email }}" id="id_email" required class="form-control" name="email" placeholder="Email"> </div>
+																		</div>
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_show_password" class="col-form-label">Password</label> </div>
+																			<div class="col-12"> <input type="password" value="{{ request.user.show_password }}" required class="form-control" id="id_show_password" name="password" required placeholder="Password"> </div>
+																		</div>
+																		<div class="row my-4">
+																			<div class="col-12 d-flex justify-content-end">
+																				<button type="button" class="btn px-3 m-1 btn-outline-brand" data-bs-dismiss="modal">Close</button> 
+																				<button type="submit" class="btn px-3 m-1 btn-brand" name="form_model_type" value="account_info_model">save</button>
+																			</div>
+																		</div>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div> <!-- End Account Info Modal -->
 											</div>
-										</div>
-										<div class="col-6">
-											<label class="my-2"> Set Default Order Cut off time</label>
-											<div class="col-6">
-												<select class="form-select" name="" aria-placeholder="Estimated Delivery time" >
-													<option value="">Select Time</option>
-													<option value="00:00">12.00 AM</option>
-													<option value="00:30">12.30 AM</option>
-													<option value="01:00">01.00 AM</option>
-													<option value="01:30">01.30 AM</option>
-													<option value="02:00">02.00 AM</option>
-													<option value="02:30">02.30 AM</option>
-													<option value="03:00">03.00 AM</option>
-													<option value="03:30">03.30 AM</option>
-													<option value="04:00">04.00 AM</option>
-													<option value="04:30">04.30 AM</option>
-													<option value="05:00">05.00 AM</option>
-													<option value="05:30">05.30 AM</option>
-													<option value="06:00">06.00 AM</option>
-													<option value="06:30">06.30 AM</option>
-													<option value="07:00">07.00 AM</option>
-													<option value="07:30">07.30 AM</option>
-													<option value="08:00">08.00 AM</option>
-													<option value="08:30">08.30 AM</option>
-													<option value="09:00">09.00 AM</option>
-													<option value="09:30">09.30 AM</option>
-													<option value="10:00">10.00 AM</option>
-													<option value="10:30">10.30 AM</option>
-													<option value="11:00">11.00 AM</option>
-													<option value="11:30">11.30 AM</option>
-													<option value="12:00">12.00 PM</option>
-													<option value="12:30">12.30 PM</option>
-													<option value="13:00">01.00 PM</option>
-													<option value="13:30">01.30 PM</option>
-													<option value="14:00">02.00 PM</option>
-													<option value="14:30">02.30 PM</option>
-													<option value="15:00">03.00 PM</option>
-													<option value="15:30">03.30 PM</option>
-													<option value="16:00">04.00 PM</option>
-													<option value="16:30">04.30 PM</option>
-													<option value="17:00">05.00 PM</option>
-													<option value="17:30">05.30 PM</option>
-													<option value="18:00">06.00 PM</option>
-													<option value="18:30">06.30 PM</option>
-													<option value="19:00">07.00 PM</option>
-													<option value="19:30">07.30 PM</option>
-													<option value="20:00">08.00 PM</option>
-													<option value="20:30">08.30 PM</option>
-													<option value="21:00">09.00 PM</option>
-													<option value="21:30">09.30 PM</option>
-													<option value="22:00">10.00 PM</option>
-													<option value="22:30">10.30 PM</option>
-													<option value="23:00">11.00 PM</option>
-													<option value="23:30">11.30 PM</option>
-												</select>
-											</div>
-										</div>
-										<div class="col-12">
-											<div class="d-block">
-												<h5 class="mt-4 font-size-10px open-sans-font"><strong> Notifications & Communications Settings </strong></h5>
-											</div>
-											<div class="row py-3">
-												<div class="col-6">
-													<label for="a"> <span class=""> Receive Order Updates</span></label> <br>
-													<label class="font-size-14px" for="ROW"><input type="checkbox" id="ROW" name="ROW" {% if account.Receive_Order_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label> <br>
-													<label class="font-size-14px" for="ROC"><input type="checkbox" id="ROC" name="ROC" {% if account.Receive_Order_call %} checked{% endif %}>&nbsp;&nbsp;Call</label> <br>
-													<label class="font-size-14px" for="ROE"><input type="checkbox" id="ROE" name="ROE" {% if account.Receive_Order_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label>
+											<div class="col-12 col-md-9">
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_first_name" class="col-form-label">Name</label> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_first_name" value="{{ request.user.first_name }}" class="form-control"> </div>
 												</div>
-												<div class="col-6">
-													<label for="a"> <span class=""> Receive Payment Updates</span> </label> <br>
-													<label class="font-size-14px" for="RPW"><input type="checkbox" id="RPW" name="RPW" {% if account.Receive_Payment_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label><br>
-													<label class="font-size-14px" for="RPC"><input type="checkbox" id="RPC" name="RPC" {% if account.Receive_Payment_call %} checked{% endif %}>&nbsp;&nbsp;Call</label><br>
-													<label class="font-size-14px" for="RPE"><input type="checkbox" id="RPE" name="RPE" {% if account.Receive_Payment_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label>
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_phone_number" class="col-form-label">Phone Number</label> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_phone_number" value="{{ request.user.user_phone_number.ph_number }}" class="form-control"> </div>
 												</div>
-												<div class="col-12 mt-3">
-													<button class="btn btn-brand px-5" type="submit">Save</button>
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_email" class="col-form-label">Email ID</label> </div>
+													<div class="col-9"> <input readonly type="email" id="id_verify_email" value="{{ request.user.email }}" class="form-control"> </div>
+												</div>
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_show_password" class="col-form-label">Password</label> </div>
+													<div class="col-9"> 
+														<div class="input-group mb-3">
+															<input class="form-control" readonly id="id_verify_show_password" value="{{ request.user.show_password }}" placeholder="Password">
+															<span class="input-group-text bg-secondary text-white">
+																<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+																	<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+																	<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+																</svg>
+															 </span>
+														  </div>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row py-3">
-								<div class="col-12">
-									<h5 class="d-inline-block mb-0">Bank Account Info</h5>
-									<a href="" class="text-black pb-1" data-toggle="modal">
-										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-										</svg>
-									</a>
-								</div>
-								<div class="col-12 col-md-11">
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Bank Account Number</label>
+										<div class="row py-5">
+											<div class="col-12">
+												<h5 class="d-inline-block  mb-0">Seller Info</h5>&nbsp; <a href="javascript:void(0);" type="button" class="btn text-black pb-1" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#sellerInfoDropdown"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill align-top" viewBox="0 0 16 16">
+														<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+													</svg> </a> <!-- Start Seller Info Modal -->
+												<div class="modal fade" id="sellerInfoDropdown" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sellerInfoDropdownLabel" aria-hidden="true">
+													<div class="modal-dialog custom-model-min-width">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h1 class="modal-title fs-4" id="sellerInfoDropdownLabel">Seller Info</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body"> <div class="row">
+																<form class="row" method="post" action="" id="seller-info-basic-form" class="needs-validation" novalidate="novalidate">
+																	{% csrf_token %}
+																	<div class="col-md-12">
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_company_name" class="col-form-label">Company Legal Name</label> </div>
+																			<div class="col-12"> <input type="text" value="{{request.user.user_company_detail.company_name}}" required id="id_company_name" name="company_name" class="form-control" placeholder="Company Name"> </div>
+																		</div>
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_address_line_1" class="col-form-label ">Company Registered Address</label>
+																				<div class="row">
+																					<div class="col-sm-4"> 
+																						<select class="form-select"> 
+																							{% if state_obj %}
+																								{% for state in state_obj %} 
+																									<option value="{{state.id}}" {% if state.id == request.user.user_company_address.state.id %}selected{% endif %}>{{state.name}}</option> 
+																								{% endfor %}
+																							{% endif %} 
+																						</select>
+																					</div>
+																					<div class="col-sm-4"> 
+																						<select class="form-select"> 
+																							{% if city_obj %}
+																								{% for city in city_obj %} 
+																									<option value="{{city.id}}" {% if city.id == request.user.user_company_address.city.id %}selected{% endif %}>{{city.name}}</option> 
+																								{% endfor %}
+																							{% endif %} 
+																						</select> 
+																					</div>
+																					<div class="col-sm-4"> <input type="text" class="form-control" placeholder="Pincode" value="{% if request.user.user_company_address.pin_code %}{{request.user.user_company_address.pin_code}}{% endif %}" name="pincode"> </div>
+																					<div class="col-sm-12 mt-2">
+																						<div class="md-form mt-0"> <input type="text" class="form-control" placeholder="Address" value="{{request.user.user_company_address.address_line_1}}" style="border-radius: 0px;" name="address"> </div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_gstin_number" class="col-form-label">GSTIN</label> </div>
+																			<div class="col-12"> <input type="text" id="id_gstin_number" name="companyGSTNumber" required value="{{request.user.user_gst_detail.company_gst_number|default_if_none:''}}" class="form-control" placeholder="Company GST"> </div>
+																		</div>
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_company_verification" class="col-form-label">Company Verification {% if account.Company_verification %} <span style="color: green;"> <i class="icon ion-android-checkbox"></i> Verified </span> {% endif %} </label>
+																				<div class="row">
+																					<div class="col-md-4"> <select class="form-select" id="id_company_verification" name="Cin1"> 
+																						{% for choice in pan_cin_choices %}
+																							<option value="{{ choice.0 }}" {% if request.user.user_pan_cin_detail.document_type == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+																						{% endfor %}
+																						</select> </div>
+																					<div class="col-md-4"> <input type="text" class="form-control" required placeholder="" value="{{request.user.user_pan_cin_detail.documnet_id}}" style="border-radius: 0px;"> </div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_about_brand" class="col-form-label">About The Brand</label> </div>
+																			<div class="col-12"> <textarea type="text" id="id_about_brand" required class="form-control" placeholder="About The Brand" name="about_brand" spellcheck="false">{{request.user.user_company_detail.about_brand|default_if_none:''}}</textarea> </div>
+																		</div>
+																		<div class="row my-4">
+																			<div class="col-12 d-flex justify-content-end">
+																				<button type="button" class="btn px-3 m-1 btn-outline-brand" data-bs-dismiss="modal">Close</button> 
+																				<button type="submit" class="btn px-3 m-1 btn-brand" name="form_model_type" value="seller_info_model">save</button>
+																			</div>
+																		</div>
+																	</div>
+																</form>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div> <!-- End Seller Info Modal -->
+											</div>
+											<div class="col-12 col-md-9">
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_company_name" class="col-form-label">Company Legal Name</label> </div>
+													<div class="col-9"> <input readonly type="text" value="{{request.user.user_company_detail.company_name|default_if_none:''}}" id="id_verify_company_name" class="form-control"> </div>
+												</div>
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_address_line_1" class="col-form-label">Company Address</label> </div>
+													<div class="col-9"> <input readonly type="text" value="{{request.user.user_company_address.address_line_1|default_if_none:''}}" id="id_verify_address_line_1" class="form-control"> </div>
+												</div>
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_company_gst_number" class="col-form-label">GSTIN</label> </div>
+													<div class="col-9"> <input readonly type="rext" value="{{request.user.user_gst_detail.company_gst_number|default_if_none:''}}" id="id_verify_company_gst_number" class="form-control"> </div>
+												</div>
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_documnet_id" class="col-form-label">Company Verification</label> </div>
+													<div class="col-9">
+														<div class="row">
+															<div class="col-6"> <select class="form-select" disabled id="id_verify_document_type">
+																{% for choice in pan_cin_choices %}
+																	<option value="{{ choice.0 }}" {% if request.user.user_pan_cin_detail.document_type == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+																{% endfor %}
+																</select> </div>
+															<div class="col-6"> <input readonly id="id_documnet_id" value="{{request.user.user_pan_cin_detail.documnet_id|default_if_none:''}}" type="text" class="form-control"> </div>
+														</div>
+													</div>
+												</div>
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_about_brand" class="col-form-label">About Brand</label> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_about_brand" value="{{request.user.user_company_detail.about_brand|default_if_none:''}}" class="form-control"> </div>
+												</div>
+											</div>
 										</div>
-										<div class="col-9">
-											<input readonly type="text" class="form-control">
+										<div class="row py-3">
+											<div class="col-12">
+												<h5 class="d-inline-block  mb-0">Account Settings</h5>
+											</div>
+											<div class="col-12 col-md-9">
+												<div class="row">
+													<div class="col-6"> <label for="id_order_handling_time" class="my-2">Set Default Order Processing Time</label>
+														<div class="col-md-6"> <select class="form-select" id="id_order_handling_time" name="order_handling_time" aria-placeholder="Estimated Delivery time">
+															<option value="" selected disabled>Select Days</option>
+															{% for choice in order_handing_time %}
+																<option value="{{ choice.0 }}" {% if request.user.user_profile_setting.order_handling_time == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+															{% endfor %}
+															</select> </div>
+													</div>
+													<div class="col-6"> <label for="id_order_cutt_off_time" class="my-2"> Set Default Order Cut off time</label>
+														<div class="col-6"> <select class="form-select" id="id_order_cutt_off_time" name="order_cutt_off_time" aria-placeholder="Estimated Delivery time">
+																<option value="" selected disabled>Select Time</option>
+																{% for choice in order_cut_off_time %}
+																	<option value="{{ choice.0 }}" {% if request.user.user_profile_setting.order_cut_off_time == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+																{% endfor %}
+															</select> </div>
+													</div>
+													<div class="col-12">
+														<div class="d-block">
+															<h5 class="mt-4 font-size-10px open-sans-font"><strong> Notifications & Communications Settings </strong></h5>
+														</div>
+														<div class="row py-3">
+															<div class="col-6"> 
+																<label><span class=""> Receive Order Updates</span></label> <br> 
+																<label class="font-size-14px" for="id_receive_order_update_whatsapp"><input type="checkbox" id="id_receive_order_update_whatsapp" name="receive_order_update_whatsapp" {% if account.Receive_Order_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label> <br> 
+																<label class="font-size-14px" for="id_receive_order_update_call"><input type="checkbox" id="id_receive_order_update_call" name="receive_order_update_call" {% if account.Receive_Order_call %} checked{% endif %}>&nbsp;&nbsp;Call</label> <br> 
+																<label class="font-size-14px" for="id_receive_order_update_email"><input type="checkbox" id="id_receive_order_update_email" name="receive_order_update_email" {% if account.Receive_Order_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label> </div>
+															<div class="col-6"> 
+																<label for="a"> <span class=""> Receive Payment Updates</span> </label> <br> 
+																<label class="font-size-14px" for="id_receive_payment_update_whatsapp"><input type="checkbox" id="id_receive_payment_update_whatsapp" name="receive_payment_update_whatsapp" {% if account.Receive_Payment_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label><br> 
+																<label class="font-size-14px" for="id_receive_payment_update_call"><input type="checkbox" id="id_receive_payment_update_call" name="receive_payment_update_call" {% if account.Receive_Payment_call %} checked{% endif %}>&nbsp;&nbsp;Call</label><br>
+																<label class="font-size-14px" for="id_receive_payment_update_email"><input type="checkbox" id="id_receive_payment_update_email" name="receive_payment_update_email" {% if account.Receive_Payment_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label> </div>
+															<div class="col-12 mt-3"> <button class="btn btn-brand px-5" type="submit" value="notification_settings_model" >Save</button> </div>
+														</div>
+													</div>
+												</div>
+											</div>
 										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Account Holder Name</label>
+										<div class="row py-3">
+											<div class="col-12">
+												<h5 class="d-inline-block mb-0">Bank Account Info</h5> &nbsp; <a href="javascript:void(0);" type="button" class="btn text-black pb-1" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#bankAccoountInfoDropdown"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill align-top" viewBox="0 0 16 16">
+														<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+													</svg> </a> <!-- Start BankAccount Info Modal -->
+												<div class="modal fade" id="bankAccoountInfoDropdown" data-bs-keyboard="false" tabindex="-1" aria-labelledby="bankAccoountInfoDropdownLabel" aria-hidden="true">
+													<div class="modal-dialog custom-model-min-width">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h1 class="modal-title fs-5" id="bankAccoountInfoDropdownLabel">Bank Account Info</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body"> <div class="row">
+																	<form class="row" method="post" action=""  id="bank-account-info-basic-form" class="needs-validation" novalidate="novalidate">
+																		{% csrf_token %}
+																		<div class="col-md-12">
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_account_holder" class="col-form-label">Account Holder Name</label> </div>
+																			<div class="col-12"> <input type="text" id="id_account_holder" value="{{request.user.user_bank_verification.account_holder}}" required class="form-control" name="account_holder" placeholder="Account Holder Name"> </div>
+																		</div>
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_account_number" class="col-form-label">Account Number</label> </div>
+																			<div class="col-12"> <input type="text" value="{{request.user.user_bank_verification.account_number}}" class="form-control" required id="id_account_number" name="accountNumber" placeholder="account_number"> </div>
+																		</div>
+																		<div class="row my-3">
+																			<div class="col-12"> <label for="id_ifsc" class="col-form-label">IFSC Code</label> </div>
+																			<div class="col-12"> <input type="text" value="{{request.user.user_bank_verification.ifsc}}" id="id_ifsc" class="form-control" required name="ifsc" placeholder="IFSC Code"> </div>
+																		</div>
+																		<div class="row my-4">
+																			<div class="col-12 d-flex justify-content-end">
+																				<button type="button" class="btn px-3 m-1 btn-outline-brand" data-bs-dismiss="modal">Close</button> 
+																				<button type="submit" class="btn px-3 m-1 btn-brand" name="form_model_type" value="bank_account_info_model">save</button>
+																			</div>
+																		</div>
+																	  </div>
+																  	</form>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div> <!-- End BankAccount Info Modal -->
+											</div>
+											<div class="col-12 col-md-9">
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_account_number" class="col-form-label">Bank Account Number</label> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_account_number" name="account_number" value="{{request.user.user_bank_verification.account_number}}"  class="form-control"> </div>
+												</div>
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_account_holder" class="col-form-label">Account Holder Name</label> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_account_holder" name="verify_account_holder" value="{{request.user.user_bank_verification.account_holder}}" class="form-control"> </div>
+												</div>
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_ifsc" class="col-form-label">IFSC Code</label> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_ifsc" name="id_ifsc" value="{{request.user.user_bank_verification.ifsc}}" class="form-control"> </div>
+												</div>
+											</div>
 										</div>
-										<div class="col-9">
-											<input readonly type="text" class="form-control">
-										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">IFSC Code</label>
-										</div>
-										<div class="col-9">
-											<input readonly type="text" class="form-control">
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row py-3">
-								<div class="col-12">
-									<div class="my-5">
-										<div class="d-block">
-											<h5 class="d-inline-block  mb-0">Warehouse</h5>
-										</div>
-									</div>
-									<div class="row my-3">
-										<div class="col-3">
-											<label for="inputPassword6" class="col-form-label">Address</label>
-										</div>
-										<div class="col-sm-7">
-											<div class="col-sm-7">
-												<textarea readonly class="form-control"></textarea>
+										<div class="row py-3">
+											<div class="col-12">
+												<div class="d-block">
+													<h5 class="d-inline-block  mb-0">Warehouse</h5>
+												</div>
+											</div>
+											<div class="col-12">
+												{% for warehouse in  request.user.inventory_warehouse_location.all %}
+												<div class="row my-3">
+													<div class="col-3"> <label for="id_verify_wearhouse_address_line_1_{{warehouse.id}}" class="col-form-label">Address</label> </div>
+													<div class="col-sm-7">
+														<div class="row">
+															
+															<div class="col-sm-7"> <textarea id="id_verify_wearhouse_address_line_1_{{warehouse.id}}"  name="verify_wearhouse_address_line_1" readonly class="form-control">{{warehouse.plot_no|default_if_none:''}}, {{warehouse.location_name|default_if_none:''}},{{warehouse.street|default_if_none:''}}</textarea> </div>
+											
+															<div class="col-sm-2">
+																<div class="d-flex align-items-center"> <a class="p-2 text-black btn" href="javascript:void(0);" type="button" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#editWarehouseDropdown_{{warehouse.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+																			<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+																		</svg> </a> <!-- Start editWarehouse Dropdown Info Modal -->
+																	<div class="modal fade" id="editWarehouseDropdown_{{warehouse.id}}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editWarehouseDropdownLabel_{{warehouse.id}}" aria-hidden="true">
+																		<div class="modal-dialog custom-model-min-width">
+																			<div class="modal-content">
+																				<div class="modal-header">
+																					<h1 class="modal-title fs-5" id="editWarehouseDropdownLabel_{{warehouse.id}}">Edit Warehouse Address</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																				</div>
+																				<div class="modal-body">
+																					<form class="row" method="post" action=""  id="edit-warehouse-info-basic-form" class="needs-validation" novalidate="novalidate">
+																						{% csrf_token %}
+																						
+																						<div class="col-md-12"> <input type="hidden" class="form-control" placeholder="" value="" style="border-radius: 0px;" name="warehouse" required id="warehouse_id_{{warehouse.id}}">
+																							<div class="form-row">
+																								<div class="form-group col-md-12"> <label for="id_location_name" class="col-form-label label-common-style font-size-16px font-weight-600">Location Name</label> 
+																									<input type="text" class="form-control" placeholder="" value="{{warehouse.location_name |default_if_none:''}}" style="border-radius: 0px;" name="location_name" id ="id_location_name" required>
+																								</div>
+																							</div>
+																							<div class="form-row">
+																								<div class="form-group col-md-12"> <label for="id_plot_no" class="col-form-label label-common-style font-size-16px">Plot/House No.</label> 
+																									<input type="text" class="form-control" placeholder="" value="{{warehouse.plot_no |default_if_none:''}}" style="border-radius: 0px;" name="plot_no" id="id_plot_no" required> 
+																								</div>
+																							</div>
+																							<div class="form-row">
+																								<div class="form-group col-md-12"> <label for="id_street" class="col-form-label label-common-style font-size-16px font-weight-600">Street Name / Locality</label> 
+																									<input type="text" class="form-control" placeholder="" value="{{warehouse.street |default_if_none:''}}" style="border-radius: 0px;" name="street" id="id_street" required> 
+																								</div>
+																							</div>
+																							<div class="form-row">
+																								<div class="form-group col-md-12"> 
+																									<label for="stateId" class="col-form-label label-common-style font-size-16px font-weight-600">State</label> 
+																									<select class="form-select"> 
+																									{% if state_obj %}
+																										{% for state in state_obj %} 
+																											<option value="{{state.id}}" {% if state.id == warehouse.state.id %}selected{% endif %}>{{state.name}}</option> 
+																										{% endfor %}
+																									{% endif %} 
+																									</select> 
+																								</div>
+																							</div>
+																							<div class="form-row">
+																								<div class="form-group col-md-12"> 
+																									<label for="cityId" class="col-form-label label-common-style font-size-16px font-weight-600">City</label> 
+																									<select class="form-select"> 
+																										{% if city_obj %}
+																											{% for city in city_obj %} 
+																												<option value="{{city.id}}" {% if city.id == warehouse.city.id %}selected{% endif %}>{{city.name}}</option> 
+																											{% endfor %}
+																										{% endif %}
+																									</select> 
+																								</div>
+																							</div>
+																							<div class="form-row">
+																								<div class="form-group col-md-12"> <label for="id_landmark" class="col-form-label label-common-style font-size-16px font-weight-600">landmark</label> 
+																									<input type="text" class="form-control" placeholder="" value="{{warehouse.landmark |default_if_none:''}}" style="border-radius: 0px;" id="id_landmark" name="landmark" required> 
+																								</div>
+																							</div>
+																							<div class="form-row">
+																								<div class="form-group col-md-12"> <label for="id_pin_code" class="col-form-label label-common-style font-size-16px font-weight-600">Pincode</label> 
+																									<input type="number" class="form-control" placeholder="" value="{{warehouse.pin_code |default_if_none:''}}" style="border-radius: 0px;" id="id_pin_code" name="pin_code" required> 
+																								</div>
+																							</div>
+																							<div class="row my-4">
+																								<div class="col-12 d-flex justify-content-end">
+																									<button type="button" class="btn px-3 m-1 btn-outline-brand" data-bs-dismiss="modal">Close</button> 
+																									<button type="submit" class="btn px-3 m-1 btn-brand" name="form_model_type" value="account_info_model">save</button>
+																								</div>
+																							</div>
+																						</div>
+																					</form>
+																				</div>
+																			</div>
+																		</div>
+																	</div> <!-- End editWarehouse Dropdown Info Modal --> <a class="p-2 text-black btn" href="javascript:void(0);" type="button" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#deleteWarehouseDropdown_{{warehouse.id}}"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+																			<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0" />
+																		</svg> </a> <!-- Start deleteWarehouse Dropdown Info Modal -->
+																	<div class="modal fade" id="deleteWarehouseDropdown_{{warehouse.id}}" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteWarehouseDropdownLabel_{{warehouse.id}}" aria-hidden="true">
+																		<div class="modal-dialog custom-model-min-width">
+																			<div class="modal-content">
+																				<div class="modal-header">
+																					<h1 class="modal-title fs-5" id="deleteWarehouseDropdownLabel">Delete Warehouse Address</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																				</div>
+																				<div class="modal-body"> deleteWarehouseInfo {{warehouse.id}} </div>
+																				<div class="modal-footer"> <button type="button" class="btn btn-brand" data-bs-dismiss="modal">CLOSE</button> <button type="button" class="btn btn-brand">SAVE</button> </div>
+																			</div>
+																		</div>
+																	</div> <!-- End deleteWarehouse Dropdown Info Modal -->
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												{% endfor %}
+												<div class="col-12 text-center"> <a href="javascript:void(0);" type="button" class="btn btn-brand pb-1" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#addWarehouseDropdown"> + Add New</a> <!-- Start addWarehouse Dropdown Info Modal -->
+													<div class="modal fade" id="addWarehouseDropdown" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addWarehouseDropdownLabel" aria-hidden="true">
+														<div class="modal-dialog custom-model-min-width">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h1 class="modal-title fs-5" id="addWarehouseDropdownLabel">Add Warehouse Info</h1> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																</div>
+																<div class="modal-body"> addWarehouseInfo <div class="row">
+																		<div class="col-md-12"> <input type="hidden" class="form-control" placeholder="" value="" style="border-radius: 0px;" name="pickUpId" required id="pickUpId">
+																			<div class="row my-3">
+																				<div class="col-12">
+																					<label for="id_verify_location_name" class="col-form-label">Location Name</label>
+																				</div>
+																				<div class="col-12">
+																					<input  type="text" class="form-control" id="id_verify_location_name" name="location_name" placeholder=""  >
+																				</div>
+																			</div>
+			
+																			<div class="row my-3">
+																				<div class="col-12">
+																					<label for="id_verify_plot_no" class="col-form-label">Plot/House No</label>
+																				</div>
+																				<div class="col-12">
+																					<input  type="text" class="form-control" id="id_verify_plot_no" placeholder="" name="plot_no" >
+																				</div>
+																			</div>
+			
+																			<div class="row my-3">
+																				<div class="col-12">
+																					<label for="id_verify_street" class="col-form-label">Street Name / Locality</label>
+																				</div>
+																				<div class="col-12">
+																					<input   type="text" class="form-control" id="id_verify_street" placeholder="" name="street" >
+																				</div>
+																			</div>
+			
+																			<div class="row my-3">
+																				<div class="col-12">
+																					<label for="id_verify_state" class="col-form-label">State</label>
+																				</div>
+																				<div class="col-12">
+																					<input type="text" class="form-control" id="id_verify_state" placeholder="" name="state" >
+																				</div>
+																			</div>
+			
+																			<div class="row my-3">
+																				<div class="col-12">
+																					<label for="id_verify_city" class="col-form-label">City</label>
+																				</div>
+																				<div class="col-12">
+																					<input type="text" class="form-control" id="id_verify_city" placeholder="" name="city" >
+																				</div>
+																			</div>
+			
+																			<div class="row my-3">
+																				<div class="col-12">
+																					<label for="id_verify_landmark" class="col-form-label">landmark</label>
+																				</div>
+																				<div class="col-12">
+																					<input type="text" class="form-control" id="id_verify_landmark" placeholder="" name="landmark" >
+																				</div>
+																			</div>
+			
+																			<div class="row my-3">
+																				<div class="col-12">
+																					<label for="id_verify_pin_code" class="col-form-label">Pincode</label>
+																				</div>
+																				<div class="col-12">
+																					<input type="number" class="form-control" id="id_verify_pin_code" placeholder="" name="pin_code" >
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="row my-4">
+																		<div class="col-12 d-flex justify-content-end">
+																			<button type="button" class="btn px-3 m-1 btn-outline-brand" data-bs-dismiss="modal">Close</button> 
+																			<button type="submit" class="btn px-3 m-1 btn-brand" value="account_info">save</button>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div> <!-- End addWarehouse Dropdown Info Modal -->
+												</div>
 											</div>
 										</div>
 									</div>
@@ -315,4 +539,29 @@
 	</div>
 </div>
 {% endblock content %}
-{% block jsblock %}{% endblock jsblock %}
+{% block jsblock %}
+	<script>
+					
+		$(document).ready (function () {  
+			$("#account-info-basic-form").validate();
+		});
+	</script>
+	<script>
+					
+		$(document).ready (function () {  
+			$("#seller-info-basic-form").validate();
+		});
+	</script>
+	<script>
+					
+		$(document).ready (function () {  
+			$("#bank-account-info-basic-form").validate();
+		});
+	</script>
+	<script>
+					
+		$(document).ready (function () {  
+			$("#edit-warehouse-info-basic-form").validate();
+		});
+	</script>
+{% endblock jsblock %}

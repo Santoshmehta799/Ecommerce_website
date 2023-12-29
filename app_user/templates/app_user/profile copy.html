@@ -1,0 +1,844 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}Seller Profile | Seventh Square Seller{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}
+	<style>
+		.bg-brand-custom-main-col{
+			background-color: #F5F5F5!important;
+		}
+	</style>
+{% endblock cssblock %}
+{% block content %}
+<div class="container-fluid">
+<div class="row">
+<!-- Messages Start -->
+{% include 'seventh-square/layout/messages.html' %}
+<!-- Messages END -->
+<div class="col-12 col-md-12 bg-white">
+	<div class="row pl-0">
+		<!-- Col-3 is written as sidebar -->
+		<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
+			<div class="row pt-4 px-4">
+				<div class="col-12">
+					{%include 'seventh-square/layout/sidebar.html' %}
+				</div>
+			</div>
+		</div>
+		<div class="custom-main-col-width bg-brand-custom-main-col">
+			<div class="row px-4 pt-3">
+				<div class="col-md-12">
+					<nav aria-label="breadcrumb">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="/">Home</a></li>
+							<li class="breadcrumb-item active" aria-current="page">Your Profile</li>
+						</ol>
+					</nav>
+				</div>
+			</div>
+			<div class="row px-4">
+				<div class="col-md-12 px-3">
+					<h2 class="text-left" >Seller Profile</h2>
+				</div>
+			</div>
+			<div class="row mx-2 mb-4">
+				<div class="col-12">
+					<div class="card border border-0 p-3">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-12">
+									<h5 class="d-inline-block  mb-0">Account Info</h5>&nbsp;
+									<a href="javascript:void(0);" type="button" class="btn text-black pb-1" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#accountInfoDropdown">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill align-top" viewBox="0 0 16 16">
+											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+										</svg>
+									</a>
+									<!-- Start Account Info Modal -->
+									<div class="modal fade" id="accountInfoDropdown" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="accountInfoDropdownLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content model-profile-min-width">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5" id="accountInfoDropdownLabel">Account Info</h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													AccountInfo
+													<div class="row">
+														<div class="col-md-12">
+															
+															<div class="row my-3">
+																<div class="col-12">
+																	<label for="id_first_name" class="col-form-label">Name</label>
+																</div>
+																<div class="col-12">
+																	<input  type="text" id="id_first_name" name="first_name" class="form-control" >
+																</div>
+															</div>
+
+															<div class="row my-3">
+																<div class="col-12">
+																	<label for="id_ph_number" class="col-form-label">Mobile Number</label>
+																</div>
+																<div class="col-12">
+																	<input type="number" id="id_ph_number" class="form-control" name="ph_number" placeholder="Number" >
+																</div>
+															</div>
+
+															<div class="row my-3">
+																<div class="col-12">
+																	<label for="id_email" class="col-form-label">Email</label>
+																</div>
+																<div class="col-12">
+																	<input type="email" id="id_email" class="form-control" name="email" placeholder="Email">
+																</div>
+															</div>
+
+															<div class="row my-3">
+																<div class="col-12">
+																	<label for="id_show_password" class="col-form-label">Password</label>
+																</div>
+																<div class="col-12">
+																	<input type="password" class="form-control" id="id_show_password" name="show_password" required placeholder="Password" >
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-brand" data-bs-dismiss="modal">Close</button>
+													<button type="button" class="btn btn-brand">save</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- End Account Info Modal -->
+								</div>
+								<div class="col-12 col-md-9">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Name</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Phone Number</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Email ID</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="email" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Password</label>
+										</div>
+										<div class="col-9">
+											<input disabled id="password-field" class="form-control icon-wrapper input">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row py-5">
+								<div class="col-12">
+									<h5 class="d-inline-block  mb-0">Seller Info</h5>&nbsp;
+									<a href="javascript:void(0);" type="button" class="btn text-black pb-1" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#sellerInfoDropdown">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill align-top" viewBox="0 0 16 16">
+											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+										</svg>
+									</a>
+									<!-- Start Seller Info Modal -->
+									<div class="modal fade" id="sellerInfoDropdown" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sellerInfoDropdownLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content model-profile-min-width">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5" id="sellerInfoDropdownLabel">Seller Info</h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													sellerInfo
+													<div class="row">
+														<div class="col-md-12">
+
+															<div class="row my-3">
+																<div class="col-12">
+																	<label for="id_company_name" class="col-form-label">Company Legal Name</label>
+																</div>
+																<div class="col-12">
+																	<input  type="text" id="id_company_name" name="company_name" class="form-control" placeholder="Company Name" >
+																</div>
+															</div>
+														  
+															<div class="row my-3">
+																<div class="col-12">
+																	<label for="id_address_line_1" class="col-form-label">Company Registered Address</label>
+																</div>
+																<div class="col-sm-4">
+																	<input  type="text" id="id_address_line_1" class="form-control" name="address_line_1" placeholder="State">
+																</div>
+																<div class="col-sm-4">
+																	<input type="text" class="form-control" placeholder="City" value="{{addressCompany.city}}"
+																	  style="border-radius: 0px;" name="city">
+																</div>
+																<div class="col-sm-4">
+																	<input type="text" class="form-control" placeholder="Pincode" value="{{addressCompany.pincode}}"
+																	  style="border-radius: 0px;" name="pincode">
+																</div>
+																<div class="col-sm-12 mt-2">
+																  <div class="md-form mt-0">
+																	<input type="text" class="form-control" placeholder="Address" value="{{addressCompany.address}}"
+																	  style="border-radius: 0px;" name="address_line_1">
+																  </div>
+																</div>
+															  </div>
+															</div>
+														  </div>
+
+														  <div class="row my-3">
+															<div class="col-12">
+																<label for="id_company_gst_number" class="col-form-label">GSTIN</label>
+															</div>
+															<div class="col-12">
+																<input  type="text" id="id_company_gst_number" name="company_gst_number" class="form-control" placeholder="Company GST">
+															</div>
+														</div>
+														  
+														<div class="row my-3">
+															<div class="col-12">
+															  <label for="id_document_type" class="col-form-label">Company Verification
+																{% comment %} {% if account.Company_verification %}
+																<span style="color: green;" id="_verify"> 
+																  <i class="icon ion-android-checkbox" style="margin: 0px 7px;font-size: 14px; color:green" ></i>
+																  Verified
+																</span> 
+																{% endif %} {% endcomment %}
+															  </label>
+																</div>
+															  <div class="row">
+																<input  type="text" id="id_document_type" name="document_type" class="form-control" placeholder="Company GST">
+																<div class="col-md-4">
+																  <select class="form-select" id="drop_pick" name="Cin1">
+																	{% comment %} {% if account.Company_Verification_type %}
+																	  <option value="{{account.Company_Verification_type}}" selected hidden>{{account.Company_Verification_type}}</option>
+																	{% endif %} {% endcomment %}
+																	  <option value="CIN">CIN</option>
+																	  <option value="PAN">PAN</option>
+																  </select>
+																</div>
+																<div class="col-md-4">
+																  <input type="text" class="form-control" placeholder=""
+																  style="border-radius: 0px;" name="Cin2">
+																</div>
+															  </div>
+															</div>
+														  </div>
+
+														  <div class="row my-3">
+															<div class="col-12">
+																<label for="id_about_brand" class="col-form-label">About The Brand</label>
+															</div>
+															<div class="col-12">
+																<input  type="text" id="id_about_brand" class="form-control" placeholder="About The Brand"  name="about_brand">
+															</div>
+														</div>
+														</div>
+													  </div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-brand" data-bs-dismiss="modal">CLOSE</button>
+													<button type="button" class="btn btn-brand">SAVE</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- End Seller Info Modal -->
+								</div>
+								<div class="col-12 col-md-9">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Company Legal Name</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Company Address</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">GSTIN</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="email" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Company Verification</label>
+										</div>
+										<div class="col-9">
+											<div class="row">
+												<div class="col-6">
+													<select class="form-select">
+														<option disabled selected value="">dsd</option>
+													</select>
+												</div>
+												<div class="col-6">
+													<input readonly type="email" class="form-control">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">About Brand</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="email" class="form-control">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row py-3">
+								<div class="col-12">
+									<h5 class="d-inline-block  mb-0">Account Settings</h5>
+								</div>
+								<div class="col-12 col-md-9">
+									<div class="row">
+										<div class="col-6">
+											<label class="my-2">Set Default Order Processing Time</label>
+											<div class="col-md-6">
+												<select class="form-select"  name="oht" aria-placeholder="Estimated Delivery time" >
+													<option value="{{account.Order_handling_time}}" hidden>Same Day</option>
+													<option value="">Select Days</option>
+													<option value="0">Same Day</option>
+													<option value="1">1 Day</option>
+													<option value="2">2 Days</option>
+													<option value="3">3 Days</option>
+													<option value="4">4 Days</option>
+													<option value="5">5 Days</option>
+													<option value="6">6 Days</option>
+													<option value="7">7 Days</option>
+													<option value="8">8 Days</option>
+													<option value="9">9 Days</option>
+													<option value="10">10 Days</option>
+													<option value="+10">More than 10 Days</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-6">
+											<label class="my-2"> Set Default Order Cut off time</label>
+											<div class="col-6">
+												<select class="form-select" name="" aria-placeholder="Estimated Delivery time" >
+													<option value="">Select Time</option>
+													<option value="00:00">12.00 AM</option>
+													<option value="00:30">12.30 AM</option>
+													<option value="01:00">01.00 AM</option>
+													<option value="01:30">01.30 AM</option>
+													<option value="02:00">02.00 AM</option>
+													<option value="02:30">02.30 AM</option>
+													<option value="03:00">03.00 AM</option>
+													<option value="03:30">03.30 AM</option>
+													<option value="04:00">04.00 AM</option>
+													<option value="04:30">04.30 AM</option>
+													<option value="05:00">05.00 AM</option>
+													<option value="05:30">05.30 AM</option>
+													<option value="06:00">06.00 AM</option>
+													<option value="06:30">06.30 AM</option>
+													<option value="07:00">07.00 AM</option>
+													<option value="07:30">07.30 AM</option>
+													<option value="08:00">08.00 AM</option>
+													<option value="08:30">08.30 AM</option>
+													<option value="09:00">09.00 AM</option>
+													<option value="09:30">09.30 AM</option>
+													<option value="10:00">10.00 AM</option>
+													<option value="10:30">10.30 AM</option>
+													<option value="11:00">11.00 AM</option>
+													<option value="11:30">11.30 AM</option>
+													<option value="12:00">12.00 PM</option>
+													<option value="12:30">12.30 PM</option>
+													<option value="13:00">01.00 PM</option>
+													<option value="13:30">01.30 PM</option>
+													<option value="14:00">02.00 PM</option>
+													<option value="14:30">02.30 PM</option>
+													<option value="15:00">03.00 PM</option>
+													<option value="15:30">03.30 PM</option>
+													<option value="16:00">04.00 PM</option>
+													<option value="16:30">04.30 PM</option>
+													<option value="17:00">05.00 PM</option>
+													<option value="17:30">05.30 PM</option>
+													<option value="18:00">06.00 PM</option>
+													<option value="18:30">06.30 PM</option>
+													<option value="19:00">07.00 PM</option>
+													<option value="19:30">07.30 PM</option>
+													<option value="20:00">08.00 PM</option>
+													<option value="20:30">08.30 PM</option>
+													<option value="21:00">09.00 PM</option>
+													<option value="21:30">09.30 PM</option>
+													<option value="22:00">10.00 PM</option>
+													<option value="22:30">10.30 PM</option>
+													<option value="23:00">11.00 PM</option>
+													<option value="23:30">11.30 PM</option>
+												</select>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="d-block">
+												<h5 class="mt-4 font-size-10px open-sans-font"><strong> Notifications & Communications Settings </strong></h5>
+											</div>
+											<div class="row py-3">
+												<div class="col-6">
+													<label for="a"> <span class=""> Receive Order Updates</span></label> <br>
+													<label class="font-size-14px" for="ROW"><input type="checkbox" id="ROW" name="ROW" {% if account.Receive_Order_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label> <br>
+													<label class="font-size-14px" for="ROC"><input type="checkbox" id="ROC" name="ROC" {% if account.Receive_Order_call %} checked{% endif %}>&nbsp;&nbsp;Call</label> <br>
+													<label class="font-size-14px" for="ROE"><input type="checkbox" id="ROE" name="ROE" {% if account.Receive_Order_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label>
+												</div>
+												<div class="col-6">
+													<label for="a"> <span class=""> Receive Payment Updates</span> </label> <br>
+													<label class="font-size-14px" for="RPW"><input type="checkbox" id="RPW" name="RPW" {% if account.Receive_Payment_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label><br>
+													<label class="font-size-14px" for="RPC"><input type="checkbox" id="RPC" name="RPC" {% if account.Receive_Payment_call %} checked{% endif %}>&nbsp;&nbsp;Call</label><br>
+													<label class="font-size-14px" for="RPE"><input type="checkbox" id="RPE" name="RPE" {% if account.Receive_Payment_Email %} checked{% endif %}>&nbsp;&nbsp;Email</label>
+												</div>
+												<div class="col-12 mt-3">
+													<button class="btn btn-brand px-5" type="submit">Save</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row py-3">
+								<div class="col-12">
+									<h5 class="d-inline-block mb-0">Bank Account Info</h5> &nbsp;
+									<a href="javascript:void(0);" type="button" class="btn text-black pb-1" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#bankAccoountInfoDropdown">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill align-top" viewBox="0 0 16 16">
+											<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+										</svg>
+									</a>
+									<!-- Start BankAccount Info Modal -->
+									<div class="modal fade" id="bankAccoountInfoDropdown" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="bankAccoountInfoDropdownLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content model-profile-min-width">
+												<div class="modal-header">
+													<h1 class="modal-title fs-5" id="bankAccoountInfoDropdownLabel">Bank Account Info</h1>
+													<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													BankAccountInfo
+													<div class="row">
+														<div class="col-md-12">
+
+															<div class="row my-3">
+																<div class="col-12">
+																	<label for="id_account_holder_name" class="col-form-label">Account Holder Name</label>
+																</div>
+																<div class="col-12">
+																	<input  type="text" id="id_account_holder_name" class="form-control" name="accountHolderName" placeholder="Account Holder Name " >
+																</div>
+															</div>
+
+															<div class="row my-3">
+																<div class="col-12">
+																	<label for="id_account_name" class="col-form-label">Account Number</label>
+																</div>
+																<div class="col-12">
+																	<input  type="text" class="form-control" name="accountNumber" placeholder="Account Number"  >
+																</div>
+															</div>
+
+															<div class="row my-3">
+																<div class="col-12">
+																	<label for="id_ifsc_code" class="col-form-label">IFSC Code</label>
+																</div>
+																<div class="col-12">
+																	<input  type="text" id="id_ifsc_code" class="form-control"  name="ifsc" placeholder="IFSC Code"  >
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-brand" data-bs-dismiss="modal">CLOSE</button>
+													<button type="button" class="btn btn-brand">SAVE</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- End BankAccount Info Modal -->
+								</div>
+								<div class="col-12 col-md-9">
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Bank Account Number</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Account Holder Name</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
+									</div>
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">IFSC Code</label>
+										</div>
+										<div class="col-9">
+											<input readonly type="text" class="form-control">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row py-3">
+								<div class="col-12">
+									<div class="d-block">
+										<h5 class="d-inline-block  mb-0">Warehouse</h5>
+									</div>
+								</div>
+								<div class="col-12">
+
+									<div class="row my-3">
+										<div class="col-3">
+											<label for="inputPassword6" class="col-form-label">Address</label>
+										</div>
+										<div class="col-sm-7">
+											<div class="row">
+												<div class="col-sm-7">
+													<textarea readonly class="form-control"></textarea>
+												</div>
+												<div class="col-sm-2">
+													<div class="d-flex align-items-center">
+														<a class="p-2 text-black btn" href="javascript:void(0);" type="button" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#editWarehouseDropdown">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+																<path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+															</svg>
+														</a>
+														<!-- Start editWarehouse Dropdown Info Modal -->
+														<div class="modal fade" id="editWarehouseDropdown" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editWarehouseDropdownLabel" aria-hidden="true">
+															<div class="modal-dialog">
+																<div class="modal-content model-profile-min-width">
+																	<div class="modal-header">
+																		<h1 class="modal-title fs-5" id="editWarehouseDropdownLabel">Edit Warehouse Address</h1>
+																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																	</div>
+																	<div class="modal-body">
+																		editWarehouseInfo
+																		<div class="row">
+																			<div class="col-md-12">
+																				<input type="hidden" class="form-control" placeholder="" value=""
+																					style="border-radius: 0px;" name="pickUpId" required id="pickUpId" > 
+																				<div class="form-row">
+																					<div class="form-group col-md-12">
+																						<label for="Plocation" class="col-form-label label-common-style font-size-16px font-weight-600">Location Name</label>
+																						<input type="text" class="form-control" placeholder="" value="{{pickup.pickupPlotNo |default_if_none:''}}"
+																						style="border-radius: 0px;" name="Plocation" required id="Plocation"> 
+																					</div>
+																				</div>
+																				<div class="form-row">
+																					<div class="form-group col-md-12">
+																					<label for="PplotNo" class="col-form-label label-common-style font-size-16px">Plot/House No.</label>
+																					<input type="text" class="form-control" placeholder="" value="{{pickup.pickupPlotNo |default_if_none:''}}"
+																					style="border-radius: 0px;"  id="PplotNo"name="PplotNo" required> 
+																					</div>
+																				</div>
+																				<div class="form-row">
+																					<div class="form-group col-md-12">
+																					<label for="Pstreet" class="col-form-label label-common-style font-size-16px font-weight-600">Street Name / Locality</label>
+																					<input type="text" class="form-control" placeholder="" value="{{pickup.pickupStreet |default_if_none:''}}"
+																					style="border-radius: 0px;" name="Pstreet" id="Pstreet" required>
+																					</div>
+																				</div>
+																				<div class="form-row">
+																					<div class="form-group col-md-12">
+																					<label for="stateId" class="col-form-label label-common-style font-size-16px font-weight-600">State</label>
+																					<input type="hidden" name="country" id="countryId" value="IN"/>
+																					<input type="text" class="form-control" placeholder="" value="{{pickups.pickupState1}}"
+																					style="border-radius: 0px;" name="Pstate" id="stateId" required>
+																					</div>
+																				</div>
+																				<div class="form-row">
+																					<div class="form-group col-md-12">
+																					<label for="cityId" class="col-form-label label-common-style font-size-16px font-weight-600">City</label>
+																					<input type="text" class="form-control" placeholder="" value="{{pickups.pickupCity1}}"
+																					style="border-radius: 0px;" name="Pcity" id="cityId" required>
+																					</div>
+																				</div>
+																				<div class="form-row">
+																					<div class="form-group col-md-12">
+																					<label for="Plandmark" class="col-form-label label-common-style font-size-16px font-weight-600">landmark</label>
+																					<input type="text" class="form-control" placeholder="" value="{{pickup.pickupStreet |default_if_none:''}}"
+																					sty<a href="javascript:void(0);" type="button" class="btn btn-brand pb-1" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#addWarehouseDropdown"> + Add New</a>
+																					<!-- Start addWarehouse Dropdown Info Modal -->
+																					<div class="modal fade" id="addWarehouseDropdown" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addWarehouseDropdownLabel" aria-hidden="true">
+																						<div class="modal-dialog">
+																							<div class="modal-content model-profile-min-width">
+																								<div class="modal-header">
+																									<h1 class="modal-title fs-5" id="addWarehouseDropdownLabel">Add Warehouse Info</h1>
+																									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																								</div>
+																								<div class="modal-body">
+																									addWarehouseInfo
+																									
+																								<div class="modal-footer">
+																									<button type="button" class="btn btn-brand" data-bs-dismiss="modal">CLOSE</button>
+																									<button type="button" class="btn btn-brand">SAVE</button>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																					<!-- End addWarehouse Dropdown Info Modal -->le="border-radius: 0px;" id="Plandmark" name="Plandmark" required>
+																					</div>
+																				</div>
+																				<div class="form-row">
+																					<div class="form-group col-md-12">
+																					<label for="Ppincode" class="col-form-label label-common-style font-size-16px font-weight-600">Pincode</label>
+																					<input type="number" class="form-control" placeholder="" value="{{pickup.pickupPin |default_if_none:''}}"
+																					style="border-radius: 0px;" id="Ppincode" name="Ppincode"required>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-brand" data-bs-dismiss="modal">CLOSE</button>
+																		<button type="button" class="btn btn-brand">SAVE</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- End editWarehouse Dropdown Info Modal -->
+
+														<a class="p-2 text-black btn" href="javascript:void(0);" type="button" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#deleteWarehouseDropdown">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+																<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+															</svg>
+														</a>
+														<!-- Start deleteWarehouse Dropdown Info Modal -->
+														<div class="modal fade" id="deleteWarehouseDropdown" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteWarehouseDropdownLabel" aria-hidden="true">
+															<div class="modal-dialog">
+																<div class="modal-content model-profile-min-width">
+																	<div class="modal-header">
+																		<h1 class="modal-title fs-5" id="deleteWarehouseDropdownLabel">Delete Warehouse Address</h1>
+																		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																	</div>
+																	<div class="modal-body">
+																		deleteWarehouseInfo
+																		<div class="modal-body" style="padding: 5% 10%;">
+																			<!-- Horizontal material form -->
+																			<!-- Grid row -->
+																			<div class="form-group row">
+																			  <!-- Material input -->
+																			  <input type="text" class="form-control" placeholder="" value="{{pickup.pickupPlotNo |default_if_none:''}}"
+																			  style="border-radius: 0px;" name="Pid" required id="Pid" hidden> 
+																			  <label class="col-sm-4 col-form-label"><strong>Location Name</strong></label>
+																			  <div class="col-sm-8" style="user-select: auto;align-items: center;display: flex;">
+																				<div class="md-form mt-0">
+																				  <span style="border-radius: 0px;"  id="Plocation2"> 
+																
+																				</div>
+																			  </div>
+																			</div>
+																			<div class="form-group row">
+																			  <!-- Material input -->
+																			  <label class="col-sm-4 col-form-label"><strong>Plot/House No. </strong></label>
+																			  <div class="col-sm-8" style="user-select: auto;align-items: center;display: flex;">
+																				<div class="md-form mt-0">
+																				  <span id="PplotNo"name="PplotNo" required>
+																				</div>
+																			  </div>
+																			</div>
+																			<!-- Grid row -->
+																			<div class="form-group row">
+																			  <!-- Material input -->
+																			  <label class="col-sm-4 col-form-label"><strong>Street Name / Locality</strong></label>
+																			  <div class="col-sm-8" style="user-select: auto;align-items: center;display: flex;">
+																				<div class="md-form mt-0">
+																				  <span name="Pstreet" id="Pstreet" > </span>
+																				</div>
+																			  </div>
+																			</div>
+																			<!-- Grid row -->
+																			<!-- Grid row -->
+																			<div class="form-group row">
+																			  <!-- Material input -->
+																			  <label class="col-sm-4 col-form-label"><strong>City</strong></label>
+																			  <div class="col-sm-8" style="user-select: auto;align-items: center;display: flex;">
+																				<div class="md-form mt-0">
+																				  <span name="Pcity" id="cityId" > </span>
+																				</div>
+																			  </div>
+																			</div>
+																		  
+																			<!-- Grid row -->
+																			<div class="form-group row">
+																			  <!-- Material input -->
+																			  <label class="col-sm-4 col-form-label"><strong>State</strong></label>
+																			  <div class="col-sm-8" style="user-select: auto;align-items: center;display: flex;">
+																				<div class="md-form mt-0">
+																				  <span name="Pstate" id="stateId" > </span>
+																			  </div>
+																			</div>
+																			</div>  
+																			<!-- <script src="cities.js"></script> -->
+																			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+																			<!-- <script src="//geodata.solutions/includes/statecity.js"></script> -->
+																			<div class="form-group row">
+																			  <!-- Material input -->
+																			  <label class="col-sm-4 col-form-label"><strong>landmark</strong></label>
+																			  <div class="col-sm-8" style="user-select: auto;align-items: center;display: flex;">
+																				<div class="md-form mt-0">
+																				  <span id="Plandmark" name="Plandmark" > </span>
+																				</div>
+																			  </div>
+																			</div>
+																			<!-- Grid row -->
+																			<div class="form-group row">
+																			  <!-- Material input -->
+																			  <label class="col-sm-4 col-form-label"><strong>Pin</strong></label>
+																			  <div class="col-sm-8" style="user-select: auto;align-items: center;display: flex;">
+																				<div class="md-form mt-0">
+																				  <span id="Ppincode" name="Ppincode"> </span>
+																				</div>
+																			  </div>
+																			</div>
+														  
+																			<!-- Horizontal material form -->
+																		  </div>
+																	</div>
+																	<div class="modal-footer">
+																		<button type="button" class="btn btn-brand" data-bs-dismiss="modal">CLOSE</button>
+																		<button type="button" class="btn btn-brand">SAVE</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- End deleteWarehouse Dropdown Info Modal -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-12 text-center">
+										<a href="javascript:void(0);" type="button" class="btn btn-brand pb-1" data-toggle="modal" data-bs-toggle="modal" data-bs-target="#addWarehouseDropdown"> + Add New</a>
+										<!-- Start addWarehouse Dropdown Info Modal -->
+										<div class="modal fade" id="addWarehouseDropdown" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addWarehouseDropdownLabel" aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content model-profile-min-width">
+													<div class="modal-header">
+														<h1 class="modal-title fs-5" id="addWarehouseDropdownLabel">Add Warehouse Info</h1>
+														<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														addWarehouseInfo
+														<div class="row">
+															<div class="col-md-12">
+															  <input type="hidden" class="form-control" placeholder="" value=""
+																style="border-radius: 0px;" name="pickUpId" required id="pickUpId" > 
+
+																<div class="row my-3">
+																	<div class="col-12">
+																		<label for="Plocation" class="col-form-label">Location Name</label>
+																	</div>
+																	<div class="col-12">
+																		<input  type="text" class="form-control" name="Plocation" placeholder=""  >
+																	</div>
+																</div>
+
+																<div class="row my-3">
+																	<div class="col-12">
+																		<label for="PplotNo" class="col-form-label">Plot/House No</label>
+																	</div>
+																	<div class="col-12">
+																		<input  type="text" class="form-control" placeholder="" name="PplotNo" >
+																	</div>
+																</div>
+
+																<div class="row my-3">
+																	<div class="col-12">
+																		<label for="Pstreet" class="col-form-label">Street Name / Locality</label>
+																	</div>
+																	<div class="col-12">
+																		<input   type="text" class="form-control" placeholder="" name="Pstreet" >
+																	</div>
+																</div>
+
+																<div class="row my-3">
+																	<div class="col-12">
+																		<label for="stateId" class="col-form-label">State</label>
+																	</div>
+																	<div class="col-12">
+																		<input type="text" class="form-control" placeholder="" name="stateId" >
+																	</div>
+																</div>
+
+																<div class="row my-3">
+																	<div class="col-12">
+																		<label for="cityId" class="col-form-label">City</label>
+																	</div>
+																	<div class="col-12">
+																		<input type="text" class="form-control" placeholder="" name="cityId" >
+																	</div>
+																</div>
+
+																<div class="row my-3">
+																	<div class="col-12">
+																		<label for="Plandmark" class="col-form-label">landmark</label>
+																	</div>
+																	<div class="col-12">
+																		<input type="text" class="form-control" placeholder="" name="Plandmark" >
+																	</div>
+																</div>
+
+																<div class="row my-3">
+																	<div class="col-12">
+																		<label for="Ppincode" class="col-form-label">Pincode</label>
+																	</div>
+																	<div class="col-12">
+																		<input type="number" class="form-control" placeholder="" name="Ppincode" >
+																	</div>
+																</div>
+															</div>
+														  </div>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-brand" data-bs-dismiss="modal">CLOSE</button>
+														<button type="button" class="btn btn-brand">SAVE</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- End addWarehouse Dropdown Info Modal -->
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{% block jsblock %}{% endblock jsblock %}

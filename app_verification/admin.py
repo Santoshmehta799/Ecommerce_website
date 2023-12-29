@@ -60,4 +60,10 @@ class PanCinDetailsAdmin(admin.ModelAdmin):
     list_display  = ('id', 'user', 'document_type', 'documnet_id', 'is_verified', 'created_at', 'updated_at')
     search_fields = ['user__email','document_type',]
     readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
+
+@admin.register(models.CompanyAddressDetail)
+class CompanyAddressDetailAdmin(admin.ModelAdmin):
+    list_display  = ('id', 'user', 'address_line_1', 'address_line_2', 'latitude', 'longitude',  'is_verified', 'created_at', 'updated_at')
+    search_fields = ['user__email','address_line_1',]
+    readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
     

@@ -125,6 +125,19 @@
     width: 77.9%;
 }
 
+
+.bg-brand-sidebar {
+    background-color: #4C5864 !important;
+}
+
+.custom-sidebar-lh-36 {
+    line-height: 36px;
+}
+
+.custom-sidebar-text{
+    color:white;
+}
+
 @media (max-width: 768px) {
 
     .custom-sidebar-col-width{
@@ -135,14 +148,22 @@
     .custom-main-col-width{
         width: 100%;
     }
+
+    .custom-sidebar-text{
+        color: black;
+    }
     
 }
 
-.bg-brand-sidebar {
-    background-color: #4C5864 !important;
+.form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
 }
 
-
+.form-select[disabled] {
+    background-color: #e9ecef;
+    opacity: 1;
+}
 
 
 /* Footer Code */

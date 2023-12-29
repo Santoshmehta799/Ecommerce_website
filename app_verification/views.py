@@ -17,7 +17,16 @@ def verification_home(request):
 def get_detail(request):
     success = ""
     error = ""
-    form = GstDetailForms(request.POST or None)
+    user = request.user
+    gst_detail_obj = None
+    try:
+        gst_detail_obj = GstDetail.objects.get(user=user)
+        if gst_detail_obj.is_active:
+            return redirect('app_verification:general-detail')
+    except:
+        pass
+
+    form = GstDetailForms(request.POST or None, instance=gst_detail_obj)
 
     if request.method == 'POST':
         if form.is_valid():
@@ -37,24 +46,35 @@ def get_detail(request):
         'error' : error,
         'success' : success,
         'form' :form,
+        'gst_detail_obj': gst_detail_obj
     }
     return render(request, 'app_verification/gst_detail.html', context)
 
-
+@login_required()
 def general_detail(request):
     success = ""
     error = ""
+    user = request.user
+    try:
+        company_basic_detail = CompanyBasicDetail.objects.get(user=user)
+        representative_detail = RepresentativeDetail.objects.get(user=user)
+        if company_basic_detail.company_name is not None and \
+            representative_detail.representative_name is not None:
+            return redirect('app_dashboard:dashboard-page')
+    except:
+        company_basic_detail = None
+        representative_detail = None
 
     if request.method == 'POST':
         user = request.user
         representative_name = request.POST.get('representative_name')
         company_name = request.POST.get('company_name')
 
-        if user and representative_name and company_name:
+        if representative_name and company_name:
             existing_company = CompanyBasicDetail.objects.filter(company_name=company_name).exists()
-
             if not existing_company:
-                representative_detail, representative_created = RepresentativeDetail.objects.get_or_create(user=user, defaults={"representative_name": representative_name})
+                representative_detail, representative_created = RepresentativeDetail.objects.get_or_create(user=user, 
+                    defaults={"representative_name": representative_name})
                 if not representative_created:
                     representative_detail.representative_name = representative_name
                     representative_detail.save()
@@ -63,13 +83,13 @@ def general_detail(request):
                 if not company_created:
                     company_detail.company_name = company_name
                     company_detail.save()
-
-                success = "Representative and company details saved successfully."
+                print('enter hear')
+                messages.success(request, 'Representative and company details saved successfully.')
                 return redirect('app_dashboard:dashboard-page')
             else:
                 error = "The company already exists for the user."
         else:
-            error = "Error in form submission. Please check the form and try again."
+            error = "please add representative_name, company_name. try again."
 
     context = {
         'error': error,

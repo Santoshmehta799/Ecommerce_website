@@ -1,115 +1,178 @@
 {% load static %}
-<a href="/">
+<a href="/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
 	<button class="list-group-item list-group-item-action" >
-		<i class="fa fa-home"></i>
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
+			<path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5"/>
+		</svg>
 		<span>Home</span>
 	</button>
 </a>
 <button class="list-group-item list-group-item-action border-white accordion expanded" >
-	<i class="material-icons" >shopping_cart</i><span>Orders</span>
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+		<path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+	</svg>
+	<span>Orders</span>
 </button>
-<div class="panel">
-	<a href="/orders/current-orders/">
+<div class="panel mx-4">
+	<a href="/orders/current-orders/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
 		<button class="list-group-item list-group-item-action border-white" >
-			<i class="material-icons" >shopping_cart</i>
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+				<path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+			</svg>
 			<span>Current Orders</span>
 		</button>
 	</a>
-	<a href="/orders/past-orders/">
+	<a href="/orders/past-orders/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
 		<button class="list-group-item list-group-item-action border-white">
-			<i class="material-icons">shopping_cart</i>
-			<span>Past Orders</span></button></a>
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+				<path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0"/>
+			</svg>
+			<span>Past Orders</span>
+		</button>
+	</a>
 </div>
-<button class="list-group-item list-group-item-action border-white accordion expanded"
-	style=""><i
-	class="icon ion-cube"
-	></i><span>Products</span></button>
-<div class="panel">
-	<a href="/inventory/add-new-product/"><button
-		class="list-group-item list-group-item-action border-white"
-		><i
-		class="icon ion-cube"
-		></i><span>Add new
-	Product</span></button></a>
-	<a href="/inventory/active-products/"><button
-		class="list-group-item list-group-item-action border-white"
-		><i
-		class="icon ion-cube"
-		></i><span>Active
-	Products</span></button></a>
+<button class="list-group-item list-group-item-action border-white accordion expanded">
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-fill" viewBox="0 0 16 16">
+		<path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001 6.971 2.789Zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+	</svg>
+	<span>Products</span>
+</button>
+<div class="panel mx-4">
+	<a href="/inventory/add-new-product/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+		<button class="list-group-item list-group-item-action border-white" >
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-fill" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001 6.971 2.789Zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+			</svg>
+			<span>Add new Product</span>
+		</button>
+	</a>
+	<a href="/inventory/active-products/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+		<button class="list-group-item list-group-item-action border-white">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-fill" viewBox="0 0 16 16">
+				<path fill-rule="evenodd" d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001 6.971 2.789Zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z"/>
+			</svg>
+			<span>Active Products</span>
+		</button>
+	</a>
 </div>
-<a href="/price_on_request/"><button class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fas fa-money-bill"
-	></i><span>Customer Enquiry</span></button></a>
-<a href="/payments/"><button class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fas fa-cash-register"
-	></i><span>Payment
-History</span></button></a>
-<a href="/reportandperformance/"><button class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fas fa-file-signature"
-	></i><span>Reports
-&amp; Performance</span></button></a>
-<a href="/customer-reviews/"><button class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="material-icons"
-	style="margin-left: 5px;margin-right: 5px;font-size: 17px;">rate_review</i><span>Customer
-Reviews</span></button></a>
-<a href="/help-center/"><button class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="material-icons"
-	>contact_mail</i><span>Help Center</span></button></a>
-<h6 style="font-weight: 900; padding-top: 20px; color: white;">LEGAL</h6>
-<a href="/faq/"><button class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fas fa-question-circle"
-	></i><span>General
-FAQ's</span></button></a>
-<a href="/marketplace/"><button
-	class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="icon ion-document-text"
-	style="margin-left: 5px;margin-right: 5px;font-size: 20px;"></i><span>Seller
-Agreement</span></button></a>
-<a href="/guidelines/"><button
-	class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fas fa-book-reader"
-	></i><span>Seller
-Guidelines</span></button></a>
-<a href="/terms/"><button class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fas fa-business-time"
-	style=" margin-left: 5px; margin-right: 5px;"></i><span>Terms Of
-use</span></button></a>
-<h6 style="font-weight: 900; padding-top: 20px; color: white;">SOCIAL HANDLES</h6>
-<hr style="margin: 0px;width: 80%; color: white;">
-<a href="https://www.facebook.com/Seventh-Square-101727191683337/"
-	target="_blank"><button class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fab fa-facebook-f"
-	style="margin-left: 5px;margin-right: 5px; font-size: 15px;"></i><span>Facebook&nbsp;</span></button></a>
-<a href="https://www.instagram.com/seventhsquare/" target="_blank"><button
-	class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="icon ion-social-instagram"
-	style="font-size: 20px; margin-left: 5px;margin-right: 5px;"></i><span>Instagram</span></button></a>
-<a href="https://www.linkedin.com/company/seventh-square" target="_blank"><button
-	class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fab fa-linkedin-in"
-	style=" margin-left: 5px;margin-right: 5px;font-size: 15px;"></i><span>LinkedIn</span></button></a>
-<a href="https://in.pinterest.com/seventhsq" target="_blank"><button
-	class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fab fa-pinterest-p"
-	style="font-size: 20px; margin-left: 5px;margin-right: 5px;"></i><span>Pinterest</span></button></a>
-<a href="https://twitter.com/SeventhSq" class="list-group-item list-group-item-action border-white"
-	style=""><i
-	class="fab fa-twitter"
-	style=" margin-left: 5px; margin-right: 5px;"></i><span>Twitter</span></a>
+<a href="/price_on_request/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-postcard-fill" viewBox="0 0 16 16">
+			<path d="M11 8h2V6h-2z"/>
+			<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zM2 5.5a.5.5 0 0 0 .5.5H6a.5.5 0 0 0 0-1H2.5a.5.5 0 0 0-.5.5M2.5 7a.5.5 0 0 0 0 1H6a.5.5 0 0 0 0-1zM2 9.5a.5.5 0 0 0 .5.5H6a.5.5 0 0 0 0-1H2.5a.5.5 0 0 0-.5.5m8-4v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5"/>
+		</svg>
+		<span>Customer Enquiry</span>
+	</button>
+</a>
+<a href="/payments/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-credit-card-fill" viewBox="0 0 16 16">
+			<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v1H0zm0 3v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7zm3 2h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-1a1 1 0 0 1 1-1"/>
+		</svg>
+		<span>Payment History</span>
+	</button>
+</a>
+<a href="/reportandperformance/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-zip-fill" viewBox="0 0 16 16">
+			<path d="M5.5 9.438V8.5h1v.938a1 1 0 0 0 .03.243l.4 1.598-.93.62-.93-.62.4-1.598a1 1 0 0 0 .03-.243z"/>
+			<path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-4-.5V2h-1V1H6v1h1v1H6v1h1v1H6v1h1v1H5.5V6h-1V5h1V4h-1V3zm0 4.5h1a1 1 0 0 1 1 1v.938l.4 1.599a1 1 0 0 1-.416 1.074l-.93.62a1 1 0 0 1-1.109 0l-.93-.62a1 1 0 0 1-.415-1.074l.4-1.599V8.5a1 1 0 0 1 1-1z"/>
+		</svg>
+		<span>Reports &amp; Performance</span>
+	</button>
+</a>
+<a href="/customer-reviews/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-newspaper" viewBox="0 0 16 16">
+			<path d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5z"/>
+			<path d="M2 3h10v2H2zm0 3h4v3H2zm0 4h4v1H2zm0 2h4v1H2zm5-6h2v1H7zm3 0h2v1h-2zM7 8h2v1H7zm3 0h2v1h-2zm-3 2h2v1H7zm3 0h2v1h-2zm-3 2h2v1H7zm3 0h2v1h-2z"/>
+		</svg>
+		<span>Customer Reviews</span>
+	</button>
+</a>
+<a href="/help-center/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-diamond-fill" viewBox="0 0 16 16">
+			<path d="M9.05.435c-.58-.58-1.52-.58-2.1 0L.436 6.95c-.58.58-.58 1.519 0 2.098l6.516 6.516c.58.58 1.519.58 2.098 0l6.516-6.516c.58-.58.58-1.519 0-2.098L9.05.435zM5.495 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927"/>
+		</svg>
+		<span>Help Center</span>
+	</button>
+</a>
+<h6 class="mt-4">LEGAL</h6>
+<a href="/faq/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+	<button class="list-group-item list-group-item-action border-white" >
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle-fill" viewBox="0 0 16 16">
+			<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.496 6.033h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286a.237.237 0 0 0 .241.247zm2.325 6.443c.61 0 1.029-.394 1.029-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94 0 .533.425.927 1.01.927z"/>
+		</svg>
+		<span>General FAQ's</span>
+	</button>
+</a>
+<a href="/marketplace/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+	<button class="list-group-item list-group-item-action border-white" >
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-spreadsheet-fill" viewBox="0 0 16 16">
+			<path d="M6 12v-2h3v2z"/>
+			<path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M3 9h10v1h-3v2h3v1h-3v2H9v-2H6v2H5v-2H3v-1h2v-2H3z"/>
+		</svg>
+		<span>Seller Agreement</span>
+	</button>
+</a>
+<a href="/guidelines/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+	<button class="list-group-item list-group-item-action border-white" >
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-columns-reverse" viewBox="0 0 16 16">
+			<path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 0 .5m4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10A.5.5 0 0 1 4 .5m-4 2A.5.5 0 0 1 .5 2h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-4 2A.5.5 0 0 1 .5 4h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m-4 2A.5.5 0 0 1 .5 6h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m-4 2A.5.5 0 0 1 .5 8h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5m-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1h-10a.5.5 0 0 1-.5-.5m-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m-4 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5m4 0a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+		</svg>
+		<span>Seller Guidelines</span>
+	</button>
+</a>
+<a href="/terms/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
+			<path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v1.384l7.614 2.03a1.5 1.5 0 0 0 .772 0L16 5.884V4.5A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5"/>
+			<path d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5V6.85L8.129 8.947a.5.5 0 0 1-.258 0L0 6.85z"/>
+		</svg>
+		<span>Terms Of use</span>
+	</button>
+</a>
+<h6 class="mt-4">SOCIAL HANDLES</h6>
+<hr class="my-1">
+<a href="https://www.facebook.com/Seventh-Square-101727191683337/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36" target="_blank">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+			<path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+		</svg>
+		<span>Facebook&nbsp;</span>
+	</button>
+</a>
+<a href="https://www.instagram.com/seventhsquare/" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36" target="_blank">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+			<path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+		</svg>
+		<span>Instagram</span>
+	</button>
+</a>
+<a href="https://www.linkedin.com/company/seventh-square" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36" target="_blank">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+			<path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401m-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4"/>
+		</svg>
+		<span>LinkedIn</span>
+	</button>
+</a>
+<a href="https://in.pinterest.com/seventhsq" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36" target="_blank">
+	<button class="list-group-item list-group-item-action border-white">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pinterest" viewBox="0 0 16 16">
+			<path d="M8 0a8 8 0 0 0-2.915 15.452c-.07-.633-.134-1.606.027-2.297.146-.625.938-3.977.938-3.977s-.239-.479-.239-1.187c0-1.113.645-1.943 1.448-1.943.682 0 1.012.512 1.012 1.127 0 .686-.437 1.712-.663 2.663-.188.796.4 1.446 1.185 1.446 1.422 0 2.515-1.5 2.515-3.664 0-1.915-1.377-3.254-3.342-3.254-2.276 0-3.612 1.707-3.612 3.471 0 .688.265 1.425.595 1.826a.24.24 0 0 1 .056.23c-.061.252-.196.796-.222.907-.035.146-.116.177-.268.107-1-.465-1.624-1.926-1.624-3.1 0-2.523 1.834-4.84 5.286-4.84 2.775 0 4.932 1.977 4.932 4.62 0 2.757-1.739 4.976-4.151 4.976-.811 0-1.573-.421-1.834-.919l-.498 1.902c-.181.695-.669 1.566-.995 2.097A8 8 0 1 0 8 0"/>
+		</svg>
+		<span>Pinterest</span>
+	</button>
+</a>
+<a href="https://twitter.com/SeventhSq" class="text-decoration-none custom-sidebar-text custom-sidebar-lh-36"> 
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+		<path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15"/>
+	</svg>
+	<span>Twitter</span>
+</a>
 {% comment %} 
 <p class="list-group-item list-group-item-action border-white"
 	style="background: transparent;border-style: none;padding: 10px 10px 2px 0px;font-size: 13px;"><i
