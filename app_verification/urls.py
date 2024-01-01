@@ -11,4 +11,5 @@ urlpatterns = [
 
     # ajax
     path('gst-check/',views.gst_check,name="gst-check"),
+    path('except-user-gst-check/', views.except_user_gst_check, name="except_user_gst_check"),
 ]

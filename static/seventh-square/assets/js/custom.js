@@ -161,6 +161,7 @@ function PhoneNumberExist(value){
   document.getElementById("id_mobile_number").value = result;
   var mobileSendOtp = document.getElementById("id_mobile_send_otp");
   var token = $("input[name=csrfmiddlewaretoken]").val();
+  var buttonSubmit = document.getElementById("submit-basic-form");
 
   if(value.length >= '6'){
     $.ajax({
@@ -171,13 +172,13 @@ function PhoneNumberExist(value){
           if(data == true){
             $('#id_mobile_numberError').html('<div class="valid-feedback d-block" id="id_mobile_numberError"></div>');
             if(value.length == '10'){
-                mobileSendOtp.disabled = false; 
+                mobileSendOtp.disabled = false;
               }else{
               mobileSendOtp.disabled = true; 
             }
             
           }else{
-              alert('enter else does not get');
+              //alert('enter else does not get');
               mobileSendOtp.disabled = true;
               $('#id_mobile_numberError').html('<div class="invalid-feedback d-block" id="id_mobile_numberError">Contact Number is Already Exist Please try another.</div>');
           }

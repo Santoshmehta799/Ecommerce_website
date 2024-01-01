@@ -144,6 +144,17 @@ def email_check_ajax(request):
         else:
             return JsonResponse(True, safe=False)
         
+def except_user_email_check_ajax(request):
+    if request.method == 'POST':
+        email = request.POST.get('email').lower()
+        current_user_email = request.user.email.lower() if request.user.is_authenticated else None
+        user_exist = User.objects.filter(email=email).exclude(email=current_user_email)
+
+        if user_exist.exists():
+            return JsonResponse(False, safe=False)
+        else:
+            return JsonResponse(True, safe=False)
+        
 
 # @login_required(login_url = settings.LOGIN_URL)
 def phone_number_check(request):
@@ -152,6 +163,24 @@ def phone_number_check(request):
         print(contact_number)
         contact_exist = UserPhoneVerified.objects.filter(Q(ph_number=contact_number))
         if len(contact_exist)< 1:
+            return JsonResponse(True, safe=False)
+        else:
+            return JsonResponse(False, safe=False)
+
+
+@login_required
+def except_user_phone_number_check(request):
+    if request.method == 'POST':
+        contact_number = request.POST.get('contact_number')
+
+        try:
+            current_user_phone = UserPhoneVerified.objects.get(user=request.user)
+        except ObjectDoesNotExist:
+            current_user_phone = None
+
+        contact_exist = UserPhoneVerified.objects.filter(ph_number=contact_number).exclude(pk=current_user_phone.pk if current_user_phone else None)
+
+        if len(contact_exist) < 1:
             return JsonResponse(True, safe=False)
         else:
             return JsonResponse(False, safe=False)
@@ -193,7 +222,31 @@ def profile(request):
     error = ""
 
     if request.method == 'POST':
-        print(request.data)
+        print(request.POST)
+        form_model_type = request.POST.get('form_model_type')
+        if form_model_type == 'account_info_model':
+            print('account_info_model')
+            first_name = request.POST.get('first_name')
+            print("============>>>", form_model_type)
+            ph_number = request.POST.get('ph_number')
+            exist_ph_number = UserPhoneVerified.objects.filter(ph_number=ph_number).exists()
+            email = request.POST.get('email')
+            exist_ph_number = User.objects.filter(email=email).exists()
+            password = request.POST.get('password')
+            print('====--->',first_name, ph_number, email, password)
+            
+        if form_model_type == 'seller_info_model':
+            print('seller_info_model')
+        if form_model_type == 'account_setting_model':
+            print('account_setting_model')
+        if form_model_type == 'bank_account_info_model':
+            print('bank_account_info_model')
+        if form_model_type == 'edit_warehouse_info_model':
+            print('edit_warehouse_info_model')
+        if form_model_type == 'delete_warehouse_info_model':
+            print('delete_warehouse_info_model')
+        if form_model_type == 'add_warehouse_info_model':
+            print('add_warehouse_info_model')
 
     
 
@@ -201,8 +254,8 @@ def profile(request):
         "success": success,
         "error": error,
         "pan_cin_choices" : PanCinDetailEnums.choices,
-        "state_obj": States.objects.filter(country__name='INDIA'),
-        "city_obj" : Cities.objects.filter(state__country__name='INDIA'),
+        "state_obj": States.objects.filter(country__name='INDIA').select_related('country'),
+        "city_obj" : Cities.objects.filter(state__country__name='INDIA').select_related('state__country'),
         "order_cut_off_time": OrderCuttOffTime.choices, 
         "order_handing_time" : OrderHandlingTimeEnums.choices,
         

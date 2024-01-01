@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 
@@ -97,7 +98,7 @@ def general_detail(request):
     }
     return render(request, 'app_verification/general_detail.html', context)
 
-
+@login_required()
 def gst_check(request):
     company_gst_number = request.POST.get('company_gst_number')
     print(company_gst_number)
@@ -106,6 +107,26 @@ def gst_check(request):
         return JsonResponse(True, safe=False)
     else:
         return JsonResponse(False, safe=False)
+    
+
+
+@login_required
+def except_user_gst_check(request):
+    if request.method == 'POST':
+        company_gst_number = request.POST.get('company_gst_number')
+        print(company_gst_number)
+
+        try:
+            current_user_gst = GstDetail.objects.get(user=request.user)
+        except ObjectDoesNotExist:
+            current_user_gst = None
+
+        gst_exist = GstDetail.objects.filter(company_gst_number=company_gst_number).exclude(pk=current_user_gst.pk if current_user_gst else None)
+
+        if len(gst_exist) < 1:
+            return JsonResponse(True, safe=False)
+        else:
+            return JsonResponse(False, safe=False)
 
 
     

@@ -15,7 +15,9 @@ urlpatterns = [
 
     # ajax
     path('email-check/', views.email_check_ajax, name='email_check_ajax'),
+    path('except-user-email-check/', views.except_user_email_check_ajax, name='except_user_email_check_ajax'),
     path('phone-number-check/',views.phone_number_check,name="phone-number-check"),
+    path('except-user-phone-number-check/',views.except_user_phone_number_check,name="except_user_phone_number_check"),
     path('auth/login-otp/', views.login_otp, name="auth-login-otp"),
     path('auth/signin-otp/', views.signin_otp, name="auth-signin-otp"),
     path('auth/verify-signin-otp/', views.verify_signin_otp, name="verify-auth-signin-otp"),
