@@ -138,7 +138,7 @@ def auth_login(request, username, password):
             except:
                 msg = "invalid credentials for Mobile Number Found."
         else:
-            msg = " 1. invalid credentials Found."
+            msg = " invalid credentials Found."
 
         if auth_username:
             auth_user = auth.authenticate(
@@ -149,9 +149,9 @@ def auth_login(request, username, password):
                 auth.login(request, user)
                 status = True
         else:
-            msg = "2. invalid credentials Found."
+            msg = "invalid credentials Found."
     else:
-        msg = "3. invalid credentials Found."
+        msg = "invalid credentials Found."
 
     return status, msg
 

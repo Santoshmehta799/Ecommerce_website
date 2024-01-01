@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from app import settings
+from app_inventory.models import PickUpWarehouseLocation
 from app_user.forms.auth import LoginForm, RegisterForm
-from app_verification.methods import generate_otp, registration_otp_send
+from app_verification.methods import bank_details_verification, cin_verification_step, generate_otp, pan_verification_step, registration_otp_send, update_gst_verification_step
 from app_user.methods.auth import auth_login
-from app_user.models import User
+from app_user.models import ProfileSettings, User
 from django.contrib import messages
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
@@ -17,7 +18,7 @@ from app_user.tokens import account_activation_token
 from django.contrib import auth
 from app_dashboard.models import Cities, States
 
-from app_verification.models import TempPhoneVerified, UserPhoneVerified
+from app_verification.models import BankVerification, CompanyAddressDetail, CompanyBasicDetail, GstDetail, PanCinDetails, TempPhoneVerified, UserPhoneVerified
 from common.enums import OrderCuttOffTime, OrderHandlingTimeEnums, PanCinDetailEnums, UserAuthIdentifierType, UserStatusEnums
 # Create your views here.
 
@@ -41,13 +42,12 @@ def signin(request):
             status, msg = auth_login(request, username, password)
             # print('statusv-->',status)
             if status == True:
+                messages.success(request,f"Welcome <b>{username}</b>.")
                 next_url = request.GET.get("next")
                 if next_url:
                     # print('enter hear...')
-                    messages.success(request,f"Welcome <b>{username}</b>.")
                     return redirect(next_url)
-                print('enter else', next_url )
-                messages.success(request,f"Welcome <b>{username}</b>.")
+                print('enter else', next_url)
                 return redirect('app_verification:get-detail')
             else:
                 error = msg
@@ -220,35 +220,191 @@ def forgot_email_verify_page(request):
 def profile(request):
     success = ""
     error = ""
+    user = request.user
 
     if request.method == 'POST':
         print(request.POST)
         form_model_type = request.POST.get('form_model_type')
+        user = request.user
+        
         if form_model_type == 'account_info_model':
-            print('account_info_model')
-            first_name = request.POST.get('first_name')
-            print("============>>>", form_model_type)
-            ph_number = request.POST.get('ph_number')
-            exist_ph_number = UserPhoneVerified.objects.filter(ph_number=ph_number).exists()
-            email = request.POST.get('email')
-            exist_ph_number = User.objects.filter(email=email).exists()
-            password = request.POST.get('password')
-            print('====--->',first_name, ph_number, email, password)
+            try:
+                first_name = request.POST.get('first_name', None)
+                ph_number = request.POST.get('mobile_number')
+                password = request.POST.get('password')
+                email = request.POST.get('email')
+
+                account_info_model_status = False
+                user_obj = User.objects.get(id=user.id)
+                user_obj.first_name = first_name
+                phone_verified_obj = UserPhoneVerified.objects.get(user_id=user.id)
+
+                if user_obj.email != email.lower():
+                    user_obj.email = email
+                    user_obj.username = email
+                    account_info_model_status = True
+                if user_obj.show_password != password:
+                    user_obj.set_password(password)
+                    user_obj.show_password = password
+                    account_info_model_status = True
+                if phone_verified_obj.ph_number != ph_number:
+                    phone_verified_obj.ph_number = ph_number
+                    account_info_model_status = True
+                user_obj.save()
+                phone_verified_obj.save()
+
+                if account_info_model_status == True:
+                    return redirect('app_user:auth-logout')
+                return redirect('app_user:profile')
+            except Exception as e:
+                error = f"Error: {e}"
             
         if form_model_type == 'seller_info_model':
-            print('seller_info_model')
-        if form_model_type == 'account_setting_model':
-            print('account_setting_model')
-        if form_model_type == 'bank_account_info_model':
-            print('bank_account_info_model')
-        if form_model_type == 'edit_warehouse_info_model':
-            print('edit_warehouse_info_model')
-        if form_model_type == 'delete_warehouse_info_model':
-            print('delete_warehouse_info_model')
-        if form_model_type == 'add_warehouse_info_model':
-            print('add_warehouse_info_model')
+            company_name = request.POST.get('company_name',None)
+            state = request.POST.get('state')
+            city = request.POST.get('city')
+            pin_code = request.POST.get('pincode')
+            address = request.POST.get('address')
+            company_gst_number = request.POST.get('company_gst_number')
+            document_type = request.POST.get('document_type')
+            documnet_id = request.POST.get('documnet_id')
+            about_brand = request.POST.get('about_brand')
+            seller_info_model_status = True
 
-    
+            if company_name:
+                company_details_obj, company_details_created = CompanyBasicDetail.objects.get_or_create(
+                    user=user,company_name=company_name)
+                company_details_obj.about_brand = about_brand
+                company_details_obj.save()
+
+            compnay_address_obj, compnay_address_created = CompanyAddressDetail.objects.get_or_create(
+                user=user, city_id=city, state_id=state)
+            compnay_address_obj.address_line_1 = address
+            compnay_address_obj.pin_code = pin_code
+            compnay_address_obj.save()
+
+            user_gst_details_obj = GstDetail.objects.get(user=user)
+            if user_gst_details_obj.company_gst_number != company_gst_number:
+                gst_status, gst_msg = update_gst_verification_step(company_gst_number, request)
+                if gst_status != True:
+                    error = gst_msg
+                    seller_info_model_status = False
+
+            if seller_info_model_status != False:
+                if document_type == PanCinDetailEnums.PAN:
+                    pan_status, pan_msg = pan_verification_step(documnet_id, request)
+                    if pan_status != True:
+                        error = pan_msg
+                        seller_info_model_status = False
+                    
+                if document_type == PanCinDetailEnums.CIN:
+                    cin_status, cin_msg = cin_verification_step(documnet_id, request)
+                    if cin_status != True:
+                        error = cin_msg
+                        seller_info_model_status = False
+                else:
+                    seller_info_model_status = False
+
+            return redirect('app_user:profile')
+
+
+        if form_model_type == 'account_setting_model':
+            order_handling_time = request.POST.get('order_handling_time')
+            order_cutt_off_time = request.POST.get('order_cutt_off_time')
+            receive_order_update_whatsapp = request.POST.get('receive_order_update_whatsapp')
+            receive_order_update_call = request.POST.get('receive_order_update_call')
+            receive_order_update_email = request.POST.get('receive_order_update_email')
+            receive_payment_update_whatsapp = request.POST.get('receive_payment_update_whatsapp')
+            receive_payment_update_call = request.POST.get('receive_payment_update_call')
+            receive_payment_update_email = request.POST.get('receive_payment_update_email')
+            try:
+                profile_setting_obj, profile_setting_created = ProfileSettings.objects.get_or_create(
+                    user=user)
+                profile_setting_obj.order_handling_time=order_handling_time
+                profile_setting_obj.order_cutt_off_time=order_cutt_off_time
+                profile_setting_obj.receive_order_update_whatsapp=True if receive_order_update_whatsapp else False
+                profile_setting_obj.receive_order_update_call=True if receive_order_update_call else False
+                profile_setting_obj.receive_order_update_email=True if receive_order_update_email else False
+                profile_setting_obj.receive_payment_update_whatsapp=True if receive_payment_update_whatsapp else False
+                profile_setting_obj.receive_payment_update_call=True if receive_payment_update_call else False
+                profile_setting_obj.receive_payment_update_email=True if receive_payment_update_email else False
+                profile_setting_obj.save()
+                return redirect('app_user:profile')
+            except Exception as e:
+                error = f"Error: {e}"
+
+
+        if form_model_type == 'bank_account_info_model':
+            account_holder = request.POST.get('account_holder', None)
+            account_number = request.POST.get('account_number', None)
+            ifsc_code = request.POST.get('ifsc', None)
+            # print('======>>>',account_holder,account_number,ifsc_code)
+            if account_holder and account_number and ifsc_code:
+                bank_details_status, bank_details_msg = bank_details_verification(account_holder, 
+                        account_number, ifsc_code, request)
+                if bank_details_status == True:
+                    return redirect('app_user:profile')
+                else:
+                    error=bank_details_msg
+
+
+
+        if form_model_type == 'delete_warehouse_info_model':
+            delete_warehouse_id = request.POST.get('delete_warehouse_id')
+            try:
+                pickup_obj = PickUpWarehouseLocation.objects.filter(id=delete_warehouse_id).delete()
+                return redirect('app_user:profile')
+            except PickUpWarehouseLocation.DoesNotExist:
+                error = "Warehouse Doesnot Exist."
+
+        if form_model_type == 'add_warehouse_info_model':
+            location_name = request.POST.get('location_name')
+            plot_no = request.POST.get('plot_no')
+            street = request.POST.get('street')
+            state = request.POST.get('state')
+            city = request.POST.get('city')
+            landmark = request.POST.get('landmark')
+            pin_code = request.POST.get('pin_code')
+            print('add_warehouse_info_model')
+            try:
+                pickup_obj = PickUpWarehouseLocation()
+                pickup_obj.user = user
+                pickup_obj.plot_no = plot_no
+                pickup_obj.location_name = location_name
+                pickup_obj.street = street
+                pickup_obj.landmark = landmark
+                pickup_obj.state_id = state
+                pickup_obj.city_id = city
+                pickup_obj.pin_code = pin_code
+                pickup_obj.save()
+                return redirect('app_user:profile')
+            except Exception as e:
+                error = f"Error : {e}"
+
+
+        if form_model_type == 'edit_warehouse_info_model':
+            edit_warehouse_id = request.POST.get('edit_warehouse_id')
+            location_name = request.POST.get('location_name')
+            plot_no = request.POST.get('plot_no')
+            street = request.POST.get('street')
+            state = request.POST.get('state')
+            city = request.POST.get('city')
+            landmark = request.POST.get('landmark')
+            pin_code = request.POST.get('pin_code')
+            print('edit_warehouse_info_model', edit_warehouse_id)
+            try:
+                pickup_obj = PickUpWarehouseLocation.objects.get(id=edit_warehouse_id)
+                pickup_obj.plot_no = plot_no
+                pickup_obj.location_name = location_name
+                pickup_obj.street = street
+                pickup_obj.landmark = landmark
+                pickup_obj.state_id = state
+                pickup_obj.city_id = city
+                pickup_obj.pin_code = pin_code
+                pickup_obj.save()
+                return redirect('app_user:profile')
+            except Exception as e:
+                error = f"Error : {e}"
 
     context = {
         "success": success,

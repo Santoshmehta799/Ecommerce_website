@@ -86,8 +86,10 @@ class ProfileSettings(ModelMixin):
     receive_payment_update_whatsapp = models.BooleanField(default=False)
     receive_payment_update_call = models.BooleanField(default=False)
     receive_payment_update_email = models.BooleanField(default=False)
-    order_handling_time = models.CharField(choices=enums.OrderHandlingTimeEnums.choices)
-    order_cutt_off_time = models.CharField(choices=enums.OrderCuttOffTime.choices)
+    order_handling_time = models.CharField(choices=enums.OrderHandlingTimeEnums.choices,
+    null=True, blank=True)
+    order_cutt_off_time = models.CharField(choices=enums.OrderCuttOffTime.choices,
+    null=True, blank=True)
 
     class Meta:
         verbose_name = _("Auth - Profile Settings")

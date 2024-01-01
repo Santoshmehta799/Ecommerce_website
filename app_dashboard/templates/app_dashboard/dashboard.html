@@ -264,7 +264,7 @@
                                     {% comment %} <label class="d-block"
                                     style="color: #4f4f4f;font-size: 14px;margin-bottom: 15px;"><strong>Account
                                         Verified : </strong>{% if request.user.isMobileNumberVerified %}Yes{%else%}No{%endif%}</label>  {% endcomment %}
-                                        <a href="" class="d-block" style="font-size: 14px; color: #858796;">View Profile</a>
+                                        <a href="{% url 'app_user:profile' %}" class="d-block" style="font-size: 14px; color: #858796;">View Profile</a>
                                         
                             </div>
                             {% comment %} <div id="id_view_profile_popover" style="display: none;

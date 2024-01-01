@@ -3,7 +3,7 @@ from app_user import views
 
 
 app_name="app_user"
-
+# https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/
 urlpatterns = [
     path('', views.auth_home, name="auth-name"),
     

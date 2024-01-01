@@ -138,7 +138,7 @@ class CompanyBasicDetail(ModelMixin):
 class CompanyAddressDetail(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_company_address")
-    address_line_1 = models.CharField(max_length=200,blank=True,null=True)
+    address_line_1 = models.CharField(max_length=500,blank=True,null=True)
     address_line_2 = models.CharField(max_length=200,blank=True,null=True)
     state = models.ForeignKey(States, on_delete=models.DO_NOTHING)
     city = models.ForeignKey(Cities, on_delete=models.DO_NOTHING)
@@ -185,8 +185,9 @@ class BankVerification(ModelMixin):
 class PanCinDetails (ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_pan_cin_detail")
-    document_type = models.CharField(max_length=5, choices=enums.PanCinDetailEnums.choices)
-    documnet_id = models.CharField(max_length=255)
+    document_type = models.CharField(max_length=5, choices=enums.PanCinDetailEnums.choices, 
+        null=True, blank=True)
+    documnet_id = models.CharField(max_length=255, unique=True)
     response_json = models.JSONField(default=dict, blank=True, null=True)
     is_verified = models.BooleanField(default=False)
     reject_reason = models.TextField(default='', blank=True, null=True)
@@ -194,7 +195,6 @@ class PanCinDetails (ModelMixin):
     class Meta:
         verbose_name = _("Verification - Pan Cin Detail")
         verbose_name_plural = _("Verification - Pan Cin Detail")
-        unique_together = ('document_type','documnet_id')
 
     def __str__(self):
         return f"{self.user.username} - {self.document_type}"

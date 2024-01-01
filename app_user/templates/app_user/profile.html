@@ -18,6 +18,12 @@
 		<div class="row">
 			<!-- Messages Start --> 
 				{% include 'seventh-square/layout/messages.html' %}
+				{% if error %}
+					<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+						{{ error|safe }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endif %}
 			<!-- Messages END -->
 			<div class="col-12 col-md-12 bg-white">
 				<div class="row pl-0">
@@ -153,14 +159,14 @@
 																	<div class="col-md-12">
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_company_name" class="col-form-label">Company Legal Name</label> </div>
-																			<div class="col-12"> <input type="text" value="{{request.user.user_company_detail.company_name}}" required id="id_company_name" name="company_name" class="form-control" placeholder="Company Name"> </div>
+																			<div class="col-12"> <input type="text" oninput="this.value = this.value.toUpperCase();" value="{{request.user.user_company_detail.company_name}}" required id="id_company_name" name="company_name" class="form-control" placeholder="Company Name"> </div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_address_line_1" class="col-form-label ">Company Registered Address</label>
 																				<div class="row">
 																					<div class="col-sm-4"> 
-																						<select class="form-select">
-																							<option value="" disabled>Select State</option>  
+																						<select class="form-select" required name="state">
+																							<option disabled value="" selected>Select State</option>  
 																							{% if state_obj %}
 																								{% for state in state_obj %} 
 																									<option value="{{state.id}}" {% if state.id == request.user.user_company_address.state.id %}selected{% endif %}>{{state.name}}</option> 
@@ -169,8 +175,8 @@
 																						</select>
 																					</div>
 																					<div class="col-sm-4"> 
-																						<select class="form-select"> 
-																							<option value="" disabled>Select City</option> 
+																						<select class="form-select" required name="city"> 
+																							<option disabled value="" selected>Select City</option> 
 																							{% if city_obj %}
 																								{% for city in city_obj %} 
 																									<option value="{{city.id}}" {% if city.id == request.user.user_company_address.city.id %}selected{% endif %}>{{city.name}}</option> 
@@ -192,12 +198,12 @@
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_company_verification" class="col-form-label">Company Verification {% if account.Company_verification %} <span style="color: green;"> <i class="icon ion-android-checkbox"></i> Verified </span> {% endif %} </label>
 																				<div class="row">
-																					<div class="col-md-4"> <select class="form-select" id="id_company_verification" name="Cin1"> 
+																					<div class="col-md-4"> <select class="form-select" id="id_company_verification" name="document_type"> 
 																						{% for choice in pan_cin_choices %}
 																							<option value="{{ choice.0 }}" {% if request.user.user_pan_cin_detail.document_type == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
 																						{% endfor %}
 																						</select> </div>
-																					<div class="col-md-4"> <input type="text" class="form-control" required placeholder="" value="{{request.user.user_pan_cin_detail.documnet_id}}"> </div>
+																					<div class="col-md-4"> <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase();" required placeholder="" name="documnet_id" value="{{request.user.user_pan_cin_detail.documnet_id}}"> </div>
 																				</div>
 																			</div>
 																		</div>
@@ -258,7 +264,7 @@
 												<form class="row" method="post" action=""  id="account-setting-basic-form" class="needs-validation" novalidate="novalidate">
 													{% csrf_token %}
 													<div class="col-6"> <label for="id_order_handling_time" class="my-2">Set Default Order Processing Time</label>
-														<div class="col-md-6"> <select class="form-select" id="id_order_handling_time" name="order_handling_time" aria-placeholder="Estimated Delivery time">
+														<div class="col-md-6"> <select class="form-select" id="id_order_handling_time" required name="order_handling_time" aria-placeholder="Estimated Delivery time">
 															<option value="" selected disabled>Select Days</option>
 															{% for choice in order_handing_time %}
 																<option value="{{ choice.0 }}" {% if request.user.user_profile_setting.order_handling_time == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
@@ -266,7 +272,7 @@
 															</select> </div>
 													</div>
 													<div class="col-6"> <label for="id_order_cutt_off_time" class="my-2"> Set Default Order Cut off time</label>
-														<div class="col-6"> <select class="form-select" id="id_order_cutt_off_time" name="order_cutt_off_time" aria-placeholder="Estimated Delivery time">
+														<div class="col-6"> <select class="form-select" required id="id_order_cutt_off_time" name="order_cutt_off_time" aria-placeholder="Estimated Delivery time">
 																<option value="" selected disabled>Select Time</option>
 																{% for choice in order_cut_off_time %}
 																	<option value="{{ choice.0 }}" {% if request.user.user_profile_setting.order_cutt_off_time == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
@@ -311,15 +317,15 @@
 																	<div class="col-md-12">
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_account_holder" class="col-form-label">Account Holder Name</label> </div>
-																			<div class="col-12"> <input type="text" id="id_account_holder" value="{{request.user.user_bank_verification.account_holder}}" required class="form-control" name="account_holder" placeholder="Account Holder Name"> </div>
+																			<div class="col-12"> <input type="text" oninput="this.value = this.value.toUpperCase();" id="id_account_holder" value="{{request.user.user_bank_verification.account_holder}}" required class="form-control" name="account_holder" placeholder="Account Holder Name"> </div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_account_number" class="col-form-label">Account Number</label> </div>
-																			<div class="col-12"> <input type="text" value="{{request.user.user_bank_verification.account_number}}" class="form-control" required id="id_account_number" name="accountNumber" placeholder="account_number"> </div>
+																			<div class="col-12"> <input type="text" value="{{request.user.user_bank_verification.account_number}}" class="form-control" required id="id_account_number" name="account_number" placeholder="account_number"> </div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_ifsc" class="col-form-label">IFSC Code</label> </div>
-																			<div class="col-12"> <input type="text" value="{{request.user.user_bank_verification.ifsc}}" id="id_ifsc" class="form-control" required name="ifsc" placeholder="IFSC Code"> </div>
+																			<div class="col-12"> <input type="text" oninput="this.value = this.value.toUpperCase();" value="{{request.user.user_bank_verification.ifsc}}" id="id_ifsc" class="form-control" required name="ifsc" name="ifsc_code" placeholder="IFSC Code"> </div>
 																		</div>
 																		<div class="row my-4">
 																			<div class="col-12 d-flex justify-content-end">
@@ -376,7 +382,7 @@
 																				<div class="modal-body">
 																					<form class="row" method="post" action="" id="edit-warehouse-info-basic-form-{{warehouse.id}}" class="needs-validation" novalidate="novalidate">
 																						{% csrf_token %}
-																						<div class="col-md-12"> <input type="hidden" class="form-control" placeholder="" value="" name="edit_warehouse_id" required id="edit_warehouse_id_{{warehouse.id}}">
+																						<div class="col-md-12"> <input type="hidden" class="form-control" placeholder="" value="{{warehouse.id}}" name="edit_warehouse_id" required id="edit_warehouse_id_{{warehouse.id}}">
 																							<div class="col-md-12">
 																								<div class="row my-3">
 																									<div class="col-12"><label for="id_edit_warehouse_location_name_{{warehouse.id}}" class="col-form-label">Location Name</label></div>
@@ -400,7 +406,7 @@
 																								<div class="row my-3">
 																									<div class="col-12"><label for="id_edit_warehouse_state_{{warehouse.id}}" class="col-form-label">State</label></div>
 																									<div class="col-12">
-																										<select class="form-select" id="id_edit_warehouse_state_{{warehouse.id}}">
+																										<select class="form-select" name="state" id="id_edit_warehouse_state_{{warehouse.id}}">
 																											<option value="" selected disabled>Select State</option>
 																											{% if state_obj %}
 																											{% for state in state_obj %}
@@ -415,7 +421,7 @@
 																								<div class="row my-3">
 																									<div class="col-12"><label for="id_edit_warehouse_city_{{warehouse.id}}" class="col-form-label">City</label></div>
 																									<div class="col-12">
-																										<select class="form-select" id="id_edit_warehouse_city_{{warehouse.id}}">
+																										<select class="form-select" name="city" id="id_edit_warehouse_city_{{warehouse.id}}">
 																											<option value="" disabled>Select City</option>
 																											{% if city_obj %}
 																											{% for city in city_obj %}
@@ -567,8 +573,8 @@
 																		</div>
 																		<div class="col-md-12">
 																			<div class="row my-3">
-																				<div class="col-12"><label for="id_add_warehouse_state" class="col-form-label">State</label></div>
-																				<div class="col-12"> <select class="form-select" id="id_add_warehouse_state" required>
+																				<div class="col-12"><label for="id_add_warehouse_state" class="col-form-label">Statedddd</label></div>
+																				<div class="col-12"> <select class="form-select" name="state" id="id_add_warehouse_state" required>
 																						<option value="" selected disabled>Select State</option> {% if state_obj %} {% for state in state_obj %} <option value="{{state.id}}">{{state.name}}</option> {% endfor %} {% endif %}
 																					</select> </div>
 																			</div>
@@ -576,7 +582,7 @@
 																		<div class="col-md-12">
 																			<div class="row my-3">
 																				<div class="col-12"><label for="id_add_warehouse_city" class="col-form-label">City</label></div>
-																				<div class="col-12"> <select class="form-select" id="id_add_warehouse_city" required>
+																				<div class="col-12"> <select class="form-select" name="city" id="id_add_warehouse_city" required>
 																						<option value="" selected disabled>Select City</option> {% if city_obj %} {% for city in city_obj %} <option value="{{city.id}}">{{city.name}}</option> {% endfor %} {% endif %}
 																					</select> </div>
 																			</div>
@@ -710,5 +716,13 @@
 			$("#add-warehouse-info-basic-form").validate();
 		});
 	</script>
+	<script>
+		$(document).ready (function () {  
+			var token = $("input[name=csrfmiddlewaretoken]").val();
+			$("#account-setting-basic-form").validate();
+		});
+	</script>
+
+	
 
 {% endblock jsblock %}
