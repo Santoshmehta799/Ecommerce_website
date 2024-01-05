@@ -198,7 +198,7 @@ class PanCinDetails (ModelMixin):
         verbose_name_plural = _("Verification - Pan Cin Detail")
 
     def __str__(self):
-        return f"{self.user.username} - {self.document_type}"
+        return f"{self.seller.username} - {self.document_type}"
 
 
 

@@ -8,7 +8,7 @@ from app_dashboard.models import Cities, Country, States
 import requests
 from django.db import IntegrityError
 
-
+# python manage.py create_city_and_state
 class Command(BaseCommand):
     help = 'Fetches state and city data from an API and saves it to the database'
 

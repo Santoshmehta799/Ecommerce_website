@@ -58,7 +58,7 @@ def admin_register_methods(request,form):
     print('1. user created')
 
     user_phone_verified = UserPhoneVerified(
-        user_id=user.id,
+        seller=user.id,
         ph_number=mobile_number,
         otp_send =True,
         otp=mobile_otp,

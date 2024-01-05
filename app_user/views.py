@@ -190,12 +190,13 @@ def forgot_password(request):
     success = ""
     error =""
     if request.method == 'POST':
+        print("=-=============")
         mobile_number = request.POST.get('mobile_number', None)
+        print("======",mobile_number)
         if mobile_number:
             print('mobile_number ->', mobile_number)
             try:
-                user_phone_verified = UserPhoneVerified.objects.get(
-                    ph_number=mobile_number)
+                user_phone_verified = UserPhoneVerified.objects.get(ph_number=mobile_number)
                 if user_phone_verified:
                     otp_generated = generate_otp()
                     if otp_generated:
@@ -205,8 +206,8 @@ def forgot_password(request):
                             user_phone_verified.otp_send = True
                             user_phone_verified.reset_password_verify = False
                             user_phone_verified.save()
-                            request.session.get('verify_ph_number' ,user_phone_verified.ph_number)
-                            # request.session['verify_ph_number'] = user_phone_verified.ph_number
+                            # request.session.get('verify_ph_number' ,user_phone_verified.ph_number)
+                            request.session['verify_ph_number'] = user_phone_verified.ph_number
                             messages.success(request, 'otp successfully sent.')
                             return redirect('app_user:forgot-mobile-otp')
                         else:
@@ -216,7 +217,7 @@ def forgot_password(request):
                 else:
                     error = "phone number does not match"
             except Exception as e:
-                error = f"An error occurred: {str(e)}"
+                error = f"An error occurred: mobile number does not match"
                 print(f"Error: {str(e)}")
         else:
             error = "phone enter phone number"
@@ -246,13 +247,23 @@ def confirmation_mail(request):
 def reset_new_password(request):
     success = ""
     error =""
+    verify_ph_number_session = request.session.get('verify_ph_number')
+    if not verify_ph_number_session:
+        return JsonResponse({'data': 'invalid request'})
+    
     if request.method == 'POST':
-        user = request.user
         new_password = request.POST.get('password')
-        user_obj = User.objects.get(id=user.id)       
-        user_obj.set_password(new_password)
-        user_obj.show_password = new_password
-        user_obj.save()
+        phone_number_verified_obj = UserPhoneVerified.objects.filter(ph_number=verify_ph_number_session)
+        if phone_number_verified_obj:
+            ph_number_obj = phone_number_verified_obj.first()
+            ph_number_obj.seller.set_password(new_password)
+            ph_number_obj.seller.show_password = new_password
+            ph_number_obj.seller.save()
+            verify_ph_number_session = request.session.pop('verify_ph_number', None)
+            return redirect('app_user:auth-signin')
+        else:
+            error = "In valid Credentials."
+
     context={
         "error": error,
         "success": success
@@ -270,7 +281,6 @@ def forgot_mobile_otp(request):
     print('session_data', verify_ph_number_session)
     if request.method == 'POST':
         otp_verify = request.POST.get('otp')
-        print("============",otp_verify)
         user_otp_verify = UserPhoneVerified.objects.filter(otp=otp_verify, 
             ph_number=verify_ph_number_session)
         if user_otp_verify:
@@ -311,7 +321,7 @@ def profile(request):
                 account_info_model_status = False
                 user_obj = User.objects.get(id=user.id)
                 user_obj.first_name = first_name
-                phone_verified_obj = UserPhoneVerified.objects.get(user_id=user.id)
+                phone_verified_obj = UserPhoneVerified.objects.get(seller=user.id)
 
                 if user_obj.email != email.lower():
                     user_obj.email = email
@@ -331,7 +341,7 @@ def profile(request):
                     return redirect('app_user:auth-logout')
                 return redirect('app_user:profile')
             except Exception as e:
-                error = f"Error: {e}"
+                error = f"Error 11: {e}"
             
         if form_model_type == 'seller_info_model':
             company_name = request.POST.get('company_name',None)
@@ -442,7 +452,7 @@ def profile(request):
             print('add_warehouse_info_model')
             try:
                 pickup_obj = PickUpWarehouseLocation()
-                pickup_obj.user = user
+                pickup_obj.seller = user
                 pickup_obj.plot_no = plot_no
                 pickup_obj.location_name = location_name
                 pickup_obj.street = street

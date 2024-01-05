@@ -83,7 +83,7 @@ def gst_verification_step(company_gst_number, request):
                 data = resp_dict['data']
                 try:
                     gst_detail = GstDetail(
-                        user=user,
+                        seller=user,
                         company_gst_number=data['gstin'],
                         legal_name_of_business=data['lgnm'] if 'lgnm' in data else None,
                         state_jurisdiction=data['stj'] if 'stj' in data else None,
@@ -144,7 +144,7 @@ def update_gst_verification_step(company_gst_number, request):
             if resp_dict['code'] == 200:
                 data = resp_dict['data']
                 try:
-                    gst_detail = GstDetail.objects.get(user=user,)
+                    gst_detail = GstDetail.objects.get(seller=user,)
                     gst_detail.company_gst_number=data['gstin']
                     gst_detail.legal_name_of_business=data['lgnm'] if 'lgnm' in data else None
                     gst_detail.state_jurisdiction=data['stj'] if 'stj' in data else None
@@ -205,7 +205,7 @@ def pan_verification_step(company_pan_number, request):
             print('pan verification status  ---->', resp_dict['data']['status'])
             if resp_dict['data']['status'] == 'VALID':
                 try:
-                    pan_cin_obj = PanCinDetails.objects.get(user = user)
+                    pan_cin_obj = PanCinDetails.objects.get(seller = user)
                     pan_cin_obj.documnet_id = pan
                     pan_cin_obj.response_json = resp_dict
                     pan_cin_obj.document_type=PanCinDetailEnums.PAN
@@ -213,7 +213,7 @@ def pan_verification_step(company_pan_number, request):
                     pan_cin_obj.save()
                 except:
                     pan_cin_obj = PanCinDetails()
-                    pan_cin_obj.user = user
+                    pan_cin_obj.seller = user
                     pan_cin_obj.documnet_id = pan
                     pan_cin_obj.response_json = resp_dict
                     pan_cin_obj.document_type=PanCinDetailEnums.PAN
@@ -258,7 +258,7 @@ def cin_verification_step(company_cin_number, request):
         
         if resp_dict['code'] == 200:
             try:
-                pan_cin_obj = PanCinDetails.objects.get(user = user)
+                pan_cin_obj = PanCinDetails.objects.get(seller = user)
                 pan_cin_obj.documnet_id = cin_id
                 pan_cin_obj.response_json = resp_dict
                 pan_cin_obj.document_type=PanCinDetailEnums.CIN
@@ -266,7 +266,7 @@ def cin_verification_step(company_cin_number, request):
                 pan_cin_obj.save()
             except:
                 pan_cin_obj = PanCinDetails.objects.get()
-                pan_cin_obj.user = user
+                pan_cin_obj.seller = user
                 pan_cin_obj.documnet_id = cin_id
                 pan_cin_obj.response_json = resp_dict
                 pan_cin_obj.document_type=PanCinDetailEnums.CIN
@@ -292,7 +292,7 @@ def bank_details_verification(account_holder_name, account_number, ifsc, request
     message = 'Pending Bank Verification'
     user = request.user
     try:
-        mobile = UserPhoneVerified.objects.get(user=user).ph_number
+        mobile = UserPhoneVerified.objects.get(seller=user).ph_number
     except:
         mobile = None
     
@@ -334,7 +334,7 @@ def bank_details_verification(account_holder_name, account_number, ifsc, request
                             id=uuid.uuid4().int
                             id = str(id)
                             try:
-                                bank_obj = BankVerification.objects.get(user=user)
+                                bank_obj = BankVerification.objects.get(seller=user)
                                 bank_obj.account_holder = account_holder_name
                                 bank_obj.account_number = account_number
                                 bank_obj.ifsc = ifsc
@@ -343,7 +343,7 @@ def bank_details_verification(account_holder_name, account_number, ifsc, request
                                 bank_obj.save()
                             except:
                                 bank_obj = BankVerification()
-                                bank_obj.user= user
+                                bank_obj.seller= user
                                 bank_obj.account_holder = account_holder_name
                                 bank_obj.account_number = account_number
                                 bank_obj.ifsc = ifsc
