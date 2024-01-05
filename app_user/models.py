@@ -79,7 +79,7 @@ class User(AbstractUser, ModelMixin):
 
 class ProfileSettings(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_profile_setting")
+    seller = models.OneToOneField(User, on_delete=models.CASCADE,related_name="seller_profile_setting")
     receive_order_update_whatsapp =models.BooleanField(default=False)
     receive_order_update_call = models.BooleanField(default=False)
     receive_order_update_email = models.BooleanField(default=False)
@@ -88,7 +88,7 @@ class ProfileSettings(ModelMixin):
     receive_payment_update_email = models.BooleanField(default=False)
     order_handling_time = models.CharField(max_length=50, choices=enums.OrderHandlingTimeEnums.choices,
     null=True, blank=True)
-    order_cutt_off_time = models.CharField(max_length=50, choices=enums.OrderCuttOffTime.choices,
+    order_cutt_off_time = models.CharField(max_length=50, choices=enums.OrderCuttOffTimeEnums.choices,
     null=True, blank=True)
 
     class Meta:
@@ -96,5 +96,5 @@ class ProfileSettings(ModelMixin):
         verbose_name_plural = _("Auth - Profile Settings")
 
     def __str__(self):
-        return self.user.username
+        return self.seller.username
     

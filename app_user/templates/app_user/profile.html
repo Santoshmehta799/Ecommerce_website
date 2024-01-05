@@ -38,7 +38,7 @@
 							<div class="col-md-12">
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb">
-										<li class="breadcrumb-item"><a href="/">Home</a></li>
+										<li class="breadcrumb-item"><a class="text-dark text-decoration-none"  href="/">Home</a></li>
 										<li class="breadcrumb-item active" aria-current="page">Your Profile</li>
 									</ol>
 								</nav>
@@ -75,7 +75,7 @@
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_mobile_number" class="col-form-label">Mobile Number</label> </div>
 																			<div class="mb-3 col-md-9"> 
-																				<input type="text" value="{{ request.user.user_phone_number.ph_number }}" onkeyup="PhoneNumberExist(this.value);" required id="id_mobile_number" class="form-control" maxlength="10" name="mobile_number" placeholder="Number"> 
+																				<input type="text" value="{{ request.user.seller_phone_number.ph_number }}" onkeyup="PhoneNumberExist(this.value);" required id="id_mobile_number" class="form-control" maxlength="10" name="mobile_number" placeholder="Number"> 
 																				<label id="id_mobile_number-error" class="error" for="id_mobile_number" style="display: none;"></label>
 																				<span id="id_mobile_numberError"></span>
 																			</div>
@@ -120,7 +120,7 @@
 												</div>
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_phone_number" class="col-form-label">Phone Number</label> </div>
-													<div class="col-9"> <input readonly type="text" id="id_verify_phone_number" value="{{ request.user.user_phone_number.ph_number }}" class="form-control"> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_phone_number" value="{{ request.user.seller_phone_number.ph_number }}" class="form-control"> </div>
 												</div>
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_email" class="col-form-label">Email ID</label> </div>
@@ -159,7 +159,7 @@
 																	<div class="col-md-12">
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_company_name" class="col-form-label">Company Legal Name</label> </div>
-																			<div class="col-12"> <input type="text" oninput="this.value = this.value.toUpperCase();" value="{{request.user.user_company_detail.company_name}}" required id="id_company_name" name="company_name" class="form-control" placeholder="Company Name"> </div>
+																			<div class="col-12"> <input type="text" oninput="this.value = this.value.toUpperCase();" value="{{request.user.seller_company_detail.company_name}}" required id="id_company_name" name="company_name" class="form-control" placeholder="Company Name"> </div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_address_line_1" class="col-form-label ">Company Registered Address</label>
@@ -169,7 +169,7 @@
 																							<option disabled value="" selected>Select State</option>  
 																							{% if state_obj %}
 																								{% for state in state_obj %} 
-																									<option value="{{state.id}}" {% if state.id == request.user.user_company_address.state.id %}selected{% endif %}>{{state.name}}</option> 
+																									<option value="{{state.id}}" {% if state.id == request.user.seller_company_address.state.id %}selected{% endif %}>{{state.name}}</option> 
 																								{% endfor %}
 																							{% endif %} 
 																						</select>
@@ -179,37 +179,37 @@
 																							<option disabled value="" selected>Select City</option> 
 																							{% if city_obj %}
 																								{% for city in city_obj %} 
-																									<option value="{{city.id}}" {% if city.id == request.user.user_company_address.city.id %}selected{% endif %}>{{city.name}}</option> 
+																									<option value="{{city.id}}" {% if city.id == request.user.seller_company_address.city.id %}selected{% endif %}>{{city.name}}</option> 
 																								{% endfor %}
 																							{% endif %} 
 																						</select> 
 																					</div>
-																					<div class="col-sm-4"> <input type="text" class="form-control" placeholder="Pincode" value="{% if request.user.user_company_address.pin_code %}{{request.user.user_company_address.pin_code}}{% endif %}" name="pincode"> </div>
+																					<div class="col-sm-4"> <input type="text" class="form-control" placeholder="Pincode" value="{% if request.user.seller_company_address.pin_code %}{{request.user.seller_company_address.pin_code}}{% endif %}" name="pincode"> </div>
 																					<div class="col-sm-12 mt-2">
-																						<div class="md-form mt-0"> <input type="text" class="form-control" placeholder="Address" value="{{request.user.user_company_address.address_line_1}}" name="address"> </div>
+																						<div class="md-form mt-0"> <input type="text" class="form-control" placeholder="Address" value="{{request.user.seller_company_address.address_line_1}}" name="address"> </div>
 																					</div>
 																				</div>
 																			</div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_company_gst_number" class="col-form-label">GSTIN</label> </div>
-																			<div class="col-12"> <input type="text" id="id_company_gst_number" oninput="this.value = this.value.toUpperCase();" name="company_gst_number" required value="{{request.user.user_gst_detail.company_gst_number|default_if_none:''}}" class="form-control" placeholder="Company GST"> </div>
+																			<div class="col-12"> <input type="text" id="id_company_gst_number" oninput="this.value = this.value.toUpperCase();" name="company_gst_number" required value="{{request.user.seller_gst_detail.company_gst_number|default_if_none:''}}" class="form-control" placeholder="Company GST"> </div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_company_verification" class="col-form-label">Company Verification {% if account.Company_verification %} <span style="color: green;"> <i class="icon ion-android-checkbox"></i> Verified </span> {% endif %} </label>
 																				<div class="row">
 																					<div class="col-md-4"> <select class="form-select" id="id_company_verification" name="document_type"> 
 																						{% for choice in pan_cin_choices %}
-																							<option value="{{ choice.0 }}" {% if request.user.user_pan_cin_detail.document_type == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+																							<option value="{{ choice.0 }}" {% if request.user.seller_pan_cin_detail.document_type == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
 																						{% endfor %}
 																						</select> </div>
-																					<div class="col-md-4"> <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase();" required placeholder="" name="documnet_id" value="{{request.user.user_pan_cin_detail.documnet_id}}"> </div>
+																					<div class="col-md-4"> <input type="text" class="form-control" oninput="this.value = this.value.toUpperCase();" required placeholder="" name="documnet_id" value="{{request.user.seller_pan_cin_detail.documnet_id}}"> </div>
 																				</div>
 																			</div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_about_brand" class="col-form-label">About The Brand</label> </div>
-																			<div class="col-12"> <textarea type="text" id="id_about_brand" required class="form-control" placeholder="About The Brand" name="about_brand" spellcheck="false">{{request.user.user_company_detail.about_brand|default_if_none:''}}</textarea> </div>
+																			<div class="col-12"> <textarea type="text" id="id_about_brand" required class="form-control" placeholder="About The Brand" name="about_brand" spellcheck="false">{{request.user.seller_company_detail.about_brand|default_if_none:''}}</textarea> </div>
 																		</div>
 																		<div class="row my-4">
 																			<div class="col-12 d-flex justify-content-end">
@@ -227,15 +227,15 @@
 											<div class="col-12 col-md-9">
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_company_name" class="col-form-label">Company Legal Name</label> </div>
-													<div class="col-9"> <input readonly type="text" value="{{request.user.user_company_detail.company_name|default_if_none:''}}" id="id_verify_company_name" class="form-control"> </div>
+													<div class="col-9"> <input readonly type="text" value="{{request.user.seller_company_detail.company_name|default_if_none:''}}" id="id_verify_company_name" class="form-control"> </div>
 												</div>
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_address_line_1" class="col-form-label">Company Address</label> </div>
-													<div class="col-9"> <input readonly type="text" value="{{request.user.user_company_address.address_line_1|default_if_none:''}}" id="id_verify_address_line_1" class="form-control"> </div>
+													<div class="col-9"> <input readonly type="text" value="{{request.user.seller_company_address.address_line_1|default_if_none:''}}" id="id_verify_address_line_1" class="form-control"> </div>
 												</div>
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_company_gst_number" class="col-form-label">GSTIN</label> </div>
-													<div class="col-9"> <input readonly type="rext" value="{{request.user.user_gst_detail.company_gst_number|default_if_none:''}}" id="id_verify_company_gst_number" class="form-control"> </div>
+													<div class="col-9"> <input readonly type="rext" value="{{request.user.seller_gst_detail.company_gst_number|default_if_none:''}}" id="id_verify_company_gst_number" class="form-control"> </div>
 												</div>
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_documnet_id" class="col-form-label">Company Verification</label> </div>
@@ -243,16 +243,16 @@
 														<div class="row">
 															<div class="col-6"> <select class="form-select" disabled id="id_verify_document_type">
 																{% for choice in pan_cin_choices %}
-																	<option value="{{ choice.0 }}" {% if request.user.user_pan_cin_detail.document_type == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+																	<option value="{{ choice.0 }}" {% if request.user.seller_pan_cin_detail.document_type == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
 																{% endfor %}
 																</select> </div>
-															<div class="col-6"> <input readonly id="id_documnet_id" value="{{request.user.user_pan_cin_detail.documnet_id|default_if_none:''}}" type="text" class="form-control"> </div>
+															<div class="col-6"> <input readonly id="id_documnet_id" value="{{request.user.seller_pan_cin_detail.documnet_id|default_if_none:''}}" type="text" class="form-control"> </div>
 														</div>
 													</div>
 												</div>
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_about_brand" class="col-form-label">About Brand</label> </div>
-													<div class="col-9"> <input readonly type="text" id="id_verify_about_brand" value="{{request.user.user_company_detail.about_brand|default_if_none:''}}" class="form-control"> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_about_brand" value="{{request.user.seller_company_detail.about_brand|default_if_none:''}}" class="form-control"> </div>
 												</div>
 											</div>
 										</div>
@@ -267,7 +267,7 @@
 														<div class="col-md-6"> <select class="form-select" id="id_order_handling_time" required name="order_handling_time" aria-placeholder="Estimated Delivery time">
 															<option value="" selected disabled>Select Days</option>
 															{% for choice in order_handing_time %}
-																<option value="{{ choice.0 }}" {% if request.user.user_profile_setting.order_handling_time == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+																<option value="{{ choice.0 }}" {% if request.user.seller_profile_setting.order_handling_time == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
 															{% endfor %}
 															</select> </div>
 													</div>
@@ -275,7 +275,7 @@
 														<div class="col-6"> <select class="form-select" required id="id_order_cutt_off_time" name="order_cutt_off_time" aria-placeholder="Estimated Delivery time">
 																<option value="" selected disabled>Select Time</option>
 																{% for choice in order_cut_off_time %}
-																	<option value="{{ choice.0 }}" {% if request.user.user_profile_setting.order_cutt_off_time == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+																	<option value="{{ choice.0 }}" {% if request.user.seller_profile_setting.order_cutt_off_time == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
 																{% endfor %}
 															</select> </div>
 													</div>
@@ -286,14 +286,14 @@
 														<div class="row py-3">
 															<div class="col-6"> 
 																<label><span class=""> Receive Order Updates</span></label> <br> 
-																<label class="font-size-14px" for="id_receive_order_update_whatsapp"><input type="checkbox" id="id_receive_order_update_whatsapp" name="receive_order_update_whatsapp" {% if request.user.user_profile_setting.receive_order_update_whatsapp == True %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label> <br> 
-																<label class="font-size-14px" for="id_receive_order_update_call"><input type="checkbox" id="id_receive_order_update_call" name="receive_order_update_call" {% if request.user.user_profile_setting.receive_order_update_call == True %} checked{% endif %}>&nbsp;&nbsp;Call</label> <br> 
-																<label class="font-size-14px" for="id_receive_order_update_email"><input type="checkbox" id="id_receive_order_update_email" name="receive_order_update_email" {% if request.user.user_profile_setting.receive_order_update_email == True %} checked{% endif %}>&nbsp;&nbsp;Email</label> </div>
+																<label class="font-size-14px" for="id_receive_order_update_whatsapp"><input type="checkbox" id="id_receive_order_update_whatsapp" name="receive_order_update_whatsapp" {% if request.user.seller_profile_setting.receive_order_update_whatsapp == True %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label> <br> 
+																<label class="font-size-14px" for="id_receive_order_update_call"><input type="checkbox" id="id_receive_order_update_call" name="receive_order_update_call" {% if request.user.seller_profile_setting.receive_order_update_call == True %} checked{% endif %}>&nbsp;&nbsp;Call</label> <br> 
+																<label class="font-size-14px" for="id_receive_order_update_email"><input type="checkbox" id="id_receive_order_update_email" name="receive_order_update_email" {% if request.user.seller_profile_setting.receive_order_update_email == True %} checked{% endif %}>&nbsp;&nbsp;Email</label> </div>
 															<div class="col-6"> 
 																<label for="a"> <span class=""> Receive Payment Updates</span> </label> <br> 
-																<label class="font-size-14px" for="id_receive_payment_update_whatsapp"><input type="checkbox" id="id_receive_payment_update_whatsapp" name="receive_payment_update_whatsapp" {% if request.user.user_profile_setting.receive_payment_update_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label><br> 
-																<label class="font-size-14px" for="id_receive_payment_update_call"><input type="checkbox" id="id_receive_payment_update_call" name="receive_payment_update_call" {% if request.user.user_profile_setting.receive_payment_update_call %} checked{% endif %}>&nbsp;&nbsp;Call</label><br>
-																<label class="font-size-14px" for="id_receive_payment_update_email"><input type="checkbox" id="id_receive_payment_update_email" name="receive_payment_update_email" {% if request.user.user_profile_setting.receive_payment_update_email %} checked{% endif %}>&nbsp;&nbsp;Email</label> </div>
+																<label class="font-size-14px" for="id_receive_payment_update_whatsapp"><input type="checkbox" id="id_receive_payment_update_whatsapp" name="receive_payment_update_whatsapp" {% if request.user.seller_profile_setting.receive_payment_update_whatsapp %} checked{% endif %}>&nbsp;&nbsp;Whatsapp</label><br> 
+																<label class="font-size-14px" for="id_receive_payment_update_call"><input type="checkbox" id="id_receive_payment_update_call" name="receive_payment_update_call" {% if request.user.seller_profile_setting.receive_payment_update_call %} checked{% endif %}>&nbsp;&nbsp;Call</label><br>
+																<label class="font-size-14px" for="id_receive_payment_update_email"><input type="checkbox" id="id_receive_payment_update_email" name="receive_payment_update_email" {% if request.user.seller_profile_setting.receive_payment_update_email %} checked{% endif %}>&nbsp;&nbsp;Email</label> </div>
 															<div class="col-12 mt-3"> <button class="btn btn-brand px-5" type="submit" name="form_model_type" value="account_setting_model" >Save</button> </div>
 														</div>
 													</div>
@@ -317,15 +317,15 @@
 																	<div class="col-md-12">
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_account_holder" class="col-form-label">Account Holder Name</label> </div>
-																			<div class="col-12"> <input type="text" oninput="this.value = this.value.toUpperCase();" id="id_account_holder" value="{{request.user.user_bank_verification.account_holder}}" required class="form-control" name="account_holder" placeholder="Account Holder Name"> </div>
+																			<div class="col-12"> <input type="text" oninput="this.value = this.value.toUpperCase();" id="id_account_holder" value="{{request.user.seller_bank_verification.account_holder}}" required class="form-control" name="account_holder" placeholder="Account Holder Name"> </div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_account_number" class="col-form-label">Account Number</label> </div>
-																			<div class="col-12"> <input type="text" value="{{request.user.user_bank_verification.account_number}}" class="form-control" required id="id_account_number" name="account_number" placeholder="account_number"> </div>
+																			<div class="col-12"> <input type="text" value="{{request.user.seller_bank_verification.account_number}}" class="form-control" required id="id_account_number" name="account_number" placeholder="account_number"> </div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_ifsc" class="col-form-label">IFSC Code</label> </div>
-																			<div class="col-12"> <input type="text" oninput="this.value = this.value.toUpperCase();" value="{{request.user.user_bank_verification.ifsc}}" id="id_ifsc" class="form-control" required name="ifsc" name="ifsc_code" placeholder="IFSC Code"> </div>
+																			<div class="col-12"> <input type="text" oninput="this.value = this.value.toUpperCase();" value="{{request.user.seller_bank_verification.ifsc}}" id="id_ifsc" class="form-control" required name="ifsc" name="ifsc_code" placeholder="IFSC Code"> </div>
 																		</div>
 																		<div class="row my-4">
 																			<div class="col-12 d-flex justify-content-end">
@@ -343,15 +343,15 @@
 											<div class="col-12 col-md-9">
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_account_number" class="col-form-label">Bank Account Number</label> </div>
-													<div class="col-9"> <input readonly type="text" id="id_verify_account_number" name="account_number" value="{{request.user.user_bank_verification.account_number}}"  class="form-control"> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_account_number" name="account_number" value="{{request.user.seller_bank_verification.account_number}}"  class="form-control"> </div>
 												</div>
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_account_holder" class="col-form-label">Account Holder Name</label> </div>
-													<div class="col-9"> <input readonly type="text" id="id_verify_account_holder" name="verify_account_holder" value="{{request.user.user_bank_verification.account_holder}}" class="form-control"> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_account_holder" name="verify_account_holder" value="{{request.user.seller_bank_verification.account_holder}}" class="form-control"> </div>
 												</div>
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_ifsc" class="col-form-label">IFSC Code</label> </div>
-													<div class="col-9"> <input readonly type="text" id="id_verify_ifsc" name="id_ifsc" value="{{request.user.user_bank_verification.ifsc}}" class="form-control"> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_ifsc" name="id_ifsc" value="{{request.user.seller_bank_verification.ifsc}}" class="form-control"> </div>
 												</div>
 											</div>
 										</div>

@@ -31,7 +31,110 @@ class OrderHandlingTimeEnums(TextChoices):
     SAME_DAY = ('same-day', 'Same day')
     MORE_THAN_10_DAY = ('more-than-10-days', 'More Than 10 Days')
 
-class OrderCuttOffTime(TextChoices):
+class ProductBelongEnums(TextChoices):
+    AMAZON = ('amazon', 'Amazon')
+    FLIPKART = ('flipkart', 'Flipkart')
+    SEVENTHSQ = ('seventhsq', 'Seventhsq')
+
+class ProductWeighteEnums(TextChoices):
+    GMS = ('gms', 'Gms')
+    KILOGRAMS = ('kgs', 'Kilograms (Kgs)')
+    GRAMS = ('grams', 'Grams (Gms)')
+    LITERS = ('lts', 'Liters (l)')
+    POUNDS = ('lbs', 'Pounds (lbs)')
+    OUNCE = ('oz', 'Ounce (oz)')
+    TONNE = ('mt', 'Tonne (mt)')
+
+
+class ServicedRegionsEnums(TextChoices):
+    TO_PAN_INDIA = ('deliver_pan_india', 'I deliver PAN India')
+    TO_SPECIFIED_STATES_CITIES = ('deliver_to_specified_state_cities', 'I deliver to specified state / cities only')
+
+class CommissionTypeEnums(TextChoices):
+    COMMISSION_PERCENTAGE = ('commission_percentage', 'Commision Percentage')
+    AMOUNT_PER_UNIT = ('amount_per_unit', 'Amount Per Unit')
+
+class ProductDimensionUnitEnums(TextChoices):
+    FEET = ('feet', 'Feet (ft)')
+    CENTIMETERS = ('centimeters', 'Centimeters (cm)')
+    METERS = ('meters', 'Meters (mt)')
+    INCHES = ('inches', 'Inches')
+    MILLIMETERS  = ('millimeters', 'Millimeters (mm)')
+
+class PackedBoxDimensionsUnitEnums(TextChoices):
+    FEET = ('feet', 'Feet (ft)')
+    CENTIMETERS = ('centimeters', 'Centimeters (cm)')
+    METERS = ('meters', 'Meters (mt)')
+    INCHES = ('inches', 'Inches')
+    MILLIMETERS  = ('millimeters', 'Millimeters (mm)')
+
+class ShippingMethodEnums(TextChoices):
+    SHIPPING_WITH_SEVENTH_SQUARE = ('shipping_with_seventh_square', 'Shipping With Seventh Square')
+    SELF_SHIPPING = ('self_shipping', 'Self Shipping')
+
+class GuaranteeEnums(TextChoices):
+    MONTH_1 = ('1-month', '1 month')
+    MONTHS_2 = ('2-months', '2 months') 
+    MONTHS_3 = ('3-months', '3 months')
+    MONTHS_4 = ('4-months', '4 months')
+    MONTHS_5 = ('5-months', '5 months')
+    MONTHS_6 = ('6-months', '6 months')
+    MONTHS_7 = ('7-months', '7 months')
+    MONTHS_8 = ('8-months', '8 months')
+    MONTHS_9 = ('9-months', '9 months')
+    MONTHS_10 = ('10-months', '10 months')
+    MONTHS_11 = ('11-months', '11 months')
+    MONTHS_12 = ('12-months', '12 months')  
+    YEARS_1 = ('1-years', '1 years')
+    YEARS_2 = ('2-years', '2 years')
+    YEARS_3 = ('3-years', '3 years')
+    YEARS_4 = ('4-years', '4 years')
+    YEARS_5 = ('5-years', '5 years')
+    YEARS_6 = ('6-years', '6 years')
+    YEARS_7 = ('7-years', '7 years')
+    YEARS_8 = ('8-years', '8 years')
+    YEARS_9 = ('9-years', '9 years')
+    YEARS_10 = ('10-years', '10 years')
+
+class WarrantyEnums(TextChoices):
+    MONTH_1 = ('1-month', '1 month')
+    MONTHS_2 = ('2-months', '2 months') 
+    MONTHS_3 = ('3-months', '3 months')
+    MONTHS_4 = ('4-months', '4 months')
+    MONTHS_5 = ('5-months', '5 months')
+    MONTHS_6 = ('6-months', '6 months')
+    MONTHS_7 = ('7-months', '7 months')
+    MONTHS_8 = ('8-months', '8 months')
+    MONTHS_9 = ('9-months', '9 months')
+    MONTHS_10 = ('10-months', '10 months')
+    MONTHS_11 = ('11-months', '11 months')
+    MONTHS_12 = ('12-months', '12 months')  
+    YEARS_1 = ('1-years', '1 years')
+    YEARS_2 = ('2-years', '2 years')
+    YEARS_3 = ('3-years', '3 years')
+    YEARS_4 = ('4-years', '4 years')
+    YEARS_5 = ('5-years', '5 years')
+    YEARS_6 = ('6-years', '6 years')
+    YEARS_7 = ('7-years', '7 years')
+    YEARS_8 = ('8-years', '8 years')
+    YEARS_9 = ('9-years', '9 years')
+    YEARS_10 = ('10-years', '10 years')
+class MinimumOrderQuantityEnums(TextChoices):
+    PIECE = ('piece', 'Piece')
+    BAG = ('bag', 'Bag')
+    METRIC_TONNE = ('metric_tonne', 'Metric Tonne')
+    KILOGRAM = ('kilogram', 'Kilogram')
+    CUBIC_FOOT = ('cubic_foot', 'Cubic Foot')
+    SQUARE_FOOT = ('square_foot', 'Square Foot')
+    CUBIC_METER = ('cubic_meter', 'Cubic Meter')
+    METER = ('meter', 'Meter')
+    SET = ('set', 'Set')
+    LITRE = ('litre', 'Litre')
+    FOOT = ('foot', 'Foot')
+    BUNDLE = ('bundle', 'Bundle')
+    SQUARE_METER = ('square_meter', 'Square Meter')
+
+class OrderCuttOffTimeEnums(TextChoices):
     T_00_00 = ('00.00', '12.00 AM')
     T_00_30 = ('00.30', '12.30 AM')
     T_01_00 = ('01.00', '01.00 AM')

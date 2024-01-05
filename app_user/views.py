@@ -19,7 +19,7 @@ from django.contrib import auth
 from app_dashboard.models import Cities, States
 
 from app_verification.models import BankVerification, CompanyAddressDetail, CompanyBasicDetail, GstDetail, PanCinDetails, TempPhoneVerified, UserPhoneVerified
-from common.enums import OrderCuttOffTime, OrderHandlingTimeEnums, PanCinDetailEnums, UserAuthIdentifierType, UserStatusEnums
+from common.enums import OrderCuttOffTimeEnums, OrderHandlingTimeEnums, PanCinDetailEnums, UserAuthIdentifierType, UserStatusEnums
 # Create your views here.
 
 
@@ -174,7 +174,7 @@ def except_user_phone_number_check(request):
         contact_number = request.POST.get('contact_number')
 
         try:
-            current_user_phone = UserPhoneVerified.objects.get(user=request.user)
+            current_user_phone = UserPhoneVerified.objects.get(seller=request.user)
         except ObjectDoesNotExist:
             current_user_phone = None
 
@@ -187,7 +187,46 @@ def except_user_phone_number_check(request):
         
 
 def forgot_password(request):
-    return render(request, 'app_user/forgot_password.html')
+    success = ""
+    error =""
+    if request.method == 'POST':
+        mobile_number = request.POST.get('mobile_number', None)
+        if mobile_number:
+            print('mobile_number ->', mobile_number)
+            try:
+                user_phone_verified = UserPhoneVerified.objects.get(
+                    ph_number=mobile_number)
+                if user_phone_verified:
+                    otp_generated = generate_otp()
+                    if otp_generated:
+                        print("OTP ->", otp_generated)
+                        if registration_otp_send(mobile_number, otp_generated):
+                            user_phone_verified.otp = otp_generated
+                            user_phone_verified.otp_send = True
+                            user_phone_verified.reset_password_verify = False
+                            user_phone_verified.save()
+                            request.session.get('verify_ph_number' ,user_phone_verified.ph_number)
+                            # request.session['verify_ph_number'] = user_phone_verified.ph_number
+                            messages.success(request, 'otp successfully sent.')
+                            return redirect('app_user:forgot-mobile-otp')
+                        else:
+                            error = "failed to send otp using api."
+                    else:
+                        error = "failed to generate otp."
+                else:
+                    error = "phone number does not match"
+            except Exception as e:
+                error = f"An error occurred: {str(e)}"
+                print(f"Error: {str(e)}")
+        else:
+            error = "phone enter phone number"
+
+
+    context={
+        "error": error,
+        "success": success
+    }
+    return render(request, 'app_user/forgot_password.html', context)
 
 def login_otp(request):
     return render(request, 'app_user/login_otp.html')
@@ -205,13 +244,48 @@ def confirmation_mail(request):
     return render(request, 'app_user/confirmation_mail.html')
 
 def reset_new_password(request):
-    return render(request, 'app_user/reset_new_password.html')
+    success = ""
+    error =""
+    if request.method == 'POST':
+        user = request.user
+        new_password = request.POST.get('password')
+        user_obj = User.objects.get(id=user.id)       
+        user_obj.set_password(new_password)
+        user_obj.show_password = new_password
+        user_obj.save()
+    context={
+        "error": error,
+        "success": success
+    }
+    return render(request, 'app_user/reset_new_password.html',context)
 
 def reset_otp(request):
     return render(request, 'app_user/reset_otp.html')
 
+
 def forgot_mobile_otp(request):
-    return render(request, 'app_user/mail/forgot_mobile_otp.html')
+    success = ""
+    error =""
+    verify_ph_number_session = request.session.get('verify_ph_number')
+    print('session_data', verify_ph_number_session)
+    if request.method == 'POST':
+        otp_verify = request.POST.get('otp')
+        print("============",otp_verify)
+        user_otp_verify = UserPhoneVerified.objects.filter(otp=otp_verify, 
+            ph_number=verify_ph_number_session)
+        if user_otp_verify:
+            user_phone_verified = user_otp_verify.first()
+            user_phone_verified.reset_password_verify = True
+            user_phone_verified.save()
+            return redirect('app_user:reset-new-password')
+        else:
+            error = "invalid otp not Found."
+
+    context={
+        "error": error,
+        "success": success
+    }
+    return render(request, 'app_user/mail/forgot_mobile_otp.html', context)
 
 def forgot_email_verify_page(request):
     return render(request, 'app_user/mail/forgot_email_verify_page.html')
@@ -273,17 +347,17 @@ def profile(request):
 
             if company_name:
                 company_details_obj, company_details_created = CompanyBasicDetail.objects.get_or_create(
-                    user=user,company_name=company_name)
+                    seller=user, company_name=company_name)
                 company_details_obj.about_brand = about_brand
                 company_details_obj.save()
 
             compnay_address_obj, compnay_address_created = CompanyAddressDetail.objects.get_or_create(
-                user=user, city_id=city, state_id=state)
+                seller=user, city_id=city, state_id=state)
             compnay_address_obj.address_line_1 = address
             compnay_address_obj.pin_code = pin_code
             compnay_address_obj.save()
 
-            user_gst_details_obj = GstDetail.objects.get(user=user)
+            user_gst_details_obj = GstDetail.objects.get(seller=user)
             if user_gst_details_obj.company_gst_number != company_gst_number:
                 gst_status, gst_msg = update_gst_verification_step(company_gst_number, request)
                 if gst_status != True:
@@ -319,7 +393,7 @@ def profile(request):
             receive_payment_update_email = request.POST.get('receive_payment_update_email')
             try:
                 profile_setting_obj, profile_setting_created = ProfileSettings.objects.get_or_create(
-                    user=user)
+                    seller=user)
                 profile_setting_obj.order_handling_time=order_handling_time
                 profile_setting_obj.order_cutt_off_time=order_cutt_off_time
                 profile_setting_obj.receive_order_update_whatsapp=True if receive_order_update_whatsapp else False
@@ -412,7 +486,7 @@ def profile(request):
         "pan_cin_choices" : PanCinDetailEnums.choices,
         "state_obj": States.objects.filter(country__name='INDIA').select_related('country'),
         "city_obj" : Cities.objects.filter(state__country__name='INDIA').select_related('state__country'),
-        "order_cut_off_time": OrderCuttOffTime.choices, 
+        "order_cut_off_time": OrderCuttOffTimeEnums.choices, 
         "order_handing_time" : OrderHandlingTimeEnums.choices,
         
     }

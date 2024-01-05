@@ -1,0 +1,219 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}Seller Profile | Seventh Square Seller{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}
+    <link rel="stylesheet" href="{% static 'seventh-square/assets/css/bs-stepper/bs-stepper.min.css' %}" />
+    <style>
+        .custom-model-min-width{
+            min-width: 44.5%;
+        }
+
+        .active .bs-stepper-circle {
+            background-color: #4C5864;
+        }
+    </style>
+{% endblock cssblock %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Messages Start --> 
+				{% include 'seventh-square/layout/messages.html' %}
+				{% if error %}
+					<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+						{{ error|safe }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endif %}
+			<!-- Messages END -->
+			<div class="col-12 col-md-12 bg-white">
+				<div class="row pl-0">
+					<!-- Col-3 is written as sidebar -->
+					<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
+						<div class="row pt-4 px-4">
+							<div class="col-12"> {%include 'seventh-square/layout/sidebar.html' %} </div>
+						</div>
+					</div>
+					<div class="custom-main-col-width">
+						<div class="row px-4 pt-3">
+							<div class="col-md-12">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
+										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+						<div class="row px-4">
+							<div class="col-md-12 px-3">
+								<h2 class="text-center text-black">Add New Product</h2>
+							</div>
+						</div>
+						<div class="row mx-2 mb-4">
+							<div class="col-12">
+                                <div class="card mb-3" id="all_fields_card">
+                                    <div class="card-header py-3 text-left bg-brand">
+                                        <h3 class="m-0 text-black">Product Details</h3>
+                                    </div>
+                                    <div class="card-body m-1 p-1">
+                                        <div class="mb-5 p-4 bg-white shadow-sm">
+
+                                            <div id="stepperForm" class="bs-stepper">
+                                                <div class="bs-stepper-header" role="tablist">
+                                                    <div class="step active" data-target="#stepper-form-1">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger1" aria-controls="stepper-form-1">
+                                                            <span class="bs-stepper-circle">1</span>
+                                                            <span class="bs-stepper-label">Basic Info</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-bs-skip data-target="#stepper-form-2">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger2" aria-controls="#stepper-form-2">
+                                                            <span class="bs-stepper-circle">2</span>
+                                                            <span class="bs-stepper-label">Variants</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-3">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger3" aria-controls="#stepper-form-3">
+                                                            <span class="bs-stepper-circle">3</span>
+                                                            <span class="bs-stepper-label">More Info</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-4">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger4" aria-controls="#stepper-form-4">
+                                                            <span class="bs-stepper-circle">4</span>
+                                                            <span class="bs-stepper-label"> Pricing</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-5">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger5" aria-controls="#stepper-form-5">
+                                                            <span class="bs-stepper-circle">5</span>
+                                                            <span class="bs-stepper-label">Shipping</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bs-stepper-content">
+                                                    <div id="stepper-form-1"  role="tabpanel" class="bs-stepper-pane fade active" aria-labelledby="stepperFormTrigger1">
+                                                        <form class="needs-validation"  method="POST" id="basic-info-form" novalidate="" enctype="multipart/form-data">
+                                                                {% csrf_token %}
+                                                            <div class="form-row mt-3">
+        
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label" for="productTitle">Product Title</label>
+                                                                
+                                                                <input class="form-control full_input" placeholder="SSIPL Pendant Light Bulb 10W"
+                                                                        id="productTitle" type="text" title="Tip : Include Brand Name + Product Type + Size / Quantity + Relevant Keywords (if any) for best results." name="name" required>
+                                                                        <div class="invalid-feedback">Please fill in the details.</div>
+                                                                </div>
+        
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label"
+                                                                            for="category">Category</label>
+                                                                    <select name="category" id="category"
+                                                                            style="font-size: 16px; background: #d1d1d15b;"
+                                                                            class="form-control" id="subCategory" required="required"
+                                                                            onchange="handleSubCategoryChange(this);" for="category">
+        
+                                                                        <option disabled selected value="dsfdf">Select Product Category</option>
+                                                                        {% for obj in cate %}
+                                                                            <option value="{{obj.name}}"><h1>{{ obj.name}}</h1></option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                    <div class="invalid-feedback">Please fill in the details.</div>
+                                                                </div>
+        
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label"
+                                                                    for="productType">Product Type</label>
+                                                                    <select class="form-control" list="datalistOptions" id="productType"
+                                                                        placeholder="Type your Product Name" name="subCategory"
+                                                                        required value="tril product listing">
+                                                                        <option value="dsfad" selected disabled>Select Product Type</option>
+                                                                    </select>
+                                                                    <div class="invalid-feedback">Please fill in the details.</div>
+                                                                    
+                                                                </div>
+        
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label d-flex justify-content-between" for="Brand">
+                                                                        <span>Product Brand</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <input type="text" placeholder="Example Brand Name" size="30" name="Brand"
+                                                                        class="form-control full_input" id="Brand" >
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+                                                                </div>
+        
+                                                                <div class="form-group col-md-8 mb-4">
+                                                                    <label class="w-100 form-label d-flex justify-content-between" for="description">
+                                                                        <span>Product Description</span>
+                                                                        <span style="font-size:16px;"></span>
+                                                                    </label>
+                                                                    <textarea class="form-control" id="description" name="description" required="required" title="Write about your product's features, applications, benefits and USPs." spellcheck="false"></textarea>
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+                                                                </div>
+        
+                                                                <div class="form-group col-md-8 mb-4">
+                                                                    <label class="form-label d-flex justify-content-between" for="aboutBrand">
+                                                                        <span>About Brand</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <input type="text" onkeyup="showPreview()" id="aboutBrand" size="30" name="aboutBrand" class="form-control"
+                                                                    title="Include Brand Name , Year of Inception , Products sold by the company. Any recognitions and registrations, and any other specialities that define your brand." >
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+                                                                </div>
+        
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label">Country of Origin</label>
+                                                                    <select class="form-control" id="country" onchange="showPreview()" name="countryOfOrigin" required
+                                                                        title="Select the country where the final product was manufactured or produced.">
+                                                                        <option value="dsfads" selected>Select Country</option>
+                                                                    </select>
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+                                                                </div>
+        
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <label class="form-label">Does Your Product have variants?</label>
+                                                                        </div>
+                                                                        <div class="col-12 text-left">
+                                                                            <input type="radio" style="height:11px; width:11px;"
+                                                                                name="var_added" value="True" id="y" required onclick="toggleBlockVisibility()" />
+                                                                            <label class="yyyy" for="y" style="font-size: 16px;">Yes</label>
+                                                                        
+                                                                            <input type="radio" style="height:11px; width:11px;" class="ml-5"
+                                                                                name="var_added" value="False" id="x" required onclick="toggleBlockVisibility()" />
+                                                                            <label class="xxxx" for="x" style="font-size: 16px;">No</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div id="varients_error_display" class="invalid-feedback">Please choose one.</div>
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-brand mt-3" type="submit">Next</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{% block jsblock %}
+    <script rel="stylesheet" href="{% static 'seventh-square/assets/js/bs-stepper/bs-stepper.min.js' %}"></script>
+{% endblock jsblock %}

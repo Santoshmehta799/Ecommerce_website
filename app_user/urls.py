@@ -24,15 +24,15 @@ urlpatterns = [
 
     # Forgot-Password
     path('forgot-password/', views.forgot_password, name="forgot-password"),
+    path('forgot-mobile-otp/', views.forgot_mobile_otp, name="forgot-mobile-otp"),
+    path('reset-new-password/', views.reset_new_password, name="reset-new-password"),
 
     path('auth/sendmessage/', views.sendmessage, name="auth-sendmessage"),
 
     path('account-settings/', views.account_settings, name="account-settings"),
     path('reset-password/<slug:id>/<slug:otp>/', views.reset_password, name="reset-password"),
     path('confirmation-mail/<slug:id>/<slug:otp>/', views.confirmation_mail, name="confirmation-mail"),
-    path('reset-new-password/', views.reset_new_password, name="reset-new-password"),
     path('reset-otp/', views.reset_otp, name="reset-otp"),
-    path('forgot-mobile-otp/', views.forgot_mobile_otp, name="forgot-mobile-otp"),
     path('forgot-email-verify-page/', views.forgot_email_verify_page, name="forgot-email-verify-page"),
 
 

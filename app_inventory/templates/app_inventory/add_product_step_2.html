@@ -1,0 +1,1714 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}Seller Profile | Seventh Square Seller{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}
+    <link rel="stylesheet" href="{% static 'seventh-square/assets/css/bs-stepper/bs-stepper.min.css' %}" />
+    <style>
+        .custom-model-min-width{
+            min-width: 44.5%;
+        }
+
+        .active .bs-stepper-circle {
+            background-color: #4C5864;
+        }
+    </style>
+{% endblock cssblock %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Messages Start --> 
+				{% include 'seventh-square/layout/messages.html' %}
+				{% if error %}
+					<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+						{{ error|safe }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endif %}
+			<!-- Messages END -->
+			<div class="col-12 col-md-12 bg-white">
+				<div class="row pl-0">
+					<!-- Col-3 is written as sidebar -->
+					<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
+						<div class="row pt-4 px-4">
+							<div class="col-12"> {%include 'seventh-square/layout/sidebar.html' %} </div>
+						</div>
+					</div>
+					<div class="custom-main-col-width">
+						<div class="row px-4 pt-3">
+							<div class="col-md-12">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
+										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+						<div class="row px-4">
+							<div class="col-md-12 px-3">
+								<h2 class="text-center text-black">Add New Product</h2>
+							</div>
+						</div>
+						<div class="row mx-2 mb-4">
+							<div class="col-12">
+                                <div class="card mb-3" id="all_fields_card">
+                                    <div class="card-header py-3 text-left bg-brand">
+                                        <h3 class="m-0 text-black">Product Details</h3>
+                                    </div>
+                                    <div class="card-body m-1 p-1">
+                                        <div class="mb-5 p-4 bg-white shadow-sm">
+
+                                            <div id="stepperForm" class="bs-stepper">
+                                                <div class="bs-stepper-header" role="tablist">
+                                                    <div class="step" data-target="#stepper-form-1">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger1" aria-controls="stepper-form-1">
+                                                            <span class="bs-stepper-circle">1</span>
+                                                            <span class="bs-stepper-label">Basic Info</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step active" data-bs-skip data-target="#stepper-form-2">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger2" aria-controls="#stepper-form-2">
+                                                            <span class="bs-stepper-circle">2</span>
+                                                            <span class="bs-stepper-label">Variants</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-3">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger3" aria-controls="#stepper-form-3">
+                                                            <span class="bs-stepper-circle">3</span>
+                                                            <span class="bs-stepper-label">More Info</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-4">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger4" aria-controls="#stepper-form-4">
+                                                            <span class="bs-stepper-circle">4</span>
+                                                            <span class="bs-stepper-label"> Pricing</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-5">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger5" aria-controls="#stepper-form-5">
+                                                            <span class="bs-stepper-circle">5</span>
+                                                            <span class="bs-stepper-label">Shipping</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bs-stepper-content">
+                                                    <div id="stepper-form-1"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
+                                                        
+                                                    </div>
+
+                                                    <div id="stepper-form-2"  role="tabpanel" class="bs-stepper-pane fade active" aria-labelledby="stepperFormTrigger2">
+                                                        step 2
+                                                        <form class="needs-validation"  method="POST" id="basic-info-form" novalidate="" enctype="multipart/form-data">
+                                                            {% csrf_token %}
+                                                            
+                                                            <div id="blockToToggle">
+                                                                <h5 class="font-size-18">Enter Variable</h5>
+            
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-md-10">
+                                                                        <div class="tag-input-container">
+                                                                            <input class="form-control input-tag" type="text" id="tagInput" placeholder="Enter custom variants separated by commas" onkeydown="handleKeyDown(event)">
+                                                                            <div class="invalid-feedback mt-5">Please fill in details.</div>
+                                                                        </div>
+                                                                        <div class="text-danger mt-2" id="errorText" style="display: none;">Tag already exists!</div>
+                                                                        <div class="text-danger mt-2" id="errorVariationsDetails" style="display: none;">Please fill variations Details!</div>
+            
+                                                                        <div class="tag-list mb-1 mt-4" id="tagList"></div>
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                                <br>
+                                                                <h5 class="mt-4 font-size-18">Selected Options</h5>
+                                                                <span id="removeWarningOnTagSelection" class="text-danger d-none">Please Enter Variation from above. </span>
+                                                                <div class="form-row" id="selectedTagsContainer"></div>
+                                                                <a href="javascript:void(0);" class="btn btn-dark mt-3 mb-5" onclick="GeneratePosibleVarient('selectedTagsContainer')">Add Variation</a>
+            
+                                                                <div class="form-row" id="tableContainer"></div>
+                                                                <div id="modalContainer"></div>
+            
+                                                                <br>
+                                                            </div>
+                                                            <button class="btn btn-dark mt-3 btn-next-form">Next</button>
+                                                        </form>
+                                                    </div>
+
+                                                    <div id="stepper-form-3"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger3">
+                                                        step 3
+                                                    </div>
+
+                                                    <div id="stepper-form-4"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger4">
+                                                        step 4
+                                                    </div>
+                                                    
+                                                    <div id="stepper-form-5"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger5">
+                                                        step 5
+                                                    </div>
+
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{% block jsblock %}
+    <script rel="stylesheet" href="{% static 'seventh-square/assets/js/bs-stepper/bs-stepper.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var $cat = $("#catt"),
+                $subca = $('#subcatt'),
+                $options = $subca.find('option');
+            $cat.on('change', function () {
+                $subca.html($options.filter('[value="' + this.value + '"]'));
+            }).trigger('change');
+        });
+    </script>
+    {% comment %} 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css">
+    {% endcomment %}
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> {% endcomment %}
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script> {% endcomment %}
+    {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> {% endcomment %}
+    {% comment %} <script src="/static/staticfiles/js/Collapsible-sidebar-left-or-right--Content-overlay.js"></script> {% endcomment %}
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script> {% endcomment %}
+    {% comment %} <script src="https://kit.fontawesome.com/ce664af958.js" crossorigin="anonymous"></script> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/bs-stepper/dist/js/bs-stepper.min.js"></script>
+    {% comment %} <script src="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script> {% endcomment %}
+    <script>
+        function showPreview() {
+            var title = document.getElementById("productTitle").value;
+            var category = document.getElementById("subCategory").value;
+            var productType = document.getElementById("productType").value;
+            var Brand = document.getElementById("Brand").value;
+            var aboutBrand = document.getElementById("aboutBrand").value;
+            var myKadA = document.getElementById("myKadA").value;
+        
+            var productStorage = document.getElementById("productStorage").value;
+            var productUsage = document.getElementById("productUsage").value;
+            var productInstallation = document.getElementById("productInstallation").value;
+            var productHandling = document.getElementById("productHandling").value;
+            var productWarranty = document.getElementById("productWarranty").value;
+            var productGuarantee = document.getElementById("productGuarantee").value;
+            var return_policy = document.getElementById("return_policy").value;
+            var country = document.getElementById("country").value;
+            var packagingSize = document.getElementById("packagingSize").value;
+            var material = document.getElementById("material").value;
+            var productWeight = document.getElementById("productWeight").value;
+            var packeddimension = document.getElementById("packeddimension").value;
+        
+        
+        
+        
+            var components = document.getElementById("components").value;
+        
+            var productMRP = document.getElementById("productMRP").value;
+            if (productMRP) {
+                document.getElementById("productMRP1").innerHTML = "₹" + productMRP;
+                document.getElementById("productMRP1").style.display = "inline-block";
+            } else {
+                document.getElementById("productMRP1").style.display = "none";
+            }
+            var sale_price = document.getElementById("sale_price").value;
+            if (sale_price) {
+                document.getElementById("sale_price1").innerHTML = "₹" + sale_price;
+                document.getElementById("sale_price1").style.display = "inline-block";
+            } else {
+                document.getElementById("sale_price1").style.display = "none";
+            }
+        
+            document.getElementById("myKadA1").innerHTML = myKadA;
+            document.getElementById("productTitle1").innerHTML = title;
+            document.getElementById("description1").innerHTML = discription;
+            document.getElementById("subCategory1").innerHTML = category;
+            document.getElementById("productType1").innerHTML = productType;
+            document.getElementById("Brand1").innerHTML = Brand;
+            document.getElementById("aboutBrand1").innerHTML = aboutBrand;
+        
+            document.getElementById("productStorage1").innerHTML = productStorage;
+            document.getElementById("productUsage1").innerHTML = productUsage;
+            document.getElementById("productInstallation1").innerHTML = productInstallation;
+            document.getElementById("productHandling1").innerHTML = productHandling;
+            document.getElementById("productWarranty1").innerHTML = productWarranty;
+            document.getElementById("productGuarantee1").innerHTML = productGuarantee;
+            document.getElementById("return_policy1").innerHTML = return_policy;
+            document.getElementById("country1").innerHTML = country;
+            document.getElementById("packagingSize1").innerHTML = packagingSize;
+            document.getElementById("material1").innerHTML = material;
+            document.getElementById("productWeight1").innerHTML = productWeight;
+        
+        
+            document.getElementById("packeddimension1").textContent = packeddimension;
+            document.getElementById("componentss").innerHTML = components;
+        
+        }
+    </script>
+
+    <script>
+        function showPrevie() {
+            var productdimensionUnit = document.getElementById("productdimensionUnit").value;
+            var Legt = document.getElementById("Legt").value;
+            var components = document.getElementById("components").value;
+            var productDimensionWidth = document.getElementById("productDimensionWidth").value;
+            var productDimensionHeight = document.getElementById("productDimensionHeight").value;
+            var productDimensionBoxWidth = document.getElementById("productDimensionBoxWidth").value;
+            var productDimensionBoxLength = document.getElementById("productDimensionBoxLength").value;
+            var productDimensionBoxHeight = document.getElementById("productDimensionBoxHeight").value;
+            var productdimensionUnitBox = document.getElementById("productdimensionUnitBox").value;
+        
+        
+            document.getElementById("productdimensionUnit1").textContent = productdimensionUnit;
+            document.getElementById("Legt1").textContent  = Legt + " L";
+            document.getElementById("componentss").innerHTML = components;
+            document.getElementById("productDimensionWidth1").textContent = productDimensionWidth + " W";
+            document.getElementById("productDimensionHeight1").textContent = productDimensionHeight + " H";
+            document.getElementById("productDimensionBoxWidth1").textContent = productDimensionBoxWidth + " W";
+            document.getElementById("productDimensionBoxLength1").textContent = productDimensionBoxLength + " L";
+            document.getElementById("productDimensionBoxHeight1").textContent = productDimensionBoxHeight + " H";
+            document.getElementById("productdimensionUnitBox1").textContent = productdimensionUnitBox;
+        }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            window.stepperForm = new Stepper(document.querySelector('.bs-stepper'))
+        })
+        
+        var btnNextList = [].slice.call(document.querySelectorAll('.btn-next-form'))
+        btnNextList.forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+                let invalid = $(e.target).closest('[role="tabpanel"]').find('input,select ').removeClass('is-invalid').filter((i, x) => { return !x.checkValidity() })
+                if (invalid.length == 0) {
+        
+                    window.scrollTo(0, 0);
+                    window.stepperForm.next();
+                }
+                else {
+                    invalid.addClass('is-invalid')
+                }
+            })
+        })
+        
+        function seebreakdown() {
+            var count = parseInt(document.getElementById("seebreak").value);
+            if (count == 1) {
+                e.form.removeAttribute('onsubmit')
+                e.form.submit()
+                Swal.fire({
+                    height: '200px',
+                    width: '400px',
+                    position: 'top',
+                    icon: 'success',
+                    title: 'Product is added sucessfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else {
+                Swal.fire({
+                    height: '200px',
+                    width: '400px',
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Some mandatory details are empty',
+                    showConfirmButton: false,
+                    timer: 2500
+                })
+            }
+        }
+        
+        function formSubmit(e) {
+            var form = e.form;
+            var requiredFields = [
+                'productWeight',
+                'packeddimension',
+                'returnable',
+                'shippingMethod',
+                'productdimensionUnit',
+                'Legt', // Assuming this is an ID of an input field
+                'productDimensionWidth',
+                'productDimensionHeight',
+                'productdimensionUnitBox',
+                'productDimensionBoxLength',
+                'productDimensionBoxWidth',
+                'productDimensionBoxHeight'
+            ];
+        
+            var hasEmptyField = false;
+        
+            requiredFields.forEach(function(fieldName) {
+                var field = document.getElementById(fieldName);
+        
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    hasEmptyField = true;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+        
+            if (hasEmptyField) {
+                e.preventDefault();
+                return;
+            }
+        
+            if (form.checkValidity()) {
+                // The form is valid, submit it
+                form.removeAttribute('onsubmit');
+                form.submit();
+        
+                Swal.fire({
+                    height: '200px',
+                    width: '400px',
+                    position: 'top',
+                    icon: 'success',
+                    title: 'Product is added successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                // The form is invalid (due to other validation rules)
+                Swal.fire({
+                    height: '200px',
+                    width: '400px',
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Some fields contain invalid data',
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+                e.preventDefault();
+            }
+        }        
+        
+        // $('select').selectpicker();
+    </script>
+
+    <script>
+        //function for add another button on variant page
+        $(document).ready(function () {
+            var maxField = 10; //Input fields increment limitation
+            var addButton = $('.add_button'); //Add button selector
+            var selectShow = $('#variant_input_box');
+            var stringData = '<div class="form-row py-2" >   <input class="form-control selectVariant" id="selectVariant2"style="width:160px!important;height:35px!important; border:1px solid lightgray" list="datalistVariantTypeOptions" placeholder="Variant Type" > <div class="col-md-8 " id="description__input"> <input type="text" value="" data-role="tagsinput" class="form-control tags_variant" id="tagg_varr"></div>'
+        // var stringData = '<div class="form-row py-2" >   <input class="form-control selectVariant" id="selectVariant2"style="width:160px!important;height:35px!important; border:1px solid lightgray" list="datalistVariantTypeOptions" placeholder="Variant Type" > <div class="col-md-8 " id="description__input"> <input type="text" value="" data-role="tagsinput" class="form-control tags_variant" /></div>'
+        
+            console.log(document.getElementsByClassName("selectVariant"))
+            console.log(("selectVariant"))
+            console.log(("tags_variant"))
+            var crossShow = $('#variant__cross-sign');
+            var wrapper = $('.field_wrapperr');
+            var x = 1; //Initial field counter is 1
+            function removeElement(e) {
+        
+        //the above method will remove the user_data div
+            };
+        //Once add button is clicked
+            $(addButton).click(function () {
+        //Check maximum number of input fields
+                if (x < maxField) {
+                    x++; //Increment field counter
+                    $(wrapper).prepend(stringData + '<img onClick="$(this).parent().remove();showPriceCombonation();" class="add__another--img remove-btn mt-1" src="https://www.pngkey.com/png/full/215-2155436_png-file-svg-cross-mark-png-black.png" /></div>');
+                    $('[data-role="tagsinput"]').tagsinput('refresh');
+        
+                    $('[data-role="tagsinput"]').on('itemAdded', showPriceCombonation);
+                    $('[data-role="tagsinput"]').on('itemRemoved', showPriceCombonation);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function showPriceCombonation() {
+        
+            let variantTags = $(".field_wrapperr").find('[data-role="tagsinput"]');
+            console.log(variantTags)
+            console.log("variantTags")
+            let variantTagsList = [];
+            var variants = [];
+            for (let i = 0; i < variantTags.length; i++) {
+                variantTagsList.push(variantTags[i].value.split(','))
+                console.log("variantTagsList")
+                console.log(variantTagsList)
+            // console.log($('.showCombinations'))
+            }
+            function combination(x, depth, current) {
+                if (x.length == depth) {
+                    variants.push([...current]);
+                    return;
+                }
+                for (let y in x[depth]) {
+                    current.push(x[depth][y]);
+                    combination(x, depth + 1, current);
+        
+                    current.pop();
+        
+                }
+            }
+            combination(variantTagsList, 0, []);
+        
+            $('.showCombinations')[0].innerHTML = '';
+            $('.showVar')[0].innerHTML = '';
+        
+            function chechvaar() {
+                console.log("yes i am checkvar")
+    
+            }
+        
+        
+            for (let i = 0; i < variants.length; i++) {
+                function chechvar() {
+                    console.log("hi bar");
+                }
+        
+                $('.showCombinations').append('<div class="row"> <div class="col-4"><input class="form-control selectedVariant" value="' + variants[i].join(',') + '" type="text" disabled ></div><div class="col-3"><input class="form-control variantMp" type="number" placeholder="Market Price"></div><div class="col-3"><input class="form-control variantSp" type="number" onchange="checkvar()"  placeholder="Sale Price"></div><div class="col-1"><input  type="checkbox" id="priceon" name="priceon" ></div><div class="col-1"><input type="radio" id="default" name="default" ></div></div>');
+                // $('.showVar').append('<div class="row"> <div class="col-4"><input class="form-control selectedVariant" value="' + variants[i].join(',') + '" type="text" disabled ></div>');
+            }
+        
+            // console.log("variantTagsList")
+        
+            // console.log(variantTagsList)
+            console.log(("selectVariant"))
+            console.log(("tags_variant"))
+            console.log(("variantMp"))
+            console.log(("variantSp"))
+        
+        
+        }
+    </script>
+
+    <script>
+        $('.variantSubmit').on('click', () => {
+            if ($('.selectVariant').val() !== "") {
+                $('input[name="variant"]').val("");
+            }
+            $('.showVar').html('');
+        
+            var selectVariantarray = [];
+            var tags_variantarray = [];
+            var selectedVariantarray = [];
+            var variantMparray = [];
+            var variantSparray = [];
+            var OnRequestarray = [];
+            var isDefaulttarray = [];
+        
+            $('.selectVariant').each(function(i, e) {
+                selectVariantarray.push(e.value);
+            });
+        
+            $('.tags_variant').each(function(i, e) {
+                tags_variantarray.push(e.value);
+            });
+        
+            $('.selectedVariant').each(function(i, e) {
+                selectedVariantarray.push(e.value);
+            });
+        
+            $('.variantMp').each(function(i, e) {
+                variantMparray.push(e.value);
+            });
+        
+            $('.variantSp').each(function(i, e) {
+                variantSparray.push(e.value);
+            });
+        
+            $('input[type=checkbox]').each(function(i, e) {
+                OnRequestarray.push(e.checked);
+            });
+        
+            $('input[type=radio]').each(function(i, e) {
+                isDefaulttarray.push(e.checked);
+            });
+        
+            for (let i = 0; i < selectedVariantarray.length; i++) {
+                if (!OnRequestarray[i]) {
+                    if (parseFloat(variantMparray[i]) < parseFloat(variantSparray[i])) {
+                        alert("Sale price can't be greater than MRP");
+                    }
+                    $('.showVar').append(`
+                        <div class="row">
+                            <div class="col-4"><input class="form-control selectedVariant" value="${selectedVariantarray[i]}" type="text" disabled ></div>
+                            <div class="col-3"><input class="form-control variantMp" type="number" placeholder="Market Price" value="${variantMparray[i]}" disabled></div>
+                            <div class="col-3"><input class="form-control variantSp" disabled type="number" placeholder="Sale Price" value="${variantSparray[i]}"></div>
+                        </div>`
+                    );
+                } else {
+                    $('.showVar').append(`
+                        <div class="row">
+                            <div class="col-4"><input class="form-control selectedVariant" value="${selectedVariantarray[i]}" type="text" disabled ></div>
+                            <div class="col-4"><span> Price on Request</span></div>
+                        </div>`
+                    );
+                }
+            }
+        
+            let defpro = 0;
+            for (let i = 0; i < isDefaulttarray.length; i++) {
+                if (isDefaulttarray[i]) {
+                    defpro = i;
+                }
+            }
+        
+            // Rest of your code
+        
+            const dict = {
+                "selectVariant": selectVariantarray,
+                "tagsVariant": tags_variantarray,
+                "selectedVariant": selectedVariantarray,
+                "variantMp": variantMparray,
+                "variantSp": variantSparray,
+                "Onrequest": OnRequestarray,
+                "isDefault": isDefaulttarray,
+            };
+        
+            if (selectVariantarray.length === 0) {
+                mrp.required = true;
+                sp.required = true;
+                mrp.disabled = false;
+                sp.disabled = false;
+                poq.disabled = false;
+            } else {
+                mrp.removeAttribute("required");
+                sp.removeAttribute("required");
+                mrp.disabled = true;
+                sp.disabled = true;
+                poq.disabled = true;
+            }
+            $('input[name="variant"]').val(JSON.stringify(dict));
+        
+            // Rest of your code
+        });
+        
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $(".mul-select").select2({
+                placeholder: "<--- Select from Suggested or Add you own --->",
+                class: "col-md-12",
+                tags: true,
+                tokenSeparators: ['/', ',', ';']
+            });
+            $("#productMaterials").select2({
+                placeholder: "Please Add Product material",
+                class: "col-md-12",
+                tags: true,
+                tokenSeparators: ['/', ',', ';']
+            });
+        
+        })
+    </script>
+
+    <script type="text/javascript">
+        // let thumbnails = document.getElementsByClassName('thumbnail')
+        
+        // let activeImages = document.getElementsByClassName('active');
+        
+        
+        // for (var i = 0; i < thumbnails.length; i++) {
+        
+        //     thumbnails[i].addEventListener('mouseover', function () {
+        //         console.log(activeImages)
+        
+        //         if (activeImages.length > 0) {
+        //             activeImages[0].classList.remove('active')
+        //         }
+        
+        
+        //         this.classList.add('active')
+        //         document.getElementById('featured').src = this.src
+        //     })
+        // }
+        
+        
+        let buttonRight = document.getElementById('slideRight');
+        let buttonLeft = document.getElementById('slideLeft');
+        
+        buttonLeft.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft -= 180
+        })
+        
+        buttonRight.addEventListener('click', function () {
+            document.getElementById('slider').scrollLeft += 180
+        })
+        
+        
+    </script>
+
+    <script>
+        function onProductImageChange(e) {
+            a = e
+            let showDiv = document.getElementById('imageShow');
+            let previewDiv = document.getElementById('slider');
+            showDiv.innerHTML = "";
+            previewDiv.innerHTML = "";
+            var files = e.files;
+            console.log("files")
+            // files = files.reverse()
+            files = Array.prototype.slice.call(files).reverse();
+            console.log(files)
+            var index;
+            var url, firstImage;
+            for (index in files) {
+        
+                url = URL.createObjectURL(files[index]);
+                console.log("files indez")
+                console.log(index)
+                console.log("files in")
+                console.log(files)
+                showDiv.innerHTML = '<img style="height: 150px;" src="' + url + '" >' + showDiv.innerHTML;
+                $('#featured').attr('src', URL.createObjectURL(files[index]));
+                firstImage = $('#sliderActive').attr('src', url);
+                slider.innerHTML = '<img class="thumbnail" src="' + URL.createObjectURL(files[index]) + '" >' + slider.innerHTML;
+            }
+            console.log("type", typeof (files));
+        }
+    </script>
+
+    <script>
+        function sided() {
+            // var productImage = $('#productImage').html();
+            var productTitle = $('#productTitle').val();
+            var subCategory = $('#subCategory').val();
+            var sr = $('#sr').val();
+        
+            var productType = $('#productType').val();
+            var oht = $('#oht').val();
+            var productHsn = $('#myKadA').val();
+            var productDescription = $('#productDescription').val();
+            var productImage = $('#productImage').val();
+            var aboutProduct = $('#aboutProduct').val();
+            var aboutStorage = $('#productStorage').val();
+            var aboutUsage = $('#productUsage').val();
+            var qtyUnit = $('#qtyUnit').val();
+            var minqty = $('#minqty').val();
+            var productInstallation = $('#productInstallation').val();
+            var productHandling = $('#productHandling').val();
+            var productWarranty = $('#productWarranty').val();
+            var productGuarantee = $('#productGuarantee').val();
+            var productMRP = "₹" + $('#productMRP').val();
+            var sale_price = "₹" + parseFloat($('#sale_price').val());
+            var taxCode = $('#sel1').val();
+            var gst_check1 = $('#gst_check').val();
+            console.log(gst_check1)
+            var methodSelect = $('#methodSelect').val();
+            var defpro_mp = "₹" + $('#defpro_mp').val();
+            var defpro_sp = "₹" + $('#defpro_sp').val();
+            var defpro_var = $('#defpro_var').val();
+        
+            var productComponents = $('#productComponents').val();
+            var productPackaging = $('#productPackaging').val();
+            var productWeight = $('#productWeight').val();
+            var productUnit = $('#productDimensionUnit').val();
+            var productDimensionLength = $('#productDimensionLength').val();
+            var productDimensionWidth = $('#productDimensionWidth').val();
+            var PdimensionUnit = $('#PdimensionUnit').val();
+            var packeddimension = $('#packeddimension').val();
+            var returnable = $('#returnable').val();
+            var returnableans = ""
+            if (returnable === "True") {
+                console.log("hi")
+                returnableans = "Yes"
+            } else {
+                console.log("hif")
+                returnableans = "No"
+            }
+            var productDimensionHeight = $('#productDimensionHeight').val();
+            var productMaterials = $('#productMaterials').val();
+            var packedLength = $('#packedLength').val();
+            var packedWidth = $('#packedWidth').val();
+            var POQ = $('#POQ').val();
+            var varr = $('#defpro_var').val();
+            var packedHeight = $('#packedHeight').val();
+            var ship_check = $('#ship_check').val();
+            console.log(ship_check)
+            var methodSelectans = ""
+            var poqq = "Price On Request"
+            if (ship_check === "True") {
+                console.log("hi")
+                methodSelectans = "Yes"
+            } else {
+                console.log("hif")
+                methodSelectans = "No"
+            }
+            var Brand = $('#Brand').val();
+            var productCountry = $('#country').val();
+        
+            if (gst_check1 == "True") {
+        
+                mainTaxCode = "( " + taxCode + "% GST Included)"
+            }
+            else {
+        
+                mainTaxCode = "( " + taxCode + "% GST EXTRA)"
+            }
+            var mainDimension = productDimensionLength + "x" + productDimensionWidth + "x" + productDimensionHeight;
+            $('#showProductUnit').val(productUnit);
+            $('#showProductMRP').val(productMRP);
+            $('#showProductDimensions').val(mainDimension);
+            $('#showProductTitle').val(subCategory);
+            $('#showProductTitle3').val(productType);
+            $('#showProductTitle101').val(oht);
+            $('#showProductTitle2').val(productTitle);
+            $('#showProductTitle4').val(productHsn);
+            $('#showProductTitle5').val(productWarranty);
+            $('#showProductTitle6').val(productWeight);
+            $('#showProductTitle7').val(productMaterials);
+            $('#showProductTitle8').val(productDimensionLength);
+            $('#showProductTitle9').val(productDimensionWidth);
+            $('#showProductTitle10').val(productDimensionHeight);
+            $('#showProductTitle11').val(aboutProduct);
+            $('#showProductTitle12').val(productInstallation);
+            $('#showProductTitle13').val(productHandling);
+            $('#showProductTitle14').val(aboutStorage);
+            $('#showProductTitle15').val(aboutUsage);
+            $('#showProductTitle16').val(methodSelect);
+            $('#showProductTitle17').val(productGuarantee);
+            $('#showProductTitle18').val(productComponents);
+            $('#showProductTitle19').val(productCountry);
+            $('#showProductTitle20').val(PdimensionUnit);
+            $('#showProductTitle24').val(PdimensionUnit);
+            $('#showProductTitle25').val(PdimensionUnit);
+            $('#showProductTitle21').val(packeddimension);
+            $('#showProductTitle38').val(methodSelectans);
+            $('#showProductTitle22').val(packeddimension);
+            $('#showProductTitle23').val(packeddimension);
+            if (POQ == "True") {
+                // $('#showProductTitle26').val(poqq);   
+                $('#showProductTitle67').val(poqq);
+                $('#showProductTitle26').val("")
+                $('#showProductTitle38').val("")
+                $('#showProductMRP').val("")
+                $('#showProductTitle27').val("");
+                $('#showProductTitle28').val("");
+                $('#showProductTitle35').val("");
+                var showDiv4 = document.getElementById("Shipping_Inc");
+                showDiv4.style.display = "none";
+        
+                $('#showProductTitle3600').val(qtyUnit);
+                $("#per").css("display", "none");
+                $("#variantt").css("display", "none");
+        
+            } else if (varr != "") {
+                console.log("varr else if", varr)
+                $('#showProductTitle67').val("");
+                $('#showProductTitle26').val(defpro_mp);
+                $('#showProductMRP').val(defpro_mp)
+                $('#showProductTitle27').val(defpro_sp);
+                $('#showProductTitle28').val(defpro_var);
+                $("#per").css("display", "none");
+                $("#variantt").css("display", "");
+        
+        
+            } else {
+                console.log("varr else", varr)
+                $('#showProductTitle38').val(methodSelectans);
+        
+                $('#showProductTitle67').val("");
+                $('#showProductTitle26').val(productMRP);
+                $('#showProductTitle27').val(sale_price);
+                $('#showProductTitle28').val(qtyUnit);
+                $('#showProductTitle35').val("");
+                var showDiv4 = document.getElementById("Shipping_Inc");
+                showDiv4.style.display = "";
+                $("#variantt").css("display", "none");
+        
+            }
+        
+            $('#showProductTitle29').val(packedLength);
+            $('#showProductTitle30').val(packedWidth);
+            $('#showProductTitle31').val(packedHeight);
+            $('#showProductTitle32').val(productPackaging);
+            $('#showProductTitle33').val(Brand);
+            $('#showProductTitle34').val(returnableans);
+            $('#showProductTitle35').val(mainTaxCode);
+            $('#showProductTitle36').val(minqty);
+            $('#showProductTitle37').val(productDescription);
+        
+            $('#showProductTitle40').val(sr);
+            $('#showProductSalePrice').val(sale_price).toFixed(2);
+            $('#showGSTTax').val(mainTaxCode);
+            // $('#showProductTitle').val( productTitle);
+            $('#showProductInfo').val(productDescription);
+            $('#showProductType').val(productType);
+            $('#showProductWeight').val(productWeight);
+            $('#showProductMaterials').val(productMaterials);
+            $('#showProductTaxCode').val(taxCode);
+            $('#showProductInstallation').val(productInstallation);
+            $('showProductHandling').val(productHandling);
+            $('showProductUsage').val(aboutUsage);
+            $('showProductHSNCode').val(productHsn);
+            $('showProductGuarantee').val(productGuarantee);
+            $('showProductWarranty').val(productWarranty);
+            $('showProductPackaging').val(productPackaging);
+            $('showComponents').val(productComponents);
+            $('showProductStorage').val(aboutStorage);
+            $('showCountry').val(productCountry);
+            $('showAbout').val(aboutProduct);
+            // document.getElementById("showProductDimensions").innerHTML = mainDimension;
+        
+        
+        
+        }
+    </script>
+
+    <script>
+        function changefree(e) {
+            var shipping = false;
+            if (e.checked) {
+                shipping = true;
+            }
+            if (document.getElementById('freeshipping').getAttribute("data-status") == 'na') {
+                document.getElementById('free').innerHTML = 'Free Shipping'
+                document.getElementById('freeshipping').setAttribute("data-status", 'a')
+        
+        
+            }
+            else {
+                document.getElementById('free').innerHTML = ''
+                document.getElementById('freeshipping').setAttribute("data-status", 'na')
+            }
+        
+        }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var $cat = $("#catt"),
+                $subca = $('#subcatt'),
+                $options = $subca.find('option');
+            $cat.on('change', function () {
+                $subca.html($options.filter('[value="' + this.value + '"]'));
+            }).trigger('change');
+        });
+    </script>
+
+    <script>
+        function calcu() {
+            var inputValue1 = parseFloat(document.getElementById("sale_price").value);
+            var av = document.getElementById("comm").innerText;
+            var commi = Number(av);
+
+            var ccomm;
+            if (commi === 3) {
+                ccomm = 3; // Use commi directly as commission percentage
+                var taxtotal = ccomm + 0.198;
+
+                let commmision = 3    ;
+                let pay = (inputValue1 * .018).toFixed(2);
+
+                let ggsstt = Number(commmision) + Number(pay);
+                let ggst = (ggsstt * .18).toFixed(2);
+                let total = (Number(ggst) + Number(pay) + Number(commmision));
+                let result = (inputValue1 - total).toFixed(2);
+
+                document.getElementById("result").value = result;
+                document.getElementById("commmision").value = commmision;
+                document.getElementById("pay").value = pay;
+                document.getElementById("ggst").value = ggst;
+                document.getElementById("inputValue1").value = inputValue1.toFixed(2);
+
+            } else {
+                ccomm = commi / 100;
+                var taxtotal = ccomm + 0.198;
+
+                let commmision = (ccomm * inputValue1).toFixed(2);
+                let pay = (inputValue1 * .018).toFixed(2);
+
+                let ggsstt = Number(commmision) + Number(pay);
+                let ggst = (ggsstt * .18).toFixed(2);
+                let total = (Number(ggst) + Number(pay) + Number(commmision));
+                let result = (inputValue1 - total).toFixed(2);
+
+                document.getElementById("result").value = result;
+                document.getElementById("commmision").value = commmision;
+                document.getElementById("pay").value = pay;
+                document.getElementById("ggst").value = ggst;
+                document.getElementById("inputValue1").value = inputValue1.toFixed(2);
+
+            }
+
+
+
+
+        } {
+
+            $('#seebreak').val(1);
+            var sale_price = parseFloat($('#sale_price').val());
+
+
+
+            var taxper = parseInt(document.getElementById("sel1").value);
+
+            if (document.getElementById("gst_check").value == "False") {
+                console.log("tax changes")
+                console.log(taxper)
+                taxable_amount = ((taxper / 100) * sale_price).toFixed(2);
+                console.log(("sale_price+taxable_amount"))
+                console.log((parseFloat(sale_price) + parseFloat(taxable_amount)))
+
+                if ((parseFloat(sale_price) + parseFloat(taxable_amount)) > parseFloat(mrp_price)) {
+                    alert("Sale price can’t be greater than MRP")
+                }
+
+                sale_price = sale_price + ((sale_price * taxper) / 100)
+                console.log("now sale_price")
+            }
+            var av = document.getElementById("comm").innerText;
+            console.log("av")
+            console.log("4444444444444444444444", av)
+
+            console.log("av 980")
+            console.log(av)
+
+            var gstt = parseFloat(av);
+            console.log("gstt")
+            console.log(gstt)
+
+            if (av == " ₹3") {
+                //   var sale_price = parseFloat($('#sale_price').val());
+                var showCommission = "3 / bag"
+                var showDiv = document.getElementById("percent");
+                showDiv.style.display = "none";
+                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                var add = parseFloat(showPayment) + parseFloat(3);
+                console.log(showCommission)
+                console.log("showPayment")
+                console.log(showPayment)
+                console.log("add line 1007")
+                console.log(add)
+                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                var added = parseFloat(3) + parseFloat(showPayment) + parseFloat(showGst);
+                var showRecieve = (sale_price - added).toFixed(2);
+                $('#showSale').val(sale_price);
+                $('#sale_pricee').val(sale_price);
+
+                $('#showCommission').val("3 / bag");
+                $('#showPayment').val(showPayment);
+                $('#showGst').val(showGst);
+                $('#showRecieve2').val(showRecieve);
+                $('#gstttt').val(showGst);
+                $('#commi').val("3/bag");
+                $('#payment_gateway').val(showPayment);
+                $('#prod_comm').val(av);
+
+
+            } else if (av == "111") {
+
+                // var sale_price = parseFloat($('#sale_price').val());
+                var showCommission = "2 / bag"
+                var showDiv = document.getElementById("percent");
+                showDiv.style.display = "none";
+                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                var add = parseFloat(showPayment) + parseFloat(2);
+                console.log(showCommission)
+                console.log("showPayment")
+                console.log(showPayment)
+                console.log("add")
+                console.log(add)
+                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                var added = parseFloat(2) + parseFloat(showPayment) + parseFloat(showGst);
+                var showRecieve = (sale_price - added).toFixed(2);
+                $('#showSale').val(sale_price);
+                $('#sale_pricee').val(sale_price);
+
+                $('#showCommission').val("2 / bag");
+                $('#showPayment').val(showPayment);
+                $('#showGst').val(showGst);
+                $('#showRecieve2').val(showRecieve);
+                $('#gstttt').val(showGst);
+                $('#commi').val("2/bag");
+                $('#payment_gateway').val(showPayment);
+                $('#prod_comm').val(av);
+
+            } else {
+                console.log("last part")
+                var showDiv = document.getElementById("percent");
+                showDiv.style.display = "block";
+                var showCommission = ((gstt / 100) * sale_price).toFixed(2);
+                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                var add = parseFloat(showPayment) + parseFloat(showCommission);
+                console.log(showCommission)
+                console.log(showPayment)
+                console.log("add")
+                console.log(add)
+                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                var added = parseFloat(showCommission) + parseFloat(showPayment) + parseFloat(showGst);
+                var showRecieve = (sale_price - added).toFixed(2);
+                $('#showSale').val(sale_price);
+                $('#sale_pricee').val(sale_price);
+
+                $('#showCommission').val(showCommission);
+                $('#showPayment').val(showPayment);
+                $('#showGst').val(showGst);
+                $('#showRecieve2').val(showRecieve);
+                $('#gstttt').val(showGst);
+                $('#commi').val(showCommission);
+                $('#payment_gateway').val(showPayment);
+                $('#prod_comm').val(av);
+
+
+            }
+        }
+        function showBreakdown() {
+            var sale_price = parseFloat($('#sale_price').val());
+            var av = document.getElementById("comm").innerText;
+            var gstt = parseFloat(av);
+            var showCommission = ((gstt / 100) * sale_price).toFixed(3);
+            var showPayment = ((18 / 1000) * sale_price).toFixed(3);
+            var add = parseFloat(showPayment) + parseFloat(showCommission);
+            var showGst = ((18 / 100) * add).toFixed(3);
+            var added = parseFloat(showCommission) + parseFloat(showPayment) + parseFloat(showGst);
+            var showRecieve = (sale_price - added).toFixed(3);
+
+            $('#showSale').val(sale_price);
+            $('#showCommission').val(showCommission);
+            $('#showPayment').val(showPayment);
+            $('#showGst').val(showGst);
+            $('#showRecieve2').val(showRecieve);
+        }
+    </script>
+
+
+    <script>
+      
+        const tagInput = document.getElementById('tagInput');
+        const tagList = document.getElementById('tagList');
+        const errorText = document.getElementById('errorText');
+    
+        tagInput.addEventListener('keydown', handleKeyDown);
+    
+        function handleKeyDown(event) {
+          if (event.key === ',' || event.key === 'Enter') {
+            event.preventDefault();
+            const newTag = tagInput.value.trim();
+            if (newTag !== '') {
+              if (!tagListContains(newTag)) {
+                errorText.style.display = 'none';
+                addTag(newTag);
+                takeVariationsValue(); // Call the function to update variations
+              } else {
+                errorText.style.display = 'block';
+                tagInput.classList.add('has-error');
+              }
+            }
+            tagInput.value = '';
+          }
+        }
+    
+        function addTag(tagText) {
+          const tag = document.createElement('span');
+          tag.className = 'tag justify-content-between m-1 pl-2 pr-1 py-1';
+          tag.style.minWidth = '125px';
+          tag.style.backgroundColor = 'rgba(76, 88, 100, 0.3)';
+          
+          const tagTextElement = document.createElement('span');
+          tagTextElement.className = 'tag-text';
+          tagTextElement.textContent = tagText;
+          
+          const tagRemove = document.createElement('span');
+          tagRemove.className = 'tag-remove mr-1';
+          tagRemove.style.fontSize = '20px';
+          tagRemove.textContent = '×';
+          tagRemove.addEventListener('click', () => {
+            tagList.removeChild(tag);
+            tagInput.classList.remove('has-error');
+            errorText.style.display = 'none';
+          });
+    
+          tag.appendChild(tagTextElement);
+          tag.appendChild(tagRemove);
+          
+          tagList.appendChild(tag);
+          tagInput.classList.remove('has-error');
+          errorText.style.display = 'none';
+    
+        }
+    
+        function tagListContains(tagText) {
+          const tags = tagList.querySelectorAll('.tag-text');
+          for (const tag of tags) {
+            if (tag.textContent.toLowerCase() === tagText.toLowerCase()) {
+              return true;
+            }
+          }
+          return false;
+        }
+    
+        function takeVariationsValue() {
+          const removeWarningOnTagSelection = document.getElementById('removeWarningOnTagSelection');
+          if (removeWarningOnTagSelection) {
+            removeWarningOnTagSelection.style.display = 'none';
+          }
+    
+          const selectedTags = Array.from(tagList.querySelectorAll('.tag-text')).map(tag => tag.textContent.trim());
+    
+          // Loop through each selected tag text
+          selectedTags.forEach(tag => {
+            // Check if a tag with the same value already exists in the selectedTagsContainer
+            const existingTagDiv = selectedTagsContainer.querySelector(`.selected-tag[data-tag="${tag}"]`);
+    
+            if (!existingTagDiv) {
+              const selectedTagDiv = document.createElement('div');
+              selectedTagDiv.className = 'form-group col-md-12 mt-2 selected-tag';
+              selectedTagDiv.setAttribute('data-tag', tag);
+    
+              const selectedRowDiv = document.createElement('div');
+              selectedRowDiv.className = 'row selected-row-2';
+    
+              const selectedColDiv1 = document.createElement('div');
+              selectedColDiv1.className = 'col-md-2 mt-2 selected-col-1';
+    
+              const selectedColDiv2 = document.createElement('div');
+              selectedColDiv2.className = 'col-md-1 mt-2 selected-col-2';
+    
+              const selectedColDiv3 = document.createElement('div');
+              selectedColDiv3.className = 'col-md-2 mt-2 selected-col selected-col-3';
+    
+              const selectedColDiv4 = document.createElement('div');
+              selectedColDiv4.className = 'col-md-1 mt-2 selected-col-next d-flex align-items-center justify-content-center';
+    
+              // complete delete and add logic
+              const AddLink = document.createElement('a');
+              AddLink.href = 'javascript:void(0);';
+              AddLink.className = 'text-success m-1';
+              AddLink.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg>
+              `;
+    
+              const completeDeleteLink = document.createElement('a');
+              completeDeleteLink.href = 'javascript:void(0);';
+              completeDeleteLink.className = 'text-danger m-1';
+              completeDeleteLink.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+              </svg>
+              `;
+    
+              AddLink.addEventListener('click', () => AddCurrentSelectedTag(AddLink, tag));
+              completeDeleteLink.addEventListener('click', () => RemoveCurrentSelectedTag(completeDeleteLink));
+    
+              selectedColDiv4.appendChild(AddLink);
+              selectedColDiv4.appendChild(completeDeleteLink);
+    
+              const selectedTagLabel = document.createElement('input');
+              selectedTagLabel.className = 'form-control d-flex align-items-center justify-content-between';
+              selectedTagLabel.readOnly = true;
+              selectedTagLabel.name = 'variant_name[]';
+              selectedTagLabel.required = true;
+              selectedTagLabel.textContent = tag;
+              selectedTagLabel.value = tag;
+    
+              const selectedTagInput = document.createElement('input');
+              selectedTagInput.className = 'form-control per-w-80';
+              selectedTagInput.type = 'text';
+              selectedTagInput.value = '';
+              selectedTagInput.required = true;
+              selectedTagInput.name = 'variant_value_'+tag+'[]';
+              
+    
+              // append row in tag 
+              selectedTagDiv.appendChild(selectedRowDiv);
+    
+              selectedRowDiv.appendChild(selectedColDiv1);
+              selectedColDiv1.appendChild(selectedTagLabel);
+    
+              selectedRowDiv.appendChild(selectedColDiv2);
+              
+              selectedRowDiv.appendChild(selectedColDiv3);
+              selectedColDiv3.appendChild(selectedTagInput);
+    
+              selectedRowDiv.appendChild(selectedColDiv4);
+    
+              selectedTagDiv.appendChild(selectedRowDiv);
+              selectedTagsContainer.appendChild(selectedTagDiv);
+            }
+    
+          });
+        }
+    
+    
+        function deleteCurrentSelectedTag(deleteButton) {
+          const selectedColDiv = deleteButton.closest('.selected-col');
+          if (selectedColDiv) {
+            selectedColDiv.remove();
+          }
+        }
+        
+        function AddCurrentSelectedTag(addButton, tag) {
+          const selectedTagDiv = addButton.closest('.selected-tag');
+          if (selectedTagDiv) {
+            const selectedColNextTo = selectedTagDiv.querySelector('.selected-col-next');
+            const selectedCol3 = selectedTagDiv.querySelector('.selected-col-3');
+    
+            const addSelectedColDiv = document.createElement('div');
+            addSelectedColDiv.className = 'col-md-2 mt-2 selected-col';
+    
+            const selectedTagInput = document.createElement('input');
+            selectedTagInput.className = 'form-control per-w-80';
+            selectedTagInput.type = 'text';
+            selectedTagInput.value = '';
+            selectedTagInput.required = true;
+            selectedTagInput.name = 'variant_value_' + tag + '[]';
+    
+            const deleteLink = document.createElement('a');
+              deleteLink.href = 'javascript:void(0);';
+              deleteLink.className = 'text-danger per-w-20';
+              deleteLink.innerHTML = `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                      <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                  </svg>
+              `;
+              deleteLink.addEventListener('click', () => deleteCurrentSelectedTag(deleteLink));
+    
+            addSelectedColDiv.appendChild(selectedTagInput)
+            addSelectedColDiv.appendChild(deleteLink)
+    
+            // Insert the new input field before the selectedCol3 element
+            selectedCol3.parentNode.insertBefore(addSelectedColDiv, selectedColNextTo);
+          }
+        }
+    
+        function RemoveCurrentSelectedTag(removeButton) {
+          const selectedTagDiv = removeButton.closest('.selected-tag');
+          if (selectedTagDiv) {
+            // Remove the parent of the selected tag
+            selectedTagDiv.parentNode.removeChild(selectedTagDiv);
+          }
+        }
+    
+    </script>
+
+    <script>
+        function removeCurrentRowFromTable(removeButton) {
+            const row = removeButton.closest('tr');
+            if (row) {
+                row.remove();
+            }
+        }
+
+        // Function to show uploaded image
+        function showImageForVariation(input, imageElement, uploadTextElement) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                imageElement.src = reader.result;
+                imageElement.style.display = 'block';
+                uploadTextElement.style.display = 'none';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function generateTable(variantNames, combinations) {
+            const table = document.createElement('table');
+            table.className = 'table table-responsive text-center';
+            const thead = table.createTHead();
+            const tbody = table.createTBody();
+            
+            // Create table header row with combined variant names and additional columns
+            const headerRow = thead.insertRow();
+            const headerCell = document.createElement('th');
+            headerCell.textContent = 'Variants (' + variantNames.join(', ') + ')';
+            headerRow.appendChild(headerCell);
+            
+            const additionalColumnHeaders = ['MRP', 'Sale Price', 'Price in Request', 'Default Variant', 'Upload Image', 'Remove'];
+            const additionalColumnHeaders2 = ['MRP', 'Sale Price', 'Price on Request', 'Default Variant', 'Upload Image', 'Remove'];
+            for (const columnName of additionalColumnHeaders2) {
+                const th = document.createElement('th');
+                th.textContent = columnName;
+                headerRow.appendChild(th);
+            }
+            
+            // Create table body rows with variant values and additional input fields/buttons
+            for (let i = 0; i < combinations.length; i++) {
+                const tr = tbody.insertRow();
+                index = i+1
+                
+                // Create input field for the "Variants" column
+                const tdVariants = tr.insertCell();
+                const variantValues = variantNames.map(name => combinations[i][name]).join(', ');
+                const variationImagesValues = variantNames.map(name => combinations[i][name]).join('*')
+                const inputVariants = document.createElement('input');
+                inputVariants.className = 'form-control';
+                inputVariants.type = 'text';
+                inputVariants.value = variantValues
+                inputVariants.name = 'final_varient_name'; 
+                inputVariants.readOnly = true;
+                tdVariants.appendChild(inputVariants);
+                
+                for (const columnName of additionalColumnHeaders) {
+                    const td = tr.insertCell();
+                    
+                    if (columnName === 'MRP' || columnName === 'Sale Price') {
+                        const input = document.createElement('input');
+                        input.className = 'form-control mx-2';
+                        input.type = 'number';
+                        input.step = 'any';
+                        input.name = columnName.toLowerCase().replace(/\s+/g, '_');
+                        input.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
+                        input.required = true;
+                        td.appendChild(input);
+
+                    } else if (columnName === 'Price in Request') {
+                        const checkbox = document.createElement('input');
+                        checkbox.className = 'form-check-input mx-2';
+                        checkbox.type = 'checkbox';
+                        checkbox.value = variationImagesValues;
+                        checkbox.name = columnName.toLowerCase().replace(/\s+/g, '_');
+                        checkbox.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
+                        td.appendChild(checkbox);
+
+                    } else if (columnName === 'Default Variant') {
+                        const radio = document.createElement('input');
+                        radio.className = 'form-check-input mx-2';
+                        radio.type = 'radio';
+                        radio.name = columnName.toLowerCase().replace(/\s+/g, '_');;
+                        radio.value = variationImagesValues;
+                        radio.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
+                        radio.required = true;
+                        td.appendChild(radio);
+                    } else if (columnName === 'Upload Image') {
+                        const button = document.createElement('button');
+                        const modalId = 'uploadImageModel_' + index;
+                        button.className = 'btn btn-sm btn-secondary mx-2';
+                        button.textContent = 'Upload';
+                        button.setAttribute('data-toggle', 'modal');
+                        button.setAttribute('data-target', '#' + modalId);
+                        td.appendChild(button);
+
+
+                        // Create a modal for this button
+                        const modal = document.createElement('div');
+                        modal.className = 'modal fade';
+                        modal.id = modalId;
+                        modal.setAttribute('tabindex', '-1');
+                        modal.setAttribute('role', 'dialog');
+                        modal.setAttribute('aria-labelledby', modalId + 'Label');
+                        modal.setAttribute('aria-hidden', 'true');
+                        td.appendChild(modal);
+
+                        // Create modal dialog
+                        const modalDialog = document.createElement('div');
+                        modalDialog.className = 'modal-dialog modal-lg';
+                        modal.appendChild(modalDialog);
+
+                        // Create modal content
+                        const modalContent = document.createElement('div');
+                        modalContent.className = 'modal-content';
+                        modalDialog.appendChild(modalContent);
+
+                        // Create modal header
+                        const modalHeader = document.createElement('div');
+                        modalHeader.className = 'modal-header';
+                        modalContent.appendChild(modalHeader);
+
+                        const modalTitle = document.createElement('h5');
+                        modalTitle.className = 'modal-title';
+                        modalTitle.id = modalId + 'Label';
+                        modalTitle.textContent = 'Upload Image';
+                        modalHeader.appendChild(modalTitle);
+
+                        const closeButton = document.createElement('button');
+                        closeButton.type = 'button';
+                        closeButton.className = 'close';
+                        closeButton.setAttribute('data-dismiss', 'modal');
+                        closeButton.setAttribute('aria-label', 'Close');
+                        modalHeader.appendChild(closeButton);
+
+                        const closeIcon = document.createElement('span');
+                        closeIcon.setAttribute('aria-hidden', 'true');
+                        closeIcon.innerHTML = '&times;';
+                        closeButton.appendChild(closeIcon);
+
+                        // Create modal body
+                        const modalBody = document.createElement('div');
+                        modalBody.className = 'modal-body';
+                        modalContent.appendChild(modalBody);
+
+                        // Create a row for images
+                        const imagesRow = document.createElement('div');
+                        imagesRow.className = 'row';
+
+                        const headCol_1 = document.createElement('div');
+                        const head_1_h6 = document.createElement('h6');
+                        headCol_1.className = 'col-md-3 my-2';
+                        head_1_h6.textContent = 'Main Display Image';
+                        headCol_1.appendChild(head_1_h6);
+
+                        const headCol_2 = document.createElement('div');
+                        const head_2_h6 = document.createElement('h6');
+                        headCol_2.className = 'col-md-9 my-2';
+                        head_2_h6.textContent = 'Additional Image';
+                        headCol_2.appendChild(head_2_h6);
+
+                        imagesRow.appendChild(headCol_1);
+                        imagesRow.appendChild(headCol_2);
+
+
+                        for (let imageIndex = 1; imageIndex <= 10; imageIndex++) {
+                            const col = document.createElement('div');
+                            col.className = 'col-md-3 my-2';
+                            
+                            const mt2Div = document.createElement('div');
+                            mt2Div.className = 'mt-2';
+                            mt2Div.style.width = '135px';
+                            mt2Div.style.backgroundColor = '#ffffff';
+                            mt2Div.style.border = '1px solid grey';
+                            mt2Div.style.height = '131px';
+                            mt2Div.style.display = 'flex';
+                            mt2Div.style.alignItems = 'center';
+                            mt2Div.style.justifyContent = 'center';
+                            
+                            const uploadedImage = document.createElement('img');
+                            uploadedImage.id = 'uploadedimage_' + variationImagesValues + '|' + imageIndex;
+                            uploadedImage.style.height = '132px';
+                            uploadedImage.style.width = '136px';
+                            uploadedImage.style.marginLeft = '2px';
+                            uploadedImage.style.marginTop = '1px';
+                            uploadedImage.style.display = 'none';
+                            uploadedImage.style.position = 'absolute';
+                            mt2Div.appendChild(uploadedImage);
+                            
+                            const uploadText = document.createElement('h6');
+                            uploadText.id = 'uploadtext_' + variationImagesValues + '|' + imageIndex;
+                            uploadText.style.textAlign = 'center';
+                            uploadText.textContent = '+ Upload';
+                            mt2Div.appendChild(uploadText);
+                            
+                            col.appendChild(mt2Div);
+                            
+                            const mt2Div2 = document.createElement('div');
+                            mt2Div2.className = 'mt-2';
+                            
+                            const inputFile = document.createElement('input');
+                            inputFile.type = 'file';
+                            inputFile.style.width = '135px';
+                            inputFile.style.backgroundColor = '#ffffff';
+                            inputFile.style.height = '32px';
+                            inputFile.style.border = 'none';
+                            inputFile.placeholder = 'Add Alt Text';
+                            inputFile.accept = '.jpg, .png, .jpeg, .mp4, .avi, .mov';
+                            inputFile.name = 'picture_' + variationImagesValues + '|' + imageIndex;
+                            inputFile.addEventListener('change', function() {
+                                showImageForVariation(this, uploadedImage, uploadText);
+                            });
+                            mt2Div2.appendChild(inputFile);
+                            
+                            col.appendChild(mt2Div2);
+                            
+                            imagesRow.appendChild(col);
+                        }
+
+                        modalBody.appendChild(imagesRow);
+
+                        const info_row = document.createElement('div');
+                        info_row.className = 'row mt-5 text-left';
+                        modalBody.appendChild(info_row);
+
+                        // Create a Bootstrap column
+                        const info_col = document.createElement('div');
+                        info_col.className = 'col-12';
+                        info_row.appendChild(info_col);
+
+                        const infoList = document.createElement('ul');
+                        const infoItems = [
+                            'Images will be displayed to the customer in the order shown here.',
+                            'Only JPEG, JPG, and PNG files are allowed.'
+                        ];
+
+                        infoItems.forEach(itemText => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = itemText;
+                            infoList.appendChild(listItem);
+                        });
+
+                        info_col.appendChild(infoList);
+                        // ... (Add your modal content here)
+
+                        // Create modal footer
+                        const modalFooter = document.createElement('div');
+                        modalFooter.className = 'modal-footer';
+                        modalContent.appendChild(modalFooter);
+
+                        const saveButton = document.createElement('button');
+                        saveButton.type = 'button';
+                        saveButton.setAttribute('data-dismiss', 'modal');
+                        saveButton.className = 'btn btn-dark';
+                        saveButton.textContent = 'Save';
+                        saveButton.style = "display: block; margin-top: 5px; color: red; font-size: 12px;"
+                        modalFooter.appendChild(saveButton);
+                
+                    
+                                                                                         
+                    } else if (columnName === 'Remove') {
+                        const removeRow = document.createElement('a');
+                        removeRow.href = 'javascript:void(0);';
+                        removeRow.className = 'text-danger per-w-20';
+                        removeRow.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                            </svg>
+                        `;
+                        removeRow.addEventListener('click', () => removeCurrentRowFromTable(removeRow));
+                        td.appendChild(removeRow);
+                    }
+                }
+            }
+            
+            return table;
+        }
+        
+        
+
+        function generateCombinations(variantData) {
+            const attributes = Object.keys(variantData);
+            const combinations = [];
+          
+            function backtrack(index, currentCombination) {
+              if (index === attributes.length) {
+                combinations.push({ ...currentCombination });
+                return;
+              }
+          
+              const attributeName = attributes[index];
+              const attributeValues = variantData[attributeName].values;
+          
+              for (const value of attributeValues) {
+                currentCombination[attributeName] = value;
+                backtrack(index + 1, currentCombination);
+                delete currentCombination[attributeName];
+              }
+            }
+          
+            backtrack(0, {});
+          
+            return combinations;
+        }
+        
+        function GeneratePosibleVarient(form_id){
+            const selectedTagsContainer = document.getElementById(form_id);
+            const selectedTagDivs = selectedTagsContainer.querySelectorAll('.selected-tag');
+            const inputData = {};
+            if (selectedTagDivs.length === 0) {
+                const errorMessage = selectedTagsContainer.querySelector('.text-danger');
+                if (!errorMessage) {
+                    // If it doesn't exist, create and append it
+                    const errorMessage = document.createElement('span');
+                    errorMessage.className = 'text-danger';
+                    errorMessage.textContent = 'Please create the variant label and value above';
+                    selectedTagsContainer.appendChild(errorMessage);
+                }
+            } else {
+                selectedTagDivs.forEach(selectedTagDiv => {
+                    const tag = selectedTagDiv.getAttribute('data-tag');
+                    const variantNameInput = selectedTagDiv.querySelector('input[name="variant_name[]"]');
+                    const variantValueInputs = selectedTagDiv.querySelectorAll('input[name^="variant_value_"]');
+        
+                    if (variantNameInput && variantValueInputs.length > 0) {
+                        const variantName = variantNameInput.value;
+                        const variantValues = Array.from(variantValueInputs).map(input => input.value);
+        
+                        inputData[tag] = { name: variantName, values: variantValues };
+                    }
+                });
+        
+                const attributes = Object.keys(inputData);
+                const combinations = generateCombinations(inputData);
+                console.log(combinations);
+                const tableContainer = document.getElementById('tableContainer');
+                tableContainer.innerHTML = ''; // Clear the current content
+                const table = generateTable(attributes, combinations);
+                tableContainer.appendChild(table);
+            }
+        }
+        
+    </script>
+
+    <script>
+        var yValue = document.querySelector('input[name="var_added"][value="True"]');
+        var errorMessageElement = document.getElementById("uploadImageErrorMessage");
+        var errorMessageElement2 = document.getElementById("uploadImageErrorMessage2");
+        var mfileInput = document.getElementById("myFile");
+        var MainImagesUpload = document.getElementById("MainImagesUpload");
+
+        function validateFileUpload() {
+            var isChecked = yValue.checked;
+            if (isChecked) {
+                errorMessageElement.style.display = "none";
+                errorMessageElement2.style.display = "none";
+                MainImagesUpload.removeAttribute('required');
+                return true;
+            } else {
+                errorMessageElement.style.display = "block";
+                errorMessageElement2.style.display = "block";
+                MainImagesUpload.setAttribute('required', true);
+                return false;
+            }
+            document.getElementById("uploadImageErrorMessage").style.display = "none";
+            document.getElementById("uploadImageErrorMessage2").style.display = "none";
+        }
+        
+    </script>
+
+    <script>
+        function checkSalePrice() {
+            var poqDropdown = document.getElementById('POQ');
+            if (poqDropdown.value === 'False' || poqDropdown.value === '' ) {
+                var productMRPInput = document.getElementById('productMRP');
+                var salePriceInput = document.getElementById('sale_price');
+                var productMRP = parseFloat(productMRPInput.value);
+                var salePrice = parseFloat(salePriceInput.value);
+                var salePriceError = document.getElementById('salePriceError');
+                if (salePrice > productMRP) {
+                    // Sale price is greater than product MRP
+                    salePriceError.style.display = 'block';
+                    salePriceInput.focus(); // Focus on the sale price input
+                }else{
+                    salePriceError.style.display = 'none';
+                }
+            }else{
+                // If poqDropdown is not 'True', do nothing
+                return;
+
+            }
+          }
+    </script>
+
+    <script>
+        function toggleBlockVisibility() {
+            var radioYes = document.querySelector('input[name="var_added"][value="True"]');
+            var block = document.getElementById("blockToToggle");
+            var single_img_toggle = document.getElementById("singleVariationsImagesToggle");
+            //var Poq = document.getElementById("POQ");
+            //var productMRP = document.getElementById("productMRP");
+            
+            if (radioYes.checked) {
+                block.style.display = "block"; // Show the block
+                //Poq.style.display = "none";
+                //ProductMRP.style.display = "none";
+                // single_img_toggle.style.display = "None";
+            } else {
+                block.style.display = "none";  // Hide the block
+                single_img_toggle.style.display = "block";
+                //Poq.style.display = "block";
+                //ProductMRP.style.display = "block";
+            }
+        }
+    </script>
+{% endblock jsblock %}

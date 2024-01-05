@@ -15,7 +15,7 @@ from django.utils.translation import gettext_lazy as _
 
 class GstDetail(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="user_gst_detail")
+    seller = models.OneToOneField(User,on_delete=models.CASCADE,related_name="seller_gst_detail")
     company_gst_number = models.CharField(max_length=15, unique=True,
         validators=[validators.gst_validator])
     legal_name_of_business = models.CharField(max_length=225,null=True,blank=True)
@@ -43,7 +43,7 @@ class GstDetail(ModelMixin):
     reject_reason = models.TextField(default='', blank=True, null=True)
 
     def __str__(self):
-        return f"{self.user.id} - {self.company_gst_number}"
+        return f"{self.seller.id} - {self.company_gst_number}"
 
     class Meta:
         verbose_name = _('Verification - GST Details')
@@ -52,7 +52,7 @@ class GstDetail(ModelMixin):
 
 class RepresentativeDetail(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="user_representative_detail",)
+    seller = models.OneToOneField(User,on_delete=models.CASCADE,related_name="seller_representative_detail",)
     representative_name = models.CharField(max_length=100, blank=True, null=True)
     representative_image = models.FileField(
         upload_to=helpers.FileUploadPath('representative_proof'),
@@ -62,7 +62,7 @@ class RepresentativeDetail(ModelMixin):
     )
 
     def __str__(self):
-        return f"{self.user.id} - {self.representative_name}"
+        return f"{self.seller.id} - {self.representative_name}"
     class Meta:
         verbose_name = _('Verification - Representative Detail')
         verbose_name_plural = _('Verification - Representative Detail')
@@ -70,7 +70,7 @@ class RepresentativeDetail(ModelMixin):
 
 class UserPhoneVerified(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_phone_number")
+    seller = models.OneToOneField(User, on_delete=models.CASCADE,related_name="seller_phone_number")
     country = models.CharField(
         choices=enums.CountryWithDialCodeEnums.choices,
         max_length=50,
@@ -84,6 +84,7 @@ class UserPhoneVerified(ModelMixin):
         choices=enums.UserStatusEnums.choices,
         default=enums.UserStatusEnums.PENDING
     )
+    reset_password_verify = models.BooleanField(default=False)
     expiry_date = models.DateTimeField(null=True,blank=True)
     reject_reason = models.TextField(default='', blank=True, null=True)
 
@@ -92,7 +93,7 @@ class UserPhoneVerified(ModelMixin):
         verbose_name_plural = _("Verification - Phone")
 
     def __str__(self):
-        return self.user.username
+        return self.seller.username
     
     
 class TempPhoneVerified(ModelMixin):
@@ -122,7 +123,7 @@ class TempPhoneVerified(ModelMixin):
 
 class CompanyBasicDetail(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_company_detail")
+    seller = models.OneToOneField(User, on_delete=models.CASCADE,related_name="seller_company_detail")
     company_name = models.CharField(max_length=255, unique=True)
     about_brand = models.CharField(max_length=500, null=True, blank=True)
 
@@ -132,12 +133,12 @@ class CompanyBasicDetail(ModelMixin):
         verbose_name_plural = _("Verification - Company Basic Detail")
 
     def __str__(self):
-        return f"{self.user.username} - {self.company_name} "
+        return f"{self.seller.username} - {self.company_name} "
     
 
 class CompanyAddressDetail(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_company_address")
+    seller = models.OneToOneField(User, on_delete=models.CASCADE,related_name="seller_company_address")
     address_line_1 = models.CharField(max_length=500,blank=True,null=True)
     address_line_2 = models.CharField(max_length=200,blank=True,null=True)
     state = models.ForeignKey(States, on_delete=models.DO_NOTHING)
@@ -153,12 +154,12 @@ class CompanyAddressDetail(ModelMixin):
         verbose_name_plural = _("Verification - Company Address Detail")
     
     def __str__(self):
-        return f"{self.user.username} - {self.address_line_1} "
+        return f"{self.seller.username} - {self.address_line_1} "
     
 
 class BankVerification(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_bank_verification")
+    seller = models.OneToOneField(User, on_delete=models.CASCADE,related_name="seller_bank_verification")
     account_holder = models.CharField(max_length=255)
     account_number = models.CharField(max_length=20,unique=True)
     ifsc = models.CharField(max_length=11)
@@ -184,7 +185,7 @@ class BankVerification(ModelMixin):
 
 class PanCinDetails (ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name="user_pan_cin_detail")
+    seller = models.OneToOneField(User, on_delete=models.CASCADE,related_name="seller_pan_cin_detail")
     document_type = models.CharField(max_length=5, choices=enums.PanCinDetailEnums.choices, 
         null=True, blank=True)
     documnet_id = models.CharField(max_length=255, unique=True)

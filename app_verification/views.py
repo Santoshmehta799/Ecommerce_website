@@ -21,7 +21,7 @@ def get_detail(request):
     user = request.user
     gst_detail_obj = None
     try:
-        gst_detail_obj = GstDetail.objects.get(user=user)
+        gst_detail_obj = GstDetail.objects.get(seller=user)
         if gst_detail_obj.is_active:
             return redirect('app_verification:general-detail')
     except:
@@ -57,8 +57,8 @@ def general_detail(request):
     error = ""
     user = request.user
     try:
-        company_basic_detail = CompanyBasicDetail.objects.get(user=user)
-        representative_detail = RepresentativeDetail.objects.get(user=user)
+        company_basic_detail = CompanyBasicDetail.objects.get(seller=user)
+        representative_detail = RepresentativeDetail.objects.get(seller=user)
         if company_basic_detail.company_name is not None and \
             representative_detail.representative_name is not None:
             return redirect('app_dashboard:dashboard-page')
@@ -74,13 +74,13 @@ def general_detail(request):
         if representative_name and company_name:
             existing_company = CompanyBasicDetail.objects.filter(company_name=company_name).exists()
             if not existing_company:
-                representative_detail, representative_created = RepresentativeDetail.objects.get_or_create(user=user, 
+                representative_detail, representative_created = RepresentativeDetail.objects.get_or_create(seller=user, 
                     defaults={"representative_name": representative_name})
                 if not representative_created:
                     representative_detail.representative_name = representative_name
                     representative_detail.save()
 
-                company_detail, company_created = CompanyBasicDetail.objects.get_or_create(user=user, defaults={"company_name": company_name})
+                company_detail, company_created = CompanyBasicDetail.objects.get_or_create(seller=user, defaults={"company_name": company_name})
                 if not company_created:
                     company_detail.company_name = company_name
                     company_detail.save()
@@ -117,7 +117,7 @@ def except_user_gst_check(request):
         print(company_gst_number)
 
         try:
-            current_user_gst = GstDetail.objects.get(user=request.user)
+            current_user_gst = GstDetail.objects.get(seller=request.user)
         except ObjectDoesNotExist:
             current_user_gst = None
 

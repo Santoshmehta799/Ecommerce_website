@@ -13,12 +13,12 @@
 <div class="col-sm-12 col-md-4 offset-sm-0 offset-md-4"
     style="text-align: center;box-shadow: 0px 0px 5px; padding: 20px; background-color: #F8F8F8;" >
     <!-- <h2 class="text-capitalize" style="margin: 10px; font-family: 'Crimson text"><strong>cation</strong></h2> -->
-    <form class="text-center" method="POST" action="/account/resetpassword_mobile" id="form-style">
+    <form class="text-center" method="POST" action="" id="form-style">
         {%csrf_token%}
         
         <div class="form-group" style="padding: 10px;">
             <h6 style="padding: 15px; color: #858796;">Please enter the OTP sent to your registered phone number to reset the password</h6>
-            <input class="form-control" name="otpp" id="otpp"
+            <input class="form-control" name="otp" id="otpp"
                 placeholder="Otp" >
             <input class="form-control" name="idd" value="{{ idd }}"  id= "iddd"
                 placeholder="Otp" hidden >
