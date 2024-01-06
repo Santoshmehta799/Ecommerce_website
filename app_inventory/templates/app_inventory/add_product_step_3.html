@@ -12,17 +12,6 @@
         .active .bs-stepper-circle {
             background-color: #4C5864;
         }
-
-        .per-w-80{
-            width:80% !important;
-            display: inline-block !important;
-        }
-        
-        .per-w-20{
-            width:20% !important;
-            text-align: center !important;
-            display: inline-block !important;
-        }
     </style>
 {% endblock cssblock %}
 {% block content %}
@@ -117,40 +106,103 @@
                                                         <form class="needs-validation"  method="POST" id="basic-info-form" novalidate="" enctype="multipart/form-data">
                                                             {% csrf_token %}
                                                             
-                                                            <div class="mt-5" id="blockToToggle">
-                                                                <h5 class="font-size-18">Enter Variable</h5>
-            
-                                                                <div class="form-row">
-                                                                    <div class="form-group col-md-10">
-                                                                        <div class="tag-input-container">
-                                                                            <input class="form-control input-tag" type="text" id="tagInput" placeholder="Enter custom variants separated by commas" onkeydown="handleKeyDown(event)">
-                                                                            <div class="invalid-feedback mt-5">Please fill in details.</div>
-                                                                        </div>
-                                                                        <div class="text-danger mt-2" id="errorText" style="display: none;">Tag already exists!</div>
-                                                                        <div class="text-danger mt-2" id="errorVariationsDetails" style="display: none;">Please fill variations Details!</div>
-            
-                                                                        <div class="tag-list mb-1 mt-4" id="tagList"></div>
-                                                                    </div>
-                                                                    
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="productStorage">
+                                                                        <span>Storage</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <textarea class="form-control" placeholder="Store in a dry place" size="30"
+                                                                        onkeyup="showPreview()" name="aboutStorage" id="productStorage"
+                                                                        rows="2"></textarea>
                                                                 </div>
-                                                                <br>
-                                                                <h5 class="mt-4 font-size-18">Selected Options</h5>
-                                                                <span id="removeWarningOnTagSelection" class="text-danger d-none">Please Enter Variation from above. </span>
-                                                                <div class="form-row" id="selectedTagsContainer"></div>
-                                                                <a href="javascript:void(0);" class="btn btn-brand mt-3 mb-5" onclick="GeneratePosibleVarient('selectedTagsContainer')">Add Variation</a>
             
-                                                                <div class="form-row" id="tableContainer"></div>
-                                                                <div id="modalContainer"></div>
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="productUsage">
+                                                                        <span>Usage</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <textarea name="aboutUsage" id="productUsage" placeholder="Best Use in common areas"
+                                                                        onkeyup="showPreview()" style="background-color: #d1d1d15b;"
+                                                                        size="30" class="form-control"></textarea>
+                                                                </div>
             
-                                                                <br>
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="productInstallation">
+                                                                        <span>Installation</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <textarea name="aboutInstallation" onkeyup="showPreview()" title="Mention any fitting / installing / mixing required for the product to be consumed / used." size="30" id="productInstallation" class="form-control"></textarea>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="productHandling">
+                                                                        <span>Handling</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <textarea name="aboutHandling" title="Handling Procedures, if any. This could include Fragile Products , Products prone to breakage , Damage to the product / quality over a particular handling procedure." placeholder="Fragile Product. Handle with care." onkeyup="showPreview()" size="30" id="productHandling" class="form-control"></textarea>
+                                                                </div>
+                                                                
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="productWarranty">
+                                                                        <span>Warranty</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <select class="form-select mt-2" name="warranty" id="productWarranty" onchange="showPreview()">
+                                                                    </select>
+                                                                </div>                                                    
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="productGuarantee">
+                                                                        <span>Guarantee</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <select class="form-select" name="guarantee" id="productGuarantee" onchange="showPreview()">
+                                                                    </select>
+                                                                </div>
+                                                                
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="components">
+                                                                        <span>Component per unit</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <input class="form-control" title="List the unique items / their quantity included in your product set / unit per order."
+                                                                        placeholder="X units of Part A, Y units of Part B included in the product item." style="background-color: #d1d1d15b; height: 40px;" size="30" type="text" name="components"
+                                                                        id="components" min="0" step=".01" onkeyup="showPreview()">
+                                                                </div>
+                                                                 
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="packagingSize">
+                                                                        <span>Packaging size</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <input class="form-control" placeholder="50 kgs / 10 litres" style="background-color: #d1d1d15b; height: 40px;"
+                                                                        size="30" type="text" name="packagingSize" id="packagingSize" onchange="showPreview()" min="0" step=".01">
+                                                                </div>
+                                                                 
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="material">
+                                                                        <span>Material</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <input class="form-control" placeholder="Aluminium, Stainless Steel, Glass" style="background-color: #d1d1d15b;"
+                                                                        size="30" type="text" name="material" id="material" onchange="showPreview()" min="0" step=".01">
+                                                                </div>
+
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="material">
+                                                                        <span>Upload Images</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <input class="form-control" placeholder="Upload Images" style="background-color: #d1d1d15b;"
+                                                                        size="30" type="text" name="material" id="material" onchange="showPreview()" min="0" step=".01">
+                                                                </div>
                                                             </div>
+                                                            
                                                             <button class="btn btn-dark mt-3" onclick="stepperForm.previous()">PREV</button>
                                                             <button class="btn btn-brand mt-3 btn-next-form">Next</button>
                                                         </form>
-                                                    </div>
-
-                                                    <div id="stepper-form-3"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger3">
-                                                        step 3
                                                     </div>
 
                                                     <div id="stepper-form-4"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger4">
@@ -209,7 +261,7 @@
     
         function addTag(tagText) {
           const tag = document.createElement('span');
-          tag.className = 'tag justify-content-between m-1 px-3';
+          tag.className = 'tag justify-content-between m-1 pl-5 pr-1 py-1';
           tag.style.minWidth = '125px';
           tag.style.backgroundColor = 'rgba(76, 88, 100, 0.3)';
           
@@ -218,8 +270,8 @@
           tagTextElement.textContent = tagText;
           
           const tagRemove = document.createElement('span');
-          tagRemove.className = 'tag-remove mr-1 ml-5';
-          tagRemove.style.fontSize = '25px';
+          tagRemove.className = 'tag-remove mr-1';
+          tagRemove.style.fontSize = '20px';
           tagRemove.textContent = '×';
           tagRemove.addEventListener('click', () => {
             tagList.removeChild(tag);
@@ -274,7 +326,7 @@
               selectedColDiv2.className = 'col-md-1 mt-2 selected-col-2';
     
               const selectedColDiv3 = document.createElement('div');
-              selectedColDiv3.className = 'col-md-3 mt-2 selected-col selected-col-3';
+              selectedColDiv3.className = 'col-md-2 mt-2 selected-col selected-col-3';
     
               const selectedColDiv4 = document.createElement('div');
               selectedColDiv4.className = 'col-md-1 mt-2 selected-col-next d-flex align-items-center justify-content-center';
@@ -355,7 +407,7 @@
             const selectedCol3 = selectedTagDiv.querySelector('.selected-col-3');
     
             const addSelectedColDiv = document.createElement('div');
-            addSelectedColDiv.className = 'col-md-3 mt-2 selected-col';
+            addSelectedColDiv.className = 'col-md-2 mt-2 selected-col';
     
             const selectedTagInput = document.createElement('input');
             selectedTagInput.className = 'form-control per-w-80';

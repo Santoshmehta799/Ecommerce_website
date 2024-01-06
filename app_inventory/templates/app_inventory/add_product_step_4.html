@@ -1,0 +1,1844 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}Seller Profile | Seventh Square Seller{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}
+    <link rel="stylesheet" href="{% static 'seventh-square/assets/css/bs-stepper/bs-stepper.min.css' %}" />
+    <style>
+        .custom-model-min-width{
+            min-width: 44.5%;
+        }
+
+        .active .bs-stepper-circle {
+            background-color: #4C5864;
+        }
+    </style>
+{% endblock cssblock %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Messages Start --> 
+				{% include 'seventh-square/layout/messages.html' %}
+				{% if error %}
+					<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+						{{ error|safe }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endif %}
+			<!-- Messages END -->
+			<div class="col-12 col-md-12 bg-white">
+				<div class="row pl-0">
+					<!-- Col-3 is written as sidebar -->
+					<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
+						<div class="row pt-4 px-4">
+							<div class="col-12"> {%include 'seventh-square/layout/sidebar.html' %} </div>
+						</div>
+					</div>
+					<div class="custom-main-col-width">
+						<div class="row px-4 pt-3">
+							<div class="col-md-12">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
+										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+						<div class="row px-4">
+							<div class="col-md-12 px-3">
+								<h2 class="text-center text-black">Add New Product</h2>
+							</div>
+						</div>
+						<div class="row mx-2 mb-4">
+							<div class="col-12">
+                                <div class="card mb-3" id="all_fields_card">
+                                    <div class="card-header py-3 text-left bg-brand">
+                                        <h3 class="m-0 text-black">Product Details</h3>
+                                    </div>
+                                    <div class="card-body m-1 p-1">
+                                        <div class="mb-5 bg-white shadow-sm">
+
+                                            <div id="stepperForm" class="bs-stepper">
+                                                <div class="bs-stepper-header" role="tablist">
+                                                    <div class="step" data-target="#stepper-form-1">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger1" aria-controls="stepper-form-1">
+                                                            <span class="bs-stepper-circle">1</span>
+                                                            <span class="bs-stepper-label">Basic Info</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step active" data-bs-skip data-target="#stepper-form-2">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger2" aria-controls="#stepper-form-2">
+                                                            <span class="bs-stepper-circle">2</span>
+                                                            <span class="bs-stepper-label">Variants</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-3">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger3" aria-controls="#stepper-form-3">
+                                                            <span class="bs-stepper-circle">3</span>
+                                                            <span class="bs-stepper-label">More Info</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-4">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger4" aria-controls="#stepper-form-4">
+                                                            <span class="bs-stepper-circle">4</span>
+                                                            <span class="bs-stepper-label"> Pricing</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-5">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger5" aria-controls="#stepper-form-5">
+                                                            <span class="bs-stepper-circle">5</span>
+                                                            <span class="bs-stepper-label">Shipping</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bs-stepper-content">
+                                                    <div id="stepper-form-1"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
+                                                        
+                                                    </div>
+
+                                                    <div id="stepper-form-2"  role="tabpanel" class="bs-stepper-pane fade active" aria-labelledby="stepperFormTrigger2">
+                                                        <form class="needs-validation"  method="POST" id="basic-info-form" novalidate="" enctype="multipart/form-data">
+                                                            {% csrf_token %}
+                                                            
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style w-100" for="">HSN Code</label>
+                                                                    <input class="form-control d-inline-block w-75" type="number" required onkeyup="validateHSN(this)" id="myKadA" style="width:390px!important;" name="HSN">
+                                                                    <span class="d-inline-block" style="margin-top: 1px; font-size: 12px !important;display:block;">
+                                                                        <a href="https://services.gst.gov.in/services/searchhsnsac" style="color: black" target="_blank">Find Relevant HSN Code</a>
+                                                                    </span>
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+                                                                    <script>
+                                                                        function validateHSN(input) {
+                                                                            // Get the entered value as a string
+                                                                            let value = input.value.toString();
+                                                                        
+                                                                            // Remove any non-digit characters (except the first digit if it's a minus sign for negative numbers)
+                                                                            value = value.replace(/[^\d-]|(?<=\d)-/g, '');
+                                                                        
+                                                                            // Limit the length to 8 digits
+                                                                            if (value.length > 8) {
+                                                                                value = value.substr(0, 8);
+                                                                            }
+                                                                        
+                                                                            // Update the input value
+                                                                            input.value = value;
+                                                                        
+                                                                            // Check if the value contains exactly 8 digits
+                                                                            if (/^\d{1,8}$/.test(value)) {
+                                                                                input.setCustomValidity('');
+                                                                                input.classList.remove('is-invalid');
+                                                                            } else {
+                                                                                input.setCustomValidity('Invalid HSN. Must be exactly 8 digits long.');
+                                                                                input.classList.add('is-invalid');
+                                                                            }
+                                                                        }
+                                                                    </script>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style" for="">Price on Request</label>
+                                                                    <select class="form-control" id="POQ" required onchange="checkPOQ()" name="defaultPOQ"
+                                                                            aria-placeholder="Price on Quotation">
+                                                                        <option selected="true" disabled="disabled" value=""></option>
+                                                                        <option value="False">No</option>
+                                                                        <option value="True">Yes</option>
+            
+                                                                        <input type="text" id="showRecieve3" name="showRecieve3"
+                                                                            style="border:none;background-color:white;" hidden>
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style" style="font-size: 16px;" for="productMRP">MRP</label>
+                                                                    <input step="any" min="0" class="form-control floatsaleprice" onblur="checkSalePrice()"
+                                                                        oninput="limitDecimalPlaces(event, 2)" type="number" name="markedPrice" id="productMRP" required>
+                                                                        <div class="invalid-feedback">Please fill in details.</div>
+                                                                    <script>
+                                                                        function checkPOQ() {
+                                                                            var poqDropdown = document.getElementById('POQ');
+                                                                            var markedPriceInput = document.getElementById('productMRP');
+                                                                            var sellingPriceInput = document.getElementById('sale_price');
+                                                                            var gstRateInput = document.getElementById('gstRate');
+                                                                            var taxableAmountInput = document.getElementById('taxAmount');
+                                                                            var shipCheckInput = document.getElementById('ship_check');
+                                                                        
+                                                                            if (poqDropdown.value === 'True') {
+                                                                                // If POQ is true, disable and clear the fields
+                                                                                markedPriceInput.removeAttribute('required');
+                                                                                markedPriceInput.setAttribute('readonly', 'true');
+                                                                                markedPriceInput.value = null;
+                                                                                markedPriceInput.classList.add('readonly-only-highlight');
+                                                                        
+                                                                                sellingPriceInput.removeAttribute('required');
+                                                                                sellingPriceInput.setAttribute('readonly', 'true');
+                                                                                sellingPriceInput.value = null;
+                                                                                sellingPriceInput.classList.add('readonly-only-highlight');
+                                                                        
+                                                                                gstRateInput.setAttribute('disabled', 'true');
+                                                                                gstRateInput.value = null;
+                                                                                gstRateInput.classList.add('readonly-only-highlight');
+                                                                        
+                                                                                taxableAmountInput.setAttribute('readonly', 'true');
+                                                                                taxableAmountInput.value = null;
+                                                                        
+                                                                                shipCheckInput.setAttribute('disabled', 'true');
+                                                                                shipCheckInput.value = '';
+                                                                                shipCheckInput.classList.add('readonly-only-highlight');
+                                                                            } else {
+                                                                                // If POQ is false, enable and make the fields required
+                                                                                markedPriceInput.setAttribute('required', 'true');
+                                                                                markedPriceInput.removeAttribute('readonly');
+                                                                                markedPriceInput.classList.remove('readonly-only-highlight');
+                                                                        
+                                                                                sellingPriceInput.setAttribute('required', 'true');
+                                                                                sellingPriceInput.removeAttribute('readonly');
+                                                                                sellingPriceInput.classList.remove('readonly-only-highlight');
+                                                                        
+                                                                                gstRateInput.removeAttribute('disabled');
+                                                                                gstRateInput.classList.remove('readonly-only-highlight');
+                                                                        
+                                                                                taxableAmountInput.removeAttribute('readonly');
+                                                                        
+                                                                                shipCheckInput.removeAttribute('disabled');
+                                                                                shipCheckInput.classList.remove('readonly-only-highlight');
+                                                                            }
+                                                                        }
+                                                                        
+                                                                    </script>
+                                                                    
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style w-100" for="">Sale Price (Sale Price will be inclusive of all taxes)</label>
+            
+                                                                    <input type="number"
+                                                                            style="background-color : #d1d1d15b;"
+                                                                            placeholder="0.00" step="any" min="0"
+                                                                            class="form-control d-inline-block w-75 floatsaleprice" id="sale_price"
+                                                                            onblur="checkSalePrice()"
+                                                                            oninput="limitDecimalPlaces(event, 2); calculateTax();"
+                                                                            name="sellingPrice" required />
+                                                                            <!-- onchange="selectData()" -->
+                                                                    <span class="d-inline-block font-underline" style="margin-top: 1px;display:block; font-size: 12px !important;">
+                                                                        <a style="color:black;" href="" data-toggle="modal" 
+                                                                        data-target="#showBreakdown" onclick="calcu()">How much do I get</a>
+                                                                    </span>
+                                                                    <div class="text-danger" style="display:none;" id="salePriceError">Sale price cannot be greater than product MRP</div>
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+            
+                                                                    <input type="text" id="payment_gateway" name="payment_gateway"
+                                                                            hidden />
+                                                                    <input type="text" id="gstttt" name="gstttt" hidden />
+                                                                    <input type="text" id="sale_pricee" name="final_pricee" hidden />
+                                                                    <input type="text" id="commi" name="commi" hidden />
+                                                                    <input type="text" id="prod_comm" name="prod_comm" hidden />
+                                                                    <input type="text" id="seebreak" name="seebreak" hidden />
+                                                                    <!-- <input type="text" id="defaultSP" name="defaultSP"  hidden /> -->
+                                                                    <script type="text/javascript">
+                                                                        function limitDecimalPlaces(e, count) {
+                                                                            if (e.target.value.indexOf('.') == -1) { return; }
+                                                                            if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+                                                                                e.target.value = parseFloat(e.target.value).toFixed(count);
+                                                                            }
+                                                                        }
+                                                                    </script>
+            
+                                                                    <!-- ===========How much do i get============== -->
+                                                                    <div class="modal fade" id="showBreakdown" tabindex="-1"
+                                                                        role="dialog" aria-labelledby="exampleModalLabel"
+                                                                        aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">How
+                                                                                        much do I get
+                                                                                    </h5>
+                                                                                    <button type="button" class="close"
+                                                                                        data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="form-row">
+                                                                                        <div class="col-md-12"
+                                                                                            style="margin-top: 10px;margin-bottom: 15px;">
+                                                                                            <h6
+                                                                                                style="font-weight: 700;padding-left: 10px;">
+                                                                                                <i class="icon ion-pricetags"
+                                                                                                    style="padding-right: 6px;font-size: 20px;"></i>Sale
+                                                                                                Price <i
+                                                                                                    class="fa fa-rupee"></i>&nbsp;<input
+                                                                                                    style="font-weight: 700;
+                                                                                                    background-color: white;
+                                                                                                    border: none;
+                                                                                                    font-size: inherit;
+                                                                                                    font-family: inherit;
+                                                                                                    text-align: inherit;"
+                                                                                                    id="inputValue1" readonly>
+                                                                                                <br>
+                                                                                            </h6>
+                                                                                            <div style="display: flex;height: 35px;
+                                                                                                align-items: baseline;">
+                                                                                                <h6
+                                                                                                    style="font-weight: 700;padding-left: 10px;">
+                                                                                                    <i class="icon ion-pricetags"
+                                                                                                        style="padding-right: 6px;font-size: 20px;"></i>
+                                                                                                </h6>
+                                                                                                <h6 id="comm" style="font-weight: 700;">
+                                                                                                    {{ans}}
+                                                                                                </h6>
+                                                                                                <h6 style="font-weight: 700;"
+                                                                                                    id="percent">
+                                                                                                    %
+                                                                                                    Commission
+                                                                                                    <li class="fa fa-rupee"></li>
+                                                                                                    &nbsp;<input style="font-weight: 700;
+                                                                                                        background-color: white;
+                                                                                                        border: none;
+                                                                                                        font-size: inherit;
+                                                                                                        font-family: inherit;
+                                                                                                        text-align: inherit;"
+                                                                                                        id="commmision" name="commi"
+                                                                                                        value="commmision"
+                                                                                                        readonly>
+                                                                                                </h6>
+                                                                                            </div>
+                                                                                            <h6
+                                                                                                style="font-weight: 700;padding-left: 10px;">
+                                                                                                <i class="icon ion-pricetags"
+                                                                                                    style="padding-right: 6px;font-size: 20px;"></i>
+                                                                                                1.8% Payment Gateway Charges <i
+                                                                                                    class="fa fa-rupee"></i>&nbsp;<input
+                                                                                                    style=" background-color: white;
+                                                                                                    border: none;
+                                                                                                    font-weight: 700;
+                                                                                                    font-size: inherit;
+                                                                                                    font-family: inherit;
+                                                                                                    text-align: inherit;" id="pay"
+                                                                                                    name="payment_gateway" value="pay"
+                                                                                                    readonly><br>
+                                                                                            </h6>
+                                                                                            <h6
+                                                                                                style="font-weight: 700;padding-left: 10px">
+                                                                                                <i class="icon ion-pricetags"
+                                                                                                    style="padding-right: 6px;font-size: 20px;"></i>18%
+                                                                                                GST <i
+                                                                                                    class="fa fa-rupee"></i>&nbsp;<input
+                                                                                                    style=" background-color: white;
+                                                                                                    border: none;
+                                                                                                    font-weight: 700;
+                                                                                                    font-size: inherit;
+                                                                                                    font-family: inherit;
+                                                                                                    text-align: inherit;" id="ggst"
+                                                                                                    name="gstttt" value="ggst"
+                                                                                                    readonly><br>
+                                                                                            </h6>
+                                                                                            <h6 style="font-weight: 700;padding-left: 10px">
+                                                                                                <div>
+                                                                                                    <i class="icon ion-pricetags"
+                                                                                                        style="padding-right: 6px;font-size: 20px;"></i>You
+                                                                                                    Receive <i
+                                                                                                        class="fa fa-rupee"></i>&nbsp;<input
+                                                                                                        id="result" name="net"
+                                                                                                        readonly>
+                                                                                                    <style>
+                                                                                                        #result {
+                                                                                                        background-color: white;
+                                                                                                        font-weight: 700;
+                                                                                                        border: none;
+                                                                                                        font-size: inherit;
+                                                                                                        font-family: inherit;
+                                                                                                        text-align: inherit;
+                                                                                                        }
+                                                                                                    </style>
+                                                                                                    <br>
+                                                                                                    <p
+                                                                                                        style="margin-top: 15px; margin-left:20px; font-size: 12px;">
+                                                                                                        ( Shipping Excluded )
+                                                                                                    </p>
+                                                                                                    <p id='free'>
+                                                                                                    </p>
+                                                                                                </div>
+                                                                                            </h6>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <script>
+                                                                                        function calcuvar() {
+                                                                                        // $('#seebreak').val(1);
+                                                                                            var sale_price = parseFloat($('#defaultSP').val());
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                            var taxper = parseInt(document.getElementById("sel1").value);
+                                                                                        
+                                                                                            if (document.getElementById("gst_check").value == "False") {
+                                                                                                console.log("tax changes")
+                                                                                                console.log(taxper)
+                                                                                                taxable_amount = ((taxper / 100) * sale_price).toFixed(2);
+                                                                                                console.log(("sale_price+taxable_amount"))
+                                                                                                console.log((parseFloat(sale_price) + parseFloat(taxable_amount)))
+                                                                                        
+                                                                                                if ((parseFloat(sale_price) + parseFloat(taxable_amount)) > parseFloat(mrp_price)) {
+                                                                                                    alert("Sale price can’t be greater than MRP ")
+                                                                                                }
+                                                                                        
+                                                                                                sale_price = sale_price + ((sale_price * taxper) / 100)
+                                                                                                console.log("now sale_price")
+                                                                                            }
+                                                                                            var av = document.getElementById("comm").innerText;
+                                                                                            console.log("av")
+                                                                                            console.log(av)
+                                                                                        
+                                                                                            console.log("av 980")
+                                                                                            console.log(av)
+                                                                                        
+                                                                                            var gstt = parseFloat(av);
+                                                                                            console.log("gstt")
+                                                                                            console.log(gstt)
+                                                                                        
+                                                                                            if (av == " ₹3") {
+                                                                                        //   var sale_price = parseFloat($('#sale_price').val());
+                                                                                                var showCommission = "3 / bag"
+                                                                                                var showDiv = document.getElementById("percent");
+                                                                                                showDiv.style.display = "none";
+                                                                                                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                                                                                                var add = parseFloat(showPayment) + parseFloat(3);
+                                                                                                console.log(showCommission)
+                                                                                                console.log("showPayment")
+                                                                                                console.log(showPayment)
+                                                                                                console.log("add line 1007")
+                                                                                                console.log(add)
+                                                                                                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                                                                                                var added = parseFloat(3) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                                var showRecieve = (sale_price - added).toFixed(2);
+                                                                                                $('#showSale').val(sale_price);
+                                                                                                $('#sale_pricee').val(sale_price);
+                                                                                        
+                                                                                                $('#showCommission').val("3 / bag");
+                                                                                                $('#showPayment').val(showPayment);
+                                                                                                $('#showGst').val(showGst);
+                                                                                                $('#showRecieve3').val(showRecieve);
+                                                                                                $('#gstttt').val(showGst);
+                                                                                                $('#commi').val("3/bag");
+                                                                                                $('#payment_gateway').val(showPayment);
+                                                                                                $('#prod_comm').val(av);
+                                                                                        
+                                                                                        
+                                                                                            } else if (av == "111") {
+                                                                                        
+                                                                                        // var sale_price = parseFloat($('#sale_price').val());
+                                                                                                var showCommission = "2 / bag"
+                                                                                                var showDiv = document.getElementById("percent");
+                                                                                                showDiv.style.display = "none";
+                                                                                                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                                                                                                var add = parseFloat(showPayment) + parseFloat(2);
+                                                                                                console.log(showCommission)
+                                                                                                console.log("showPayment")
+                                                                                                console.log(showPayment)
+                                                                                                console.log("add")
+                                                                                                console.log(add)
+                                                                                                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                                                                                                var added = parseFloat(2) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                                var showRecieve = (sale_price - added).toFixed(2);
+                                                                                                $('#showSale').val(sale_price);
+                                                                                                $('#sale_pricee').val(sale_price);
+                                                                                        
+                                                                                                $('#showCommission').val("2 / bag");
+                                                                                                $('#showPayment').val(showPayment);
+                                                                                                $('#showGst').val(showGst);
+                                                                                                $('#showRecieve2').val(showRecieve);
+                                                                                                $('#gstttt').val(showGst);
+                                                                                                $('#commi').val("2/bag");
+                                                                                                $('#payment_gateway').val(showPayment);
+                                                                                                $('#prod_comm').val(av);
+                                                                                        
+                                                                                            } else {
+                                                                                                console.log("last part")
+                                                                                                var showDiv = document.getElementById("percent");
+                                                                                                showDiv.style.display = "block";
+                                                                                                var showCommission = ((gstt / 100) * sale_price).toFixed(2);
+                                                                                                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                                                                                                var add = parseFloat(showPayment) + parseFloat(showCommission);
+                                                                                                console.log(showCommission)
+                                                                                                console.log(showPayment)
+                                                                                                console.log("add")
+                                                                                                console.log(add)
+                                                                                                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                                                                                                var added = parseFloat(showCommission) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                                var showRecieve = (sale_price - added).toFixed(2);
+                                                                                                $('#showSale').val(sale_price);
+                                                                                                $('#sale_pricee').val(sale_price);
+                                                                                        
+                                                                                                $('#showCommission').val(showCommission);
+                                                                                                $('#showPayment').val(showPayment);
+                                                                                                $('#showGst').val(showGst);
+                                                                                                $('#showRecieve3').val(showRecieve);
+                                                                                                $('#gstttt').val(showGst);
+                                                                                                $('#commi').val(showCommission);
+                                                                                                $('#payment_gateway').val(showPayment);
+                                                                                                $('#prod_comm').val(av);
+                                                                                        
+                                                                                        
+                                                                                            }
+                                                                                        }
+                                                                                        function calcu() {
+                                                                                            var inputValue1 = parseFloat(document.getElementById("sale_price").value);
+                                                                                            var av = document.getElementById("comm").innerText;
+                                                                                            var commi = Number(av);
+                                                                                        
+                                                                                            var ccomm;
+                                                                                            if (commi === 3) {
+                                                                                                ccomm = 3; // Use commi directly as commission percentage
+                                                                                                var taxtotal = ccomm + 0.198;
+                                                                                        
+                                                                                                let commmision = 3    ;
+                                                                                                let pay = (inputValue1 * .018).toFixed(2);
+                                                                                        
+                                                                                                let ggsstt = Number(commmision) + Number(pay);
+                                                                                                let ggst = (ggsstt * .18).toFixed(2);
+                                                                                                let total = (Number(ggst) + Number(pay) + Number(commmision));
+                                                                                                let result = (inputValue1 - total).toFixed(2);
+                                                                                        
+                                                                                                document.getElementById("result").value = result;
+                                                                                                document.getElementById("commmision").value = commmision;
+                                                                                                document.getElementById("pay").value = pay;
+                                                                                                document.getElementById("ggst").value = ggst;
+                                                                                                document.getElementById("inputValue1").value = inputValue1.toFixed(2);
+                                                                                        
+                                                                                            } else {
+                                                                                                ccomm = commi / 100;
+                                                                                                var taxtotal = ccomm + 0.198;
+                                                                                        
+                                                                                                let commmision = (ccomm * inputValue1).toFixed(2);
+                                                                                                let pay = (inputValue1 * .018).toFixed(2);
+                                                                                        
+                                                                                                let ggsstt = Number(commmision) + Number(pay);
+                                                                                                let ggst = (ggsstt * .18).toFixed(2);
+                                                                                                let total = (Number(ggst) + Number(pay) + Number(commmision));
+                                                                                                let result = (inputValue1 - total).toFixed(2);
+                                                                                        
+                                                                                                document.getElementById("result").value = result;
+                                                                                                document.getElementById("commmision").value = commmision;
+                                                                                                document.getElementById("pay").value = pay;
+                                                                                                document.getElementById("ggst").value = ggst;
+                                                                                                document.getElementById("inputValue1").value = inputValue1.toFixed(2);
+                                                                                        
+                                                                                            }
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                        } {
+                                                                                        
+                                                                                            $('#seebreak').val(1);
+                                                                                            var sale_price = parseFloat($('#sale_price').val());
+                                                                                        
+                                                                                        
+                                                                                        
+                                                                                            var taxper = parseInt(document.getElementById("sel1").value);
+                                                                                        
+                                                                                            if (document.getElementById("gst_check").value == "False") {
+                                                                                                console.log("tax changes")
+                                                                                                console.log(taxper)
+                                                                                                taxable_amount = ((taxper / 100) * sale_price).toFixed(2);
+                                                                                                console.log(("sale_price+taxable_amount"))
+                                                                                                console.log((parseFloat(sale_price) + parseFloat(taxable_amount)))
+                                                                                        
+                                                                                                if ((parseFloat(sale_price) + parseFloat(taxable_amount)) > parseFloat(mrp_price)) {
+                                                                                                    alert("Sale price can’t be greater than MRP")
+                                                                                                }
+                                                                                        
+                                                                                                sale_price = sale_price + ((sale_price * taxper) / 100)
+                                                                                                console.log("now sale_price")
+                                                                                            }
+                                                                                            var av = document.getElementById("comm").innerText;
+                                                                                            console.log("av")
+                                                                                            console.log("4444444444444444444444", av)
+                                                                                        
+                                                                                            console.log("av 980")
+                                                                                            console.log(av)
+                                                                                        
+                                                                                            var gstt = parseFloat(av);
+                                                                                            console.log("gstt")
+                                                                                            console.log(gstt)
+                                                                                        
+                                                                                            if (av == " ₹3") {
+                                                                                        //   var sale_price = parseFloat($('#sale_price').val());
+                                                                                                var showCommission = "3 / bag"
+                                                                                                var showDiv = document.getElementById("percent");
+                                                                                                showDiv.style.display = "none";
+                                                                                                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                                                                                                var add = parseFloat(showPayment) + parseFloat(3);
+                                                                                                console.log(showCommission)
+                                                                                                console.log("showPayment")
+                                                                                                console.log(showPayment)
+                                                                                                console.log("add line 1007")
+                                                                                                console.log(add)
+                                                                                                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                                                                                                var added = parseFloat(3) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                                var showRecieve = (sale_price - added).toFixed(2);
+                                                                                                $('#showSale').val(sale_price);
+                                                                                                $('#sale_pricee').val(sale_price);
+                                                                                        
+                                                                                                $('#showCommission').val("3 / bag");
+                                                                                                $('#showPayment').val(showPayment);
+                                                                                                $('#showGst').val(showGst);
+                                                                                                $('#showRecieve2').val(showRecieve);
+                                                                                                $('#gstttt').val(showGst);
+                                                                                                $('#commi').val("3/bag");
+                                                                                                $('#payment_gateway').val(showPayment);
+                                                                                                $('#prod_comm').val(av);
+                                                                                        
+                                                                                        
+                                                                                            } else if (av == "111") {
+                                                                                        
+                                                                                        // var sale_price = parseFloat($('#sale_price').val());
+                                                                                                var showCommission = "2 / bag"
+                                                                                                var showDiv = document.getElementById("percent");
+                                                                                                showDiv.style.display = "none";
+                                                                                                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                                                                                                var add = parseFloat(showPayment) + parseFloat(2);
+                                                                                                console.log(showCommission)
+                                                                                                console.log("showPayment")
+                                                                                                console.log(showPayment)
+                                                                                                console.log("add")
+                                                                                                console.log(add)
+                                                                                                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                                                                                                var added = parseFloat(2) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                                var showRecieve = (sale_price - added).toFixed(2);
+                                                                                                $('#showSale').val(sale_price);
+                                                                                                $('#sale_pricee').val(sale_price);
+                                                                                        
+                                                                                                $('#showCommission').val("2 / bag");
+                                                                                                $('#showPayment').val(showPayment);
+                                                                                                $('#showGst').val(showGst);
+                                                                                                $('#showRecieve2').val(showRecieve);
+                                                                                                $('#gstttt').val(showGst);
+                                                                                                $('#commi').val("2/bag");
+                                                                                                $('#payment_gateway').val(showPayment);
+                                                                                                $('#prod_comm').val(av);
+                                                                                        
+                                                                                            } else {
+                                                                                                console.log("last part")
+                                                                                                var showDiv = document.getElementById("percent");
+                                                                                                showDiv.style.display = "block";
+                                                                                                var showCommission = ((gstt / 100) * sale_price).toFixed(2);
+                                                                                                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                                                                                                var add = parseFloat(showPayment) + parseFloat(showCommission);
+                                                                                                console.log(showCommission)
+                                                                                                console.log(showPayment)
+                                                                                                console.log("add")
+                                                                                                console.log(add)
+                                                                                                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                                                                                                var added = parseFloat(showCommission) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                                var showRecieve = (sale_price - added).toFixed(2);
+                                                                                                $('#showSale').val(sale_price);
+                                                                                                $('#sale_pricee').val(sale_price);
+                                                                                        
+                                                                                                $('#showCommission').val(showCommission);
+                                                                                                $('#showPayment').val(showPayment);
+                                                                                                $('#showGst').val(showGst);
+                                                                                                $('#showRecieve2').val(showRecieve);
+                                                                                                $('#gstttt').val(showGst);
+                                                                                                $('#commi').val(showCommission);
+                                                                                                $('#payment_gateway').val(showPayment);
+                                                                                                $('#prod_comm').val(av);
+                                                                                        
+                                                                                        
+                                                                                            }
+                                                                                        }
+                                                                                        function showBreakdown() {
+                                                                                            var sale_price = parseFloat($('#sale_price').val());
+                                                                                            var av = document.getElementById("comm").innerText;
+                                                                                            var gstt = parseFloat(av);
+                                                                                            var showCommission = ((gstt / 100) * sale_price).toFixed(3);
+                                                                                            var showPayment = ((18 / 1000) * sale_price).toFixed(3);
+                                                                                            var add = parseFloat(showPayment) + parseFloat(showCommission);
+                                                                                            var showGst = ((18 / 100) * add).toFixed(3);
+                                                                                            var added = parseFloat(showCommission) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                            var showRecieve = (sale_price - added).toFixed(3);
+                                                                                        
+                                                                                            $('#showSale').val(sale_price);
+                                                                                            $('#showCommission').val(showCommission);
+                                                                                            $('#showPayment').val(showPayment);
+                                                                                            $('#showGst').val(showGst);
+                                                                                            $('#showRecieve2').val(showRecieve);
+                                                                                        }
+                                                                                    </script>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <script>
+                                                                                function checkReturn() {
+                                                                                    var returnable_p = (document.getElementById("returnable").value);
+                                                                                }
+                                                                            </script>
+                                                                            <script>
+                                                                                function checkReturn() {
+                                                                                    var returnable_p = (document.getElementById("returnable").value);
+                                                                                }
+                                                                            </script>
+                                                                            <div>
+                                                                            </div>
+                                                                        </div>
+                                                                </div>
+                                                               
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="gstRate">
+                                                                        <span>Tax Code</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <select class="form-control" id="gstRate" title="Choose the GST Rate applicable to your product"
+                                                                        name="gstRate" onchange="calculateTax()">
+                                                                        <option selected="true" disabled="disabled"></option>
+                                                                        <option value="0">0%</option>
+                                                                        <option value="5">5%</option>
+                                                                        <option value="12">12%</option>
+                                                                        <option value="18">18%</option>
+                                                                        <option value="28">28%</option>
+                                                                    </select>
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+            
+                                                                    <script>
+                                                                        function calculateTax() {
+                                                                            var gstRate = document.getElementById("gstRate").value;
+                                                                            var salePrice = document.getElementById("sale_price").value;
+                                                                            var tt = (gstRate / 100)
+                                                                            var tax = salePrice / (1 + tt);
+                                                                            var taxAmount = salePrice - tax;
+                                                                            document.getElementById("taxAmount").value = taxAmount.toFixed(2);
+                                                                        }
+                                                                    </script>
+            
+                                                                    <script>
+                                                                        function taxCalc(ele) {
+                                                                            if (document.getElementById("gst_check").value == "True") {
+                                                                                var tax_included = true;
+                                                                                var sale_price = parseFloat($('#sale_price').val());
+                                                                                $('#sale_pricee').val(sale_price);
+            
+                                                                                if (!sale_price) {
+                                                                                    console.log("yes no sale price")
+                                                                                    sale_price = parseFloat($('#defpro_sp').val());
+                                                                                    $('#sale_pricee').val(sale_price);
+                                                                                    console.log(sale_price)
+            
+                                                                                }
+                                                                                var mrp_price = parseFloat($('#productMRP').val());
+                                                                                if (!mrp_price) {
+                                                                                    console.log("yes no MRP")
+                                                                                    mrp_price = parseFloat($('#defpro_mp').val());
+                                                                                    console.log(mrp_price)
+            
+                                                                                }
+                                                                                var values = parseInt(document.getElementById("sel1").value);
+                                                                                var percentage;
+                                                                                var taxable_amount;
+                                                                                switch (values) {
+                                                                                    case 0:
+            
+                                                                                        percentage = 0;
+            
+                                                                                        break;
+            
+                                                                                    case 5:
+                                                                                        percentage = 5;
+            
+                                                                                        break;
+            
+                                                                                    case 12:
+                                                                                        percentage = 12;
+            
+                                                                                        break;
+                                                                                    case 18:
+                                                                                        percentage = 18;
+            
+                                                                                        break;
+                                                                                    case 28:
+                                                                                        percentage = 28;
+            
+            
+                                                                                        break;
+            
+                                                                                    default:
+                                                                                        alert("The default case is true!");
+                                                                                        break;
+                                                                                }
+                                                                                if (sale_price <= mrp_price) {
+                                                                                    if (isNaN(sale_price) || isNaN(percentage)) {
+                                                                                        taxable_amount = " ";
+                                                                                    } else {
+                                                                                        taxable_amount = (sale_price - (sale_price / (1 + (percentage / 100)))).toFixed(2);
+            
+                                                                                    }
+                                                                                    $('#secondP').val(taxable_amount);
+                                                                                }
+                                                                                else {
+                                                                                    alert("Sale Price can't be greater than MRP")
+                                                                                }
+            
+                                                                            }
+                                                                            else {
+                                                                                var tax_included = false;
+                                                                                var sale_price = parseFloat($('#sale_price').val());
+                                                                                $('#sale_pricee').val(sale_price);
+            
+                                                                                if (!sale_price) {
+                                                                                    console.log("yes no sale price")
+                                                                                    sale_price = parseFloat($('#defpro_sp').val());
+                                                                                    $('#sale_pricee').val(sale_price);
+            
+            
+                                                                                }
+                                                                                var mrp_price = parseFloat($('#productMRP').val());
+                                                                                if (!mrp_price) {
+                                                                                    console.log("yes no sale price")
+                                                                                    mrp_price = parseFloat($('#defpro_mp').val());
+            
+                                                                                }
+                                                                                var values = parseInt(document.getElementById("sel1").value);
+                                                                                var percentage;
+                                                                                var taxable_amount;
+                                                                                switch (values) {
+                                                                                    case 0:
+            
+                                                                                        percentage = 0;
+            
+                                                                                        break;
+            
+                                                                                    case 5:
+                                                                                        percentage = 5;
+            
+                                                                                        break;
+            
+                                                                                    case 12:
+                                                                                        percentage = 12;
+            
+                                                                                        break;
+                                                                                    case 18:
+                                                                                        percentage = 18;
+            
+                                                                                        break;
+                                                                                    case 28:
+                                                                                        percentage = 28;
+            
+            
+                                                                                        break;
+            
+                                                                                    default:
+                                                                                        alert("The default case is true!");
+                                                                                        break;
+                                                                                }
+                                                                                console.log("tax false is running")
+                                                                                taxable_amount = ((percentage / 100) * sale_price).toFixed(2);
+                                                                                console.log(("sale_price+taxable_amount 1"))
+                                                                                console.log((parseFloat(sale_price) + parseFloat(taxable_amount)))
+                                                                                console.log("mrp_price")
+                                                                                console.log((parseFloat(mrp_price)))
+            
+            
+                                                                                if ((parseFloat(sale_price) + parseFloat(taxable_amount)) > parseFloat(mrp_price)) {
+                                                                                    alert("Sale price can’t be greater than MRP")
+                                                                                    // alert("Sale price can’t be greater than MRP tax add 7")
+                                                                                } else {
+                                                                                    $('#sale_pricee').val(parseFloat(sale_price) + parseFloat(taxable_amount));
+            
+                                                                                }
+            
+                                                                                if (sale_price <= mrp_price) {
+                                                                                    if (isNaN(sale_price) || isNaN(percentage)) {
+                                                                                        taxable_amount = " ";
+                                                                                    }
+                                                                                    $('#secondP').val(taxable_amount);
+                                                                                    $('#sale_pricee').val(parseFloat(sale_price) + parseFloat(taxable_amount));
+            
+                                                                                }
+                                                                                else {
+                                                                                    alert("Sale Price can't be greater than MRP")
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                        function selectData() {
+            
+                                                                            $('#seebreak').val(1);
+                                                                            var sale_price = parseFloat($('#sale_price').val());
+                                                                            if (!sale_price) {
+                                                                                console.log("yes no sale price")
+                                                                                sale_price = parseFloat($('#defpro_sp').val());
+            
+                                                                            }
+            
+            
+            
+                                                                            var taxper = parseInt(document.getElementById("sel1").value);
+            
+                                                                            if (document.getElementById("gst_check").value == "False") {
+                                                                                console.log("tax changes")
+                                                                                console.log(taxper)
+                                                                                taxable_amount = ((taxper / 100) * sale_price).toFixed(2);
+                                                                                console.log(("sale_price+taxable_amount"))
+                                                                                console.log((parseFloat(sale_price) + parseFloat(taxable_amount)))
+            
+                                                                                if ((parseFloat(sale_price) + parseFloat(taxable_amount)) > parseFloat(mrp_price)) {
+                                                                                    alert("Sale price can’t be greater than MRP")
+                                                                                }
+            
+                                                                                sale_price = sale_price + ((sale_price * taxper) / 100)
+                                                                                console.log("now sale_price")
+                                                                                $('#sale_pricee').val(sale_price);
+                                                                            }
+                                                                            var av = document.getElementById("comm").innerText;
+                                                                            console.log("av")
+                                                                            console.log(av)
+            
+                                                                            console.log("av 980")
+                                                                            console.log(av)
+            
+                                                                            var gstt = parseFloat(av);
+                                                                            console.log("gstt")
+                                                                            console.log(gstt)
+            
+                                                                            if (av == " ₹3") {
+                                                                                //   var sale_price = parseFloat($('#sale_price').val());
+                                                                                var showCommission = "3 / bag"
+                                                                                var showDiv = document.getElementById("percent");
+                                                                                showDiv.style.display = "none";
+                                                                                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                                                                                var add = parseFloat(showPayment) + parseFloat(3);
+                                                                                console.log(showCommission)
+                                                                                console.log("showPayment")
+                                                                                console.log(showPayment)
+                                                                                console.log("add line 1007")
+                                                                                console.log(add)
+                                                                                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                                                                                var added = parseFloat(3) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                var showRecieve = (sale_price - added).toFixed(2);
+                                                                                $('#showSale').val(sale_price);
+                                                                                $('#sale_pricee').val(sale_price);
+            
+                                                                                $('#showCommission').val("3 / bag");
+                                                                                $('#showPayment').val(showPayment);
+                                                                                $('#showGst').val(showGst);
+                                                                                console.log("showRecieve2", showRecieve)
+                                                                                $('#showRecieve2').val(showRecieve);
+                                                                                $('#gstttt').val(showGst);
+                                                                                $('#commi').val("3/bag");
+                                                                                $('#payment_gateway').val(showPayment);
+                                                                                $('#prod_comm').val(av);
+            
+            
+                                                                            } else if (av == "111") {
+            
+                                                                                // var sale_price = parseFloat($('#sale_price').val());
+                                                                                var showCommission = "2 / bag"
+                                                                                var showDiv = document.getElementById("percent");
+                                                                                showDiv.style.display = "none";
+                                                                                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                                                                                var add = parseFloat(showPayment) + parseFloat(2);
+                                                                                console.log(showCommission)
+                                                                                console.log("showPayment")
+                                                                                console.log(showPayment)
+                                                                                console.log("add")
+                                                                                console.log(add)
+                                                                                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                                                                                var added = parseFloat(2) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                var showRecieve = (sale_price - added).toFixed(2);
+                                                                                $('#showSale').val(sale_price);
+                                                                                $('#sale_pricee').val(sale_price);
+            
+                                                                                $('#showCommission').val("2 / bag");
+                                                                                $('#showPayment').val(showPayment);
+                                                                                $('#showGst').val(showGst);
+                                                                                console.log("showRecieve2", showRecieve)
+            
+                                                                                $('#showRecieve2').val(showRecieve);
+                                                                                $('#gstttt').val(showGst);
+                                                                                $('#commi').val("2/bag");
+                                                                                $('#payment_gateway').val(showPayment);
+                                                                                $('#prod_comm').val(av);
+            
+                                                                            } else {
+                                                                                console.log("last part")
+                                                                                var showDiv = document.getElementById("percent");
+                                                                                showDiv.style.display = "block";
+                                                                                var showCommission = ((gstt / 100) * sale_price).toFixed(2);
+                                                                                var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+                                                                                var add = parseFloat(showPayment) + parseFloat(showCommission);
+                                                                                console.log(showCommission)
+                                                                                console.log(showPayment)
+                                                                                console.log("add")
+                                                                                console.log(add)
+                                                                                var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+                                                                                var added = parseFloat(showCommission) + parseFloat(showPayment) + parseFloat(showGst);
+                                                                                var showRecieve = (sale_price - added).toFixed(2);
+                                                                                $('#showSale').val(sale_price);
+                                                                                $('#sale_pricee').val(sale_price);
+            
+                                                                                $('#showCommission').val(showCommission);
+                                                                                $('#showPayment').val(showPayment);
+                                                                                $('#showGst').val(showGst);
+                                                                                $('#showRecieve2').val(showRecieve);
+                                                                                $('#gstttt').val(showGst);
+                                                                                $('#commi').val(showCommission);
+                                                                                $('#payment_gateway').val(showPayment);
+                                                                                $('#prod_comm').val(av);
+            
+            
+                                                                            }
+                                                                            if (document.getElementById("gst_check").value == "True") {
+                                                                                var sale_price = parseFloat($('#sale_price').val());
+                                                                                if (!sale_price) {
+                                                                                    console.log("yes no sale price")
+                                                                                    sale_price = parseFloat($('#defpro_sp').val());
+            
+                                                                                }
+                                                                                var mrp_price = parseFloat($('#productMRP').val());
+                                                                                if (!mrp_price) {
+                                                                                    console.log("yes no sale price")
+                                                                                    mrp_price = parseFloat($('#defpro_mp').val());
+            
+                                                                                }
+                                                                                var values = parseInt(document.getElementById("sel1").value);
+                                                                                var percentage;
+                                                                                var taxable_amount;
+                                                                                switch (values) {
+                                                                                    case 0:
+            
+                                                                                        percentage = 0;
+            
+                                                                                        break;
+            
+                                                                                    case 5:
+                                                                                        percentage = 5;
+            
+                                                                                        break;
+            
+                                                                                    case 12:
+                                                                                        percentage = 12;
+            
+                                                                                        break;
+                                                                                    case 18:
+                                                                                        percentage = 18;
+            
+                                                                                        break;
+                                                                                    case 28:
+                                                                                        percentage = 28;
+            
+            
+                                                                                        break;
+            
+                                                                                    default:
+                                                                                        alert("The default case is true!");
+                                                                                        break;
+                                                                                }
+                                                                                console.log("sale_price")
+                                                                                console.log(sale_price)
+                                                                                console.log("mrp_price")
+                                                                                console.log(mrp_price)
+                                                                                if (sale_price <= mrp_price) {
+                                                                                    if (isNaN(sale_price) || isNaN(percentage)) {
+                                                                                        taxable_amount = " ";
+                                                                                    } else {
+                                                                                        taxable_amount = (sale_price - (sale_price / (1 + (percentage / 100)))).toFixed(2);
+                                                                                    }
+                                                                                    $('#secondP').val(taxable_amount);
+                                                                                }
+                                                                                else {
+                                                                                    alert("Sale Price can't be greater than MRP")
+                                                                                }
+            
+                                                                            } else {
+                                                                                var sale_price = parseFloat($('#sale_price').val());
+                                                                                if (!sale_price) {
+                                                                                    console.log("yes no sale price")
+                                                                                    sale_price = parseFloat($('#defpro_sp').val());
+                                                                                    console.log("sale_price", sale_price)
+                                                                                }
+                                                                                var mrp_price = parseFloat($('#productMRP').val());
+                                                                                if (!mrp_price) {
+                                                                                    console.log("yes no MRP")
+                                                                                    mrp_price = parseFloat($('#defpro_mp').val());
+                                                                                    console.log(mrp_price)
+            
+                                                                                }
+            
+                                                                                var values = parseInt(document.getElementById("sel1").value);
+                                                                                var percentage;
+                                                                                var taxable_amount;
+                                                                                switch (values) {
+                                                                                    case 0:
+            
+                                                                                        percentage = 0;
+            
+                                                                                        break;
+            
+                                                                                    case 5:
+                                                                                        percentage = 5;
+            
+                                                                                        break;
+            
+                                                                                    case 12:
+                                                                                        percentage = 12;
+            
+                                                                                        break;
+                                                                                    case 18:
+                                                                                        percentage = 18;
+            
+                                                                                        break;
+                                                                                    case 28:
+                                                                                        percentage = 28;
+                                                                                        break;
+            
+                                                                                    default:
+                                                                                        alert("The default case is true!");
+                                                                                        break;
+                                                                                }
+                                                                                if (sale_price <= mrp_price) {
+                                                                                    if (isNaN(sale_price) || isNaN(percentage)) {
+                                                                                        taxable_amount = " ";
+                                                                                    } else {
+                                                                                        taxable_amount = ((percentage / 100) * sale_price).toFixed(3);
+                                                                                        // taxable_amount = ((taxper / 100) * sale_price).toFixed(2);
+                                                                                        console.log(("sale_price+taxable_amount"))
+                                                                                        console.log((parseFloat(sale_price) + parseFloat(taxable_amount)))
+            
+                                                                                        if ((parseFloat(sale_price) + parseFloat(taxable_amount)) > parseFloat(mrp_price)) {
+                                                                                            alert("Sale price can’t be greater than MRP ")
+                                                                                        }
+            
+            
+                                                                                    }
+                                                                                    $('#secondP').val(taxable_amount);
+                                                                                }
+                                                                                else {
+                                                                                    alert("Sale Price can't be greater than MRP tab 2")
+                                                                                }
+            
+            
+                                                                            }
+                                                                        }
+            
+                                                                    </script>
+            
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style" for="">Tax amount</label>
+                                                                    <input class="form-control mr-2 mt-2  readonly-only-highlight" title="GST amount as part of the sale price." id="taxAmount" type="text"
+                                                                            name="taxableAmount" readonly>
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style">Shipping Included</label>
+                                                                    <select class="form-control" id="ship_check" required name="ship_check" title="Choose whether product delivery is included in the Sale Price.">
+                                                                        <option value="" selected disabled="disabled"></option>
+                                                                        <option value="True">Yes</option>
+                                                                        <option value="False">No</option>
+                                                                    </select>
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+                                                                    <script>
+                                                                        function checkReturn() {
+                                                                            var returnable_p = (document.getElementById("returnable").value);
+                                                                        }
+                                                                    </script>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="Minimum form-label form-label-normal-font-style" for="">Minimum Order Quantity</label>
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <input class="Minimum2 form-control" id="secondP" type="text" name="qty" step="0.01" style="background-color: #efefef" required>
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+                                                                        <div class=" col-md-3 Minimum5 ">
+                                                                            <select class="Minimum3 form-select" style="" name="qtyUnit" id="qtyUnit" required>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <script>
+                                                                        // Get the input element
+                                                                        const qtyInput = document.getElementById('secondP');
+                                                                      
+                                                                        // Add an event listener for keyup
+                                                                        qtyInput.addEventListener('keyup', function () {
+                                                                          // Remove any non-numeric characters (including decimals)
+                                                                          const inputValue = qtyInput.value.replace(/[^0-9]/g, '');
+                                                                      
+                                                                          // Update the input field with the cleaned value
+                                                                          qtyInput.value = inputValue;
+                                                                        });
+                                                                    </script>
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-dark mt-3" onclick="stepperForm.previous()">PREV</button>
+                                                            <button class="btn btn-brand mt-3 btn-next-form">Next</button>
+                                                        </form>
+                                                    </div>
+
+                                                    <div id="stepper-form-4"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger4">
+                                                        step 4
+                                                    </div>
+                                                    
+                                                    <div id="stepper-form-5"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger5">
+                                                        step 5
+                                                    </div>
+
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{% block jsblock %}
+    <script rel="stylesheet" href="{% static 'seventh-square/assets/js/bs-stepper/bs-stepper.min.js' %}"></script>  
+    <script>
+      
+        const tagInput = document.getElementById('tagInput');
+        const tagList = document.getElementById('tagList');
+        const errorText = document.getElementById('errorText');
+    
+        tagInput.addEventListener('keydown', handleKeyDown);
+    
+        function handleKeyDown(event) {
+          if (event.key === ',' || event.key === 'Enter') {
+            event.preventDefault();
+            const newTag = tagInput.value.trim();
+            if (newTag !== '') {
+              if (!tagListContains(newTag)) {
+                errorText.style.display = 'none';
+                addTag(newTag);
+                takeVariationsValue(); // Call the function to update variations
+              } else {
+                errorText.style.display = 'block';
+                tagInput.classList.add('has-error');
+              }
+            }
+            tagInput.value = '';
+          }
+        }
+    
+        function addTag(tagText) {
+          const tag = document.createElement('span');
+          tag.className = 'tag justify-content-between m-1 pl-5 pr-1 py-1';
+          tag.style.minWidth = '125px';
+          tag.style.backgroundColor = 'rgba(76, 88, 100, 0.3)';
+          
+          const tagTextElement = document.createElement('span');
+          tagTextElement.className = 'tag-text';
+          tagTextElement.textContent = tagText;
+          
+          const tagRemove = document.createElement('span');
+          tagRemove.className = 'tag-remove mr-1';
+          tagRemove.style.fontSize = '20px';
+          tagRemove.textContent = '×';
+          tagRemove.addEventListener('click', () => {
+            tagList.removeChild(tag);
+            tagInput.classList.remove('has-error');
+            errorText.style.display = 'none';
+          });
+    
+          tag.appendChild(tagTextElement);
+          tag.appendChild(tagRemove);
+          
+          tagList.appendChild(tag);
+          tagInput.classList.remove('has-error');
+          errorText.style.display = 'none';
+    
+        }
+    
+        function tagListContains(tagText) {
+          const tags = tagList.querySelectorAll('.tag-text');
+          for (const tag of tags) {
+            if (tag.textContent.toLowerCase() === tagText.toLowerCase()) {
+              return true;
+            }
+          }
+          return false;
+        }
+    
+        function takeVariationsValue() {
+          const removeWarningOnTagSelection = document.getElementById('removeWarningOnTagSelection');
+          if (removeWarningOnTagSelection) {
+            removeWarningOnTagSelection.style.display = 'none';
+          }
+    
+          const selectedTags = Array.from(tagList.querySelectorAll('.tag-text')).map(tag => tag.textContent.trim());
+    
+          // Loop through each selected tag text
+          selectedTags.forEach(tag => {
+            // Check if a tag with the same value already exists in the selectedTagsContainer
+            const existingTagDiv = selectedTagsContainer.querySelector(`.selected-tag[data-tag="${tag}"]`);
+    
+            if (!existingTagDiv) {
+              const selectedTagDiv = document.createElement('div');
+              selectedTagDiv.className = 'form-group col-md-12 mt-2 selected-tag';
+              selectedTagDiv.setAttribute('data-tag', tag);
+    
+              const selectedRowDiv = document.createElement('div');
+              selectedRowDiv.className = 'row selected-row-2';
+    
+              const selectedColDiv1 = document.createElement('div');
+              selectedColDiv1.className = 'col-md-2 mt-2 selected-col-1';
+    
+              const selectedColDiv2 = document.createElement('div');
+              selectedColDiv2.className = 'col-md-1 mt-2 selected-col-2';
+    
+              const selectedColDiv3 = document.createElement('div');
+              selectedColDiv3.className = 'col-md-2 mt-2 selected-col selected-col-3';
+    
+              const selectedColDiv4 = document.createElement('div');
+              selectedColDiv4.className = 'col-md-1 mt-2 selected-col-next d-flex align-items-center justify-content-center';
+    
+              // complete delete and add logic
+              const AddLink = document.createElement('a');
+              AddLink.href = 'javascript:void(0);';
+              AddLink.className = 'text-success m-1';
+              AddLink.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg>
+              `;
+    
+              const completeDeleteLink = document.createElement('a');
+              completeDeleteLink.href = 'javascript:void(0);';
+              completeDeleteLink.className = 'text-danger m-1';
+              completeDeleteLink.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+              </svg>
+              `;
+    
+              AddLink.addEventListener('click', () => AddCurrentSelectedTag(AddLink, tag));
+              completeDeleteLink.addEventListener('click', () => RemoveCurrentSelectedTag(completeDeleteLink));
+    
+              selectedColDiv4.appendChild(AddLink);
+              selectedColDiv4.appendChild(completeDeleteLink);
+    
+              const selectedTagLabel = document.createElement('input');
+              selectedTagLabel.className = 'form-control d-flex align-items-center justify-content-between';
+              selectedTagLabel.readOnly = true;
+              selectedTagLabel.name = 'variant_name[]';
+              selectedTagLabel.required = true;
+              selectedTagLabel.textContent = tag;
+              selectedTagLabel.value = tag;
+    
+              const selectedTagInput = document.createElement('input');
+              selectedTagInput.className = 'form-control per-w-80';
+              selectedTagInput.type = 'text';
+              selectedTagInput.value = '';
+              selectedTagInput.required = true;
+              selectedTagInput.name = 'variant_value_'+tag+'[]';
+              
+    
+              // append row in tag 
+              selectedTagDiv.appendChild(selectedRowDiv);
+    
+              selectedRowDiv.appendChild(selectedColDiv1);
+              selectedColDiv1.appendChild(selectedTagLabel);
+    
+              selectedRowDiv.appendChild(selectedColDiv2);
+              
+              selectedRowDiv.appendChild(selectedColDiv3);
+              selectedColDiv3.appendChild(selectedTagInput);
+    
+              selectedRowDiv.appendChild(selectedColDiv4);
+    
+              selectedTagDiv.appendChild(selectedRowDiv);
+              selectedTagsContainer.appendChild(selectedTagDiv);
+            }
+    
+          });
+        }
+    
+    
+        function deleteCurrentSelectedTag(deleteButton) {
+          const selectedColDiv = deleteButton.closest('.selected-col');
+          if (selectedColDiv) {
+            selectedColDiv.remove();
+          }
+        }
+        
+        function AddCurrentSelectedTag(addButton, tag) {
+          const selectedTagDiv = addButton.closest('.selected-tag');
+          if (selectedTagDiv) {
+            const selectedColNextTo = selectedTagDiv.querySelector('.selected-col-next');
+            const selectedCol3 = selectedTagDiv.querySelector('.selected-col-3');
+    
+            const addSelectedColDiv = document.createElement('div');
+            addSelectedColDiv.className = 'col-md-2 mt-2 selected-col';
+    
+            const selectedTagInput = document.createElement('input');
+            selectedTagInput.className = 'form-control per-w-80';
+            selectedTagInput.type = 'text';
+            selectedTagInput.value = '';
+            selectedTagInput.required = true;
+            selectedTagInput.name = 'variant_value_' + tag + '[]';
+    
+            const deleteLink = document.createElement('a');
+              deleteLink.href = 'javascript:void(0);';
+              deleteLink.className = 'text-danger per-w-20';
+              deleteLink.innerHTML = `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                      <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                  </svg>
+              `;
+              deleteLink.addEventListener('click', () => deleteCurrentSelectedTag(deleteLink));
+    
+            addSelectedColDiv.appendChild(selectedTagInput)
+            addSelectedColDiv.appendChild(deleteLink)
+    
+            // Insert the new input field before the selectedCol3 element
+            selectedCol3.parentNode.insertBefore(addSelectedColDiv, selectedColNextTo);
+          }
+        }
+    
+        function RemoveCurrentSelectedTag(removeButton) {
+          const selectedTagDiv = removeButton.closest('.selected-tag');
+          if (selectedTagDiv) {
+            // Remove the parent of the selected tag
+            selectedTagDiv.parentNode.removeChild(selectedTagDiv);
+          }
+        }
+    
+    </script>
+
+    <script>
+        function removeCurrentRowFromTable(removeButton) {
+            const row = removeButton.closest('tr');
+            if (row) {
+                row.remove();
+            }
+        }
+
+        // Function to show uploaded image
+        function showImageForVariation(input, imageElement, uploadTextElement) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                imageElement.src = reader.result;
+                imageElement.style.display = 'block';
+                uploadTextElement.style.display = 'none';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function generateTable(variantNames, combinations) {
+            const table = document.createElement('table');
+            table.className = 'table table-responsive text-center';
+            const thead = table.createTHead();
+            const tbody = table.createTBody();
+            
+            // Create table header row with combined variant names and additional columns
+            const headerRow = thead.insertRow();
+            const headerCell = document.createElement('th');
+            headerCell.textContent = 'Variants (' + variantNames.join(', ') + ')';
+            headerRow.appendChild(headerCell);
+            
+            const additionalColumnHeaders = ['MRP', 'Sale Price', 'Price in Request', 'Default Variant', 'Upload Image', 'Remove'];
+            const additionalColumnHeaders2 = ['MRP', 'Sale Price', 'Price on Request', 'Default Variant', 'Upload Image', 'Remove'];
+            for (const columnName of additionalColumnHeaders2) {
+                const th = document.createElement('th');
+                th.textContent = columnName;
+                headerRow.appendChild(th);
+            }
+            
+            // Create table body rows with variant values and additional input fields/buttons
+            for (let i = 0; i < combinations.length; i++) {
+                const tr = tbody.insertRow();
+                index = i+1
+                
+                // Create input field for the "Variants" column
+                const tdVariants = tr.insertCell();
+                const variantValues = variantNames.map(name => combinations[i][name]).join(', ');
+                const variationImagesValues = variantNames.map(name => combinations[i][name]).join('*')
+                const inputVariants = document.createElement('input');
+                inputVariants.className = 'form-control';
+                inputVariants.type = 'text';
+                inputVariants.value = variantValues
+                inputVariants.name = 'final_varient_name'; 
+                inputVariants.readOnly = true;
+                tdVariants.appendChild(inputVariants);
+                
+                for (const columnName of additionalColumnHeaders) {
+                    const td = tr.insertCell();
+                    
+                    if (columnName === 'MRP' || columnName === 'Sale Price') {
+                        const input = document.createElement('input');
+                        input.className = 'form-control mx-2';
+                        input.type = 'number';
+                        input.step = 'any';
+                        input.name = columnName.toLowerCase().replace(/\s+/g, '_');
+                        input.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
+                        input.required = true;
+                        td.appendChild(input);
+
+                    } else if (columnName === 'Price in Request') {
+                        const checkbox = document.createElement('input');
+                        checkbox.className = 'form-check-input mx-2';
+                        checkbox.type = 'checkbox';
+                        checkbox.value = variationImagesValues;
+                        checkbox.name = columnName.toLowerCase().replace(/\s+/g, '_');
+                        checkbox.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
+                        td.appendChild(checkbox);
+
+                    } else if (columnName === 'Default Variant') {
+                        const radio = document.createElement('input');
+                        radio.className = 'form-check-input mx-2';
+                        radio.type = 'radio';
+                        radio.name = columnName.toLowerCase().replace(/\s+/g, '_');;
+                        radio.value = variationImagesValues;
+                        radio.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
+                        radio.required = true;
+                        td.appendChild(radio);
+                    } else if (columnName === 'Upload Image') {
+                        const button = document.createElement('button');
+                        const modalId = 'uploadImageModel_' + index;
+                        button.className = 'btn btn-sm btn-secondary mx-2';
+                        button.textContent = 'Upload';
+                        button.setAttribute('data-toggle', 'modal');
+                        button.setAttribute('data-target', '#' + modalId);
+                        td.appendChild(button);
+
+
+                        // Create a modal for this button
+                        const modal = document.createElement('div');
+                        modal.className = 'modal fade';
+                        modal.id = modalId;
+                        modal.setAttribute('tabindex', '-1');
+                        modal.setAttribute('role', 'dialog');
+                        modal.setAttribute('aria-labelledby', modalId + 'Label');
+                        modal.setAttribute('aria-hidden', 'true');
+                        td.appendChild(modal);
+
+                        // Create modal dialog
+                        const modalDialog = document.createElement('div');
+                        modalDialog.className = 'modal-dialog modal-lg';
+                        modal.appendChild(modalDialog);
+
+                        // Create modal content
+                        const modalContent = document.createElement('div');
+                        modalContent.className = 'modal-content';
+                        modalDialog.appendChild(modalContent);
+
+                        // Create modal header
+                        const modalHeader = document.createElement('div');
+                        modalHeader.className = 'modal-header';
+                        modalContent.appendChild(modalHeader);
+
+                        const modalTitle = document.createElement('h5');
+                        modalTitle.className = 'modal-title';
+                        modalTitle.id = modalId + 'Label';
+                        modalTitle.textContent = 'Upload Image';
+                        modalHeader.appendChild(modalTitle);
+
+                        const closeButton = document.createElement('button');
+                        closeButton.type = 'button';
+                        closeButton.className = 'close';
+                        closeButton.setAttribute('data-dismiss', 'modal');
+                        closeButton.setAttribute('aria-label', 'Close');
+                        modalHeader.appendChild(closeButton);
+
+                        const closeIcon = document.createElement('span');
+                        closeIcon.setAttribute('aria-hidden', 'true');
+                        closeIcon.innerHTML = '&times;';
+                        closeButton.appendChild(closeIcon);
+
+                        // Create modal body
+                        const modalBody = document.createElement('div');
+                        modalBody.className = 'modal-body';
+                        modalContent.appendChild(modalBody);
+
+                        // Create a row for images
+                        const imagesRow = document.createElement('div');
+                        imagesRow.className = 'row';
+
+                        const headCol_1 = document.createElement('div');
+                        const head_1_h6 = document.createElement('h6');
+                        headCol_1.className = 'col-md-3 my-2';
+                        head_1_h6.textContent = 'Main Display Image';
+                        headCol_1.appendChild(head_1_h6);
+
+                        const headCol_2 = document.createElement('div');
+                        const head_2_h6 = document.createElement('h6');
+                        headCol_2.className = 'col-md-9 my-2';
+                        head_2_h6.textContent = 'Additional Image';
+                        headCol_2.appendChild(head_2_h6);
+
+                        imagesRow.appendChild(headCol_1);
+                        imagesRow.appendChild(headCol_2);
+
+
+                        for (let imageIndex = 1; imageIndex <= 10; imageIndex++) {
+                            const col = document.createElement('div');
+                            col.className = 'col-md-3 my-2';
+                            
+                            const mt2Div = document.createElement('div');
+                            mt2Div.className = 'mt-2';
+                            mt2Div.style.width = '135px';
+                            mt2Div.style.backgroundColor = '#ffffff';
+                            mt2Div.style.border = '1px solid grey';
+                            mt2Div.style.height = '131px';
+                            mt2Div.style.display = 'flex';
+                            mt2Div.style.alignItems = 'center';
+                            mt2Div.style.justifyContent = 'center';
+                            
+                            const uploadedImage = document.createElement('img');
+                            uploadedImage.id = 'uploadedimage_' + variationImagesValues + '|' + imageIndex;
+                            uploadedImage.style.height = '132px';
+                            uploadedImage.style.width = '136px';
+                            uploadedImage.style.marginLeft = '2px';
+                            uploadedImage.style.marginTop = '1px';
+                            uploadedImage.style.display = 'none';
+                            uploadedImage.style.position = 'absolute';
+                            mt2Div.appendChild(uploadedImage);
+                            
+                            const uploadText = document.createElement('h6');
+                            uploadText.id = 'uploadtext_' + variationImagesValues + '|' + imageIndex;
+                            uploadText.style.textAlign = 'center';
+                            uploadText.textContent = '+ Upload';
+                            mt2Div.appendChild(uploadText);
+                            
+                            col.appendChild(mt2Div);
+                            
+                            const mt2Div2 = document.createElement('div');
+                            mt2Div2.className = 'mt-2';
+                            
+                            const inputFile = document.createElement('input');
+                            inputFile.type = 'file';
+                            inputFile.style.width = '135px';
+                            inputFile.style.backgroundColor = '#ffffff';
+                            inputFile.style.height = '32px';
+                            inputFile.style.border = 'none';
+                            inputFile.placeholder = 'Add Alt Text';
+                            inputFile.accept = '.jpg, .png, .jpeg, .mp4, .avi, .mov';
+                            inputFile.name = 'picture_' + variationImagesValues + '|' + imageIndex;
+                            inputFile.addEventListener('change', function() {
+                                showImageForVariation(this, uploadedImage, uploadText);
+                            });
+                            mt2Div2.appendChild(inputFile);
+                            
+                            col.appendChild(mt2Div2);
+                            
+                            imagesRow.appendChild(col);
+                        }
+
+                        modalBody.appendChild(imagesRow);
+
+                        const info_row = document.createElement('div');
+                        info_row.className = 'row mt-5 text-left';
+                        modalBody.appendChild(info_row);
+
+                        // Create a Bootstrap column
+                        const info_col = document.createElement('div');
+                        info_col.className = 'col-12';
+                        info_row.appendChild(info_col);
+
+                        const infoList = document.createElement('ul');
+                        const infoItems = [
+                            'Images will be displayed to the customer in the order shown here.',
+                            'Only JPEG, JPG, and PNG files are allowed.'
+                        ];
+
+                        infoItems.forEach(itemText => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = itemText;
+                            infoList.appendChild(listItem);
+                        });
+
+                        info_col.appendChild(infoList);
+                        // ... (Add your modal content here)
+
+                        // Create modal footer
+                        const modalFooter = document.createElement('div');
+                        modalFooter.className = 'modal-footer';
+                        modalContent.appendChild(modalFooter);
+
+                        const saveButton = document.createElement('button');
+                        saveButton.type = 'button';
+                        saveButton.setAttribute('data-dismiss', 'modal');
+                        saveButton.className = 'btn btn-dark';
+                        saveButton.textContent = 'Save';
+                        saveButton.style = "display: block; margin-top: 5px; color: red; font-size: 12px;"
+                        modalFooter.appendChild(saveButton);
+                
+                    
+                                                                                         
+                    } else if (columnName === 'Remove') {
+                        const removeRow = document.createElement('a');
+                        removeRow.href = 'javascript:void(0);';
+                        removeRow.className = 'text-danger per-w-20';
+                        removeRow.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                            </svg>
+                        `;
+                        removeRow.addEventListener('click', () => removeCurrentRowFromTable(removeRow));
+                        td.appendChild(removeRow);
+                    }
+                }
+            }
+            
+            return table;
+        }
+        
+        
+
+        function generateCombinations(variantData) {
+            const attributes = Object.keys(variantData);
+            const combinations = [];
+          
+            function backtrack(index, currentCombination) {
+              if (index === attributes.length) {
+                combinations.push({ ...currentCombination });
+                return;
+              }
+          
+              const attributeName = attributes[index];
+              const attributeValues = variantData[attributeName].values;
+          
+              for (const value of attributeValues) {
+                currentCombination[attributeName] = value;
+                backtrack(index + 1, currentCombination);
+                delete currentCombination[attributeName];
+              }
+            }
+          
+            backtrack(0, {});
+          
+            return combinations;
+        }
+        
+        function GeneratePosibleVarient(form_id){
+            const selectedTagsContainer = document.getElementById(form_id);
+            const selectedTagDivs = selectedTagsContainer.querySelectorAll('.selected-tag');
+            const inputData = {};
+            if (selectedTagDivs.length === 0) {
+                const errorMessage = selectedTagsContainer.querySelector('.text-danger');
+                if (!errorMessage) {
+                    // If it doesn't exist, create and append it
+                    const errorMessage = document.createElement('span');
+                    errorMessage.className = 'text-danger';
+                    errorMessage.textContent = 'Please create the variant label and value above';
+                    selectedTagsContainer.appendChild(errorMessage);
+                }
+            } else {
+                selectedTagDivs.forEach(selectedTagDiv => {
+                    const tag = selectedTagDiv.getAttribute('data-tag');
+                    const variantNameInput = selectedTagDiv.querySelector('input[name="variant_name[]"]');
+                    const variantValueInputs = selectedTagDiv.querySelectorAll('input[name^="variant_value_"]');
+        
+                    if (variantNameInput && variantValueInputs.length > 0) {
+                        const variantName = variantNameInput.value;
+                        const variantValues = Array.from(variantValueInputs).map(input => input.value);
+        
+                        inputData[tag] = { name: variantName, values: variantValues };
+                    }
+                });
+        
+                const attributes = Object.keys(inputData);
+                const combinations = generateCombinations(inputData);
+                console.log(combinations);
+                const tableContainer = document.getElementById('tableContainer');
+                tableContainer.innerHTML = ''; // Clear the current content
+                const table = generateTable(attributes, combinations);
+                tableContainer.appendChild(table);
+            }
+        }
+        
+    </script>
+
+    <script>
+        var yValue = document.querySelector('input[name="var_added"][value="True"]');
+        var errorMessageElement = document.getElementById("uploadImageErrorMessage");
+        var errorMessageElement2 = document.getElementById("uploadImageErrorMessage2");
+        var mfileInput = document.getElementById("myFile");
+        var MainImagesUpload = document.getElementById("MainImagesUpload");
+
+        function validateFileUpload() {
+            var isChecked = yValue.checked;
+            if (isChecked) {
+                errorMessageElement.style.display = "none";
+                errorMessageElement2.style.display = "none";
+                MainImagesUpload.removeAttribute('required');
+                return true;
+            } else {
+                errorMessageElement.style.display = "block";
+                errorMessageElement2.style.display = "block";
+                MainImagesUpload.setAttribute('required', true);
+                return false;
+            }
+            document.getElementById("uploadImageErrorMessage").style.display = "none";
+            document.getElementById("uploadImageErrorMessage2").style.display = "none";
+        }
+        
+    </script>
+
+    <script>
+        function checkSalePrice() {
+            var poqDropdown = document.getElementById('POQ');
+            if (poqDropdown.value === 'False' || poqDropdown.value === '' ) {
+                var productMRPInput = document.getElementById('productMRP');
+                var salePriceInput = document.getElementById('sale_price');
+                var productMRP = parseFloat(productMRPInput.value);
+                var salePrice = parseFloat(salePriceInput.value);
+                var salePriceError = document.getElementById('salePriceError');
+                if (salePrice > productMRP) {
+                    // Sale price is greater than product MRP
+                    salePriceError.style.display = 'block';
+                    salePriceInput.focus(); // Focus on the sale price input
+                }else{
+                    salePriceError.style.display = 'none';
+                }
+            }else{
+                // If poqDropdown is not 'True', do nothing
+                return;
+
+            }
+          }
+    </script>
+
+    <script>
+        function toggleBlockVisibility() {
+            var radioYes = document.querySelector('input[name="var_added"][value="True"]');
+            var block = document.getElementById("blockToToggle");
+            var single_img_toggle = document.getElementById("singleVariationsImagesToggle");
+            //var Poq = document.getElementById("POQ");
+            //var productMRP = document.getElementById("productMRP");
+            
+            if (radioYes.checked) {
+                block.style.display = "block"; // Show the block
+                //Poq.style.display = "none";
+                //ProductMRP.style.display = "none";
+                // single_img_toggle.style.display = "None";
+            } else {
+                block.style.display = "none";  // Hide the block
+                single_img_toggle.style.display = "block";
+                //Poq.style.display = "block";
+                //ProductMRP.style.display = "block";
+            }
+        }
+    </script>
+{% endblock jsblock %}

@@ -35,7 +35,7 @@ class PickUpWarehouseLocation(ModelMixin):
     
 class Category(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=100, blank=True, null=True, unique=True)
+    name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
     image = models.ImageField(upload_to='category', blank=True, null=True)
 
@@ -55,7 +55,7 @@ class ProductType(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,
         blank=True, related_name="category")
-    name = models.CharField(max_length=100, blank=True, null=True)
+    name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
     image = models.ImageField(upload_to='product_type', blank=True, null=True)
     commission_type = models.CharField(max_length=25, choices=enums.CommissionTypeEnums.choices,
@@ -80,7 +80,7 @@ class ProductType(ModelMixin):
 class Product(ModelMixin):
     # 0. basic details
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    product_title = models.CharField(max_length=150,blank=True,null=True)
+    product_title = models.CharField(max_length=150, blank=True, null=True)
     slug = models.SlugField(max_length=150, blank=True, null=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE,related_name="seller_product")
     about_the_brand = models.CharField(max_length=225,blank=True,null=True)
@@ -115,6 +115,13 @@ class Product(ModelMixin):
         choices=enums.ServicedRegionsEnums.choices, blank=True,null=True)
     shipping_include = models.BooleanField(default=False)
     product_has_variant = models.BooleanField(default=False)
+
+    minimum_order_qunatity = models.CharField(max_length=555,blank=True,null=True)
+    minimum_order_qunatity_unit = models.CharField(max_length=555,
+        choices=enums.MinimumOrderQuantityEnums.choices, blank=True,null=True)
+
+
+
     # gst_rate = models.CharField(max_length=100,blank=True,null=True)
     # packed_length = models.CharField(max_length=100,blank=True,null=True)
     # packed_width = models.CharField(max_length=100,blank=True,null=True)
@@ -163,7 +170,7 @@ class Product(ModelMixin):
         verbose_name_plural = _("Inventory - Add Product")
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.product_title}"
     
 
 class ProductBelongDetails(ModelMixin):
@@ -184,9 +191,10 @@ class ProductBelongDetails(ModelMixin):
 class ProductVariant(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255, null=True, blank=True)
+    value = models.CharField(max_length=255, null=True, blank=True)
     price_on_request = models.BooleanField(default=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_variant")
-    default_varient = models.BooleanField(default=False)
+    default_variant = models.BooleanField(default=False)
 
     class meta:
         verbose_name = _("Inventory - Add Product Variant")
@@ -212,8 +220,8 @@ class ProductImage(ModelMixin):
 
 class ServiceRegions(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    product_variant = models.OneToOneField(ProductVariant, on_delete=models.CASCADE,
-        related_name="product_variant_service_regions")
+    product = models.OneToOneField(Product, on_delete=models.CASCADE,
+        related_name="product_service_regions") 
     serviced_regions_description = models.CharField(default=True,blank=True, null=True)
     state = models.ForeignKey(States, on_delete=models.CASCADE)
     city = models.ForeignKey(Cities, on_delete=models.CASCADE)
@@ -232,10 +240,7 @@ class PriceStructure(ModelMixin):
         related_name="product_variant_price_structure")
     sale_price = models.CharField(max_length=100,blank=True,null=True)
     mpr = models.CharField(max_length=100, blank=True, null=True)
-    tax_code = models.CharField(max_length=100, blank=True, null=True)
-    minimum_order_qunatity = models.CharField(max_length=555,blank=True,null=True)
-    minimum_order_qunatity_unit = models.CharField(max_length=555,
-        choices=enums.MinimumOrderQuantityEnums.choices, blank=True,null=True)
+    tax_code = models.CharField(max_length=100, blank=True, null=True) 
     class meta:
         verbose_name = _("Inventory - Add Price Structure")
         verbose_name_plural = _("Inventory - Add Price Structure")

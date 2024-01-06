@@ -34,7 +34,7 @@ class ProductBelongDetailsAdmin(admin.ModelAdmin):
 
 @admin.register(models.ProductVariant)
 class ProductVariantAdmin(admin.ModelAdmin):
-    list_display  = ('id', 'name', 'price_on_request', 'product', 'default_varient', 'created_at', 'updated_at')
+    list_display  = ('id', 'name', 'price_on_request', 'product', 'default_variant', 'created_at', 'updated_at')
     search_fields = ['name']
     readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
 
@@ -46,13 +46,13 @@ class ProductImageAdmin(admin.ModelAdmin):
 
 @admin.register(models.ServiceRegions)
 class ServiceRegionsAdmin(admin.ModelAdmin):
-    list_display  = ('id', 'product_variant', 'serviced_regions_description', 'state', 'city', 'created_at', 'updated_at')
+    list_display  = ('id', 'product', 'serviced_regions_description', 'state', 'city', 'created_at', 'updated_at')
     search_fields = ['product_variant']
     readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
 
 @admin.register(models.PriceStructure)
 class PriceStructureAdmin(admin.ModelAdmin):
-    list_display  = ('id', 'product_variant', 'sale_price', 'minimum_order_qunatity', 'minimum_order_qunatity_unit', 'created_at', 'updated_at')
+    list_display  = ('id', 'product_variant', 'sale_price', 'created_at', 'updated_at')
     search_fields = ['product_variant']
     readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
 

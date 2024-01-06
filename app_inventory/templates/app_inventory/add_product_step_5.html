@@ -1,0 +1,1383 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}Seller Profile | Seventh Square Seller{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}
+    <link rel="stylesheet" href="{% static 'seventh-square/assets/css/bs-stepper/bs-stepper.min.css' %}" />
+    <style>
+        .custom-model-min-width{
+            min-width: 44.5%;
+        }
+
+        .active .bs-stepper-circle {
+            background-color: #4C5864;
+        }
+    </style>
+{% endblock cssblock %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Messages Start --> 
+				{% include 'seventh-square/layout/messages.html' %}
+				{% if error %}
+					<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+						{{ error|safe }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endif %}
+			<!-- Messages END -->
+			<div class="col-12 col-md-12 bg-white">
+				<div class="row pl-0">
+					<!-- Col-3 is written as sidebar -->
+					<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
+						<div class="row pt-4 px-4">
+							<div class="col-12"> {%include 'seventh-square/layout/sidebar.html' %} </div>
+						</div>
+					</div>
+					<div class="custom-main-col-width">
+						<div class="row px-4 pt-3">
+							<div class="col-md-12">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
+										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+						<div class="row px-4">
+							<div class="col-md-12 px-3">
+								<h2 class="text-center text-black">Add New Product</h2>
+							</div>
+						</div>
+						<div class="row mx-2 mb-4">
+							<div class="col-12">
+                                <div class="card mb-3" id="all_fields_card">
+                                    <div class="card-header py-3 text-left bg-brand">
+                                        <h3 class="m-0 text-black">Product Details</h3>
+                                    </div>
+                                    <div class="card-body m-1 p-1">
+                                        <div class="mb-5 bg-white shadow-sm">
+
+                                            <div id="stepperForm" class="bs-stepper">
+                                                <div class="bs-stepper-header" role="tablist">
+                                                    <div class="step" data-target="#stepper-form-1">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger1" aria-controls="stepper-form-1">
+                                                            <span class="bs-stepper-circle">1</span>
+                                                            <span class="bs-stepper-label">Basic Info</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step active" data-bs-skip data-target="#stepper-form-2">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger2" aria-controls="#stepper-form-2">
+                                                            <span class="bs-stepper-circle">2</span>
+                                                            <span class="bs-stepper-label">Variants</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-3">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger3" aria-controls="#stepper-form-3">
+                                                            <span class="bs-stepper-circle">3</span>
+                                                            <span class="bs-stepper-label">More Info</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-4">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger4" aria-controls="#stepper-form-4">
+                                                            <span class="bs-stepper-circle">4</span>
+                                                            <span class="bs-stepper-label"> Pricing</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="bs-stepper-line"></div>
+                                                    <div class="step" data-target="#stepper-form-5">
+                                                        <button type="button" class="step-trigger" role="tab" id="stepperFormTrigger5" aria-controls="#stepper-form-5">
+                                                            <span class="bs-stepper-circle">5</span>
+                                                            <span class="bs-stepper-label">Shipping</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+                                                <div class="bs-stepper-content">
+                                                    <div id="stepper-form-1"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger1">
+                                                        
+                                                    </div>
+
+                                                    <div id="stepper-form-2"  role="tabpanel" class="bs-stepper-pane fade active" aria-labelledby="stepperFormTrigger2">
+                                                        <form class="needs-validation"  method="POST" id="basic-info-form" novalidate="" enctype="multipart/form-data">
+                                                            {% csrf_token %}
+                                                            
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style" for="">Product Weight</label>
+                                                                    <div calss="row">
+                                                                        <div class="col-md-4 d-inline-block pl-0">
+                                                                            <input type="number" step="0.01" min="0.01" max="99999.99" 
+                                                                                name="Product_Weigh" class="form-control"
+                                                                                id="productWeight" oninput="truncateDecimal(this)" onchange="showPreview()" required>
+                                                                                <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+                                                                        <div class="col-md-4 d-inline-block">
+                                                                            <select class="form-control"
+                                                                                style="height: 40px; font-size: 15px; background: #d1d1d15b;"
+                                                                                name="productUnit" id="packeddimension" onchange="showPreview() " required>
+                                                                            </select>
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <script>
+                                                                        function truncateDecimal(input) {
+                                                                            if (input.value.indexOf('.') !== -1) {
+                                                                                if (input.value.split('.')[1].length > 2) {
+                                                                                    input.value = parseFloat(input.value).toFixed(2);
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    </script>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style">Returnable Product</label>
+                                                                    <select class="form-control" title="Choose whether your product can be returned by the customer" style="background-color: #efefef; font-size: 15px;"
+                                                                        id="returnable" onchange="checkReturn()"
+                                                                        name="return_check" required>
+                                                                        <option disabled="true" selected value="">
+                                                                        </option>
+                                                                        <option id="k" value="True">Yes</option>
+                                                                        <option id="i" value="False">No</option>
+                                                                    </select>
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+                                                                    <script>
+                                                                        function checkReturn() {
+                                                                            var returnable_p = (document.getElementById("returnable").value);
+                                                                            if (returnable_p == 'True') {
+                                                                                $('#m').show();
+                                                                            } else {
+                                                                                $('#m').hide();
+                                                                            }
+                                                                        }
+                                                                    </script>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4" id="m">
+                                                                    <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="">
+                                                                        <span>Return policy</span>
+                                                                        <span class="optional-color">Optional</span>
+                                                                    </label>
+                                                                    <input type="text" name="return_policy" onkeyup="showPreview()" class="form-control" id="return_policy" min="0" step="any"
+                                                                    title="Product / Company specific return policy, if any.">
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style" for="" required>Shipping Method</label>
+                                                                    <select class="form-select" title="Choose Shipping method" name="shippingMethod" id="shippingMethod" required>
+                                                                        <option disabled="true" selected value=""></option>
+                                                                        <option value="Shipping with Seventh Square">Shipping
+                                                                            with Seventh Square
+                                                                        </option>
+                                                                        <option value="Self Shipping">Self Shipping</option>
+                                                                    </select>
+                                                                    <div class="invalid-feedback">Please fill in details.</div>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style" for="productdimensionUnit">Product Dimensions</label>
+                                                                    <select class="form-select" name="productdimensionUni"
+                                                                        id="productdimensionUnit" onchange="showPrevie()" required>
+                                                                    </select>
+                                                              
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <input class="form-control" type="number"style="background-color: #efefef;"
+                                                                            name="length" placeholder="Length
+                                                                            " onchange="showPrevie()" id="Legt"
+                                                                            step="any" min="0" required>
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+            
+                                                                        <div class="col-md-4">
+                                                                            <input class="form-control" placeholder="width" type="number"onchange="showPrevie()"
+                                                                                    name="width" style="background-color: #efefef;"
+                                                                                    id="productDimensionWidth" step="any" min="0" required>
+                                                                            <input class="form-control" type="text" onchange="showPrevie()"
+                                                                                    id="defpro_mp" name="defaultMP" hidden>
+                                                                            <input class="form-control" type="text"
+                                                                                    id="defpro_sp" name="defaultSP" onChange="calcuvar()"
+                                                                                    hidden>
+                                                                            <input class="form-control" type="text"
+                                                                                    id="defpro_poq" name="" onChange="calcuvar()" hidden>
+                                                                            <input class="form-control" type="text"
+                                                                                    id="defpro_var" name="defaultVar" hidden>
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input class="form-control" type="number" name="height" placeholder="height" id="productDimensionHeight" step="any" onchange="showPrevie()"  min="0" required>
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <label class="form-label form-label-normal-font-style" for="productdimensionUnitBox">Packed Box Dimensions</label>
+                                                                    <select class="form-select" name="productdimensionUnitBox" title="Measurements of the final packaged box that is ready to be delivered."
+                                                                        id="productdimensionUnitBox" onchange="showPrevie()">
+                                                                    </select>
+                                                              
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <input class="form-control" placeholder="Length" type="number"style="background-color: #efefef;"
+                                                                                name="packedLength" id="productDimensionBoxLength" onchange="showPrevie()" step="any" min="0">
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+            
+                                                                        <div class="col-md-4">
+                                                                            <input class="form-control" type="number" placeholder="Width"
+                                                                                   name="packedWidth"style="background-color: #efefef;"
+                                                                                   id="productDimensionBoxWidth" onchange="showPrevie()" step="any" min="0">
+                                                                            <input class="form-control" type="text"
+                                                                                   id="defpro_mp" name="boxdefaultMP" hidden>
+                                                                            <input class="form-control" type="text"
+                                                                                   id="defpro_sp" name="boxdefaultSP" onChange="calcuvar()"
+                                                                                   hidden>
+                                                                            <input class="form-control" type="text"
+                                                                                   id="defpro_poq" name="" onChange="calcuvar()" hidden>
+                                                                            <input class="form-control" type="text"
+                                                                                   id="defpro_var" name="boxdefaultVar" hidden>
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <input class="form-control" type="number"style="background-color: #efefef;"
+                                                                                   name="packedHeight" placeholder="Height"
+                                                                                   id="productDimensionBoxHeight" onchange="showPrevie()" step="any" min="0">
+                                                                            <div class="invalid-feedback">Please fill in details.</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4" style="display:none" id="pickup2">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">
+                                                                            Location Name
+                                                                            <i style="font-size: 10px;" class="fas fa-question">
+                                                                            <span class="tooltiptext">Example: SS Jaipur Warehouse</span></i>
+                                                                        </label>
+                                                                        <div class="col-sm-7">
+                                                                            <input class=" form-control" id="Plocation2" type="text"
+                                                                                   placeholder="SS Jaipur Warehouse" name="Plocation2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">Plot no </label>
+                                                                        <div class="col-sm-7">
+                                                                            <input class=" form-control" id="PplotNo2" type="text" placeholder="" name="PplotNo2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">Street/Area </label>
+                                                                        <div class="col-sm-7">
+                                                                            <input class=" form-control" id="Pstreet2" type="text" placeholder="" name="Pstreet2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">City </label>
+                                                                        <div class="col-sm-7">
+            
+                                                                            <input class=" form-control" id="Pcity2" type="text" placeholder="" name="Pcity2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">Pin Code </label>
+                                                                        <div class="col-sm-7"> 
+                                                                            <input class=" form-control" id="Ppincode2" type="text" placeholder="" name="Ppincode2"> 
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">State </label>
+                                                                        <div class="col-sm-7">
+                                                                            <input class=" form-control" id="Pstate2" type="text" placeholder="" name="Pstate2">
+                                                                        </div>
+                                                                    </div><div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">Plot no </label>
+                                                                        <div class="col-sm-7">
+                                                                            <input class=" form-control" id="PplotNo2" type="text" placeholder="" name="PplotNo2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">Street/Area </label>
+                                                                        <div class="col-sm-7">
+                                                                            <input class=" form-control" id="Pstreet2" type="text" placeholder="" name="Pstreet2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">City </label>
+                                                                        <div class="col-sm-7">
+            
+                                                                            <input class=" form-control" id="Pcity2" type="text" placeholder="" name="Pcity2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">Pin Code </label>
+                                                                        <div class="col-sm-7"> 
+                                                                            <input class=" form-control" id="Ppincode2" type="text" placeholder="" name="Ppincode2"> 
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">State </label>
+                                                                        <div class="col-sm-7">
+                                                                            <input class=" form-control" id="Pstate2" type="text" placeholder="" name="Pstate2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">Landmark</label>
+                                                                        <div class="col-sm-7">
+                                                                            <input class=" form-control" id="Plandmark2" type="text" placeholder="" name="Plandmark2">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 col-form-label requiredLabel" for="">Landmark</label>
+                                                                        <div class="col-sm-7">
+                                                                            <input class=" form-control" id="Plandmark2" type="text" placeholder="" name="Plandmark2">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-7 mb-4">
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <label class="form-label form-label-normal-font-style">Serviced Regions</label>
+                                                                        </div>
+                                                                        <div class="col-12 text-left">
+                                                                            <input onchange="AddCityPopup(this);" checked title="Please state regions where you want to ship your product in the country. This might influence your delivery cost." style="height:11px; width:11px;" type="radio" class="radio" name="servicedRegi" id="serviced_regions1" value="True" required />
+                                                                            <label for="serviced_regions1" class="label_css" style="font-size: 16px;"> I deliver PAN India </label>
+                                                                            
+                                                                            <input onchange="AddCityPopup(this);" style="height:11px; width:11px;" class="ml-5" title="Please state regions where you want to ship your product in the country. This might influence your delivery cost." type="radio" class="radio" name="servicedRegi" value="False" id="serviced_regions2" required />
+                                                                            <label for="serviced_regions2" class=" mt-3" style="font-size: 16px;"> I deliver to specified states / cities only</label>
+                                                                                
+                                                                        </div>
+                                                                        <div id="id_serviced_regionsError" class="invalid-feedback">Please choose one. any fill nacessary detals.</div>
+                                                                    </div>
+                                                                
+                                                                    <script> 
+                                                                        function AddCityPopup(input) {
+                                                                            const addStatesModel = document.getElementById('addStatesModel');
+                                                                            const cityPopupModel = document.getElementById('popup');
+                                                                            if (input.value === 'True') {
+                                                                                // If "I deliver PAN India" is selected, hide the addStatesModel
+                                                                                addStatesModel.style.display = 'none';
+                                                                                cityPopupModel.style.display = 'none';
+                                                                                
+                                                                            } else {
+                                                                                // If "I deliver to specified states / cities only" is selected, show the addStatesModel
+                                                                                addStatesModel.style.display = 'block';
+                                                                                cityPopupModel.style.display = 'block';
+            
+                                                                                // You can also call AddCityPopup here if needed
+                                                                                //AddCityPopup(input.id); // Assuming you want to pass the input id to the function
+                                                                            }
+                                                                        }
+            
+                                                                        document.addEventListener("DOMContentLoaded", function() {
+                                                                            // This function will be called when the page finishes loading.
+                                                                            AddCityPopup();
+                                                                        });
+            
+                                                                        
+                                                                    </script>
+            
+                                                                    <div class="row mt-3" style="display:none;" id="addStatesModel">
+                                                                        <h6 style="text-align: center; cursor: pointer;font-size: 15px;"
+                                                                            data-toggle="modal" data-target="#showBreakdon">+Add
+                                                                            serviced states & cities </h6>
+            
+                                                                        <div class="modal fade" id="showBreakdon" tabindex="-1"
+                                                                             role="dialog" aria-labelledby="exampleModalLabel"
+                                                                             aria-hidden="true">
+                                                                            <div class="modal-dialog modal-lg" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                                            Fill The Details
+                                                                                        </h5>
+                                                                                        <button type="button" class="close"
+                                                                                                data-dismiss="modal" aria-label="Close">
+                                                                                            <span aria-hidden="true">&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="form-row">
+                                                                                            <div class="col-md-12"
+                                                                                                 style="margin-top: 10px;margin-bottom: 15px;">
+                                                                                                <h5>Please Select Your State </h5>
+                                                                                                <select id="tagDropdown" class="form-control"></select>
+                                                                                                <button onclick="addSelectedTag()" class="btn btn-dark mt-2 ml-1">Add</button>
+                                                                                                <div id="stateTagList" class="mt-3"></div>
+                                                                                                <div id="stateErrorText" class="text-danger mt-3" style="display: none;">Tag already exists.</div>
+                                                                                                <script>
+                                                                                                    const stateDropdown = document.getElementById('tagDropdown');
+                                                                                                    const state_arr = ["Andaman & Nicobar Island", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh", "Dadra & Nagar Haveli", "Daman & Diu", "Delhi", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"];
+                                                                                                    var s_a = new Array();
+                                                                                                    s_a[0]="";
+                                                                                                    s_a[1]=" Alipur | Andaman Island | Anderson Island | Arainj-Laka-Punga | Austinabad | Bamboo Flat | Barren Island | Beadonabad | Betapur | Bindraban | Bonington | Brookesabad | Cadell Point | Calicut | Chetamale | Cinque Islands | Defence Island | Digilpur | Dolyganj | Flat Island | Geinyale | Great Coco Island | Haddo | Havelock Island | Henry Lawrence Island | Herbertabad | Hobdaypur | Ilichar | Ingoie | Inteview Island | Jangli Ghat | Jhon Lawrence Island | Karen | Kartara | KYD Islannd | Landfall Island | Little Andmand | Little Coco Island | Long Island | Maimyo | Malappuram | Manglutan | Manpur | Mitha Khari | Neill Island | Nicobar Island | North Brother Island | North Passage Island | North Sentinel Island | Nothen Reef Island | Outram Island | Pahlagaon | Palalankwe | Passage Island | Phaiapong | Phoenix Island | Port Blair | Preparis Island | Protheroepur | Rangachang | Rongat | Rutland Island | Sabari | Saddle Peak | Shadipur | Smith Island | Sound Island | South Sentinel Island | Spike Island | Tarmugli Island | Taylerabad | Titaije | Toibalawe | Tusonabad | West Island | Wimberleyganj | Yadita";
+                                                                                                    s_a[2]=" Achampet | Adilabad | Adoni | Alampur | Allagadda | Alur | Amalapuram | Amangallu | Anakapalle | Anantapur | Andole | Araku | Armoor | Asifabad | Aswaraopet | Atmakur | B. Kothakota | Badvel | Banaganapalle | Bandar | Bangarupalem | Banswada | Bapatla | Bellampalli | Bhadrachalam | Bhainsa | Bheemunipatnam | Bhimadole | Bhimavaram | Bhongir | Bhooragamphad | Boath | Bobbili | Bodhan | Chandoor | Chavitidibbalu | Chejerla | Chepurupalli | Cherial | Chevella | Chinnor | Chintalapudi | Chintapalle | Chirala | Chittoor | Chodavaram | Cuddapah | Cumbum | Darsi | Devarakonda | Dharmavaram | Dichpalli | Divi | Donakonda | Dronachalam | East Godavari | Eluru | Eturnagaram | Gadwal | Gajapathinagaram | Gajwel | Garladinne | Giddalur | Godavari | Gooty | Gudivada | Gudur | Guntur | Hindupur | Hunsabad | Huzurabad | Huzurnagar | Hyderabad | Ibrahimpatnam | Jaggayyapet | Jagtial | Jammalamadugu | Jangaon | Jangareddygudem | Jannaram | Kadiri | Kaikaluru | Kakinada | Kalwakurthy | Kalyandurg | Kamalapuram | Kamareddy | Kambadur | Kanaganapalle | Kandukuru | Kanigiri | Karimnagar | Kavali | Khammam | Khanapur (AP) | Kodangal | Koduru | Koilkuntla | Kollapur | Kothagudem | Kovvur | Krishna | Krosuru | Kuppam | Kurnool | Lakkireddipalli | Madakasira | Madanapalli | Madhira | Madnur | Mahabubabad | Mahabubnagar | Mahadevapur | Makthal | Mancherial | Mandapeta | Mangalagiri | Manthani | Markapur | Marturu | Medachal | Medak | Medarmetla | Metpalli | Mriyalguda | Mulug | Mylavaram | Nagarkurnool | Nalgonda | Nallacheruvu | Nampalle | Nandigama | Nandikotkur | Nandyal | Narasampet | Narasaraopet | Narayanakhed | Narayanpet | Narsapur | Narsipatnam | Nazvidu | Nelloe | Nellore | Nidamanur | Nirmal | Nizamabad | Nuguru | Ongole | Outsarangapalle | Paderu | Pakala | Palakonda | Paland | Palmaneru | Pamuru | Pargi | Parkal | Parvathipuram | Pathapatnam | Pattikonda | Peapalle | Peddapalli | Peddapuram | Penukonda | Piduguralla | Piler | Pithapuram | Podili | Polavaram | Prakasam | Proddatur | Pulivendla | Punganur | Putturu | Rajahmundri | Rajampeta | Ramachandrapuram | Ramannapet | Rampachodavaram | Rangareddy | Rapur | Rayachoti | Rayadurg | Razole | Repalle | Saluru | Sangareddy | Sathupalli | Sattenapalle | Satyavedu | Shadnagar | Siddavattam | Siddipet | Sileru | Sircilla | Sirpur Kagaznagar | Sodam | Sompeta | Srikakulam | Srikalahasthi | Srisailam | Srungavarapukota | Sudhimalla | Sullarpet | Tadepalligudem | Tadipatri | Tanduru | Tanuku | Tekkali | Tenali | Thungaturthy | Tirivuru | Tirupathi | Tuni | Udaygiri | Ulvapadu | Uravakonda | Utnor | V.R. Puram | Vaimpalli | Vayalpad | Venkatgiri | Venkatgirikota | Vijayawada | Vikrabad | Vinjamuru | Vinukonda | Visakhapatnam | Vizayanagaram | Vizianagaram | Vuyyuru | Wanaparthy | Warangal | Wardhannapet | Yelamanchili | Yelavaram | Yeleswaram | Yellandu | Yellanuru | Yellareddy | Yerragondapalem | Zahirabad ";
+                                                                                                    s_a[3]=" Along | Anini | Anjaw | Bameng | Basar | Changlang | Chowkhem | Daporizo | Dibang Valley | Dirang | Hayuliang | Huri | Itanagar | Jairampur | Kalaktung | Kameng | Khonsa | Kolaring | Kurung Kumey | Lohit | Lower Dibang Valley | Lower Subansiri | Mariyang | Mechuka | Miao | Nefra | Pakkekesang | Pangin | Papum Pare | Passighat | Roing | Sagalee | Seppa | Siang | Tali | Taliha | Tawang | Tezu | Tirap | Tuting | Upper Siang | Upper Subansiri | Yiang Kiag ";
+                                                                                                    s_a[4]=" Abhayapuri | Baithalangshu | Barama | Barpeta Road | Bihupuria | Bijni | Bilasipara | Bokajan | Bokakhat | Boko | Bongaigaon | Cachar | Cachar Hills | Darrang | Dhakuakhana | Dhemaji | Dhubri | Dibrugarh | Digboi | Diphu | Goalpara | Gohpur | Golaghat | Guwahati | Hailakandi | Hajo | Halflong | Hojai | Howraghat | Jorhat | Kamrup | Karbi Anglong | Karimganj | Kokarajhar | Kokrajhar | Lakhimpur | Maibong | Majuli | Mangaldoi | Mariani | Marigaon | Moranhat | Morigaon | Nagaon | Nalbari | Rangapara | Sadiya | Sibsagar | Silchar | Sivasagar | Sonitpur | Tarabarihat | Tezpur | Tinsukia | Udalgiri | Udalguri | UdarbondhBarpeta";
+                                                                                                    s_a[5]=" Adhaura | Amarpur | Araria | Areraj | Arrah | Arwal | Aurangabad | Bagaha | Banka | Banmankhi | Barachakia | Barauni | Barh | Barosi | Begusarai | Benipatti | Benipur | Bettiah | Bhabhua | Bhagalpur | Bhojpur | Bidupur | Biharsharif | Bikram | Bikramganj | Birpur | Buxar | Chakai | Champaran | Chapara | Dalsinghsarai | Danapur | Darbhanga | Daudnagar | Dhaka | Dhamdaha | Dumraon | Ekma | Forbesganj | Gaya | Gogri | Gopalganj | H.Kharagpur | Hajipur | Hathua | Hilsa | Imamganj | Jahanabad | Jainagar | Jamshedpur | Jamui | Jehanabad | Jhajha | Jhanjharpur | Kahalgaon | Kaimur (Bhabua) | Katihar | Katoria | Khagaria | Kishanganj | Korha | Lakhisarai | Madhepura | Madhubani | Maharajganj | Mahua | Mairwa | Mallehpur | Masrakh | Mohania | Monghyr | Motihari | Motipur | Munger | Muzaffarpur | Nabinagar | Nalanda | Narkatiaganj | Naugachia | Nawada | Pakribarwan | Pakridayal | Patna | Phulparas | Piro | Pupri | Purena | Purnia | Rafiganj | Rajauli | Ramnagar | Raniganj | Raxaul | Rohtas | Rosera | S.Bakhtiarpur | Saharsa | Samastipur | Saran | Sasaram | Seikhpura | Sheikhpura | Sheohar | Sherghati | Sidhawalia | Singhwara | Sitamarhi | Siwan | Sonepur | Supaul | Thakurganj | Triveniganj | Udakishanganj | Vaishali | Wazirganj";
+                                                                                                    s_a[6]=" Chandigarh ";
+                                                                                                    s_a[7]=" Ambikapur | Antagarh | Arang | Bacheli | Bagbahera | Bagicha | Baikunthpur | Balod | Balodabazar | Balrampur | Barpalli | Basana | Bastanar | Bastar | Bderajpur | Bemetara | Berla | Bhairongarh | Bhanupratappur | Bharathpur | Bhatapara | Bhilai | Bhilaigarh | Bhopalpatnam | Bijapur | Bilaspur | Bodla | Bokaband | Chandipara | Chhinagarh | Chhuriakala | Chingmut | Chuikhadan | Dabhara | Dallirajhara | Dantewada | Deobhog | Dhamda | Dhamtari | Dharamjaigarh | Dongargarh | Durg | Durgakondal | Fingeshwar | Gariaband | Garpa | Gharghoda | Gogunda | Ilamidi | Jagdalpur | Janjgir | Janjgir-Champa | Jarwa | Jashpur | Jashpurnagar | Kabirdham-Kawardha | Kanker | Kasdol | Kathdol | Kathghora | Kawardha | Keskal | Khairgarh | Kondagaon | Konta | Korba | Korea | Kota | Koyelibeda | Kuakunda | Kunkuri | Kurud | Lohadigundah | Lormi | Luckwada | Mahasamund | Makodi | Manendragarh | Manpur | Marwahi | Mohla | Mungeli | Nagri | Narainpur | Narayanpur | Neora | Netanar | Odgi | Padamkot | Pakhanjur | Pali | Pandaria | Pandishankar | Parasgaon | Pasan | Patan | Pathalgaon | Pendra | Pratappur | Premnagar | Raigarh | Raipur | Rajnandgaon | Rajpur | Ramchandrapur | Saraipali | Saranggarh | Sarona | Semaria | Shakti | Sitapur | Sukma | Surajpur | Surguja | Tapkara | Toynar | Udaipur | Uproda | Wadrainagar";
+                                                                                                    s_a[8]=" Amal | Amli | Bedpa | Chikhli | Dadra & Nagar Haveli | Dahikhed | Dolara | Galonda | Kanadi | Karchond | Khadoli | Kharadpada | Kherabari | Kherdi | Kothar | Luari | Mashat | Rakholi | Rudana | Saili | Sili | Silvassa | Sindavni | Udva | Umbarkoi | Vansda | Vasona | Velugam ";
+                                                                                                    s_a[9]=" Brancavare | Dagasi | Daman | Diu | Magarvara | Nagwa | Pariali | Passo Covo ";
+                                                                                                    s_a[10]=" Delhi ";
+                                                                                                    s_a[11]=" Canacona | Candolim | Chinchinim | Cortalim | Goa | Jua | Madgaon | Mahem | Mapuca | Marmagao | Panji | Ponda | Sanvordem | Terekhol ";
+                                                                                                    s_a[12]=" Ahmedabad | Ahwa | Amod | Amreli | Anand | Anjar | Ankaleshwar | Babra | Balasinor | Banaskantha | Bansada | Bardoli | Bareja | Baroda | Barwala | Bayad | Bhachav | Bhanvad | Bharuch | Bhavnagar | Bhiloda | Bhuj | Billimora | Borsad | Botad | Chanasma | Chhota Udaipur | Chotila | Dabhoi | Dahod | Damnagar | Dang | Danta | Dasada | Dediapada | Deesa | Dehgam | Deodar | Devgadhbaria | Dhandhuka | Dhanera | Dharampur | Dhari | Dholka | Dhoraji | Dhrangadhra | Dhrol | Dwarka | Fortsongadh | Gadhada | Gandhi Nagar | Gariadhar | Godhra | Gogodar | Gondal | Halol | Halvad | Harij | Himatnagar | Idar | Jambusar | Jamjodhpur | Jamkalyanpur | Jamnagar | Jasdan | Jetpur | Jhagadia | Jhalod | Jodia | Junagadh | Junagarh | Kalawad | Kalol | Kapad Wanj | Keshod | Khambat | Khambhalia | Khavda | Kheda | Khedbrahma | Kheralu | Kodinar | Kotdasanghani | Kunkawav | Kutch | Kutchmandvi | Kutiyana | Lakhpat | Lakhtar | Lalpur | Limbdi | Limkheda | Lunavada | M.M.Mangrol | Mahuva | Malia-Hatina | Maliya | Malpur | Manavadar | Mandvi | Mangrol | Mehmedabad | Mehsana | Miyagam | Modasa | Morvi | Muli | Mundra | Nadiad | Nakhatrana | Nalia | Narmada | Naswadi | Navasari | Nizar | Okha | Paddhari | Padra | Palanpur | Palitana | Panchmahals | Patan | Pavijetpur | Porbandar | Prantij | Radhanpur | Rahpar | Rajaula | Rajkot | Rajpipla | Ranavav | Sabarkantha | Sanand | Sankheda | Santalpur | Santrampur | Savarkundla | Savli | Sayan | Sayla | Shehra | Sidhpur | Sihor | Sojitra | Sumrasar | Surat | Surendranagar | Talaja | Thara | Tharad | Thasra | Una-Diu | Upleta | Vadgam | Vadodara | Valia | Vallabhipur | Valod | Valsad | Vanthali | Vapi | Vav | Veraval | Vijapur | Viramgam | Visavadar | Visnagar | Vyara | Waghodia | Wankaner ";
+                                                                                                    s_a[13]=" Adampur Mandi | Ambala | Assandh | Bahadurgarh | Barara | Barwala | Bawal | Bawanikhera | Bhiwani | Charkhidadri | Cheeka | Chhachrauli | Chandigarh |Dabwali | Ellenabad | Faridabad | Fatehabad | Ferojpur Jhirka | Gharaunda | Gohana | Gurgaon | Hansi | Hisar | Jagadhari | Jatusana | Jhajjar | Jind | Julana | Kaithal | Kalanaur | Kalanwali | Kalka | Karnal | Kosli | Kurukshetra | Loharu | Mahendragarh | Meham | Mewat | Mohindergarh | Naraingarh | Narnaul | Narwana | Nilokheri | Nuh | Palwal | Panchkula | Panipat | Pehowa | Ratia | Rewari | Rohtak | Safidon | Sirsa | Siwani | Sonipat | Tohana | Tohsam | Yamunanagar ";
+                                                                                                    s_a[14]=" Amb | Arki | Banjar | Bharmour | Bilaspur | Chamba | Churah | Dalhousie | Dehra Gopipur | Hamirpur | Jogindernagar | Kalpa | Kangra | Kinnaur | Kullu | Lahaul | Mandi | Nahan | Nalagarh | Nirmand | Nurpur | Palampur | Pangi | Paonta | Pooh | Rajgarh | Rampur Bushahar | Rohru | Shimla | Sirmaur | Solan | Spiti | Sundernagar | Theog | Udaipur | Una";
+                                                                                                    s_a[15]=" Bagodar | Baharagora | Balumath | Barhi | Barkagaon | Barwadih | Basia | Bermo | Bhandaria | Bhawanathpur | Bishrampur | Bokaro | Bolwa | Bundu | Chaibasa | Chainpur | Chakardharpur | Chandil | Chatra | Chavparan | Daltonganj | Deoghar | Dhanbad | Dumka | Dumri | Garhwa | Garu | Ghaghra | Ghatsila | Giridih | Godda | Gomia | Govindpur | Gumla | Hazaribagh | Hunterganj | Ichak | Itki | Jagarnathpur | Jamshedpur | Jamtara | Japla | Jharmundi | Jhinkpani | Jhumaritalaiya | Kathikund | Kharsawa | Khunti | Koderma | Kolebira | Latehar | Lohardaga | Madhupur | Mahagama | Maheshpur Raj | Mandar | Mandu | Manoharpur | Muri | Nagarutatri | Nala | Noamundi | Pakur | Palamu | Palkot | Patan | Rajdhanwar | Rajmahal | Ramgarh | Ranchi | Sahibganj | Saraikela | Simaria | Simdega | Singhbhum | Tisri | Torpa ";
+                                                                                                    s_a[16]=" Afzalpur | Ainapur | Aland | Alur | Anekal | Ankola | Arsikere | Athani | Aurad | Bableshwar | Badami | Bagalkot | Bagepalli | Bailhongal | Bangalore | Bangalore Rural | Bangarpet | Bantwal | Basavakalyan | Basavanabagewadi | Basavapatna | Belgaum | Bellary | Belthangady | Belur | Bhadravati | Bhalki | Bhatkal | Bidar | Bijapur | Biligi | Chadchan | Challakere | Chamrajnagar | Channagiri | Channapatna | Channarayapatna | Chickmagalur | Chikballapur | Chikkaballapur | Chikkanayakanahalli | Chikkodi | Chikmagalur | Chincholi | Chintamani | Chitradurga | Chittapur | Cowdahalli | Davanagere | Deodurga | Devangere | Devarahippargi | Dharwad | Doddaballapur | Gadag | Gangavathi | Gokak | Gowribdanpur | Gubbi | Gulbarga | Gundlupet | H.B.Halli | H.D. Kote | Haliyal | Hampi | Hangal | Harapanahalli | Hassan | Haveri | Hebri | Hirekerur | Hiriyur | Holalkere | Holenarsipur | Honnali | Honnavar | Hosadurga | Hosakote | Hosanagara | Hospet | Hubli | Hukkeri | Humnabad | Hungund | Hunsagi | Hunsur | Huvinahadagali | Indi | Jagalur | Jamkhandi | Jewargi | Joida | K.R. Nagar | Kadur | Kalghatagi | Kamalapur | Kanakapura | Kannada | Kargal | Karkala | Karwar | Khanapur | Kodagu | Kolar | Kollegal | Koppa | Koppal | Koratageri | Krishnarajapet | Kudligi | Kumta | Kundapur | Kundgol | Kunigal | Kurugodu | Kustagi | Lingsugur | Madikeri | Madugiri | Malavalli | Malur | Mandya | Mangalore | Manipal | Manvi | Mashal | Molkalmuru | Mudalgi | Muddebihal | Mudhol | Mudigere | Mulbagal | Mundagod | Mundargi | Murugod | Mysore | Nagamangala | Nanjangud | Nargund | Narsimrajapur | Navalgund | Nelamangala | Nimburga | Pandavapura | Pavagada | Puttur | Raibag | Raichur | Ramdurg | Ranebennur | Ron | Sagar | Sakleshpur | Salkani | Sandur | Saundatti | Savanur | Sedam | Shahapur | Shankarnarayana | Shikaripura | Shimoga | Shirahatti | Shorapur | Siddapur | Sidlaghatta | Sindagi | Sindhanur | Sira | Sirsi | Siruguppa | Somwarpet | Sorab | Sringeri | Sriniwaspur | Srirangapatna | Sullia | T. Narsipur | Tallak | Tarikere | Telgi | Thirthahalli | Tiptur | Tumkur | Turuvekere | Udupi | Virajpet | Wadi | Yadgiri | Yelburga | Yellapur ";
+                                                                                                    s_a[17]=" Adimaly | Adoor | Agathy | Alappuzha | Alathur | Alleppey | Alwaye | Amini | Androth | Attingal | Badagara | Bitra | Calicut | Cannanore | Chetlet | Ernakulam | Idukki | Irinjalakuda | Kadamath | Kalpeni | Kalpetta | Kanhangad | Kanjirapally | Kannur | Karungapally | Kasargode | Kavarathy | Kiltan | Kochi | Koduvayur | Kollam | Kottayam | Kovalam | Kozhikode | Kunnamkulam | Malappuram | Mananthodi | Manjeri | Mannarghat | Mavelikkara | Minicoy | Munnar | Muvattupuzha | Nedumandad | Nedumgandam | Nilambur | Palai | Palakkad | Palghat | Pathaanamthitta | Pathanamthitta | Payyanur | Peermedu | Perinthalmanna | Perumbavoor | Punalur | Quilon | Ranni | Shertallai | Shoranur | Taliparamba | Tellicherry | Thiruvananthapuram | Thodupuzha | Thrissur | Tirur | Tiruvalla | Trichur | Trivandrum | Uppala | Vadakkanchery | Vikom | Wayanad ";
+                                                                                                    s_a[18]=" Agatti Island | Bingaram Island | Bitra Island | Chetlat Island | Kadmat Island | Kalpeni Island | Kavaratti Island | Kiltan Island | Lakshadweep Sea | Minicoy Island | North Island | South Island ";
+                                                                                                    s_a[19]=" Agar | Ajaigarh | Alirajpur | Amarpatan | Amarwada | Ambah | Anuppur | Arone | Ashoknagar | Ashta | Atner | Babaichichli | Badamalhera | Badarwsas | Badnagar | Badnawar | Badwani | Bagli | Baihar | Balaghat | Baldeogarh | Baldi | Bamori | Banda | Bandhavgarh | Bareli | Baroda | Barwaha | Barwani | Batkakhapa | Begamganj | Beohari | Berasia | Berchha | Betul | Bhainsdehi | Bhander | Bhanpura | Bhikangaon | Bhimpur | Bhind | Bhitarwar | Bhopal | Biaora | Bijadandi | Bijawar | Bijaypur | Bina | Birsa | Birsinghpur | Budhni | Burhanpur | Buxwaha | Chachaura | Chanderi | Chaurai | Chhapara | Chhatarpur | Chhindwara | Chicholi | Chitrangi | Churhat | Dabra | Damoh | Datia | Deori | Deosar | Depalpur | Dewas | Dhar | Dharampuri | Dindori | Gadarwara | Gairatganj | Ganjbasoda | Garoth | Ghansour | Ghatia | Ghatigaon | Ghorandogri | Ghughari | Gogaon | Gohad | Goharganj | Gopalganj | Gotegaon | Gourihar | Guna | Gunnore | Gwalior | Gyraspur | Hanumana | Harda | Harrai | Harsud | Hatta | Hoshangabad | Ichhawar | Indore | Isagarh | Itarsi | Jabalpur | Jabera | Jagdalpur | Jaisinghnagar | Jaithari | Jaitpur | Jaitwara | Jamai | Jaora | Jatara | Jawad | Jhabua | Jobat | Jora | Kakaiya | Kannod | Kannodi | Karanjia | Kareli | Karera | Karhal | Karpa | Kasrawad | Katangi | Katni | Keolari | Khachrod | Khajuraho | Khakner | Khalwa | Khandwa | Khaniadhana | Khargone | Khategaon | Khetia | Khilchipur | Khirkiya | Khurai | Kolaras | Kotma | Kukshi | Kundam | Kurwai | Kusmi | Laher | Lakhnadon | Lamta | Lanji | Lateri | Laundi | Maheshwar | Mahidpurcity | Maihar | Majhagwan | Majholi | Malhargarh | Manasa | Manawar | Mandla | Mandsaur | Manpur | Mauganj | Mawai | Mehgaon | Mhow | Morena | Multai | Mungaoli | Nagod | Nainpur | Narsingarh | Narsinghpur | Narwar | Nasrullaganj | Nateran | Neemuch | Niwari | Niwas | Nowgaon | Pachmarhi | Pandhana | Pandhurna | Panna | Parasia | Patan | Patera | Patharia | Pawai | Petlawad | Pichhore | Piparia | Pohari | Prabhapattan | Punasa | Pushprajgarh | Raghogarh | Raghunathpur | Rahatgarh | Raisen | Rajgarh | Rajpur | Ratlam | Rehli | Rewa | Sabalgarh | Sagar | Sailana | Sanwer | Sarangpur | Sardarpur | Satna | Saunsar | Sehore | Sendhwa | Seondha | Seoni | Seonimalwa | Shahdol | Shahnagar | Shahpur | Shajapur | Sheopur | Sheopurkalan | Shivpuri | Shujalpur | Sidhi | Sihora | Silwani | Singrauli | Sirmour | Sironj | Sitamau | Sohagpur | Sondhwa | Sonkatch | Susner | Tamia | Tarana | Tendukheda | Teonthar | Thandla | Tikamgarh | Timarani | Udaipura | Ujjain | Umaria | Umariapan | Vidisha | Vijayraghogarh | Waraseoni | Zhirnia ";
+                                                                                                    s_a[20]=" Achalpur | Aheri | Ahmednagar | Ahmedpur | Ajara | Akkalkot | Akola | Akole | Akot | Alibagh | Amagaon | Amalner | Ambad | Ambejogai | Amravati | Arjuni Merogaon | Arvi | Ashti | Atpadi | Aurangabad | Ausa | Babhulgaon | Balapur | Baramati | Barshi Takli | Barsi | Basmatnagar | Bassein | Beed | Bhadrawati | Bhamregadh | Bhandara | Bhir | Bhiwandi | Bhiwapur | Bhokar | Bhokardan | Bhoom | Bhor | Bhudargad | Bhusawal | Billoli | Brahmapuri | Buldhana | Butibori | Chalisgaon | Chamorshi | Chandgad | Chandrapur | Chandur | Chanwad | Chhikaldara | Chikhali | Chinchwad | Chiplun | Chopda | Chumur | Dahanu | Dapoli | Darwaha | Daryapur | Daund | Degloor | Delhi Tanda | Deogad | Deolgaonraja | Deori | Desaiganj | Dhadgaon | Dhanora | Dharani | Dhiwadi | Dhule | Dhulia | Digras | Dindori | Edalabad | Erandul | Etapalli | Gadhchiroli | Gadhinglaj | Gaganbavada | Gangakhed | Gangapur | Gevrai | Ghatanji | Golegaon | Gondia | Gondpipri | Goregaon | Guhagar | Hadgaon | Hatkangale | Hinganghat | Hingoli | Hingua | Igatpuri | Indapur | Islampur | Jalgaon | Jalna | Jamkhed | Jamner | Jath | Jawahar | Jintdor | Junnar | Kagal | Kaij | Kalamb | Kalamnuri | Kallam | Kalmeshwar | Kalwan | Kalyan | Kamptee | Kandhar | Kankavali | Kannad | Karad | Karjat | Karmala | Katol | Kavathemankal | Kedgaon | Khadakwasala | Khamgaon | Khed | Khopoli | Khultabad | Kinwat | Kolhapur | Kopargaon | Koregaon | Kudal | Kuhi | Kurkheda | Kusumba | Lakhandur | Langa | Latur | Lonar | Lonavala | Madangad | Madha | Mahabaleshwar | Mahad | Mahagaon | Mahasala | Mahaswad | Malegaon | Malgaon | Malgund | Malkapur | Malsuras | Malwan | Mancher | Mangalwedha | Mangaon | Mangrulpur | Manjalegaon | Manmad | Maregaon | Mehda | Mekhar | Mohadi | Mohol | Mokhada | Morshi | Mouda | Mukhed | Mul | Mumbai | Murbad | Murtizapur | Murud | Nagbhir | Nagpur | Nahavara | Nanded | Nandgaon | Nandnva | Nandurbar | Narkhed | Nashik | Navapur | Ner | Newasa | Nilanga | Niphad | Omerga | Osmanabad | Pachora | Paithan | Palghar | Pali | Pandharkawada | Pandharpur | Panhala | Paranda | Parbhani | Parner | Parola | Parseoni | Partur | Patan | Pathardi | Pathari | Patoda | Pauni | Peint | Pen | Phaltan | Pimpalner | Pirangut | Poladpur | Pune | Pusad | Pusegaon | Radhanagar | Rahuri | Raigad | Rajapur | Rajgurunagar | Rajura | Ralegaon | Ramtek | Ratnagiri | Raver | Risod | Roha | Sakarwadi | Sakoli | Sakri | Salekasa | Samudrapur | Sangamner | Sanganeshwar | Sangli | Sangola | Sanguem | Saoner | Saswad | Satana | Satara | Sawantwadi | Seloo | Shahada | Shahapur | Shahuwadi | Shevgaon | Shirala | Shirol | Shirpur | Shirur | Shirwal | Sholapur | Shri Rampur | Shrigonda | Shrivardhan | Sillod | Sinderwahi | Sindhudurg | Sindkheda | Sindkhedaraja | Sinnar | Sironcha | Soyegaon | Surgena | Talasari | Talegaon S.Ji Pant | Taloda | Tasgaon | Thane | Tirora | Tiwasa | Trimbak | Tuljapur | Tumsar | Udgir | Umarkhed | Umrane | Umrer | Urlikanchan | Vaduj | Velhe | Vengurla | Vijapur | Vita | Wada | Wai | Walchandnagar | Wani | Wardha | Warlydwarud | Warora | Washim | Wathar | Yavatmal | Yawal | Yeola | Yeotmal ";
+                                                                                                    s_a[21]=" Bishnupur | Chakpikarong | Chandel | Chattrik | Churachandpur | Imphal | Jiribam | Kakching | Kalapahar | Mao | Mulam | Parbung | Sadarhills | Saibom | Sempang | Senapati | Sochumer | Taloulong | Tamenglong | Thinghat | Thoubal | Ukhrul ";
+                                                                                                    s_a[22]=" Amlaren | Baghmara | Cherrapunjee | Dadengiri | Garo Hills | Jaintia Hills | Jowai | Khasi Hills | Khliehriat | Mariang | Mawkyrwat | Nongpoh | Nongstoin | Resubelpara | Ri Bhoi | Shillong | Tura | Williamnagar";
+                                                                                                    s_a[23]=" Aizawl | Champhai | Demagiri | Kolasib | Lawngtlai | Lunglei | Mamit | Saiha | Serchhip";
+                                                                                                    s_a[24]=" Dimapur | Jalukie | Kiphire | Kohima | Mokokchung | Mon | Phek | Tuensang | Wokha | Zunheboto ";
+                                                                                                    s_a[25]=" Anandapur | Angul | Anugul | Aska | Athgarh | Athmallik | Attabira | Bagdihi | Balangir | Balasore | Baleswar | Baliguda | Balugaon | Banaigarh | Bangiriposi | Barbil | Bargarh | Baripada | Barkot | Basta | Berhampur | Betanati | Bhadrak | Bhanjanagar | Bhawanipatna | Bhubaneswar | Birmaharajpur | Bisam Cuttack | Boriguma | Boudh | Buguda | Chandbali | Chhatrapur | Chhendipada | Cuttack | Daringbadi | Daspalla | Deodgarh | Deogarh | Dhanmandal | Dharamgarh | Dhenkanal | Digapahandi | Dunguripali | G. Udayagiri | Gajapati | Ganjam | Ghatgaon | Gudari | Gunupur | Hemgiri | Hindol | Jagatsinghapur | Jajpur | Jamankira | Jashipur | Jayapatna | Jeypur | Jharigan | Jharsuguda | Jujumura | Kalahandi | Kalimela | Kamakhyanagar | Kandhamal | Kantabhanji | Kantamal | Karanjia | Kashipur | Kendrapara | Kendujhar | Keonjhar | Khalikote | Khordha | Khurda | Komana | Koraput | Kotagarh | Kuchinda | Lahunipara | Laxmipur | M. Rampur | Malkangiri | Mathili | Mayurbhanj | Mohana | Motu | Nabarangapur | Naktideul | Nandapur | Narlaroad | Narsinghpur | Nayagarh | Nimapara | Nowparatan | Nowrangapur | Nuapada | Padampur | Paikamal | Palla Hara | Papadhandi | Parajang | Pardip | Parlakhemundi | Patnagarh | Pattamundai | Phiringia | Phulbani | Puri | Puruna Katak | R. Udayigiri | Rairakhol | Rairangpur | Rajgangpur | Rajkhariar | Rayagada | Rourkela | Sambalpur | Sohela | Sonapur | Soro | Subarnapur | Sunabeda | Sundergarh | Surada | T. Rampur | Talcher | Telkoi | Titlagarh | Tumudibandha | Udala | Umerkote ";
+                                                                                                    s_a[26]=" Bahur | Karaikal | Mahe | Pondicherry | Purnankuppam | Valudavur | Villianur | Yanam ";
+                                                                                                    s_a[27]=" Abohar | Ajnala | Amritsar | Balachaur | Barnala | Batala | Bathinda | Chandigarh | Dasua | Dinanagar | Faridkot | Fatehgarh Sahib | Fazilka | Ferozepur | Garhashanker | Goindwal | Gurdaspur | Guruharsahai | Hoshiarpur | Jagraon | Jalandhar | Jugial | Kapurthala | Kharar | Kotkapura | Ludhiana | Malaut | Malerkotla | Mansa | Moga | Muktasar | Nabha | Nakodar | Nangal | Nawanshahar | Nawanshahr | Pathankot | Patiala | Patti | Phagwara | Phillaur | Phulmandi | Quadian | Rajpura | Raman | Rayya | Ropar | Rupnagar | Samana | Samrala | Sangrur | Sardulgarh | Sarhind | SAS Nagar | Sultanpur Lodhi | Sunam | Tanda Urmar | Tarn Taran | Zira ";
+                                                                                                    s_a[28]=" Abu Road | Ahore | Ajmer | Aklera | Alwar | Amber | Amet | Anupgarh | Asind | Aspur | Atru | Bagidora | Bali | Bamanwas | Banera | Bansur | Banswara | Baran | Bari | Barisadri | Barmer | Baseri | Bassi | Baswa | Bayana | Beawar | Begun | Behror | Bhadra | Bharatpur | Bhilwara | Bhim | Bhinmal | Bikaner | Bilara | Bundi | Chhabra | Chhipaborad | Chirawa | Chittorgarh | Chohtan | Churu | Dantaramgarh | Dausa | Deedwana | Deeg | Degana | Deogarh | Deoli | Desuri | Dhariawad | Dholpur | Digod | Dudu | Dungarpur | Dungla | Fatehpur | Gangapur | Gangdhar | Gerhi | Ghatol | Girwa | Gogunda | Hanumangarh | Hindaun | Hindoli | Hurda | Jahazpur | Jaipur | Jaisalmer | Jalore | Jhalawar | Jhunjhunu | Jodhpur | Kaman | Kapasan | Karauli | Kekri | Keshoraipatan | Khandar | Kherwara | Khetri | Kishanganj | Kishangarh | Kishangarhbas | Kolayat | Kota | Kotputli | Kotra | Kotri | Kumbalgarh | Kushalgarh | Ladnun | Ladpura | Lalsot | Laxmangarh | Lunkaransar | Mahuwa | Malpura | Malvi | Mandal | Mandalgarh | Mandawar | Mangrol | Marwar-Jn | Merta | Nadbai | Nagaur | Nainwa | Nasirabad | Nathdwara | Nawa | Neem Ka Thana | Newai | Nimbahera | Nohar | Nokha | Onli | Osian | Pachpadara | Pachpahar | Padampur | Pali | Parbatsar | Phagi | Phalodi | Pilani | Pindwara | Pipalda | Pirawa | Pokaran | Pratapgarh | Raipur | Raisinghnagar | Rajgarh | Rajsamand | Ramganj Mandi | Ramgarh | Rashmi | Ratangarh | Reodar | Rupbas | Sadulshahar | Sagwara | Sahabad | Salumber | Sanchore | Sangaria | Sangod | Sapotra | Sarada | Sardarshahar | Sarwar | Sawai Madhopur | Shahapura | Sheo | Sheoganj | Shergarh | Sikar | Sirohi | Siwana | Sojat | Sri Dungargarh | Sri Ganganagar | Sri Karanpur | Sri Madhopur | Sujangarh | Taranagar | Thanaghazi | Tibbi | Tijara | Todaraisingh | Tonk | Udaipur | Udaipurwati | Uniayara | Vallabhnagar | Viratnagar ";
+                                                                                                    s_a[29]=" Barmiak | Be | Bhurtuk | Chhubakha | Chidam | Chubha | Chumikteng | Dentam | Dikchu | Dzongri | Gangtok | Gauzing | Gyalshing | Hema | Kerung | Lachen | Lachung | Lema | Lingtam | Lungthu | Mangan | Namchi | Namthang | Nanga | Nantang | Naya Bazar | Padamachen | Pakhyong | Pemayangtse | Phensang | Rangli | Rinchingpong | Sakyong | Samdong | Singtam | Siniolchu | Sombari | Soreng | Sosing | Tekhug | Temi | Tsetang | Tsomgo | Tumlong | Yangang | Yumtang ";
+                                                                                                    s_a[30]=" Adilabad | Bhadradri Kothagudem | Hyderabad | Jagitial | Jangaon | Jayashankar Bhupalapally | Jogulamba Gadwal | Kamareddy | Karimnagar | Khammam | Komaram Bheem | Mahabubabad   | Mahabubnagar | Mancherial | Medak | Medchal | Mulugu | Nagarkurnool | Narayanpet | Nalgonda  | Nirmal | Nizamabad | Peddapalli | Rajanna Sircilla | Ranga Reddy	 | Sangareddy  | Siddipet | Suryapet | Vikarabad | Wanaparthy | Warangal Rural | Warangal Urban | Yadadri Bhuvanagiri ";
+                                                                                                    s_a[31]=" Ambasamudram | Anamali | Arakandanallur | Arantangi | Aravakurichi | Ariyalur | Arkonam | Arni | Aruppukottai | Attur | Avanashi | Batlagundu | Bhavani | Chengalpattu | Chengam | Chennai | Chidambaram | Chingleput | Coimbatore | Courtallam | Cuddalore | Cumbum | Denkanikoitah | Devakottai | Dharampuram | Dharmapuri | Dindigul | Erode | Gingee | Gobichettipalayam | Gudalur | Gudiyatham | Harur | Hosur | Jayamkondan | Kallkurichi | Kanchipuram | Kangayam | Kanyakumari | Karaikal | Karaikudi | Karur | Keeranur | Kodaikanal | Kodumudi | Kotagiri | Kovilpatti | Krishnagiri | Kulithalai | Kumbakonam | Kuzhithurai | Madurai | Madurantgam | Manamadurai | Manaparai | Mannargudi | Mayiladuthurai | Mayiladutjurai | Mettupalayam | Metturdam | Mudukulathur | Mulanur | Musiri | Nagapattinam | Nagarcoil | Namakkal | Nanguneri | Natham | Neyveli | Nilgiris | Oddanchatram | Omalpur | Ootacamund | Ooty | Orathanad | Palacode | Palani | Palladum | Papanasam | Paramakudi | Pattukottai | Perambalur | Perundurai | Pollachi | Polur | Pondicherry | Ponnamaravathi | Ponneri | Pudukkottai | Rajapalayam | Ramanathapuram | Rameshwaram | Ranipet | Rasipuram | Salem | Sankagiri | Sankaran | Sathiyamangalam | Sivaganga | Sivakasi | Sriperumpudur | Srivaikundam | Tenkasi | Thanjavur | Theni | Thirumanglam | Thiruraipoondi | Thoothukudi | Thuraiyure | Tindivanam | Tiruchendur | Tiruchengode | Tiruchirappalli | Tirunelvelli | Tirupathur | Tirupur | Tiruttani | Tiruvallur | Tiruvannamalai | Tiruvarur | Tiruvellore | Tiruvettipuram | Trichy | Tuticorin | Udumalpet | Ulundurpet | Usiliampatti | Uthangarai | Valapady | Valliyoor | Vaniyambadi | Vedasandur | Vellore | Velur | Vilathikulam | Villupuram | Virudhachalam | Virudhunagar | Wandiwash | Yercaud ";
+                                                                                                    s_a[32]=" Agartala | Ambasa | Bampurbari | Belonia | Dhalai | Dharam Nagar | Kailashahar | Kamal Krishnabari | Khopaiyapara | Khowai | Phuldungsei | Radha Kishore Pur | Tripura ";
+                                                                                                    s_a[33]=" Achhnera | Agra | Akbarpur | Aliganj | Aligarh | Allahabad | Ambedkar Nagar | Amethi | Amiliya | Amroha | Anola | Atrauli | Auraiya | Azamgarh | Baberu | Badaun | Baghpat | Bagpat | Baheri | Bahraich | Ballia | Balrampur | Banda | Bansdeeh | Bansgaon | Bansi | Barabanki | Bareilly | Basti | Bhadohi | Bharthana | Bharwari | Bhogaon | Bhognipur | Bidhuna | Bijnore | Bikapur | Bilari | Bilgram | Bilhaur | Bindki | Bisalpur | Bisauli | Biswan | Budaun | Budhana | Bulandshahar | Bulandshahr | Capianganj | Chakia | Chandauli | Charkhari | Chhata | Chhibramau | Chirgaon | Chitrakoot | Chunur | Dadri | Dalmau | Dataganj | Debai | Deoband | Deoria | Derapur | Dhampur | Domariyaganj | Dudhi | Etah | Etawah | Faizabad | Farrukhabad | Fatehpur | Firozabad | Garauth | Garhmukteshwar | Gautam Buddha Nagar | Ghatampur | Ghaziabad | Ghazipur | Ghosi | Gonda | Gorakhpur | Gunnaur | Haidergarh | Hamirpur | Hapur | Hardoi | Harraiya | Hasanganj | Hasanpur | Hathras | Jalalabad | Jalaun | Jalesar | Jansath | Jarar | Jasrana | Jaunpur | Jhansi | Jyotiba Phule Nagar | Kadipur | Kaimganj | Kairana | Kaisarganj | Kalpi | Kannauj | Kanpur | Karchhana | Karhal | Karvi | Kasganj | Kaushambi | Kerakat | Khaga | Khair | Khalilabad | Kheri | Konch | Kumaon | Kunda | Kushinagar | Lalganj | Lalitpur | Lucknow | Machlishahar | Maharajganj | Mahoba | Mainpuri | Malihabad | Mariyahu | Math | Mathura | Mau | Maudaha | Maunathbhanjan | Mauranipur | Mawana | Meerut | Mehraun | Meja | Mirzapur | Misrikh | Modinagar | Mohamdabad | Mohamdi | Moradabad | Musafirkhana | Muzaffarnagar | Nagina | Najibabad | Nakur | Nanpara | Naraini | Naugarh | Nawabganj | Nighasan | Noida | Orai | Padrauna | Pahasu | Patti | Pharenda | Phoolpur | Phulpur | Pilibhit | Pitamberpur | Powayan | Pratapgarh | Puranpur | Purwa | Raibareli | Rampur | Ramsanehi Ghat | Rasara | Rath | Robertsganj | Sadabad | Safipur | Sagri | Saharanpur | Sahaswan | Sahjahanpur | Saidpur | Salempur | Salon | Sambhal | Sandila | Sant Kabir Nagar | Sant Ravidas Nagar | Sardhana | Shahabad | Shahganj | Shahjahanpur | Shikohabad | Shravasti | Siddharthnagar | Sidhauli | Sikandra Rao | Sikandrabad | Sitapur | Siyana | Sonbhadra | Soraon | Sultanpur | Tanda | Tarabganj | Tilhar | Unnao | Utraula | Varanasi | Zamania ";
+                                                                                                    s_a[34]=" Almora | Bageshwar | Bhatwari | Chakrata | Chamoli | Champawat | Dehradun | Deoprayag | Dharchula | Dunda | Haldwani | Haridwar | Joshimath | Karan Prayag | Kashipur | Khatima | Kichha | Lansdown | Munsiari | Mussoorie | Nainital | Pantnagar | Partapnagar | Pauri Garhwal | Pithoragarh | Purola | Rajgarh | Ranikhet | Roorkee | Rudraprayag | Tehri Garhwal | Udham Singh Nagar | Ukhimath | Uttarkashi ";
+                                                                                                    s_a[35]=" Adra | Alipurduar | Amlagora | Arambagh | Asansol | Balurghat | Bankura | Bardhaman | Basirhat | Berhampur | Bethuadahari | Birbhum | Birpara | Bishanpur | Bolpur | Bongoan | Bulbulchandi | Burdwan | Calcutta | Canning | Champadanga | Contai | Cooch Behar | Daimond Harbour | Dalkhola | Dantan | Darjeeling | Dhaniakhali | Dhuliyan | Dinajpur | Dinhata | Durgapur | Gangajalghati | Gangarampur | Ghatal | Guskara | Habra | Haldia | Harirampur | Harishchandrapur | Hooghly | Howrah | Islampur | Jagatballavpur | Jalpaiguri | Jhalda | Jhargram | Kakdwip | Kalchini | Kalimpong | Kalna | Kandi | Karimpur | Katwa | Kharagpur | Khatra | Krishnanagar | Mal Bazar | Malda | Manbazar | Mathabhanga | Medinipur | Mekhliganj | Mirzapur | Murshidabad | Nadia | Nagarakata | Nalhati | Nayagarh | Parganas | Purulia | Raiganj | Rampur Hat | Ranaghat | Seharabazar | Siliguri | Suri | Takipur | Tamluk";
+                                                                                                
+                                                                                                
+                                                                                                    // Populate the dropdown with options from the state_arr array
+                                                                                                    for (let i = 0; i < state_arr.length; i++) {
+                                                                                                      const option = document.createElement('option');
+                                                                                                      option.value = i;
+                                                                                                      option.textContent = state_arr[i];
+                                                                                                      stateDropdown.appendChild(option);
+                                                                                                    }
+                                                                                                
+                                                                                                    const stateTagList = document.getElementById('stateTagList');
+                                                                                                    const stateErrorText = document.getElementById('stateErrorText');
+                                                                                                    const tagDropdown = document.getElementById('tagDropdown');
+                                                                                                    const addButton = document.getElementById('addButton');
+                                                                                                    const MAX_TAGS = 5;
+                                                                                                    let tagCount = 0;
+                                                                                                
+                                                                                                    function addSelectedTag() {
+                                                                                                      const selectedTag = tagDropdown.value;
+                                                                                                      if (selectedTag.trim() !== '') {
+                                                                                                        if (!tagListContains(selectedTag, stateTagList)) {
+                                                                                                          if (tagCount < MAX_TAGS) {
+                                                                                                            stateErrorText.style.display = 'none';
+                                                                                                            addTagVariant(selectedTag, stateTagList);
+                                                                                                            tagCount++; // Increment the tag count
+                                                                                                            if (tagCount === MAX_TAGS) {
+                                                                                                              addButton.disabled = true;
+                                                                                                            }
+                                                                                                          } else {
+                                                                                                            stateErrorText.style.display = 'block';
+                                                                                                            stateErrorText.textContent = 'Maximum limit of ' + MAX_TAGS + ' tags reached.';
+                                                                                                          }
+                                                                                                        } else {
+                                                                                                          stateErrorText.style.display = 'block';
+                                                                                                          stateErrorText.textContent = 'Tag already exists.';
+                                                                                                        }
+                                                                                                      }
+                                                                                                    }
+                                                                                                
+                                                                                                    function RemoveCurrentSelectedStateTag(StateDeleteLink) {
+                                                                                                      const selectedStateColDiv = StateDeleteLink.closest('.selected-state-col');
+                                                                                                      if (selectedStateColDiv) {
+                                                                                                        selectedStateColDiv.remove();
+                                                                                                        tagCount = tagCount-1;
+                                                                                                      }
+                                                                                                    }
+                                                                                                
+                                                                                                    // Create the container div for the tags (outside of any function)
+                                                                                                    const tagContainer = document.createElement('div');
+                                                                                                    tagContainer.className = 'row m-1';
+                                                                                                
+                                                                                                    function addTagVariant(tagText, tagList) {
+                                                                                                      // Create a div for the select option
+                                                                                                      const selectDiv = document.createElement('div');
+                                                                                                      selectDiv.className = 'col-4 my-2 selected-state-col';
+                                                                                                
+                                                                                                      const hiddenInput = document.createElement('input');
+                                                                                                      hiddenInput.type = 'hidden';
+                                                                                                      hiddenInput.name = 'servicedRegions[]';
+                                                                                                      hiddenInput.value = state_arr[tagText];
+                                                                                                
+                                                                                                      const LabelInput = document.createElement('label');
+                                                                                                      LabelInput.textContent = state_arr[tagText];
+                                                                                                      LabelInput.className = 'form-label-normal-font-style w-100';
+                                                                                                
+                                                                                                      const select = document.createElement('select');
+                                                                                                      select.className = 'form-control per-w-80';
+                                                                                                      select.required = true
+                                                                                                      select.name = 'servicedRegionsDescription[]';
+                                                                                                
+                                                                                                      var option = document.createElement('option');
+                                                                                                      //option.value = 'None';
+                                                                                                      //option.disabled = true;
+                                                                                                      //option.selected = true;
+                                                                                                      //select.appendChild(option);
+                                                                                                
+                                                                                                      console.log('tagText ->',tagText);
+                                                                                                      console.log('state ->',state_arr[tagText]);
+                                                                                                      console.log('tagText ->',tagText, s_a[tagText]);
+                                                                                                      const tagIndex = parseInt(tagText)+1;
+                                                                                                      var city_arr = s_a[tagIndex].split("|");
+                                                                                                      for (var i=0; i<city_arr.length; i++) {
+                                                                                                        var option2 = document.createElement('option'); 
+                                                                                                        option2.value = city_arr[i];
+                                                                                                        option2.textContent = city_arr[i];
+                                                                                                        select.appendChild(option2);
+                                                                                                      }
+                                                                                                      selectDiv.appendChild(LabelInput);
+                                                                                                      selectDiv.appendChild(hiddenInput);
+                                                                                                      selectDiv.appendChild(select);
+                                                                                                
+                                                                                                      const StateDeleteLink = document.createElement('a');
+                                                                                                      StateDeleteLink.href = 'javascript:void(0);';
+                                                                                                      StateDeleteLink.className = 'text-danger my-1 mr-1 ml-2';
+                                                                                                      StateDeleteLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                                                                          <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                                                                                                        </svg>
+                                                                                                        `;
+                                                                                                
+                                                                                                      StateDeleteLink.addEventListener('click', () => RemoveCurrentSelectedStateTag(StateDeleteLink));
+                                                                                                      // Append the select div to the container
+                                                                                                      selectDiv.appendChild(StateDeleteLink);
+                                                                                                      tagContainer.appendChild(selectDiv);
+                                                                                                
+                                                                                                      tagList.appendChild(tagContainer);
+                                                                                                    }
+                                                                                                
+                                                                                                    function tagListContains(tagText, tagList) {
+                                                                                                      const tags = tagList.querySelectorAll('.tag-text');
+                                                                                                      for (const tag of tags) {
+                                                                                                        if (tag.textContent.toLowerCase() === tagText.toLowerCase()) {
+                                                                                                          return true;
+                                                                                                        }
+                                                                                                      }
+                                                                                                      return false;
+                                                                                                    }
+                                                                                                </script>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="container mb-5"
+                                                                                         style="display: flex; justify-content: right;">
+                                                                                        <button class="btn btn-dark"
+                                                                                                data-dismiss="modal" type="submit" style="margin-right: 37px; border: #000000;
+                                                                                                                                          width: 69px;
+                                                                                                                                          border-radius: unset;border: #000000;">
+                                                                                            save
+                                                                                        </button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        {% comment %} <script>
+                                                                            let currentValue = 1;
+            
+                                                                            function generateField() {
+                                                                                if (currentValue <= 5) {
+                                                                                    const fieldWrapper = document.getElementById(`fieldWrapper${currentValue}`);
+                                                                                    fieldWrapper.style.display = 'block';
+                                                                                    currentValue++;
+                                                                                }
+                                                                            }
+                                                                        </script>
+                                                                        <script>
+            
+                                                                            function updateLabel() {
+                                                                                var stateDropdown = document.getElementById("stateDropdown");
+                                                                                var selectedState = stateDropdown.options[stateDropdown.selectedIndex].text;
+                                                                                var label = document.querySelector("label[for='stateInput']");
+                                                                                label.textContent = "Selected state: " + selectedState;
+                                                                            }
+            
+                                                                            function clearSelectedState1() {
+                                                                                document.getElementById("stateDropdown").selectedIndex = 0;
+                                                                                document.getElementById("field1").value = "";
+                                                                                document.getElementById("fieldWrapper1").style.display = "none";
+                                                                            }
+            
+                                                                            function clearSelectedState2() {
+                                                                                document.getElementById("stateDropdown").selectedIndex = 0;
+                                                                                document.getElementById("field2").value = "";
+                                                                                document.getElementById("fieldWrapper2").style.display = "none";
+                                                                            }
+            
+                                                                            function clearSelectedState3() {
+                                                                                document.getElementById("stateDropdown").selectedIndex = 0;
+                                                                                document.getElementById("field3").value = "";
+                                                                                document.getElementById("fieldWrapper3").style.display = "none";
+                                                                            }
+            
+                                                                            function clearSelectedState4() {
+                                                                                document.getElementById("stateDropdown").selectedIndex = 0;
+                                                                                document.getElementById("field4").value = "";
+                                                                                document.getElementById("fieldWrapper4").style.display = "none";
+                                                                            }
+            
+                                                                            function clearSelectedState5() {
+                                                                                document.getElementById("stateDropdown").selectedIndex = 0;
+                                                                                document.getElementById("field5").value = "";
+                                                                                document.getElementById("fieldWrapper5").style.display = "none";
+                                                                            }
+            
+                                                                        </script> {% endcomment %}
+            
+                                                                        <div class="row mt-3">
+                                                                            <div class="col-md-3"></div>
+                                                                            <div class="col-md-3">
+                                                                            <!-- Modal coding with css and js -->
+                                                                                <script>
+            
+                                                                                    const openModalButtons = document.querySelectorAll('[data-modal-target]')
+                                                                                    const closeModalButtons = document.querySelectorAll('[data-close-button]')
+                                                                                    const overlay = document.getElementById('overlay')
+            
+                                                                                    openModalButtons.forEach(button => {
+                                                                                        button.addEventListener('click', () => {
+                                                                                            const modal = document.querySelector(button.dataset.modalTarget)
+                                                                                            openModal(modal)
+                                                                                        })
+                                                                                    })
+            
+                                                                                    overlay.addEventListener('click', () => {
+                                                                                        const modals = document.querySelectorAll('.modal.active')
+                                                                                        modals.forEach(modal => {
+                                                                                            closeModal(modal)
+                                                                                        })
+                                                                                    })
+            
+                                                                                    closeModalButtons.forEach(button => {
+                                                                                        button.addEventListener('click', () => {
+                                                                                            const modal = button.closest('.modal')
+                                                                                            closeModal(modal)
+                                                                                        })
+                                                                                    })
+            
+                                                                                    function openModal(modal) {
+                                                                                        if (modal == null) return
+                                                                                        modal.classList.add('active')
+                                                                                        overlay.classList.add('active')
+                                                                                    }
+            
+                                                                                    function closeModal(modal) {
+                                                                                        if (modal == null) return
+                                                                                        modal.classList.remove('active')
+                                                                                        overlay.classList.remove('active')
+                                                                                    }
+                                                                                </script>
+            
+                                                                            </div>
+                                                                            <div class="col-md-3"></div>
+                                                                            <div class="col-md-3"></div>
+            
+                                                                        </div>
+            
+                                                                    </div>
+                                                                </div>
+            
+                                                                <div class="form-group col-md-8" id="wholepick">
+                                                                    <label for="" class="form-label form-label-normal-font-style">Select Pick Up Location</label>
+            
+                                                                    <select style="width:100%;" title="Delivery Pick up location for your product. These are added first in the Seller Profile and can be selected in multiple for every product." 
+                                                                        name="locations" placeholder="Select pickup location"  id="pickme" multiple>
+                                                                        {% for pickups in mypick %}
+                                                                            <option value="{{pickups.pickupPlotNo1}} {{pickups.pickupLocation1}} {{pickups.pickupStreet1}} 
+                                                                            {{pickups.pickupCity1}} {{pickups.pickupState1}} {{pickups.pickupLandmark1}} {{pickups.pickupPin1}}" >
+                                                                            {{pickups.pickupPlotNo1}} {{pickups.pickupLocation1}} {{pickups.pickupStreet1}}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+                                                                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+                                                                    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+                                                                    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+                                                                    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+                                                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            
+                                                                    <script>
+                                                                        $(document).ready(function () {
+                                                                            $('#pickme').select2({
+                                                                                theme: 'classic',
+                                                                                width: '100%',
+                                                                                maximumSelectionLength: 5
+                                                                            });
+                                                                        });
+                                                                    </script>
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-dark mt-3" onclick="stepperForm.previous()">PREV</button>
+                                                            <button class="btn btn-brand mt-3 btn-next-form">Next</button>
+                                                        </form>
+                                                    </div>
+
+                                                    <div id="stepper-form-3"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger3">
+                                                        step 3
+                                                    </div>
+
+                                                    <div id="stepper-form-4"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger4">
+                                                        step 4
+                                                    </div>
+                                                    
+                                                    <div id="stepper-form-5"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger5">
+                                                        step 5
+                                                    </div>
+
+
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{% block jsblock %}
+    <script rel="stylesheet" href="{% static 'seventh-square/assets/js/bs-stepper/bs-stepper.min.js' %}"></script>  
+    <script>
+      
+        const tagInput = document.getElementById('tagInput');
+        const tagList = document.getElementById('tagList');
+        const errorText = document.getElementById('errorText');
+    
+        tagInput.addEventListener('keydown', handleKeyDown);
+    
+        function handleKeyDown(event) {
+          if (event.key === ',' || event.key === 'Enter') {
+            event.preventDefault();
+            const newTag = tagInput.value.trim();
+            if (newTag !== '') {
+              if (!tagListContains(newTag)) {
+                errorText.style.display = 'none';
+                addTag(newTag);
+                takeVariationsValue(); // Call the function to update variations
+              } else {
+                errorText.style.display = 'block';
+                tagInput.classList.add('has-error');
+              }
+            }
+            tagInput.value = '';
+          }
+        }
+    
+        function addTag(tagText) {
+          const tag = document.createElement('span');
+          tag.className = 'tag justify-content-between m-1 pl-5 pr-1 py-1';
+          tag.style.minWidth = '125px';
+          tag.style.backgroundColor = 'rgba(76, 88, 100, 0.3)';
+          
+          const tagTextElement = document.createElement('span');
+          tagTextElement.className = 'tag-text';
+          tagTextElement.textContent = tagText;
+          
+          const tagRemove = document.createElement('span');
+          tagRemove.className = 'tag-remove mr-1';
+          tagRemove.style.fontSize = '20px';
+          tagRemove.textContent = '×';
+          tagRemove.addEventListener('click', () => {
+            tagList.removeChild(tag);
+            tagInput.classList.remove('has-error');
+            errorText.style.display = 'none';
+          });
+    
+          tag.appendChild(tagTextElement);
+          tag.appendChild(tagRemove);
+          
+          tagList.appendChild(tag);
+          tagInput.classList.remove('has-error');
+          errorText.style.display = 'none';
+    
+        }
+    
+        function tagListContains(tagText) {
+          const tags = tagList.querySelectorAll('.tag-text');
+          for (const tag of tags) {
+            if (tag.textContent.toLowerCase() === tagText.toLowerCase()) {
+              return true;
+            }
+          }
+          return false;
+        }
+    
+        function takeVariationsValue() {
+          const removeWarningOnTagSelection = document.getElementById('removeWarningOnTagSelection');
+          if (removeWarningOnTagSelection) {
+            removeWarningOnTagSelection.style.display = 'none';
+          }
+    
+          const selectedTags = Array.from(tagList.querySelectorAll('.tag-text')).map(tag => tag.textContent.trim());
+    
+          // Loop through each selected tag text
+          selectedTags.forEach(tag => {
+            // Check if a tag with the same value already exists in the selectedTagsContainer
+            const existingTagDiv = selectedTagsContainer.querySelector(`.selected-tag[data-tag="${tag}"]`);
+    
+            if (!existingTagDiv) {
+              const selectedTagDiv = document.createElement('div');
+              selectedTagDiv.className = 'form-group col-md-12 mt-2 selected-tag';
+              selectedTagDiv.setAttribute('data-tag', tag);
+    
+              const selectedRowDiv = document.createElement('div');
+              selectedRowDiv.className = 'row selected-row-2';
+    
+              const selectedColDiv1 = document.createElement('div');
+              selectedColDiv1.className = 'col-md-2 mt-2 selected-col-1';
+    
+              const selectedColDiv2 = document.createElement('div');
+              selectedColDiv2.className = 'col-md-1 mt-2 selected-col-2';
+    
+              const selectedColDiv3 = document.createElement('div');
+              selectedColDiv3.className = 'col-md-2 mt-2 selected-col selected-col-3';
+    
+              const selectedColDiv4 = document.createElement('div');
+              selectedColDiv4.className = 'col-md-1 mt-2 selected-col-next d-flex align-items-center justify-content-center';
+    
+              // complete delete and add logic
+              const AddLink = document.createElement('a');
+              AddLink.href = 'javascript:void(0);';
+              AddLink.className = 'text-success m-1';
+              AddLink.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg>
+              `;
+    
+              const completeDeleteLink = document.createElement('a');
+              completeDeleteLink.href = 'javascript:void(0);';
+              completeDeleteLink.className = 'text-danger m-1';
+              completeDeleteLink.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+              </svg>
+              `;
+    
+              AddLink.addEventListener('click', () => AddCurrentSelectedTag(AddLink, tag));
+              completeDeleteLink.addEventListener('click', () => RemoveCurrentSelectedTag(completeDeleteLink));
+    
+              selectedColDiv4.appendChild(AddLink);
+              selectedColDiv4.appendChild(completeDeleteLink);
+    
+              const selectedTagLabel = document.createElement('input');
+              selectedTagLabel.className = 'form-control d-flex align-items-center justify-content-between';
+              selectedTagLabel.readOnly = true;
+              selectedTagLabel.name = 'variant_name[]';
+              selectedTagLabel.required = true;
+              selectedTagLabel.textContent = tag;
+              selectedTagLabel.value = tag;
+    
+              const selectedTagInput = document.createElement('input');
+              selectedTagInput.className = 'form-control per-w-80';
+              selectedTagInput.type = 'text';
+              selectedTagInput.value = '';
+              selectedTagInput.required = true;
+              selectedTagInput.name = 'variant_value_'+tag+'[]';
+              
+    
+              // append row in tag 
+              selectedTagDiv.appendChild(selectedRowDiv);
+    
+              selectedRowDiv.appendChild(selectedColDiv1);
+              selectedColDiv1.appendChild(selectedTagLabel);
+    
+              selectedRowDiv.appendChild(selectedColDiv2);
+              
+              selectedRowDiv.appendChild(selectedColDiv3);
+              selectedColDiv3.appendChild(selectedTagInput);
+    
+              selectedRowDiv.appendChild(selectedColDiv4);
+    
+              selectedTagDiv.appendChild(selectedRowDiv);
+              selectedTagsContainer.appendChild(selectedTagDiv);
+            }
+    
+          });
+        }
+    
+    
+        function deleteCurrentSelectedTag(deleteButton) {
+          const selectedColDiv = deleteButton.closest('.selected-col');
+          if (selectedColDiv) {
+            selectedColDiv.remove();
+          }
+        }
+        
+        function AddCurrentSelectedTag(addButton, tag) {
+          const selectedTagDiv = addButton.closest('.selected-tag');
+          if (selectedTagDiv) {
+            const selectedColNextTo = selectedTagDiv.querySelector('.selected-col-next');
+            const selectedCol3 = selectedTagDiv.querySelector('.selected-col-3');
+    
+            const addSelectedColDiv = document.createElement('div');
+            addSelectedColDiv.className = 'col-md-2 mt-2 selected-col';
+    
+            const selectedTagInput = document.createElement('input');
+            selectedTagInput.className = 'form-control per-w-80';
+            selectedTagInput.type = 'text';
+            selectedTagInput.value = '';
+            selectedTagInput.required = true;
+            selectedTagInput.name = 'variant_value_' + tag + '[]';
+    
+            const deleteLink = document.createElement('a');
+              deleteLink.href = 'javascript:void(0);';
+              deleteLink.className = 'text-danger per-w-20';
+              deleteLink.innerHTML = `
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                      <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                  </svg>
+              `;
+              deleteLink.addEventListener('click', () => deleteCurrentSelectedTag(deleteLink));
+    
+            addSelectedColDiv.appendChild(selectedTagInput)
+            addSelectedColDiv.appendChild(deleteLink)
+    
+            // Insert the new input field before the selectedCol3 element
+            selectedCol3.parentNode.insertBefore(addSelectedColDiv, selectedColNextTo);
+          }
+        }
+    
+        function RemoveCurrentSelectedTag(removeButton) {
+          const selectedTagDiv = removeButton.closest('.selected-tag');
+          if (selectedTagDiv) {
+            // Remove the parent of the selected tag
+            selectedTagDiv.parentNode.removeChild(selectedTagDiv);
+          }
+        }
+    
+    </script>
+
+    <script>
+        function removeCurrentRowFromTable(removeButton) {
+            const row = removeButton.closest('tr');
+            if (row) {
+                row.remove();
+            }
+        }
+
+        // Function to show uploaded image
+        function showImageForVariation(input, imageElement, uploadTextElement) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                imageElement.src = reader.result;
+                imageElement.style.display = 'block';
+                uploadTextElement.style.display = 'none';
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function generateTable(variantNames, combinations) {
+            const table = document.createElement('table');
+            table.className = 'table table-responsive text-center';
+            const thead = table.createTHead();
+            const tbody = table.createTBody();
+            
+            // Create table header row with combined variant names and additional columns
+            const headerRow = thead.insertRow();
+            const headerCell = document.createElement('th');
+            headerCell.textContent = 'Variants (' + variantNames.join(', ') + ')';
+            headerRow.appendChild(headerCell);
+            
+            const additionalColumnHeaders = ['MRP', 'Sale Price', 'Price in Request', 'Default Variant', 'Upload Image', 'Remove'];
+            const additionalColumnHeaders2 = ['MRP', 'Sale Price', 'Price on Request', 'Default Variant', 'Upload Image', 'Remove'];
+            for (const columnName of additionalColumnHeaders2) {
+                const th = document.createElement('th');
+                th.textContent = columnName;
+                headerRow.appendChild(th);
+            }
+            
+            // Create table body rows with variant values and additional input fields/buttons
+            for (let i = 0; i < combinations.length; i++) {
+                const tr = tbody.insertRow();
+                index = i+1
+                
+                // Create input field for the "Variants" column
+                const tdVariants = tr.insertCell();
+                const variantValues = variantNames.map(name => combinations[i][name]).join(', ');
+                const variationImagesValues = variantNames.map(name => combinations[i][name]).join('*')
+                const inputVariants = document.createElement('input');
+                inputVariants.className = 'form-control';
+                inputVariants.type = 'text';
+                inputVariants.value = variantValues
+                inputVariants.name = 'final_varient_name'; 
+                inputVariants.readOnly = true;
+                tdVariants.appendChild(inputVariants);
+                
+                for (const columnName of additionalColumnHeaders) {
+                    const td = tr.insertCell();
+                    
+                    if (columnName === 'MRP' || columnName === 'Sale Price') {
+                        const input = document.createElement('input');
+                        input.className = 'form-control mx-2';
+                        input.type = 'number';
+                        input.step = 'any';
+                        input.name = columnName.toLowerCase().replace(/\s+/g, '_');
+                        input.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
+                        input.required = true;
+                        td.appendChild(input);
+
+                    } else if (columnName === 'Price in Request') {
+                        const checkbox = document.createElement('input');
+                        checkbox.className = 'form-check-input mx-2';
+                        checkbox.type = 'checkbox';
+                        checkbox.value = variationImagesValues;
+                        checkbox.name = columnName.toLowerCase().replace(/\s+/g, '_');
+                        checkbox.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
+                        td.appendChild(checkbox);
+
+                    } else if (columnName === 'Default Variant') {
+                        const radio = document.createElement('input');
+                        radio.className = 'form-check-input mx-2';
+                        radio.type = 'radio';
+                        radio.name = columnName.toLowerCase().replace(/\s+/g, '_');;
+                        radio.value = variationImagesValues;
+                        radio.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
+                        radio.required = true;
+                        td.appendChild(radio);
+                    } else if (columnName === 'Upload Image') {
+                        const button = document.createElement('button');
+                        const modalId = 'uploadImageModel_' + index;
+                        button.className = 'btn btn-sm btn-secondary mx-2';
+                        button.textContent = 'Upload';
+                        button.setAttribute('data-toggle', 'modal');
+                        button.setAttribute('data-target', '#' + modalId);
+                        td.appendChild(button);
+
+
+                        // Create a modal for this button
+                        const modal = document.createElement('div');
+                        modal.className = 'modal fade';
+                        modal.id = modalId;
+                        modal.setAttribute('tabindex', '-1');
+                        modal.setAttribute('role', 'dialog');
+                        modal.setAttribute('aria-labelledby', modalId + 'Label');
+                        modal.setAttribute('aria-hidden', 'true');
+                        td.appendChild(modal);
+
+                        // Create modal dialog
+                        const modalDialog = document.createElement('div');
+                        modalDialog.className = 'modal-dialog modal-lg';
+                        modal.appendChild(modalDialog);
+
+                        // Create modal content
+                        const modalContent = document.createElement('div');
+                        modalContent.className = 'modal-content';
+                        modalDialog.appendChild(modalContent);
+
+                        // Create modal header
+                        const modalHeader = document.createElement('div');
+                        modalHeader.className = 'modal-header';
+                        modalContent.appendChild(modalHeader);
+
+                        const modalTitle = document.createElement('h5');
+                        modalTitle.className = 'modal-title';
+                        modalTitle.id = modalId + 'Label';
+                        modalTitle.textContent = 'Upload Image';
+                        modalHeader.appendChild(modalTitle);
+
+                        const closeButton = document.createElement('button');
+                        closeButton.type = 'button';
+                        closeButton.className = 'close';
+                        closeButton.setAttribute('data-dismiss', 'modal');
+                        closeButton.setAttribute('aria-label', 'Close');
+                        modalHeader.appendChild(closeButton);
+
+                        const closeIcon = document.createElement('span');
+                        closeIcon.setAttribute('aria-hidden', 'true');
+                        closeIcon.innerHTML = '&times;';
+                        closeButton.appendChild(closeIcon);
+
+                        // Create modal body
+                        const modalBody = document.createElement('div');
+                        modalBody.className = 'modal-body';
+                        modalContent.appendChild(modalBody);
+
+                        // Create a row for images
+                        const imagesRow = document.createElement('div');
+                        imagesRow.className = 'row';
+
+                        const headCol_1 = document.createElement('div');
+                        const head_1_h6 = document.createElement('h6');
+                        headCol_1.className = 'col-md-3 my-2';
+                        head_1_h6.textContent = 'Main Display Image';
+                        headCol_1.appendChild(head_1_h6);
+
+                        const headCol_2 = document.createElement('div');
+                        const head_2_h6 = document.createElement('h6');
+                        headCol_2.className = 'col-md-9 my-2';
+                        head_2_h6.textContent = 'Additional Image';
+                        headCol_2.appendChild(head_2_h6);
+
+                        imagesRow.appendChild(headCol_1);
+                        imagesRow.appendChild(headCol_2);
+
+
+                        for (let imageIndex = 1; imageIndex <= 10; imageIndex++) {
+                            const col = document.createElement('div');
+                            col.className = 'col-md-3 my-2';
+                            
+                            const mt2Div = document.createElement('div');
+                            mt2Div.className = 'mt-2';
+                            mt2Div.style.width = '135px';
+                            mt2Div.style.backgroundColor = '#ffffff';
+                            mt2Div.style.border = '1px solid grey';
+                            mt2Div.style.height = '131px';
+                            mt2Div.style.display = 'flex';
+                            mt2Div.style.alignItems = 'center';
+                            mt2Div.style.justifyContent = 'center';
+                            
+                            const uploadedImage = document.createElement('img');
+                            uploadedImage.id = 'uploadedimage_' + variationImagesValues + '|' + imageIndex;
+                            uploadedImage.style.height = '132px';
+                            uploadedImage.style.width = '136px';
+                            uploadedImage.style.marginLeft = '2px';
+                            uploadedImage.style.marginTop = '1px';
+                            uploadedImage.style.display = 'none';
+                            uploadedImage.style.position = 'absolute';
+                            mt2Div.appendChild(uploadedImage);
+                            
+                            const uploadText = document.createElement('h6');
+                            uploadText.id = 'uploadtext_' + variationImagesValues + '|' + imageIndex;
+                            uploadText.style.textAlign = 'center';
+                            uploadText.textContent = '+ Upload';
+                            mt2Div.appendChild(uploadText);
+                            
+                            col.appendChild(mt2Div);
+                            
+                            const mt2Div2 = document.createElement('div');
+                            mt2Div2.className = 'mt-2';
+                            
+                            const inputFile = document.createElement('input');
+                            inputFile.type = 'file';
+                            inputFile.style.width = '135px';
+                            inputFile.style.backgroundColor = '#ffffff';
+                            inputFile.style.height = '32px';
+                            inputFile.style.border = 'none';
+                            inputFile.placeholder = 'Add Alt Text';
+                            inputFile.accept = '.jpg, .png, .jpeg, .mp4, .avi, .mov';
+                            inputFile.name = 'picture_' + variationImagesValues + '|' + imageIndex;
+                            inputFile.addEventListener('change', function() {
+                                showImageForVariation(this, uploadedImage, uploadText);
+                            });
+                            mt2Div2.appendChild(inputFile);
+                            
+                            col.appendChild(mt2Div2);
+                            
+                            imagesRow.appendChild(col);
+                        }
+
+                        modalBody.appendChild(imagesRow);
+
+                        const info_row = document.createElement('div');
+                        info_row.className = 'row mt-5 text-left';
+                        modalBody.appendChild(info_row);
+
+                        // Create a Bootstrap column
+                        const info_col = document.createElement('div');
+                        info_col.className = 'col-12';
+                        info_row.appendChild(info_col);
+
+                        const infoList = document.createElement('ul');
+                        const infoItems = [
+                            'Images will be displayed to the customer in the order shown here.',
+                            'Only JPEG, JPG, and PNG files are allowed.'
+                        ];
+
+                        infoItems.forEach(itemText => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = itemText;
+                            infoList.appendChild(listItem);
+                        });
+
+                        info_col.appendChild(infoList);
+                        // ... (Add your modal content here)
+
+                        // Create modal footer
+                        const modalFooter = document.createElement('div');
+                        modalFooter.className = 'modal-footer';
+                        modalContent.appendChild(modalFooter);
+
+                        const saveButton = document.createElement('button');
+                        saveButton.type = 'button';
+                        saveButton.setAttribute('data-dismiss', 'modal');
+                        saveButton.className = 'btn btn-dark';
+                        saveButton.textContent = 'Save';
+                        saveButton.style = "display: block; margin-top: 5px; color: red; font-size: 12px;"
+                        modalFooter.appendChild(saveButton);
+                
+                    
+                                                                                         
+                    } else if (columnName === 'Remove') {
+                        const removeRow = document.createElement('a');
+                        removeRow.href = 'javascript:void(0);';
+                        removeRow.className = 'text-danger per-w-20';
+                        removeRow.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                            </svg>
+                        `;
+                        removeRow.addEventListener('click', () => removeCurrentRowFromTable(removeRow));
+                        td.appendChild(removeRow);
+                    }
+                }
+            }
+            
+            return table;
+        }
+        
+        
+
+        function generateCombinations(variantData) {
+            const attributes = Object.keys(variantData);
+            const combinations = [];
+          
+            function backtrack(index, currentCombination) {
+              if (index === attributes.length) {
+                combinations.push({ ...currentCombination });
+                return;
+              }
+          
+              const attributeName = attributes[index];
+              const attributeValues = variantData[attributeName].values;
+          
+              for (const value of attributeValues) {
+                currentCombination[attributeName] = value;
+                backtrack(index + 1, currentCombination);
+                delete currentCombination[attributeName];
+              }
+            }
+          
+            backtrack(0, {});
+          
+            return combinations;
+        }
+        
+        function GeneratePosibleVarient(form_id){
+            const selectedTagsContainer = document.getElementById(form_id);
+            const selectedTagDivs = selectedTagsContainer.querySelectorAll('.selected-tag');
+            const inputData = {};
+            if (selectedTagDivs.length === 0) {
+                const errorMessage = selectedTagsContainer.querySelector('.text-danger');
+                if (!errorMessage) {
+                    // If it doesn't exist, create and append it
+                    const errorMessage = document.createElement('span');
+                    errorMessage.className = 'text-danger';
+                    errorMessage.textContent = 'Please create the variant label and value above';
+                    selectedTagsContainer.appendChild(errorMessage);
+                }
+            } else {
+                selectedTagDivs.forEach(selectedTagDiv => {
+                    const tag = selectedTagDiv.getAttribute('data-tag');
+                    const variantNameInput = selectedTagDiv.querySelector('input[name="variant_name[]"]');
+                    const variantValueInputs = selectedTagDiv.querySelectorAll('input[name^="variant_value_"]');
+        
+                    if (variantNameInput && variantValueInputs.length > 0) {
+                        const variantName = variantNameInput.value;
+                        const variantValues = Array.from(variantValueInputs).map(input => input.value);
+        
+                        inputData[tag] = { name: variantName, values: variantValues };
+                    }
+                });
+        
+                const attributes = Object.keys(inputData);
+                const combinations = generateCombinations(inputData);
+                console.log(combinations);
+                const tableContainer = document.getElementById('tableContainer');
+                tableContainer.innerHTML = ''; // Clear the current content
+                const table = generateTable(attributes, combinations);
+                tableContainer.appendChild(table);
+            }
+        }
+        
+    </script>
+
+    <script>
+        var yValue = document.querySelector('input[name="var_added"][value="True"]');
+        var errorMessageElement = document.getElementById("uploadImageErrorMessage");
+        var errorMessageElement2 = document.getElementById("uploadImageErrorMessage2");
+        var mfileInput = document.getElementById("myFile");
+        var MainImagesUpload = document.getElementById("MainImagesUpload");
+
+        function validateFileUpload() {
+            var isChecked = yValue.checked;
+            if (isChecked) {
+                errorMessageElement.style.display = "none";
+                errorMessageElement2.style.display = "none";
+                MainImagesUpload.removeAttribute('required');
+                return true;
+            } else {
+                errorMessageElement.style.display = "block";
+                errorMessageElement2.style.display = "block";
+                MainImagesUpload.setAttribute('required', true);
+                return false;
+            }
+            document.getElementById("uploadImageErrorMessage").style.display = "none";
+            document.getElementById("uploadImageErrorMessage2").style.display = "none";
+        }
+        
+    </script>
+
+    <script>
+        function checkSalePrice() {
+            var poqDropdown = document.getElementById('POQ');
+            if (poqDropdown.value === 'False' || poqDropdown.value === '' ) {
+                var productMRPInput = document.getElementById('productMRP');
+                var salePriceInput = document.getElementById('sale_price');
+                var productMRP = parseFloat(productMRPInput.value);
+                var salePrice = parseFloat(salePriceInput.value);
+                var salePriceError = document.getElementById('salePriceError');
+                if (salePrice > productMRP) {
+                    // Sale price is greater than product MRP
+                    salePriceError.style.display = 'block';
+                    salePriceInput.focus(); // Focus on the sale price input
+                }else{
+                    salePriceError.style.display = 'none';
+                }
+            }else{
+                // If poqDropdown is not 'True', do nothing
+                return;
+
+            }
+          }
+    </script>
+
+    <script>
+        function toggleBlockVisibility() {
+            var radioYes = document.querySelector('input[name="var_added"][value="True"]');
+            var block = document.getElementById("blockToToggle");
+            var single_img_toggle = document.getElementById("singleVariationsImagesToggle");
+            //var Poq = document.getElementById("POQ");
+            //var productMRP = document.getElementById("productMRP");
+            
+            if (radioYes.checked) {
+                block.style.display = "block"; // Show the block
+                //Poq.style.display = "none";
+                //ProductMRP.style.display = "none";
+                // single_img_toggle.style.display = "None";
+            } else {
+                block.style.display = "none";  // Hide the block
+                single_img_toggle.style.display = "block";
+                //Poq.style.display = "block";
+                //ProductMRP.style.display = "block";
+            }
+        }
+    </script>
+{% endblock jsblock %}
