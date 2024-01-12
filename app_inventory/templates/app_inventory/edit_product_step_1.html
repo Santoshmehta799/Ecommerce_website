@@ -40,14 +40,14 @@
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+										<li class="breadcrumb-item active" aria-current="page">Edit New Product</li>
 									</ol>
 								</nav>
 							</div>
 						</div>
 						<div class="row px-4">
 							<div class="col-md-12 px-3">
-								<h2 class="text-center text-black">Add New Product</h2>
+								<h2 class="text-center text-black">Edit New Product</h2>
 							</div>
 						</div>
 						<div class="row mx-2 mb-4">
@@ -108,7 +108,7 @@
                                                                     <label class="form-label" for="id_product_tittle">Product Title</label>
                                                                 
                                                                 <input class="form-control full_input" placeholder="SSIPL Pendant Light Bulb 10W"
-                                                                        id="id_product_tittle" type="text" title="Tip : Include Brand Name + Product Type + Size / Quantity + Relevant Keywords (if any) for best results." name="product_title" required>
+                                                                        id="id_product_tittle" value="{{product_objs.product_title}}" type="text" title="Tip : Include Brand Name + Product Type + Size / Quantity + Relevant Keywords (if any) for best results." name="product_title" required>
                                                                 </div>
         
                                                                 <div class="form-group col-md-7 mb-4">
@@ -119,7 +119,7 @@
         
                                                                         <option disabled selected value="">Select Product Category</option>
                                                                         {% for category_obj in category_objs %}
-                                                                            <option value="{{category_obj.id}}"><h1>{{ category_obj.name}}</h1></option>
+                                                                            <option value="{{category_obj.id}}" {% if category_obj.id == product_objs.category.id %}selected{% endif %}><h1>{{ category_obj.name}}</h1></option>
                                                                         {% endfor %}
                                                                     </select>
                                                                 </div>
@@ -129,7 +129,11 @@
                                                                     <select class="form-select" list="datalistOptions" id="id_product_type"
                                                                         placeholder="Type your Product Name" name="product_type"
                                                                         required value="tril product listing">
-                                                                        <option value="" selected disabled>Select Product Type</option>
+                                                                        {% if product_objs.product_type.id %}
+                                                                            <option value="{{product_objs.product_type.id}}" selected>{{product_objs.product_type.name}}</option>
+                                                                        {% else %}
+                                                                            <option value="" selected disabled>Select Product Type</option>
+                                                                        {% endif %}
                                                                         
                                                                     </select>
                                                                     
@@ -140,7 +144,7 @@
                                                                         <span class="optional-color">Optional</span>
                                                                     </label>
                                                                     <input type="text" placeholder="Example Brand Name" name="product_brand"
-                                                                        class="form-control full_input" id="id_product_brand" >
+                                                                        class="form-control full_input" id="id_product_brand" value="{{product_objs.product_brand}}" >
                                                                     <div class="invalid-feedback"></div>
                                                                 </div>
         
@@ -148,7 +152,7 @@
                                                                     <label class="w-100 form-label d-flex justify-content-between" for="id_product_description">
                                                                         <span>Product Description</span>
                                                                     </label>
-                                                                    <textarea class="form-control" id="id_product_description" name="description" required="required" title="Write about your product's features, applications, benefits and USPs." spellcheck="false"></textarea>
+                                                                    <textarea class="form-control" id="id_product_description" name="description" required="required" title="Write about your product's features, applications, benefits and USPs." spellcheck="false">{{product_objs.description}}</textarea>
                                                                     <div class="invalid-feedback"></div>
                                                                 </div>
         
@@ -157,7 +161,7 @@
                                                                         <span>About Brand</span>
                                                                         <span class="optional-color">Optional</span>
                                                                     </label>
-                                                                    <input type="text" id="id_about_brand" name="about_the_brand" class="form-control"
+                                                                    <input type="text" id="id_about_brand" name="about_the_brand" value="{{product_objs.about_the_brand}}" class="form-control"
                                                                     title="Include Brand Name , Year of Inception , Products sold by the company. Any recognitions and registrations, and any other specialities that define your brand." >
                                                                     <div class="invalid-feedback"></div>
                                                                 </div>
@@ -168,8 +172,10 @@
                                                                         title="Select the country where the final product was manufactured or produced.">
                                                                         <option value="" disabled selected>Select Country</option>
                                                                         {% for country_obj in country_objs %}
-                                                                            <option value="{{ country_obj.id }}">{{ country_obj.name }}</option>
-                                                                        {% endfor%}
+                                                                            <option value="{{ country_obj.id }}" {% if country_obj.id == country_obj.country_of_origin.id %}selected{% endif %}>
+                                                                                {{ country_obj.country_of_origin }}
+                                                                            </option>
+                                                                        {% endfor %}
                                                                     </select>
                                                                     <div class="invalid-feedback"></div>
                                                                 </div>

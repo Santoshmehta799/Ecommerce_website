@@ -186,3 +186,28 @@ function PhoneNumberExist(value){
     });
   }
 }
+
+function handleSubCategoryChange(selectElement){
+  var category_id = selectElement.value; 
+  var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+  console.log("url");
+
+  $.ajax({
+      url: '/inventory/add/load-subcategory/',
+      type: 'POST',
+      data: {'category_id':category_id,'csrfmiddlewaretoken':token},
+      success: function(data){
+          console.log('complete successfully.', data);
+          if (data.status == true){
+              var productType = document.getElementById('productType');
+              $("#id_product_type").html(data.data); 
+          }
+          else{
+              $("#id_product_type").html(data.data); 
+          }
+      },
+      error: function(data){
+          console.log('Check backend is not responding ....');
+      },
+  });
+}

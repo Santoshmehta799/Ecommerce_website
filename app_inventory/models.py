@@ -54,7 +54,7 @@ class Category(ModelMixin):
 class ProductType(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,
-        blank=True, related_name="category")
+        blank=True, related_name="product_types")
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
     image = models.ImageField(upload_to='product_type', blank=True, null=True)
@@ -89,11 +89,11 @@ class Product(ModelMixin):
     # 1. categoy and sub category
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
+    product_has_variant = models.BooleanField(default=False)
 
     # 2. additional details (more info)
     country_of_origin = models.ForeignKey(Country, on_delete=models.CASCADE)
     description = models.CharField(max_length=3500, blank=True, null=True)
-    hsn_code = models.CharField(max_length=8,blank=True,null=True)
     warranty = models.CharField(max_length=100,
         choices=enums.WarrantyEnums.choices, blank=True,null=True)
     guarantee = models.CharField(max_length=100,
@@ -114,7 +114,6 @@ class Product(ModelMixin):
     serviced_regions = models.CharField(max_length=255,
         choices=enums.ServicedRegionsEnums.choices, blank=True,null=True)
     shipping_include = models.BooleanField(default=False)
-    product_has_variant = models.BooleanField(default=False)
 
     minimum_order_qunatity = models.CharField(max_length=555,blank=True,null=True)
     minimum_order_qunatity_unit = models.CharField(max_length=555,
@@ -170,7 +169,11 @@ class Product(ModelMixin):
         verbose_name_plural = _("Inventory - Add Product")
 
     def __str__(self):
-        return f"{self.product_title}"
+        return f"{self.id}"
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.product_title)
+        super(Product, self).save(*args, **kwargs)
     
 
 class ProductBelongDetails(ModelMixin):
@@ -190,10 +193,10 @@ class ProductBelongDetails(ModelMixin):
 
 class ProductVariant(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=255, null=True, blank=True)
-    value = models.CharField(max_length=255, null=True, blank=True)
-    price_on_request = models.BooleanField(default=False)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product_variant")
+    name = models.CharField(max_length=255, null=True, blank=True)
+    value = models.CharField(max_length=255,  null=True, blank=True)
+    price_on_request = models.BooleanField(default=False)
     default_variant = models.BooleanField(default=False)
 
     class meta:
@@ -201,7 +204,7 @@ class ProductVariant(ModelMixin):
         verbose_name_plural = _("Inventory - Add Product Variant")
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.product} - {self.id}"
 
 
 class ProductImage(ModelMixin):
@@ -238,9 +241,11 @@ class PriceStructure(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     product_variant = models.OneToOneField(ProductVariant, on_delete=models.CASCADE,
         related_name="product_variant_price_structure")
+    hsn_code = models.CharField(max_length=8,blank=True,null=True)
     sale_price = models.CharField(max_length=100,blank=True,null=True)
-    mpr = models.CharField(max_length=100, blank=True, null=True)
-    tax_code = models.CharField(max_length=100, blank=True, null=True) 
+    mrp = models.CharField(max_length=100, blank=True, null=True)
+    tax_code = models.CharField(max_length=100, 
+        choices=enums.TaxCodeEnums.choices, blank=True, null=True) 
     class meta:
         verbose_name = _("Inventory - Add Price Structure")
         verbose_name_plural = _("Inventory - Add Price Structure")
@@ -253,7 +258,7 @@ class ShippingDetails(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     product_variant = models.OneToOneField(ProductVariant, on_delete=models.CASCADE,
         related_name="product_variant_shipping_details")
-    pick_up_location = models.ForeignKey(PickUpWarehouseLocation, on_delete=models.CASCADE,
+    pick_up_location = models.ManyToManyField(PickUpWarehouseLocation,
         related_name='warehouse_pickup_location')
     product_weight = models.CharField(max_length=125, blank=True,null=True)
     product_weight_unit = models.CharField(max_length=125,
@@ -270,8 +275,8 @@ class ShippingDetails(ModelMixin):
     product_dimensions_length = models.CharField(max_length=50,blank=True,null=True)
     product_dimensions_width = models.CharField(max_length=50,blank=True,null=True)
     product_dimensions_height = models.CharField(max_length=50,blank=True,null=True)
-    product_dimensions_unit = models.FloatField(default=0.0,
-        choices=enums.MinimumOrderQuantityEnums.choices, blank=True,null=True)
+    product_dimensions_unit = models.CharField(max_length=50,blank=True,null=True,
+        choices=enums.ProductDimensionUnitEnums.choices)
 
 
     class meta:

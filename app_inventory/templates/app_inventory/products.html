@@ -1,0 +1,73 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}Seller Profile | Seventh Square Seller{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}
+    <style>
+        .custom-model-min-width{
+            min-width: 44.5%;
+        }
+
+    </style>
+{% endblock cssblock %}
+{% block content %}
+	<div class="container-fluid">
+		<div class="row">
+			<!-- Messages Start --> 
+				{% include 'seventh-square/layout/messages.html' %}
+				{% if error %}
+					<div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+						{{ error|safe }}
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				{% endif %}
+			<!-- Messages END -->
+			<div class="col-12 col-md-12 bg-white">
+				<div class="row pl-0">
+					<!-- Col-3 is written as sidebar -->
+					<div class="custom-sidebar-col-width bg-brand-sidebar d-none d-md-block text-white">
+						<div class="row pt-4 px-4">
+							<div class="col-12"> {%include 'seventh-square/layout/sidebar.html' %} </div>
+						</div>
+					</div>
+					<div class="custom-main-col-width">
+						<div class="row px-4 pt-3">
+							<div class="col-md-12">
+								<nav aria-label="breadcrumb">
+									<ol class="breadcrumb">
+										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
+										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+									</ol>
+								</nav>
+							</div>
+						</div>
+						<div class="row px-4">
+							<div class="col-md-12 px-3">
+								<h2 class="text-center text-black">Addded Products</h2>
+							</div>
+						</div>
+						<div class="row mx-2 mb-4">
+							{% for product in product_obj %}
+								<div class="col-12">
+									<a href="{% url 'app_inventory:edit_inventory_step_1' product.id %}">{{product.id}} - {{product.product_title}}</a>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{% block jsblock %}
+    <script>
+					
+		$(document).ready(function () {
+			var token = $("input[name=csrfmiddlewaretoken]").val();
+	
+			$("#basic-info-form").validate();
+		});
+
+	</script>
+{% endblock jsblock %}

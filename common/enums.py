@@ -96,6 +96,14 @@ class GuaranteeEnums(TextChoices):
     YEARS_9 = ('9-years', '9 years')
     YEARS_10 = ('10-years', '10 years')
 
+class TaxCodeEnums(TextChoices):
+    ZERO = (0, '0%')
+    FIVE = (5, '5%')
+    TWELVE = (12, '12%')
+    EIGHTEEN = (18, '18%')
+    TWENTYEIGHT = (28, '28%')
+    
+
 class WarrantyEnums(TextChoices):
     MONTH_1 = ('1-month', '1 month')
     MONTHS_2 = ('2-months', '2 months') 
