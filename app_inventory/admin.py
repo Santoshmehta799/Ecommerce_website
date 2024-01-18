@@ -22,7 +22,7 @@ class ProductTypeAdmin(admin.ModelAdmin):
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display  = ('id', 'seller', 'product_has_variant', 'product_title', 'slug', 'created_at', 'updated_at')
+    list_display  = ('id', 'seller', 'product_has_variant','is_active', 'product_title', 'slug', 'created_at', 'updated_at')
     search_fields = ['seller__email']
     readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
 

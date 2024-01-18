@@ -165,7 +165,7 @@
 																			<div class="col-12"> <label for="id_address_line_1" class="col-form-label ">Company Registered Address</label>
 																				<div class="row">
 																					<div class="col-sm-4"> 
-																						<select class="form-select" required name="state">
+																						<select class="form-select" onchange="handleCityChange(this);" required name="state">
 																							<option disabled value="" selected>Select State</option>  
 																							{% if state_obj %}
 																								{% for state in state_obj %} 
@@ -175,13 +175,17 @@
 																						</select>
 																					</div>
 																					<div class="col-sm-4"> 
-																						<select class="form-select" required name="city"> 
-																							<option disabled value="" selected>Select City</option> 
-																							{% if city_obj %}
+																						<select class="form-select" required name="city" id="id_city">
+																							{% if request.user.seller_company_address.city.id %} 
+																								<option value="{{request.user.seller_company_address.city.id}}" selected>{{request.user.seller_company_address.city.name}}</option> 
+																							{% else %}
+																								<option disabled value="" >Select City</option> 
+																							{% endif %}
+																							{% comment %} {% if city_obj %}
 																								{% for city in city_obj %} 
 																									<option value="{{city.id}}" {% if city.id == request.user.seller_company_address.city.id %}selected{% endif %}>{{city.name}}</option> 
 																								{% endfor %}
-																							{% endif %} 
+																							{% endif %}  {% endcomment %}
 																						</select> 
 																					</div>
 																					<div class="col-sm-4"> <input type="text" class="form-control" placeholder="Pincode" value="{% if request.user.seller_company_address.pin_code %}{{request.user.seller_company_address.pin_code}}{% endif %}" name="pincode"> </div>
@@ -406,12 +410,12 @@
 																								<div class="row my-3">
 																									<div class="col-12"><label for="id_edit_warehouse_state_{{warehouse.id}}" class="col-form-label">State</label></div>
 																									<div class="col-12">
-																										<select class="form-select" name="state" id="id_edit_warehouse_state_{{warehouse.id}}">
+																										<select class="form-select" name="state" onchange="handleDataIdCityChange(this, '{{warehouse.id}}');"  id="id_edit_warehouse_state_{{warehouse.id}}">
 																											<option value="" selected disabled>Select State</option>
 																											{% if state_obj %}
-																											{% for state in state_obj %}
-																											<option value="{{state.id}}" {% if state.id == warehouse.state.id %}selected{% endif %}>{{state.name}}</option>
-																											{% endfor %}
+																												{% for state in state_obj %}
+																													<option value="{{state.id}}" {% if state.id == warehouse.state.id %}selected{% endif %}>{{state.name}}</option>
+																												{% endfor %}
 																											{% endif %}
 																										</select>
 																									</div>
@@ -574,7 +578,7 @@
 																		<div class="col-md-12">
 																			<div class="row my-3">
 																				<div class="col-12"><label for="id_add_warehouse_state" class="col-form-label">State</label></div>
-																				<div class="col-12"> <select class="form-select" name="state" id="id_add_warehouse_state" required>
+																				<div class="col-12"> <select class="form-select" onchange="handleWarehouseAddCityChange(this);" name="state" id="id_add_warehouse_state" required>
 																						<option value="" selected disabled>Select State</option> {% if state_obj %} {% for state in state_obj %} <option value="{{state.id}}">{{state.name}}</option> {% endfor %} {% endif %}
 																					</select> </div>
 																			</div>

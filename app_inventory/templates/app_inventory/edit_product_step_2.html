@@ -1,5 +1,6 @@
 {% extends 'seventh-square/layout/base.html' %}
 {% load static %}
+{% load auth_tag %}
 {% block title %}Seller Profile | Seventh Square Seller{% endblock title %}
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}
@@ -51,14 +52,14 @@
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+										<li class="breadcrumb-item active" aria-current="page">Edit New Product</li>
 									</ol>
 								</nav>
 							</div>
 						</div>
 						<div class="row px-4">
 							<div class="col-md-12 px-3">
-								<h2 class="text-center text-black">Add New Product</h2>
+								<h2 class="text-center text-black">Edit New Product</h2>
 							</div>
 						</div>
 						<div class="row mx-2 mb-4">
@@ -119,29 +120,330 @@
                                                             
                                                             <div class="mt-5" id="blockToToggle">
                                                                 <h5 class="font-size-18">Enter Variable</h5>
-            
-                                                                <div class="form-row">
-                                                                    <div class="form-group col-md-10">
-                                                                        <div class="tag-input-container">
-                                                                            <input class="form-control input-tag" type="text" id="tagInput" placeholder="Enter custom variants separated by commas" onkeydown="handleKeyDown(event)">
-                                                                            <div class="invalid-feedback mt-5">Please fill in details.</div>
+                                                                {% if product_obj.product_has_variant == True %}
+                                                                    <div class="form-row">
+                                                                        <div class="form-group col-md-10">
+                                                                            <div class="tag-input-container">
+                                                                                <input class="form-control input-tag" readonly type="text" id="tagInput" placeholder="Enter custom variants separated by commas" onkeydown="handleKeyDown(event)">
+                                                                                <div class="invalid-feedback mt-5">Please fill in details.</div>
+                                                                            </div>
+                                                                            <div class="text-danger mt-2" id="errorText" style="display: none;">Tag already exists!</div>
+                                                                            <div class="text-danger mt-2" id="errorVariationsDetails" style="display: none;">Please fill variations Details!</div>
+
+                                                                            <div class="tag-list mb-1 mt-4" id="tagList">
+                                                                                {% if product_obj.product_has_variant == True %}
+                                                                                    {% if product_obj.product_variant.all %}
+                                                                                        {% for obj in product_obj.product_variant.all %}
+                                                                                            {% if obj.default_variant == True %}
+                                                                                                {% for tag in obj.name|makelistofvariationstag %}
+                                                                                                    <span class="tag justify-content-between m-1 pl-2 pr-1 py-1" style="min-width: 125px; background-color: rgba(76, 88, 100, 0.3);">
+                                                                                                        <span class="tag-text">{{tag}}</span>
+                                                                                                        <span class="tag-remove mr-1" style="font-size: 20px;">×</span>
+                                                                                                    </span>
+                                                                                                {% endfor %}
+                                                                                            {% endif %}
+                                                                                        {% endfor %}
+                                                                                    {% endif %}
+                                                                                {% endif %}
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="text-danger mt-2" id="errorText" style="display: none;">Tag already exists!</div>
-                                                                        <div class="text-danger mt-2" id="errorVariationsDetails" style="display: none;">Please fill variations Details!</div>
-            
-                                                                        <div class="tag-list mb-1 mt-4" id="tagList"></div>
+                                                                        
                                                                     </div>
+                                                                    <br>
+                                                                    <h5 class="mt-4 font-size-18">Selected Options</h5>
+                                                                    <span id="removeWarningOnTagSelection" class="text-danger d-none">Please Enter Variation from above. </span>
+                                                                    <div class="form-row" id="selectedTagsContainer">
+                                                                        {% if product_obj.product_has_variant == True %}
+                                                                            {% if product_obj|make_options_list_by_obj %}
+                                                                                {% for tag, tg_value in product_obj|make_options_list_by_obj %}
+                                                                                    <div class="form-group col-md-12 mt-2 selected-tag" data-tag="size">
+                                                                                        <div class="row selected-row-2">
+                                                                                            <div class="col-md-2 mt-2 selected-col-1">
+                                                                                                <input class="form-control d-flex align-items-center justify-content-between" value="{{tag}}" readonly="" name="variant_name[]" required="">
+                                                                                            </div>
+                                                                                            <div class="col-md-1 mt-2 selected-col-2"></div>
+                                                                                            {% for tag_value in tg_value %}
+                                                                                                {% if forloop.counter == 1 %}
+                                                                                                    <div class="col-md-2 mt-2 selected-col selected-col-3">
+                                                                                                        <input class="form-control per-w-77" type="text" readonly value="{{tag_value}}" required="" name="variant_value_{{tag}}[]">
+                                                                                                    </div>
+                                                                                                {% else %}
+                                                                                                    <div class="col-md-2 mt-2 selected-col">
+                                                                                                        <input class="form-control per-w-77" type="text" readonly value="{{tag_value}}" required="" name="variant_value_{{tag}}[]">
+                                                                                                        <!--<a href="javascript:void(0);" class="text-danger per-w-20">
+                                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                                                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"></path>
+                                                                                                            </svg>
+                                                                                                        </a> -->
+                                                                                                    </div>
+                                                                                                {% endif %}
+                                                                                            {% endfor %}
+                                                                                            <!-- <div class="col-md-1 mt-2 selected-col-next d-flex align-items-center justify-content-center">
+                                                                                                <a href="javascript:void(0);" class="text-success m-1">
+                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                                                                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
+                                                                                                    </svg>
+                                                                                                </a>
+                                                                                                <a href="javascript:void(0);" class="text-danger m-1">
+                                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                                                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"></path>
+                                                                                                    </svg>
+                                                                                                </a>
+                                                                                            </div> -->
+                                                                                        </div>
+                                                                                    </div>
+                                                                                {% endfor %}
+                                                                            {% endif %}
+                                                                        {% endif %}
                                                                     
-                                                                </div>
-                                                                <br>
-                                                                <h5 class="mt-4 font-size-18">Selected Options</h5>
-                                                                <span id="removeWarningOnTagSelection" class="text-danger d-none">Please Enter Variation from above. </span>
-                                                                <div class="form-row" id="selectedTagsContainer"></div>
-                                                                <a href="javascript:void(0);" class="btn btn-brand mt-3 mb-5" onclick="GeneratePosibleVarient('selectedTagsContainer')">Add Variation</a>
-            
-                                                                <div class="form-row" id="tableContainer"></div>
-                                                                <div id="modalContainer"></div>
-            
+                                                                    </div>
+                                                                    <a href="javascript:void(0);" class="btn btn-dark mt-3 mb-5 d-none" onclick="GeneratePosibleVarient('selectedTagsContainer')">Add Variation</a>
+
+                                                                    <div class="form-row mt-5" id="tableContainer">
+                                                                        {% if product_obj.product_has_variant == True %}
+                                                                        <table class="table table-responsive text-center">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Variants {% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}({{obj.name|makelistofvariationstagbycomma}}){% endif %}{% endfor %}{% endif %} {% endif %}</th>
+                                                                                    <th>MRP</th>
+                                                                                    <th>Sale Price</th>
+                                                                                    <th>Price in Request</th>
+                                                                                    <th>Default Variant</th>
+                                                                                    <th>Upload Image</th>
+                                                                                    <th>Remove</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td><input class="form-control" type="text" value="{% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}{{obj.value|makelistofvariationstagbycomma}}{% endif %}{% endfor %}{% endif %}{% endif %}" name="final_varient_name" readonly=""></td>
+                                                                                    <td><input class="form-control mx-2" type="number" value="{% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}{% if obj.product_variant_price_structure %}{{obj.product_variant_price_structure.mrp}}{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %}" name="mrp" id="id_mrp{{forloop.counter0}}" required=""></td>
+                                                                                    <td><input class="form-control mx-2" type="number" value="{% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}{% if obj.product_variant_price_structure %}{{obj.product_variant_price_structure.sale_price}}{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %}" name="sale_price" id="id_sale_price{{forloop.counter0}}" required=""></td>
+                                                                                    <td><input class="form-check-input mx-2" type="checkbox" {% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}{% if obj.price_on_request == True %}checked{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %} name="price_in_request" id="id_price_in_request{{forloop.counter0}}"></td>
+                                                                                    <td><input class="form-check-input mx-2" type="radio" name="default_variant" {% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}{% if obj.price_on_request == True %}checked{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %} id="id_default_variant{{forloop.counter0}}" required=""></td>
+                                                                                    <td>
+                                                                                        <a href="javascript:void(0);" class="btn btn-sm btn-secondary mx-2" data-bs-toggle="modal" data-bs-target="#uploadImageModel_{{forloop.counter0}}">Upload</a>
+                                                                                        <div class="modal fade" id="uploadImageModel_{{forloop.counter0}}" tabindex="-1" role="dialog" aria-labelledby="uploadImageModel_{{forloop.counter0}}Label" aria-hidden="true">
+                                                                                            <div class="modal-dialog modal-lg">
+                                                                                                <div class="modal-content">
+                                                                                                    <div class="modal-header">
+                                                                                                        <h5 class="modal-title" id="uploadImageModel_{{forloop.counter0}}Label">Upload Image</h5>
+                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                                                                                                    </div>
+                                                                                                    <div class="modal-body">
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                <h6>Main Display Image</h6>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-9 my-2">
+                                                                                                                <h6>Additional Image</h6>
+                                                                                                            </div>
+                                                                                                            
+                                                                                                            {% if product_obj.product_has_variant == True %}
+                                                                                                                {% if product_obj.product_variant.all %}
+                                                                                                                    {% for obj in product_obj.product_variant.all %}
+                                                                                                                        {% if obj.default_variant == True %}
+                                                                                                                            {% if obj.product_variant_image.all %}
+                                                                                                                                {% for image_obj in obj.product_variant_image.all %}
+                                                                                                                                    <div class="col-md-3 my-2">
+                                                                                                                                        <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                            <img src="{% if image_obj.picture %}{{ image_obj.picture.url }}{% endif %}" id="uploadedimage_{{ obj.value }}|{{image_obj.id}}" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                            <h6 id="uploadtext_{{ obj.value }}|{{obj.id}}" style="text-align: center;">+ Upload</h6>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj.value }}|{{image_obj.id}}'), document.getElementById('uploadtext_{{ obj.value }}|{{image_obj.id}}'));" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{ obj.value }}" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                                    </div>
+                                                                                                                                {% endfor %}
+                                                                                                                            {% endif %}
+                                                                                                                        {% endif %}
+                                                                                                                    {% endfor %}
+                                                                                                                {% endif %}
+                                                                                                            {% endif %}
+                                                                                                            
+                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                    <img src="{% if obj.main.picture10 %}{{obj.main.picture10.url}}{% endif %}" id="uploadedimage_{{obj.main.variant_value}}|10" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                    <h6 id="uploadtext_{{obj.main.variant_value}}|10" style="text-align: center;">+ Upload</h6>
+                                                                                                                </div>
+                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj.main.variant_value }}|10'), document.getElementById('uploadtext_{{ obj.main.variant_value }}|10'));" value="{% if obj.main.picture10 %}{{obj.main.picture10.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj.main.variant_value}}|10" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                        <div class="row mt-5 text-left">
+                                                                                                            <div class="col-12">
+                                                                                                                <ul>
+                                                                                                                    <li>Images will be displayed to the customer in the order shown here.</li>
+                                                                                                                    <li>Only JPEG, JPG, and PNG files are allowed.</li>
+                                                                                                                </ul>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer"><button type="button" data-bs-dismiss="modal" class="btn btn-brand" style="display: block;">Save</button></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <a href="javascript:void(0);" class="text-danger per-w-20">
+                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"></path>
+                                                                                            </svg>
+                                                                                        </a>
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                {% if product_obj.product_has_variant == True %}
+                                                                                    {% if product_obj.product_variant.all %}
+                                                                                        {% for obj in product_obj.product_variant.all %}
+                                                                                            {% if obj.default_variant == False %}
+                                                                                                <tr>
+                                                                                                    <td><input class="form-control" type="text" value="{{obj.value|makelistofvariationstagbycomma}}" name="final_varient_name" readonly=""></td>
+                                                                                                    <td><input class="form-control mx-2" type="number" value="{% if obj.product_variant_price_structure %}{{obj.product_variant_price_structure.mrp}}{% endif %}" name="mrp" id="id_mrp{{forloop.counter}}" required=""></td>
+                                                                                                    <td><input class="form-control mx-2" type="number" value="{% if obj.product_variant_price_structure %}{{obj.product_variant_price_structure.sale_price}}{% endif %}" name="sale_price" id="id_sale_price{{forloop.counter}}" required=""></td>
+                                                                                                    <td><input class="form-check-input mx-2" type="checkbox" {% if obj.price_on_request %}checked{% endif %} value="{{obj.value}}" name="price_in_request" id="id_price_in_request{{forloop.counter}}"></td>
+                                                                                                    <td><input class="form-check-input mx-2" type="radio" {% if obj_sub.variant_default %}checked{% endif %} name="default_variant" value="{{obj.value}}" id="id_default_variant{{forloop.counter}}" required=""></td>
+                                                                                                    <td>
+                                                                                                        <a href="javascript:void(0);" class="btn btn-sm btn-secondary mx-2" data-bs-toggle="modal" data-bs-target="#uploadImageModel_{{forloop.counter}}">Upload</a>
+                                                                                                        <div class="modal fade" id="uploadImageModel_{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="uploadImageModel_{{forloop.counter}}Label" aria-hidden="true">
+                                                                                                            <div class="modal-dialog modal-lg">
+                                                                                                                <div class="modal-content">
+                                                                                                                    <div class="modal-header">
+                                                                                                                        <h5 class="modal-title" id="uploadImageModel_{{forloop.counter}}Label">Upload Image</h5>
+                                                                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-body">
+                                                                                                                        <div class="row">
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <h6>Main Display Image</h6>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-9 my-2">
+                                                                                                                                <h6>Additional Image</h6>
+                                                                                                                            </div>
+
+                                                                                                                            {% if product_obj.product_has_variant == True %}
+                                                                                                                                {% if product_obj.product_variant.all %}
+                                                                                                                                    {% for obj in product_obj.product_variant.all %}
+                                                                                                                                        {% if obj.default_variant == False %}
+                                                                                                                                            {% if obj.product_variant_image.all %}
+                                                                                                                                                {% for image_obj in obj.product_variant_image.all %}
+                                                                                                                                                    <div class="col-md-3 my-2">
+                                                                                                                                                        <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                                            <img src="{% if image_obj.picture %}{{ image_obj.picture.url }}{% endif %}" id="uploadedimage_{{ obj.value }}|{{image_obj.id}}" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                                            <h6 id="uploadtext_{{ obj.value }}|{{obj.id}}" style="text-align: center;">+ Upload</h6>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj.value }}|{{image_obj.id}}'), document.getElementById('uploadtext_{{ obj.value }}|{{image_obj.id}}'));" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{ obj.value }}" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                                                    </div>
+                                                                                                                                                {% endfor %}
+                                                                                                                                            {% endif %}
+                                                                                                                                        {% endif %}
+                                                                                                                                    {% endfor %}
+                                                                                                                                {% endif %}
+                                                                                                                            {% endif %}
+                                                                                                                            
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture1 %}{{ obj_sub.picture1.url }}{% endif %}" id="uploadedimage_{{ obj_sub.variant_value }}|1" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{ obj_sub.variant_value }}|1" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|1'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|1'));" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{ obj_sub.variant_value }}|1" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture2 %}{{obj_sub.picture2.url}}{% endif %}" id="uploadedimage_{{obj_sub.variant_value}}|2" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{obj_sub.variant_value}}|2" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|2'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|2'));" value="{% if obj_sub.picture2 %}{{obj_sub.picture2.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj_sub.variant_value}}|2" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture3 %}{{obj_sub.picture3.url}}{% endif %}" id="uploadedimage_{{obj_sub.variant_value}}|3" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{obj_sub.variant_value}}|3" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|3'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|3'));" value="{% if obj_sub.picture3 %}{{obj_sub.picture3.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj_sub.variant_value}}|3" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture4 %}{{obj_sub.picture4.url}}{% endif %}" id="uploadedimage_{{obj_sub.variant_value}}|4" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{obj_sub.variant_value}}|4" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|4'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|4'));" value="{% if obj_sub.picture4 %}{{obj_sub.picture4.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj_sub.variant_value}}|4" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture5 %}{{obj_sub.picture5.url}}{% endif %}" id="uploadedimage_{{obj_sub.variant_value}}|5" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{obj_sub.variant_value}}|5" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|5'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|5'));" value="{% if obj_sub.picture5 %}{{obj_sub.picture5.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj_sub.variant_value}}|5" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture6 %}{{obj_sub.picture6.url}}{% endif %}" id="uploadedimage_{{obj_sub.variant_value}}|6" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{obj_sub.variant_value}}|6" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|6'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|6'));" value="{% if obj_sub.picture6 %}{{obj_sub.picture6.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj_sub.variant_value}}|6" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture7 %}{{obj_sub.picture7.url}}{% endif %}" id="uploadedimage_{{obj_sub.variant_value}}|7" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{obj_sub.variant_value}}|7" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|7'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|7'));" value="{% if obj_sub.picture7 %}{{obj_sub.picture7.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj_sub.variant_value}}|7" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture8 %}{{obj_sub.picture8.url}}{% endif %}" id="uploadedimage_{{obj_sub.variant_value}}|8" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{obj_sub.variant_value}}|8" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|8'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|8'));" value="{% if obj_sub.picture8 %}{{obj_sub.picture8.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj_sub.variant_value}}|8" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture9 %}{{obj_sub.picture9.url}}{% endif %}" id="uploadedimage_{{obj_sub.variant_value}}|9" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{obj_sub.variant_value}}|9" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|9'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|9'));" value="{% if obj_sub.picture9 %}{{obj_sub.picture9.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj_sub.variant_value}}|9" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                            <div class="col-md-3 my-2">
+                                                                                                                                <div class="mt-2" style="width: 135px; background-color: rgb(255, 255, 255); border: 1px solid grey; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                                    <img src="{% if obj_sub.picture10 %}{{obj_sub.picture10.url}}{% endif %}" id="uploadedimage_{{obj_sub.variant_value}}|10" style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                                    <h6 id="uploadtext_{{obj_sub.variant_value}}|10" style="text-align: center;">+ Upload</h6>
+                                                                                                                                </div>
+                                                                                                                                <div class="mt-2"><input type="file" onchange="showImageForVariation(this, document.getElementById('uploadedimage_{{ obj_sub.variant_value }}|10'), document.getElementById('uploadtext_{{ obj_sub.variant_value }}|10'));" value="{% if obj_sub.picture10 %}{{obj_sub.picture10.url}}{% endif %}" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture_{{obj_sub.variant_value}}|10" style="width: 135px; background-color: rgb(255, 255, 255); height: 32px; border: none;"></div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="row mt-5 text-left">
+                                                                                                                            <div class="col-12">
+                                                                                                                                <ul>
+                                                                                                                                    <li>Images will be displayed to the customer in the order shown here.</li>
+                                                                                                                                    <li>Only JPEG, JPG, and PNG files are allowed.</li>
+                                                                                                                                </ul>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                    <div class="modal-footer"><button type="button" data-dismiss="modal" class="btn btn-dark" style="display: block; margin-top: 5px; color: red; font-size: 12px;">Save</button></div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </td>
+                                                                                                    <td>
+                                                                                                        <a href="javascript:void(0);" class="text-danger per-w-20">
+                                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                                                                                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"></path>
+                                                                                                            </svg>
+                                                                                                        </a>
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            {% endif %}
+                                                                                        {% endfor %}
+
+                                                                                    {% endif %}
+                                                                                {% endif %}
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                        {% endif %}
+                                                                    </div>
+                                                                    <div id="modalContainer"></div>
+
+                                                                    <br>
+                                                                    {% endif %}
                                                                 <br>
                                                             </div>
                                                             <button class="btn btn-dark mt-3">PREV</button>
@@ -404,351 +706,6 @@
     </script>
 
     <script>
-        function removeCurrentRowFromTable(removeButton) {
-            const row = removeButton.closest('tr');
-            if (row) {
-                row.remove();
-            }
-        }
-
-        // Function to show uploaded image
-        function showImageForVariation(input, imageElement, uploadTextElement) {
-            const reader = new FileReader();
-            reader.onload = function() {
-                imageElement.src = reader.result;
-                imageElement.style.display = 'block';
-                uploadTextElement.style.display = 'none';
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-
-        function generateTable(variantNames, combinations) {
-            const table = document.createElement('table');
-            table.className = 'table table-responsive text-center';
-            const thead = table.createTHead();
-            const tbody = table.createTBody();
-            
-            // Create table header row with combined variant names and additional columns
-            const headerRow = thead.insertRow();
-            const headerCell = document.createElement('th');
-            headerCell.textContent = 'Variants (' + variantNames.join(', ') + ')';
-            headerRow.appendChild(headerCell);
-            
-            const additionalColumnHeaders = ['MRP', 'Sale Price', 'Price in Request', 'Default Variant', 'Upload Image', 'Remove'];
-            const additionalColumnHeaders2 = ['MRP', 'Sale Price', 'Price on Request', 'Default Variant', 'Upload Image', 'Remove'];
-            for (const columnName of additionalColumnHeaders2) {
-                const th = document.createElement('th');
-                th.textContent = columnName;
-                headerRow.appendChild(th);
-            }
-            
-            // Create table body rows with variant values and additional input fields/buttons
-            for (let i = 0; i < combinations.length; i++) {
-                const tr = tbody.insertRow();
-                index = i+1
-                
-                // Create input field for the "Variants" column
-                const tdVariants = tr.insertCell();
-                const variantValues = variantNames.map(name => combinations[i][name]).join(', ');
-                const variationImagesValues = variantNames.map(name => combinations[i][name]).join('*')
-                const inputVariants = document.createElement('input');
-                inputVariants.className = 'form-control';
-                inputVariants.type = 'text';
-                inputVariants.value = variantValues
-                inputVariants.name = 'final_varient_name'; 
-                inputVariants.readOnly = true;
-                tdVariants.appendChild(inputVariants);
-                
-                for (const columnName of additionalColumnHeaders) {
-                    const td = tr.insertCell();
-                    
-                    if (columnName === 'MRP' || columnName === 'Sale Price') {
-                        const input = document.createElement('input');
-                        input.className = 'form-control mx-2';
-                        input.type = 'number';
-                        input.step = 'any';
-                        input.name = columnName.toLowerCase().replace(/\s+/g, '_');
-                        input.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
-                        input.required = true;
-                        td.appendChild(input);
-
-                    } else if (columnName === 'Price in Request') {
-                        const checkbox = document.createElement('input');
-                        checkbox.className = 'form-check-input mx-2';
-                        checkbox.type = 'checkbox';
-                        checkbox.value = variationImagesValues;
-                        checkbox.name = columnName.toLowerCase().replace(/\s+/g, '_');
-                        checkbox.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
-                        td.appendChild(checkbox);
-
-                    } else if (columnName === 'Default Variant') {
-                        const radio = document.createElement('input');
-                        radio.className = 'form-check-input mx-2';
-                        radio.type = 'radio';
-                        radio.name = columnName.toLowerCase().replace(/\s+/g, '_');;
-                        radio.value = variationImagesValues;
-                        radio.id = 'id_'+ columnName.toLowerCase().replace(/\s+/g, '_') + index;
-                        radio.required = true;
-                        td.appendChild(radio);
-                    } else if (columnName === 'Upload Image') {
-                        const button = document.createElement('a');
-                        const modalId = 'uploadImageModel_' + index;
-                        button.href = 'javascript:void(0);';
-                        button.className = 'btn btn-sm btn-secondary mx-2';
-                        button.textContent = 'Upload';
-                        button.setAttribute('data-bs-toggle', 'modal');
-                        button.setAttribute('data-bs-target', '#' + modalId);
-                        td.appendChild(button);
-
-
-                        // Create a modal for this button
-                        const modal = document.createElement('div');
-                        modal.className = 'modal fade';
-                        modal.id = modalId;
-                        modal.setAttribute('tabindex', '-1');
-                        modal.setAttribute('role', 'dialog');
-                        modal.setAttribute('aria-labelledby', modalId + 'Label');
-                        modal.setAttribute('aria-hidden', 'true');
-                        td.appendChild(modal);
-
-                        // Create modal dialog
-                        const modalDialog = document.createElement('div');
-                        modalDialog.className = 'modal-dialog modal-lg';
-                        modal.appendChild(modalDialog);
-
-                        // Create modal content
-                        const modalContent = document.createElement('div');
-                        modalContent.className = 'modal-content';
-                        modalDialog.appendChild(modalContent);
-
-                        // Create modal header
-                        const modalHeader = document.createElement('div');
-                        modalHeader.className = 'modal-header';
-                        modalContent.appendChild(modalHeader);
-
-                        const modalTitle = document.createElement('h5');
-                        modalTitle.className = 'modal-title';
-                        modalTitle.id = modalId + 'Label';
-                        modalTitle.textContent = 'Upload Image';
-                        modalHeader.appendChild(modalTitle);
-
-                        const closeButton = document.createElement('button');
-                        closeButton.type = 'button';
-                        closeButton.className = 'btn-close';
-                        closeButton.setAttribute('data-bs-dismiss', 'modal');
-                        closeButton.setAttribute('aria-label', 'Close');
-                        modalHeader.appendChild(closeButton);
-
-                        //const closeIcon = document.createElement('span');
-                        //closeIcon.setAttribute('aria-hidden', 'true');
-                        //closeIcon.innerHTML = '&times;';
-                        //closeButton.appendChild(closeIcon);
-
-                        // Create modal body
-                        const modalBody = document.createElement('div');
-                        modalBody.className = 'modal-body';
-                        modalContent.appendChild(modalBody);
-
-                        // Create a row for images
-                        const imagesRow = document.createElement('div');
-                        imagesRow.className = 'row';
-
-                        const headCol_1 = document.createElement('div');
-                        const head_1_h6 = document.createElement('h6');
-                        headCol_1.className = 'col-md-3 my-2';
-                        head_1_h6.textContent = 'Main Display Image';
-                        headCol_1.appendChild(head_1_h6);
-
-                        const headCol_2 = document.createElement('div');
-                        const head_2_h6 = document.createElement('h6');
-                        headCol_2.className = 'col-md-9 my-2';
-                        head_2_h6.textContent = 'Additional Image';
-                        headCol_2.appendChild(head_2_h6);
-
-                        imagesRow.appendChild(headCol_1);
-                        imagesRow.appendChild(headCol_2);
-
-
-                        for (let imageIndex = 1; imageIndex <= 10; imageIndex++) {
-                            const col = document.createElement('div');
-                            col.className = 'col-md-3 my-2';
-                            
-                            const mt2Div = document.createElement('div');
-                            mt2Div.className = 'mt-2';
-                            mt2Div.style.width = '135px';
-                            mt2Div.style.backgroundColor = '#ffffff';
-                            mt2Div.style.border = '1px solid grey';
-                            mt2Div.style.height = '131px';
-                            mt2Div.style.display = 'flex';
-                            mt2Div.style.alignItems = 'center';
-                            mt2Div.style.justifyContent = 'center';
-                            
-                            const uploadedImage = document.createElement('img');
-                            uploadedImage.id = 'uploadedimage_' + variationImagesValues + '|' + imageIndex;
-                            uploadedImage.style.height = '132px';
-                            uploadedImage.style.width = '136px';
-                            uploadedImage.style.marginLeft = '2px';
-                            uploadedImage.style.marginTop = '1px';
-                            uploadedImage.style.display = 'none';
-                            uploadedImage.style.position = 'absolute';
-                            mt2Div.appendChild(uploadedImage);
-                            
-                            const uploadText = document.createElement('h6');
-                            uploadText.id = 'uploadtext_' + variationImagesValues + '|' + imageIndex;
-                            uploadText.style.textAlign = 'center';
-                            uploadText.textContent = '+ Upload';
-                            mt2Div.appendChild(uploadText);
-                            
-                            col.appendChild(mt2Div);
-                            
-                            const mt2Div2 = document.createElement('div');
-                            mt2Div2.className = 'mt-2';
-                            
-                            const inputFile = document.createElement('input');
-                            inputFile.type = 'file';
-                            inputFile.style.width = '135px';
-                            inputFile.style.backgroundColor = '#ffffff';
-                            inputFile.style.height = '32px';
-                            inputFile.style.border = 'none';
-                            inputFile.placeholder = 'Add Alt Text';
-                            inputFile.accept = '.jpg, .png, .jpeg, .mp4, .avi, .mov';
-                            inputFile.name = 'picture_' + variationImagesValues + '|' + imageIndex;
-                            inputFile.addEventListener('change', function() {
-                                showImageForVariation(this, uploadedImage, uploadText);
-                            });
-                            mt2Div2.appendChild(inputFile);
-                            
-                            col.appendChild(mt2Div2);
-                            
-                            imagesRow.appendChild(col);
-                        }
-
-                        modalBody.appendChild(imagesRow);
-
-                        const info_row = document.createElement('div');
-                        info_row.className = 'row mt-5 text-left';
-                        modalBody.appendChild(info_row);
-
-                        // Create a Bootstrap column
-                        const info_col = document.createElement('div');
-                        info_col.className = 'col-12';
-                        info_row.appendChild(info_col);
-
-                        const infoList = document.createElement('ul');
-                        const infoItems = [
-                            'Images will be displayed to the customer in the order shown here.',
-                            'Only JPEG, JPG, and PNG files are allowed.'
-                        ];
-
-                        infoItems.forEach(itemText => {
-                            const listItem = document.createElement('li');
-                            listItem.textContent = itemText;
-                            infoList.appendChild(listItem);
-                        });
-
-                        info_col.appendChild(infoList);
-                        // ... (Add your modal content here)
-
-                        // Create modal footer
-                        const modalFooter = document.createElement('div');
-                        modalFooter.className = 'modal-footer';
-                        modalContent.appendChild(modalFooter);
-
-                        const saveButton = document.createElement('button');
-                        saveButton.type = 'button';
-                        saveButton.setAttribute('data-bs-dismiss', 'modal');
-                        saveButton.className = 'btn btn-brand';
-                        saveButton.textContent = 'Save';
-                        saveButton.style = "display: block;"
-                        modalFooter.appendChild(saveButton);
-                
-                    
-                                                                                         
-                    } else if (columnName === 'Remove') {
-                        const removeRow = document.createElement('a');
-                        removeRow.href = 'javascript:void(0);';
-                        removeRow.className = 'text-danger per-w-20';
-                        removeRow.innerHTML = `
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                            </svg>
-                        `;
-                        removeRow.addEventListener('click', () => removeCurrentRowFromTable(removeRow));
-                        td.appendChild(removeRow);
-                    }
-                }
-            }
-            
-            return table;
-        }
-        
-        
-
-        function generateCombinations(variantData) {
-            const attributes = Object.keys(variantData);
-            const combinations = [];
-          
-            function backtrack(index, currentCombination) {
-              if (index === attributes.length) {
-                combinations.push({ ...currentCombination });
-                return;
-              }
-          
-              const attributeName = attributes[index];
-              const attributeValues = variantData[attributeName].values;
-          
-              for (const value of attributeValues) {
-                currentCombination[attributeName] = value;
-                backtrack(index + 1, currentCombination);
-                delete currentCombination[attributeName];
-              }
-            }
-          
-            backtrack(0, {});
-          
-            return combinations;
-        }
-        
-        function GeneratePosibleVarient(form_id){
-            const selectedTagsContainer = document.getElementById(form_id);
-            const selectedTagDivs = selectedTagsContainer.querySelectorAll('.selected-tag');
-            const inputData = {};
-            if (selectedTagDivs.length === 0) {
-                const errorMessage = selectedTagsContainer.querySelector('.text-danger');
-                if (!errorMessage) {
-                    // If it doesn't exist, create and append it
-                    const errorMessage = document.createElement('span');
-                    errorMessage.className = 'text-danger';
-                    errorMessage.textContent = 'Please create the variant label and value above';
-                    selectedTagsContainer.appendChild(errorMessage);
-                }
-            } else {
-                selectedTagDivs.forEach(selectedTagDiv => {
-                    const tag = selectedTagDiv.getAttribute('data-tag');
-                    const variantNameInput = selectedTagDiv.querySelector('input[name="variant_name[]"]');
-                    const variantValueInputs = selectedTagDiv.querySelectorAll('input[name^="variant_value_"]');
-        
-                    if (variantNameInput && variantValueInputs.length > 0) {
-                        const variantName = variantNameInput.value;
-                        const variantValues = Array.from(variantValueInputs).map(input => input.value);
-        
-                        inputData[tag] = { name: variantName, values: variantValues };
-                    }
-                });
-        
-                const attributes = Object.keys(inputData);
-                const combinations = generateCombinations(inputData);
-                console.log(combinations);
-                const tableContainer = document.getElementById('tableContainer');
-                tableContainer.innerHTML = ''; // Clear the current content
-                const table = generateTable(attributes, combinations);
-                tableContainer.appendChild(table);
-            }
-        }
-        
-    </script>
-
-    <script>
         var yValue = document.querySelector('input[name="var_added"][value="True"]');
         var errorMessageElement = document.getElementById("uploadImageErrorMessage");
         var errorMessageElement2 = document.getElementById("uploadImageErrorMessage2");
@@ -817,6 +774,18 @@
                 //Poq.style.display = "block";
                 //ProductMRP.style.display = "block";
             }
+        }
+    </script>
+    <script>
+        // Function to show uploaded image
+        function showImageForVariation(input, imageElement, uploadTextElement) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                imageElement.src = reader.result;
+                imageElement.style.display = 'block';
+                uploadTextElement.style.display = 'none';
+            };
+            reader.readAsDataURL(input.files[0]);
         }
     </script>
 {% endblock jsblock %}

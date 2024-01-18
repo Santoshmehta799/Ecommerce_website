@@ -40,14 +40,14 @@
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+										<li class="breadcrumb-item active" aria-current="page">Edit New Product</li>
 									</ol>
 								</nav>
 							</div>
 						</div>
 						<div class="row px-4">
 							<div class="col-md-12 px-3">
-								<h2 class="text-center text-black">Add New Product</h2>
+								<h2 class="text-center text-black">Edit New Product</h2>
 							</div>
 						</div>
 						<div class="row mx-2 mb-4">
@@ -107,252 +107,246 @@
                                                     </div>
 
                                                     <div id="stepper-form-4"  role="tabpanel" class="bs-stepper-pane fade active" aria-labelledby="stepperFormTrigger4">
-                                                        <form class="needs-validation"  method="POST" id="basic-info-form" novalidate="" enctype="multipart/form-data">
-                                                            {% csrf_token %}
-                                                            
-                                                            <div class="form-row">
-                                                                <div class="form-group col-md-7 mb-4">
-                                                                    <label class="form-label w-100" for="id_hsn_code">HSN Code</label>
-                                                                    <input class="form-control d-inline-block w-75" type="number" required onkeyup="validateHSN(this)" id="id_hsn_code" style="width:390px!important;" name="hsn_code">
-                                                                    <span class="d-inline-block" style="margin-top: 1px; font-size: 12px !important;display:block;">
-                                                                        <a href="https://services.gst.gov.in/services/searchhsnsac" style="color: black" target="_blank">Find Relevant HSN Code</a>
-                                                                    </span>
-                                                                   
-                                                                </div>
-                                                                {% if not product_obj.product_has_variant %}
-                                                                <div class="form-group col-md-7 mb-4">
-                                                                    <label class="form-label" for="id_price_on_request">Price on Request</label>
-                                                                    <select class="form-control" id="id_price_on_request" onchange="checkPOQ()" name="price_on_request" aria-placeholder="Price on Quotation">
-                                                                        <option selected="true" disabled="disabled" value=""></option>
-                                                                        <option value="False">No</option>
-                                                                        <option value="True">Yes</option>
-            
-                                                                        <input type="text" id="showRecieve3" name="showRecieve3" style="border:none;background-color:white;" hidden>
-                                                                           
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group col-md-7 mb-4">
-                                                                    <label class="form-label" for="id_mrp">MRP</label>
-                                                                    <input step="any" min="0" class="form-control floatsaleprice" onblur="checkSalePrice()"
-                                                                        oninput="limitDecimalPlaces(event, 2)" type="number" name="mrp" id="id_mrp" required>
-                                                                       
+                                                        {% if product_obj.product_variant %}
+                                                            <form class="needs-validation"  method="POST" id="basic-info-form" novalidate="" enctype="multipart/form-data">
+                                                                {% csrf_token %}
+                                                                
+                                                                <div class="form-row">
+                                                                    <div class="form-group col-md-7 mb-4">
+                                                                        <label class="form-label w-100" for="id_hsn_code">HSN Code</label>
+                                                                        <input class="form-control d-inline-block w-75" type="number" required onkeyup="validateHSN(this)" id="id_hsn_code" style="width:390px!important;" value="{% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}{% if obj.product_variant_price_structure %}{{obj.product_variant_price_structure.hsn_code}}{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %}" name="hsn_code">
+
+                                                                        <span class="d-inline-block" style="margin-top: 1px; font-size: 12px !important;display:block;">
+                                                                            <a href="https://services.gst.gov.in/services/searchhsnsac" style="color: black" target="_blank">Find Relevant HSN Code</a>
+                                                                        </span>
                                                                     
-                                                                </div>
-            
-                                                                <div class="form-group col-md-7 mb-4">
-                                                                    <label class="form-label w-100" for="id_sale_price">Sale Price (Sale Price will be inclusive of all taxes)</label>
-            
-                                                                    <input type="number"
-                                                                            placeholder="0.00" step="any" min="0"
-                                                                            class="form-control d-inline-block w-75 floatsaleprice" id="id_sale_price"
-                                                                            onblur="checkSalePrice()"
-                                                                            oninput="limitDecimalPlaces(event, 2); calculateTax();"
-                                                                            name="sale_price" required />
-                                                                            <!-- onchange="selectData()" -->
-                                                                    <span class="d-inline-block font-underline" style="margin-top: 1px;display:block; font-size: 12px !important;">
-                                                                        <a style="color:black;" href="" data-toggle="modal" 
-                                                                        data-target="#showBreakdown" onclick="calcu()">How much do I get</a>
-                                                                    </span>
-                                                                    <div class="text-danger" style="display:none;" id="salePriceError">Sale price cannot be greater than product MRP</div>
-                                                                   
-            
-                                                                    <input type="text" id="payment_gateway" name="payment_gateway"
-                                                                            hidden />
-                                                                    <input type="text" id="gstttt" name="gstttt" hidden />
-                                                                    <input type="text" id="sale_pricee" name="final_pricee" hidden />
-                                                                    <input type="text" id="commi" name="commi" hidden />
-                                                                    <input type="text" id="prod_comm" name="prod_comm" hidden />
-                                                                    <input type="text" id="seebreak" name="seebreak" hidden />
-                                                                    <!-- <input type="text" id="defaultSP" name="defaultSP"  hidden /> -->
-                                                                    <script type="text/javascript">
-                                                                        function limitDecimalPlaces(e, count) {
-                                                                            if (e.target.value.indexOf('.') == -1) { return; }
-                                                                            if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
-                                                                                e.target.value = parseFloat(e.target.value).toFixed(count);
-                                                                            }
-                                                                        }
-                                                                    </script>
-            
-                                                                    <!-- ===========How much do i get============== -->
-                                                                    <div class="modal fade" id="showBreakdown" tabindex="-1"
-                                                                        role="dialog" aria-labelledby="exampleModalLabel"
-                                                                        aria-hidden="true">
-                                                                        <div class="modal-dialog" role="document">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">How
-                                                                                        much do I get
-                                                                                    </h5>
-                                                                                    <button type="button" class="close"
-                                                                                        data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
-                                                                                    </button>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <div class="form-row">
-                                                                                        <div class="col-md-12"
-                                                                                            style="margin-top: 10px;margin-bottom: 15px;">
-                                                                                            <h6
-                                                                                                style="font-weight: 700;padding-left: 10px;">
-                                                                                                <i class="icon ion-pricetags"
-                                                                                                    style="padding-right: 6px;font-size: 20px;"></i>Sale
-                                                                                                Price <i
-                                                                                                    class="fa fa-rupee"></i>&nbsp;<input
-                                                                                                    style="font-weight: 700;
-                                                                                                    background-color: white;
-                                                                                                    border: none;
-                                                                                                    font-size: inherit;
-                                                                                                    font-family: inherit;
-                                                                                                    text-align: inherit;"
-                                                                                                    id="inputValue1" readonly>
-                                                                                                <br>
-                                                                                            </h6>
-                                                                                            <div style="display: flex;height: 35px;
-                                                                                                align-items: baseline;">
+                                                                    </div>
+                                                                    {% if not product_obj.product_has_variant %}
+                                                                    <div class="form-group col-md-7 mb-4">
+                                                                        <label class="form-label" for="id_price_on_request">Price on Request</label>
+                                                                        <select class="form-control" id="id_price_on_request" onchange="checkPOQ()" name="price_on_request" aria-placeholder="Price on Quotation">
+                                                                            <option selected="true" disabled="disabled" value=""></option>
+                                                                            <option value="False">No</option>
+                                                                            <option value="True">Yes</option>
+                
+                                                                            <input type="text" id="showRecieve3" name="showRecieve3" style="border:none;background-color:white;" hidden>
+                                                                            
+                                                                        </select>
+                                                                    </div>
+                                                                    <div class="form-group col-md-7 mb-4">
+                                                                        <label class="form-label" for="id_mrp">MRP</label>
+                                                                        <input step="any" min="0" class="form-control floatsaleprice" onblur="checkSalePrice()"
+                                                                            oninput="limitDecimalPlaces(event, 2)" type="number" name="mrp" id="id_mrp" value="{{product_obj.mrp}}" required>
+                                                                        
+                                                                        
+                                                                    </div>
+                
+                                                                    <div class="form-group col-md-7 mb-4">
+                                                                        <label class="form-label w-100" for="id_sale_price">Sale Price (Sale Price will be inclusive of all taxes)</label>
+                
+                                                                        <input type="number"
+                                                                                placeholder="0.00" step="any" min="0"
+                                                                                class="form-control d-inline-block w-75 floatsaleprice" id="id_sale_price"
+                                                                                onblur="checkSalePrice()"
+                                                                                oninput="limitDecimalPlaces(event, 2); calculateTax();"
+                                                                                name="sale_price" required />
+                                                                                <!-- onchange="selectData()" -->
+                                                                        <span class="d-inline-block font-underline" style="margin-top: 1px;display:block; font-size: 12px !important;">
+                                                                            <a style="color:black;" href="" data-bs-toggle="modal" 
+                                                                            data-bs-target="#showBreakdown" onclick="calcu()">How much do I get</a>
+                                                                        </span>
+                                                                        <div class="text-danger" style="display:none;" id="salePriceError">Sale price cannot be greater than product MRP</div>
+                                                                    
+                
+                                                                        <input type="text" id="payment_gateway" name="payment_gateway"
+                                                                                hidden />
+                                                                        <input type="text" id="gstttt" name="gstttt" hidden />
+                                                                        <input type="text" id="sale_pricee" name="final_pricee" hidden />
+                                                                        <input type="text" id="commi" name="commi" hidden />
+                                                                        <input type="text" id="prod_comm" name="prod_comm" hidden />
+                                                                        <input type="text" id="seebreak" name="seebreak" hidden />
+                                                                        <!-- <input type="text" id="defaultSP" name="defaultSP"  hidden /> -->
+                
+                                                                        <!-- ===========How much do i get============== -->
+                                                                        <div class="modal fade" id="showBreakdown" tabindex="-1"
+                                                                            role="dialog" aria-labelledby="exampleModalLabel"
+                                                                            aria-hidden="true">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                        <h5 class="modal-title" id="exampleModalLabel">How
+                                                                                            much do I get
+                                                                                        </h5>
+                                                                                        <button type="button" class="btn-close"
+                                                                                            data-bs-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true"></span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body">
+                                                                                        <div class="form-row">
+                                                                                            <div class="col-md-12"
+                                                                                                style="margin-top: 10px;margin-bottom: 15px;">
                                                                                                 <h6
                                                                                                     style="font-weight: 700;padding-left: 10px;">
                                                                                                     <i class="icon ion-pricetags"
-                                                                                                        style="padding-right: 6px;font-size: 20px;"></i>
-                                                                                                </h6>
-                                                                                                <h6 id="comm" style="font-weight: 700;">
-                                                                                                    {{ans}}
-                                                                                                </h6>
-                                                                                                <h6 style="font-weight: 700;"
-                                                                                                    id="percent">
-                                                                                                    %
-                                                                                                    Commission
-                                                                                                    <li class="fa fa-rupee"></li>
-                                                                                                    &nbsp;<input style="font-weight: 700;
+                                                                                                        style="padding-right: 6px;font-size: 20px;"></i>Sale
+                                                                                                    Price <i
+                                                                                                        class="fa fa-rupee"></i>&nbsp;<input
+                                                                                                        style="font-weight: 700;
                                                                                                         background-color: white;
                                                                                                         border: none;
                                                                                                         font-size: inherit;
                                                                                                         font-family: inherit;
                                                                                                         text-align: inherit;"
-                                                                                                        id="commmision" name="commi"
-                                                                                                        value="commmision"
-                                                                                                        readonly>
+                                                                                                        id="inputValue1" readonly>
+                                                                                                    <br>
                                                                                                 </h6>
-                                                                                            </div>
-                                                                                            <h6
-                                                                                                style="font-weight: 700;padding-left: 10px;">
-                                                                                                <i class="icon ion-pricetags"
-                                                                                                    style="padding-right: 6px;font-size: 20px;"></i>
-                                                                                                1.8% Payment Gateway Charges <i
-                                                                                                    class="fa fa-rupee"></i>&nbsp;<input
-                                                                                                    style=" background-color: white;
-                                                                                                    border: none;
-                                                                                                    font-weight: 700;
-                                                                                                    font-size: inherit;
-                                                                                                    font-family: inherit;
-                                                                                                    text-align: inherit;" id="pay"
-                                                                                                    name="payment_gateway" value="pay"
-                                                                                                    readonly><br>
-                                                                                            </h6>
-                                                                                            <h6
-                                                                                                style="font-weight: 700;padding-left: 10px">
-                                                                                                <i class="icon ion-pricetags"
-                                                                                                    style="padding-right: 6px;font-size: 20px;"></i>18%
-                                                                                                GST <i
-                                                                                                    class="fa fa-rupee"></i>&nbsp;<input
-                                                                                                    style=" background-color: white;
-                                                                                                    border: none;
-                                                                                                    font-weight: 700;
-                                                                                                    font-size: inherit;
-                                                                                                    font-family: inherit;
-                                                                                                    text-align: inherit;" id="ggst"
-                                                                                                    name="gstttt" value="ggst"
-                                                                                                    readonly><br>
-                                                                                            </h6>
-                                                                                            <h6 style="font-weight: 700;padding-left: 10px">
-                                                                                                <div>
+                                                                                                <div style="display: flex;height: 35px;
+                                                                                                    align-items: baseline;">
+                                                                                                    <h6
+                                                                                                        style="font-weight: 700;padding-left: 10px;">
+                                                                                                        <i class="icon ion-pricetags"
+                                                                                                            style="padding-right: 6px;font-size: 20px;"></i>
+                                                                                                    </h6>
+                                                                                                    <h6 id="comm" style="font-weight: 700;">
+                                                                                                        {{ans}}
+                                                                                                    </h6>
+                                                                                                    <h6 style="font-weight: 700;"
+                                                                                                        id="percent">
+                                                                                                        %
+                                                                                                        Commission
+                                                                                                        <li class="fa fa-rupee"></li>
+                                                                                                        &nbsp;<input style="font-weight: 700;
+                                                                                                            background-color: white;
+                                                                                                            border: none;
+                                                                                                            font-size: inherit;
+                                                                                                            font-family: inherit;
+                                                                                                            text-align: inherit;"
+                                                                                                            id="commmision" name="commi"
+                                                                                                            value="commmision"
+                                                                                                            readonly>
+                                                                                                    </h6>
+                                                                                                </div>
+                                                                                                <h6
+                                                                                                    style="font-weight: 700;padding-left: 10px;">
                                                                                                     <i class="icon ion-pricetags"
-                                                                                                        style="padding-right: 6px;font-size: 20px;"></i>You
-                                                                                                    Receive <i
+                                                                                                        style="padding-right: 6px;font-size: 20px;"></i>
+                                                                                                    1.8% Payment Gateway Charges <i
                                                                                                         class="fa fa-rupee"></i>&nbsp;<input
-                                                                                                        id="result" name="net"
-                                                                                                        readonly>
-                                                                                                    <style>
-                                                                                                        #result {
-                                                                                                        background-color: white;
-                                                                                                        font-weight: 700;
+                                                                                                        style=" background-color: white;
                                                                                                         border: none;
+                                                                                                        font-weight: 700;
                                                                                                         font-size: inherit;
                                                                                                         font-family: inherit;
-                                                                                                        text-align: inherit;
-                                                                                                        }
-                                                                                                    </style>
-                                                                                                    <br>
-                                                                                                    <p
-                                                                                                        style="margin-top: 15px; margin-left:20px; font-size: 12px;">
-                                                                                                        ( Shipping Excluded )
-                                                                                                    </p>
-                                                                                                    <p id='free'>
-                                                                                                    </p>
+                                                                                                        text-align: inherit;" id="pay"
+                                                                                                        name="payment_gateway" value="pay"
+                                                                                                        readonly><br>
+                                                                                                </h6>
+                                                                                                <h6
+                                                                                                    style="font-weight: 700;padding-left: 10px">
+                                                                                                    <i class="icon ion-pricetags"
+                                                                                                        style="padding-right: 6px;font-size: 20px;"></i>18%
+                                                                                                    GST <i
+                                                                                                        class="fa fa-rupee"></i>&nbsp;<input
+                                                                                                        style=" background-color: white;
+                                                                                                        border: none;
+                                                                                                        font-weight: 700;
+                                                                                                        font-size: inherit;
+                                                                                                        font-family: inherit;
+                                                                                                        text-align: inherit;" id="ggst"
+                                                                                                        name="gstttt" value="ggst"
+                                                                                                        readonly><br>
+                                                                                                </h6>
+                                                                                                <h6 style="font-weight: 700;padding-left: 10px">
+                                                                                                    <div>
+                                                                                                        <i class="icon ion-pricetags"
+                                                                                                            style="padding-right: 6px;font-size: 20px;"></i>You
+                                                                                                        Receive <i
+                                                                                                            class="fa fa-rupee"></i>&nbsp;<input
+                                                                                                            id="result" name="net"
+                                                                                                            readonly>
+                                                                                                        <style>
+                                                                                                            #result {
+                                                                                                            background-color: white;
+                                                                                                            font-weight: 700;
+                                                                                                            border: none;
+                                                                                                            font-size: inherit;
+                                                                                                            font-family: inherit;
+                                                                                                            text-align: inherit;
+                                                                                                            }
+                                                                                                        </style>
+                                                                                                        <br>
+                                                                                                        <p
+                                                                                                            style="margin-top: 15px; margin-left:20px; font-size: 12px;">
+                                                                                                            ( Shipping Excluded )
+                                                                                                        </p>
+                                                                                                        <p id='free'>
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                </h6>
                                                                                                 </div>
-                                                                                            </h6>
                                                                                             </div>
                                                                                         </div>
+                                                                                    
                                                                                     </div>
-                                                                                 
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                            <div class="row">
+                                                                                <div>
+                                                                                </div>
+                                                                            </div>
+                                                                    </div>
+                                                                    {% endif %}
+                                                                
+                
+                                                                    <div class="form-group col-md-7 mb-4">
+                                                                        <label class="form-label d-flex justify-content-between" for="id_tax_code">
+                                                                            <span>Tax Code</span>
+                                                                            
+                                                                        </label>
+                                                                        <select class="form-select" id="id_tax_code" title="Choose the GST Rate applicable to your product"
+                                                                            name="tax_code" required onchange="calculateTax()">
+                                                                            <option selected="true" disabled="disabled"></option>
+                                                                            {% for tax_codes in tax_code %}
+                                                                                <option value="{{ tax_codes.0 }}" {% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}{% if obj.product_variant_price_structure %}{% if obj.product_variant_price_structure.tax_code == tax_codes.0 %}selected{% endif %}{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %}>{{ tax_codes.1 }}</option>
+                                                                            {% endfor %}
+                                                                        </select>
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-7 mb-4">
+                                                                        <label class="form-label" for="id_shipping_include">Shipping Included</label>
+                                                                        <select class="form-select" id="id_shipping_include" required name="shipping_include" title="Choose whether product delivery is included in the Sale Price.">
+                                                                            <option disabled="true" selected value=""></option>
+                                                                            <option value="True" {% if product_obj.shipping_include %} selected {% endif %}>Yes</option>
+                                                                            <option value="False" {% if not product_obj.shipping_include %} selected {% endif %}>No</option>
+                                                                        </select>
+                                                                    
+                                                                    </div>
+                
+                                                                    <div class="form-group col-md-7 mb-4">
+                                                                        <label class="Minimum form-label" for="id_minimum_order_qunatity">Minimum Order Quantity</label>
                                                                         <div class="row">
-                                                                            <div>
+                                                                            <div class="col-md-3">
+                                                                                <input class="Minimum2 form-control" id="id_minimum_order_qunatity" value="{{product_obj.minimum_order_qunatity|default_if_none:''}}" type="text" name="minimum_order_qunatity" step="0.01" required>
+                                                                            
+                                                                            </div>
+                                                                            <div class=" col-md-3 Minimum5 ">
+                                                                                <select class="Minimum3 form-select" style="" name="minimum_order_qunatity_unit" id="id_minimum_order_qunatity_unit" required>
+                                                                                    <option value="" disabled selected > </option>
+                                                                                    {% for minimum_quantity in minimum_order_quantity %}
+                                                                                        <option value="{{ minimum_quantity.0 }}" {% if product_obj.minimum_order_qunatity_unit ==  minimum_quantity.0 %}selected{% endif %} >{{ minimum_quantity.1 }}</option>
+                                                                                    {% endfor %}
+                                                                                </select>
+                                                                            
                                                                             </div>
                                                                         </div>
-                                                                </div>
-                                                                {% endif %}
-                                                               
-            
-                                                                <div class="form-group col-md-7 mb-4">
-                                                                    <label class="form-label d-flex justify-content-between" for="id_tax_code">
-                                                                        <span>Tax Code</span>
                                                                         
-                                                                    </label>
-                                                                    <select class="form-control" id="id_tax_code" title="Choose the GST Rate applicable to your product"
-                                                                        name="tax_code" required onchange="calculateTax()">
-                                                                        <option selected="true" disabled="disabled"></option>
-                                                                        {% for tax_codes in tax_code %}
-                                                                            <option value="{{ tax_codes.0 }}" >{{ tax_codes.1 }}</option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                </div>
-
-                                                                <div class="form-group col-md-7 mb-4">
-                                                                    <label class="form-label" for="id_shipping_include">Shipping Included</label>
-                                                                    <select class="form-control" id="id_shipping_include" required name="shipping_include" title="Choose whether product delivery is included in the Sale Price.">
-                                                                        <option disabled="true" selected value=""></option>
-                                                                        <option id="y" value="True">Yes</option>
-                                                                        <option id="n" value="False">No</option>
-                                                                    </select>
-                                                                   
-                                                                    
-                                                                </div>
-            
-                                                                <div class="form-group col-md-7 mb-4">
-                                                                    <label class="Minimum form-label" for="id_minimum_order_qunatity">Minimum Order Quantity</label>
-                                                                    <div class="row">
-                                                                        <div class="col-md-3">
-                                                                            <input class="Minimum2 form-control" id="id_minimum_order_qunatity" type="text" name="minimum_order_qunatity" step="0.01" required>
-                                                                           
-                                                                        </div>
-                                                                        <div class=" col-md-3 Minimum5 ">
-                                                                            <select class="Minimum3 form-select" style="" name="minimum_order_qunatity_unit" id="id_minimum_order_qunatity_unit" required>
-                                                                                <option value="" disabled selected > </option>
-                                                                                {% for minimum_quantity in minimum_order_quantity %}
-                                                                                    <option value="{{ minimum_quantity.0 }}" >{{ minimum_quantity.1 }}</option>
-                                                                                {% endfor %}
-                                                                            </select>
-                                                                           
-                                                                        </div>
                                                                     </div>
-                                                                    
                                                                 </div>
-                                                            </div>
-                                                            <button class="btn btn-dark mt-3" onclick="stepperForm.previous()">PREV</button>
-                                                            <button class="btn btn-brand mt-3 btn-next-form">Next</button>
-                                                        </form>
+                                                                <button class="btn btn-dark mt-3" onclick="stepperForm.previous()">PREV</button>
+                                                                <button class="btn btn-brand mt-3 btn-next-form">Next</button>
+                                                            </form>
+                                                        {% endif %}
                                                     </div>
                                                     
                                                     <div id="stepper-form-5"  role="tabpanel" class="bs-stepper-pane fade" aria-labelledby="stepperFormTrigger5">
@@ -493,17 +487,17 @@
             var sellingPriceInput = document.getElementById('id_sale_price');
             var gstRateInput = document.getElementById('id_tax_code');
             //var taxableAmountInput = document.getElementById('taxAmount');
-            var shipCheckInput = document.getElementById('shipping_include');
+            var shipCheckInput = document.getElementById('id_shipping_include');
         
             if (poqDropdown.value === 'True') {
                 // If POQ is true, disable and clear the fields
                 markedPriceInput.removeAttribute('required');
-                markedPriceInput.setAttribute('readonly', 'true');
+                markedPriceInput.setAttribute('disabled', 'true');
                 markedPriceInput.value = null;
                 markedPriceInput.classList.add('readonly-only-highlight');
         
                 sellingPriceInput.removeAttribute('required');
-                sellingPriceInput.setAttribute('readonly', 'true');
+                sellingPriceInput.setAttribute('disabled', 'true');
                 sellingPriceInput.value = null;
                 sellingPriceInput.classList.add('readonly-only-highlight');
         
@@ -519,12 +513,12 @@
                 shipCheckInput.classList.add('readonly-only-highlight');
             } else {
                 // If POQ is false, enable and make the fields required
+                markedPriceInput.removeAttribute('disabled');
                 markedPriceInput.setAttribute('required', 'true');
-                markedPriceInput.removeAttribute('readonly');
                 markedPriceInput.classList.remove('readonly-only-highlight');
         
+                sellingPriceInput.removeAttribute('disabled');
                 sellingPriceInput.setAttribute('required', 'true');
-                sellingPriceInput.removeAttribute('readonly');
                 sellingPriceInput.classList.remove('readonly-only-highlight');
         
                 gstRateInput.removeAttribute('disabled');
@@ -1273,6 +1267,37 @@
             }
         }
 
+    </script>
+    <script>
+        function checkSalePrice() {
+            var poqDropdown = document.getElementById('id_price_on_request');
+            if (poqDropdown.value === 'False' || poqDropdown.value === '' ) {
+                var productMRPInput = document.getElementById('id_mrp');
+                var salePriceInput = document.getElementById('id_sale_price');
+                var productMRP = parseFloat(productMRPInput.value);
+                var salePrice = parseFloat(salePriceInput.value);
+                var salePriceError = document.getElementById('salePriceError');
+                if (salePrice > productMRP) {
+                    // Sale price is greater than product MRP
+                    salePriceError.style.display = 'block';
+                    salePriceInput.focus(); // Focus on the sale price input
+                }else{
+                    salePriceError.style.display = 'none';
+                }
+            }else{
+                // If poqDropdown is not 'True', do nothing
+                return;
+
+            }
+          }
+    </script>
+    <script>
+        function limitDecimalPlaces(e, count) {
+            if (e.target.value.indexOf('.') == -1) { return; }
+            if ((e.target.value.length - e.target.value.indexOf('.')) > count) {
+                e.target.value = parseFloat(e.target.value).toFixed(count);
+            }
+        }
     </script>
 
 {% endblock jsblock %}

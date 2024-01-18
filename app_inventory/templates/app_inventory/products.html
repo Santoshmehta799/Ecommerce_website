@@ -1,5 +1,6 @@
 {% extends 'seventh-square/layout/base.html' %}
 {% load static %}
+{% load auth_tag %}
 {% block title %}Seller Profile | Seventh Square Seller{% endblock title %}
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}
@@ -7,6 +8,10 @@
         .custom-model-min-width{
             min-width: 44.5%;
         }
+
+		.bg-brand-custom-main-col{
+			background-color: #F5F5F5!important;
+		}
 
     </style>
 {% endblock cssblock %}
@@ -30,23 +35,299 @@
 							<div class="col-12"> {%include 'seventh-square/layout/sidebar.html' %} </div>
 						</div>
 					</div>
-					<div class="custom-main-col-width">
+					<div class="custom-main-col-width bg-brand-custom-main-col">
 						<div class="row px-4 pt-3">
 							<div class="col-md-12">
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+										<li class="breadcrumb-item active" aria-current="page">View Product</li>
 									</ol>
 								</nav>
 							</div>
 						</div>
 						<div class="row px-4">
 							<div class="col-md-12 px-3">
-								<h2 class="text-center text-black">Addded Products</h2>
+								<h2 class="text-center text-black">View Products</h2>
 							</div>
 						</div>
 						<div class="row mx-2 mb-4">
+							<form class="needs-validation px-0" method="get" novalidate="" enctype="multipart/form-data">
+								<div class="col-12">
+									<div class="form-row">
+										<div class="col-md-8 my-1">
+											<a href="javascript:void(0);" class="btn btn-white mr-3 font-size-14">All Filter</a>
+											<div class="dropdown d-inline mb-1">
+												<button class="btn btn-white dropdown-toggle font-size-14" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+													Product Type
+												</button>
+												<div class="dropdown-menu mx-3" style="right: 1%!important;">
+													<a class="dropdown-item" href="#"><input type="checkbox" name="" id="">&nbsp;&nbsp;A to Z</a>
+													<a class="dropdown-item" href="#"><input type="checkbox" name="" id="">&nbsp;&nbsp;Z to A</a>
+												</div>
+											</div>
+											<div class="dropdown d-inline  mx-3">
+												<button class="btn btn-white dropdown-toggle font-size-14" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+													Status
+												</button>
+												<div class="dropdown-menu" style="right: 1%!important;">
+													<a class="dropdown-item" href="#"><input type="checkbox" name="" id="">&nbsp;&nbsp;Active</a>
+													<a class="dropdown-item" href="#"><input type="checkbox" name="" id="">&nbsp;&nbsp;Inactive</a>
+													<a class="dropdown-item" href="#"><input type="checkbox" name="" id="">&nbsp;&nbsp;Incomplete</a>
+												</div>
+											</div>
+										</div>
+										<div class="col-md-4 my-1 form-inline justify-content-end">
+											<div class="input-group">
+												<input type="search" class="form-control border font-size-14" placeholder="Search" name="search" id="" style="width:222px;height:33px;">
+												<div class="input-group-append">
+													<button class="btn btn-white" style="height:34px;" type="submit">
+														<i style="font-size:15px;" class="fas fa-search"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+	
+								<div class="col-12 mt-2">
+									<div class="row">
+										<div class="col-12 form-inline justify-content-end pr-1">
+											<label class="my-1 mr-2" for="inlineFormCustomSelectPref"><b>Sort By</b></label>
+											<select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" style="height:32px;">
+												<option value="" selected>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+												<option value="1">A to Z</option>
+												<option value="2">Z to A</option>
+												<option value="2">Earliest</option>
+												<option value="3">Three</option>
+											</select>
+										</div>
+									</div>
+								</div>
+							</form>
+							<div class="col-12 mt-2">
+								<div class="table-responsive">
+									<table class="table table-borderless">
+										<thead style="border:1px solid rgba(175, 185, 187, 1);">
+											<tr>
+												<tr class="text-center">
+													<th scope="col" class="px-2 pt-1 pb-4" width="9%">Sr. No.</th>
+													<th scope="col" class="px-2 pt-1 pb-4" width="9%">Product ID</th>
+													<th scope="col" class="px-2 pt-1 pb-4" width="20%">Product Title</th>
+													<th scope="col" class="px-2 pt-1 pb-4" width="18%">Product Category</th>
+													<th scope="col" class="px-2 pt-1 pb-4" width="18%">Product Type</th>
+													<th scope="col" class="px-2 pt-1 pb-4" width="13%">Added</th>
+													<th scope="col" class="px-2 pt-1 pb-4" width="12%">Sale Price</th>
+													<th scope="col" class="px-2 pt-1 pb-4" width="12%">Net disbursement</th>
+													<th scope="col" class="px-2 pt-1 pb-4" width="8%">Status</th>
+													<th scope="col" class="px-2 pt-1 pb-4" width="14%"><span>Action</span></th>
+												</tr>
+											</tr>
+										</thead>
+										<tbody class="text-center" style="background-color:white;">
+											{% for obj in product_obj %}
+													{% if obj.product_variant.all %}
+														{% for varient_obj in obj.product_variant.all %}
+															{% if varient_obj.default_variant == True %}
+																<tr>
+																	<th class="align-middle px-2 pt-1 pb-4" width="9%" scope="row">{{ forloop.parentloop.counter0|add:product_obj.start_index }}</th>
+																	<td class="align-middle px-2 pt-1 pb-4" width="9%">{{ obj.id }}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="25%">
+																		{% comment %} <a href="{% url 'previewact' obj.main.id %}" style="color: #858796;">{{ obj.main.name }}</a>  makelistofvariationstagbycomma{% endcomment %}
+																		<a href="" style="color: #858796;">{{ obj.product_title }}</a>
+																			<span class="font-size-13">{{varient_obj.value|default_if_none:''}}</span>
+																	</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="18%">{{ obj.category.name }}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="18%">{{ obj.product_type.name }}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="13%">{{ obj.created_at }}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="12%">{% if varient_obj.product_variant_price_structure %}{{varient_obj.product_variant_price_structure.sale_price|default_if_none:'-'}}{% endif %}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="12%">
+																		{% if  varient_obj.price_on_request %}
+																			Price on request
+																		{% else %}
+																			{% if varient_obj.product_variant_price_structure %}{{varient_obj.product_variant_price_structure.sale_price|default_if_none:'-'}}{% endif %}
+																		{% endif %}
+																	</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="8%">
+																		{% if obj.is_active %}
+																			<a href="javacript:void(0);" class="btn btn-sm btn-outline-success">Active</a>
+																		{% else %}
+																			<a href="javacript:void(0);" class="btn btn-sm btn-outline-white shadow-lg">Inactive</a>
+																		{% endif %}
+																	</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="14%">
+																		<div class="dropdown">
+																			<button class="btn btn-link text-dark" type="button" id="productActionsDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+																					<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+																				</svg>
+																			</button>
+																			<div class="dropdown-menu" aria-labelledby="productActionsDropdown">
+																				<a class="dropdown-item" href="/inventory/active-products/{{ obj.main.variant_product_id }}/">Edit Product</a>
+																				{% comment %} <a class="dropdown-item" href="/inventory/inventorydelete/{{ obj.main.id }}/">Delete Product</a> {% endcomment %}
+																				<a class="dropdown-item" href="/inventory/unlist-online/{{ obj.main.id }}">Unlist Product</a>
+																				{% if request.user.seller_bank_verification.is_verified %}
+																					<a class="dropdown-item" href="/inventory/list-online/{{ obj.main.id }}/">List Online</a>
+																				{% else %}
+																					<span class="dropdown-item disabled">No Bank Details added</span>
+																				{% endif %}
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															{% else %}
+																<tr>
+																	<th class="align-middle px-2 pt-1 pb-4" width="9%" scope="row">{{ forloop.parentloop.counter0|add:product_obj.start_index }}</th>
+																	<td class="align-middle px-2 pt-1 pb-4" width="9%">{{ obj.id }}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="25%">
+																		{% comment %} <a href="{% url 'previewact' obj.main.id %}" style="color: #858796;">{{ obj.main.name }}</a>  makelistofvariationstagbycomma{% endcomment %}
+																		<a href="" style="color: #858796;">{{ obj.product_title }}</a>
+																			<span class="font-size-13">{{varient_obj.value|default_if_none:''}}</span>
+																	</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="18%">{{ obj.category.name }}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="18%">{{ obj.product_type.name }}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="13%">{{ obj.created_at }}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="12%">{% if varient_obj.product_variant_price_structure %}{{varient_obj.product_variant_price_structure.sale_price|default_if_none:'-'}}{% endif %}</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="12%">
+																		{% if  varient_obj.price_on_request %}
+																			Price on request
+																		{% else %}
+																			{% if varient_obj.product_variant_price_structure %}{{varient_obj.product_variant_price_structure.sale_price|default_if_none:'-'}}{% endif %}
+																		{% endif %}
+																	</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="8%">
+																		{% if obj.is_active %}
+																			<a href="javacript:void(0);" class="btn btn-sm btn-outline-success">Active</a>
+																		{% else %}
+																			<a href="javacript:void(0);" class="btn btn-sm btn-white">Inactive</a>
+																		{% endif %}
+																	</td>
+																	<td class="align-middle px-2 pt-1 pb-4" width="14%">
+																		<div class="dropdown">
+																			<button class="btn btn-link text-dark" type="button" id="productActionsDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+																					<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+																				</svg>
+																			</button>
+																			<div class="dropdown-menu" aria-labelledby="productActionsDropdown">
+																				<a class="dropdown-item" href="{% url 'app_inventory:edit_inventory_step_1' obj.id %}">Edit Product</a>
+																				{% comment %} <a class="dropdown-item" href="/inventory/inventorydelete/{{ obj.main.id }}/">Delete Product</a> {% endcomment %}
+																				<a class="dropdown-item" href="/inventory/unlist-online/{{ obj.main.id }}">Unlist Product</a>
+																				{% if request.user.seller_bank_verification.is_verified %}
+																					<a class="dropdown-item" href="/inventory/list-online/{{ obj.main.id }}/">List Online</a>
+																				{% else %}
+																					<span class="dropdown-item disabled">No Bank Details added</span>
+																				{% endif %}
+																			</div>
+																		</div>
+																	</td>
+																</tr>
+															{% endif %}
+														{% endfor %}
+													{% endif %}
+												{% if obj.sub %}
+													{% for sub in obj.sub %}
+														<tr>
+															<th class="align-middle px-2 pt-1 pb-4" width="9%" scope="row"></th>
+															<td class="align-middle px-2 pt-1 pb-4" width="9%">#0000{{ sub.id }}</td>
+															<td class="align-middle px-2 pt-1 pb-4" width="25%">
+																{% comment %} <a href="{% url 'previewact' sub.id %}" style="color: #858796;">{{ sub.name }}</a> {% endcomment %}
+																<a href="{% url 'previewact' sub.variant_product_id %}" style="color: #858796;">{{ sub.name }}</a>
+																{% if obj.main.var_added %}<span class="font-size-13">{{obj.main.variant_value}}</span>{% endif %}
+															</td>
+															<td class="align-middle px-2 pt-1 pb-4" width="18%">{{ sub.category }}</td>
+															<td class="align-middle px-2 pt-1 pb-4" width="18%">{{ sub.subCategory }}</td>
+															<td class="align-middle px-2 pt-1 pb-4" width="13%">{{ sub.date }}</td>
+															<td class="align-middle px-2 pt-1 pb-4" width="12%">{{ sub.sellingPrice }}</td>
+															<td class="align-middle px-2 pt-1 pb-4" width="12%">
+																{% if sub.Price_on_request %}
+																	Price on request
+																{% else %}
+																	{{ sub.sellingPrice|floatformat:2 }}
+																{% endif %}
+															</td>
+															<td class="align-middle px-2 pt-1 pb-4" width="8%">
+																{% if sub.inventoryStatus %}
+																	<a href="javacript:void(0);" class="btn btn-sm btn-outline-success">Active</a>
+																{% else %}
+																	<a href="javacript:void(0);" class="btn btn-sm btn-white">Inactive</a>
+																{% endif %}
+															</td>
+															<td class="align-middle px-2 pt-1 pb-4" width="14%">
+																<div class="dropdown">
+																	<button class="btn btn-link text-dark" type="button" id="productActionsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																		<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+																			<path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+																		</svg>
+																	</button>
+																	<div class="dropdown-menu" aria-labelledby="productActionsDropdown">
+																		<a class="dropdown-item" href="{% url 'app_inventory:edit_inventory_step_1' obj.id %}">Edit Product</a>
+																		{% comment %} <a class="dropdown-item" href="/inventory/inventorydelete/{{ sub.id }}/">Delete Product</a> {% endcomment %}
+																		<a class="dropdown-item" href="/inventory/unlist-online/{{ sub.id }}">Unlist Product</a>
+																		{% if Bankdetails_done == true %}
+																			<a class="dropdown-item" href="/inventory/list-online/{{ sub.id }}/">List Online</a>
+																		{% else %}
+																			<span class="dropdown-item disabled">No Bank Details added</span>
+																		{% endif %}
+																	</div>
+																</div>
+															</td>
+														</tr>
+													{%  endfor %}
+												{% endif %}
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+	
+							<div class="col-lg-4 col-xl-3 my-2 py-0">
+								<p class="my-0 py-0 align-middle">Showing {{product_obj.start_index}}-{{product_obj.end_index}} of {{ product_obj.paginator.count }} results</p>
+							</div>
+							<div class="col-lg-8 col-xl-9 my-2 py-0">
+								{% if product_obj.has_other_pages %}
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-end my-0">
+											{% if product_obj.has_previous %}
+												<li class="page-item"><a class="page-link" href="{% relative_url product_obj.previous_page_number 'page' request.GET.urlencode %}" tabindex="-1" aria-disabled="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+													<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+												  </svg></a></li>
+											{% else %}
+												<li class="page-item disabled"><a class="page-link disabled" href="javascript:void(0);" tabindex="-1" aria-disabled="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+													<path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+												  </svg></a></li>
+											{% endif %}
+	
+											{% for i in product_obj.paginator.page_range %}
+												{% if  i == product_obj.number %}
+												<li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only">(current)</span></span></li>
+												{% else %}
+													{% if i == 0 %}
+														<li class="page-item"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+													{% else %}
+														{% if i|add:"-5" <= product_obj.number and product_obj.number <= i|add:"5" %}
+															<li class="page-item"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+														{% elif i|divisibleby:"10" or i == product_obj.paginator.num_pages %}
+															<li class="page-item"><a class="page-link" href="{% relative_url i 'page' request.GET.urlencode %}">{{ i }}</a></li>
+														{% endif %}
+													{% endif %}
+												{% endif %}
+											{% endfor %}
+	
+											{% if product_obj.has_next %}
+												<li class="page-item"><a class="page-link" href="{% relative_url product_obj.next_page_number 'page' request.GET.urlencode %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+													<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+												  </svg></a></li>
+											{% else %}
+												<li class="page-item disabled"><a class="page-link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+													<path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+												  </svg></a></li>
+											{% endif %}
+										</ul>
+									</nav>
+								{% endif %}
+							</div>
 							{% for product in product_obj %}
 								<div class="col-12">
 									<a href="{% url 'app_inventory:edit_inventory_step_1' product.id %}">{{product.id}} - {{product.product_title}}</a>

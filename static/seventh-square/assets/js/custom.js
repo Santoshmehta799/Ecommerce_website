@@ -211,3 +211,83 @@ function handleSubCategoryChange(selectElement){
       },
   });
 }
+
+function handleCityChange(selectElement){
+  var state_id = selectElement.value; 
+  var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+  console.log("url");
+
+  $.ajax({
+      url: '/dashboard/load-city/',
+      type: 'POST',
+      data: {'state_id':state_id,'csrfmiddlewaretoken':token},
+      success: function(data){
+          console.log('complete successfully.', data);
+          if (data.status == true){
+            console.log(data.data);
+              //var productType = document.getElementById('productType');
+              $("#id_city").html(data.data); 
+          }
+          else{
+              $("#id_city").html(data.data); 
+          }
+      },
+      error: function(data){
+          console.log('Check backend is not responding ....');
+      },
+  });
+}
+
+
+function handleWarehouseAddCityChange(selectElement){
+  var state_id = selectElement.value; 
+  var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+  console.log("url");
+
+  $.ajax({
+      url: '/dashboard/load-city/',
+      type: 'POST',
+      data: {'state_id':state_id,'csrfmiddlewaretoken':token},
+      success: function(data){
+          console.log('complete successfully.', data);
+          if (data.status == true){
+            console.log(data.data);
+              //var productType = document.getElementById('productType');
+              $("#id_add_warehouse_city").html(data.data); 
+          }
+          else{
+              $("#id_add_warehouse_city").html(data.data); 
+          }
+      },
+      error: function(data){
+          console.log('Check backend is not responding ....');
+      },
+  });
+}
+
+
+function handleDataIdCityChange(selectElement, id){
+  var state_id = selectElement.value; 
+  var token = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+  console.log("url");
+
+  $.ajax({
+      url: '/dashboard/load-city/',
+      type: 'POST',
+      data: {'state_id':state_id,'csrfmiddlewaretoken':token},
+      success: function(data){
+          console.log('complete successfully.', data);
+          if (data.status == true){
+            console.log(data.data);
+              //var productType = document.getElementById('productType');
+              $("#id_edit_warehouse_city_"+ id).html(data.data); 
+          }
+          else{
+              $("#id_edit_warehouse_city_"+ id).html(data.data); 
+          }
+      },
+      error: function(data){
+          console.log('Check backend is not responding ....');
+      },
+  });
+}

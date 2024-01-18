@@ -172,10 +172,8 @@
                                                                         title="Select the country where the final product was manufactured or produced.">
                                                                         <option value="" disabled selected>Select Country</option>
                                                                         {% for country_obj in country_objs %}
-                                                                            <option value="{{ country_obj.id }}" {% if country_obj.id == country_obj.country_of_origin.id %}selected{% endif %}>
-                                                                                {{ country_obj.country_of_origin }}
-                                                                            </option>
-                                                                        {% endfor %}
+                                                                            <option value="{{ country_obj.id }}" {% if country_obj.id == product_objs.country_of_origin.id %}selected{% endif %}>{{ country_obj.name }}</option>
+                                                                        {% endfor%}
                                                                     </select>
                                                                     <div class="invalid-feedback"></div>
                                                                 </div>
@@ -188,13 +186,13 @@
                                                                         <div class="col-12 text-left">
                                                                             <div class="row">
                                                                                 <div class="col-xs-6 col-xl-3">
-                                                                                    <input type="radio"
-                                                                                        name="var_added" value="True" id="id_var_added_yes" required />
+                                                                                    <input type="radio" name="var_added" value="True" id="id_var_added_yes" 
+                                                                                    {% if product_objs.product_has_variant == True %}checked{% endif %} disabled />
                                                                                     <label for="id_var_added_yes">Yes</label>
                                                                                 </div>
                                                                                 <div class="col-xs-6 col-xl-3">
-                                                                                    <input type="radio" class="ml-5"
-                                                                                        name="var_added" id="id_var_added_no" value="False" required />
+                                                                                    <input type="radio" class="ml-5" name="var_added" id="id_var_added_no"
+                                                                                    {% if product_objs.product_has_variant == False %}checked{% endif %} value="False" disabled />
                                                                                     <label for="id_var_added_no" >No</label>
                                                                                 </div>
                                                                             </div>

@@ -1,7 +1,7 @@
 import requests
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
-from app_dashboard.models import Country
+from app_dashboard.models import Country, States
 from app_inventory.models import Category, PickUpWarehouseLocation, PriceStructure, Product, ProductImage, ProductType, ProductVariant, ShippingDetails
 
 from common.enums import ProductDimensionUnitEnums, ServicedRegionsEnums,\
@@ -10,17 +10,28 @@ from common.enums import ProductDimensionUnitEnums, ServicedRegionsEnums,\
     GuaranteeEnums, TaxCodeEnums, WarrantyEnums
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
 
 @login_required
-def inventory2(request):
+def inventory(request):
     success = ""
     error = ""
     user = request.user
 
     product_obj = Product.objects.filter(seller=user)
+
+    per_page_records = 10
+    page_num = request.GET.get('page', 1)
+    paginator = Paginator(product_obj, per_page_records)
+    try:
+        product_obj = paginator.page(page_num)
+    except PageNotAnInteger:
+        product_obj = paginator.page(1)
+    except EmptyPage:
+        product_obj = paginator.page(paginator.num_pages)
     context = {
         "success": success,
         "error": error,
@@ -28,7 +39,7 @@ def inventory2(request):
     }
     return render(request, 'app_inventory/products.html', context)
 
-def inventory(request):
+def inventory2(request):
     return HttpResponse("This is inventory home page")
 
 @login_required
@@ -372,6 +383,8 @@ def add_inventory_step_5(request, product_id):
         "product_weight": ProductWeighteEnums.choices,
         "pick_up_warehouse_location": PickUpWarehouseLocation.objects.filter(seller=request.user),
         "product_obj": product,
+        "states_name" : [state.name for state in States.objects.filter(country__name='INDIA')],
+        "states_id" : [state.id for state in States.objects.filter(country__name='INDIA')]
     }
     return render(request, 'app_inventory/add_product_step_5.html',context)
 
@@ -404,28 +417,24 @@ def edit_inventory_step_1(request, product_id):
         description = request.POST.get('description')
         about_the_brand = request.POST.get('about_the_brand')
         country_of_origin_id = request.POST.get('country_of_origin')
-        product_has_variant = request.POST.get('var_added')
    
         category = Category.objects.get(id=category_id)
         product_type = ProductType.objects.get(id=product_type_id)
         country_of_origin = Country.objects.get(id=country_of_origin_id)
 
-        product = Product.objects.filter(
-            seller_id=seller_id,
-            product_title=product_title,
-            category=category,
-            product_type=product_type,
-            product_brand=product_brand,
-            description=description,
-            about_the_brand=about_the_brand,
-            country_of_origin=country_of_origin,
-            # product_has_variant=product_has_variant
-        )
+        product.product_title=product_title
+        product.category=category
+        product.product_type=product_type
+        product.product_brand=product_brand
+        product.description=description
+        product.about_the_brand=about_the_brand
+        product.country_of_origin=country_of_origin
+        product.save()
 
-        if product_has_variant == 'True':
-            return redirect('app_inventory:add_inventory_step_2', product_id=product.id)
+        if product.product_has_variant == True:
+            return redirect('app_inventory:edit_inventory_step_2', product_id=product.id)
         else:
-            return redirect('app_inventory:add_inventory_step_3', product_id=product.id)
+            return redirect('app_inventory:edit_inventory_step_3', product_id=product.id)
     
     context = {
         "success": success,
@@ -496,7 +505,7 @@ def edit_inventory_step_2(request, product_id):
         else:
             pass
 
-        return redirect('app_inventory:add_inventory_step_3', product_id=product.id)
+        return redirect('app_inventory:edit_inventory_step_3', product_id=product.id)
 
     context = {
         "success": success,
@@ -516,6 +525,11 @@ def edit_inventory_step_3(request, product_id):
         product = Product.objects.get(id=product_id, seller=user)
     except:
         raise Http404("Given query not found....")
+    
+    try:
+        product_variant_obj = ProductVariant.objects.filter(product=product)
+    except:
+        raise Http404("Given Varient query not found....")
     
     if request.method == 'POST':
         storage = request.POST.get('storage')
@@ -541,20 +555,21 @@ def edit_inventory_step_3(request, product_id):
 
 
         if not product.product_has_variant:
-            product_varient_obj, created  = ProductVariant.objects.get_or_create(product=product)
-            product_varient_obj.default_variant = True
-            product_varient_obj.save()
-            for i in range(1, 11):
-                picture_name = f"picture{i}"
-                pictures = request.FILES.get(picture_name)
-                if pictures:
-                    print("=-======>",pictures)
-                    product_image_obj = ProductImage(product_variant=product_varient_obj)
-                    print("======>>ddd",product_image_obj)
-                    product_image_obj.picture = pictures
-                    product_image_obj.save()
+            pass
+            # product_varient_obj = product_variant_obj.first()
+            # product_varient_obj.default_variant = True
+            # product_varient_obj.save()
+            # for i in range(1, 11):
+            #     picture_name = f"picture{i}"
+            #     pictures = request.FILES.get(picture_name)
+            #     if pictures:
+            #         print("=-======>",pictures)
+            #         product_image_obj = ProductImage(product_variant=product_varient_obj)
+            #         print("======>>update", product_image_obj)
+            #         product_image_obj.picture = pictures
+            #         product_image_obj.save()
 
-        return redirect('app_inventory:add_inventory_step_4', product_id=product.id)
+        return redirect('app_inventory:edit_inventory_step_4', product_id=product.id)
     
     context = {
         "success": success,
@@ -636,7 +651,7 @@ def edit_inventory_step_4(request, product_id):
             price_structure_obj.product_variant.save()
             price_structure_obj.save()
             # print('shipping_include final -->',price_structure_obj.product_variant.product.shipping_include)
-        return redirect('app_inventory:add_inventory_step_5', product_id=product.id)
+        return redirect('app_inventory:edit_inventory_step_5', product_id=product.id)
 
     context = {
         "success": success,
@@ -719,9 +734,8 @@ def edit_inventory_step_5(request, product_id):
             shipping_detail_obj.product_variant.product.save()
             shipping_detail_obj.save()
 
-
         return redirect('app_dashboard:dashboard-page')
-        
+    
     context = {
         "success": success,
         "error": error,
@@ -731,12 +745,10 @@ def edit_inventory_step_5(request, product_id):
         "product_weight": ProductWeighteEnums.choices,
         "pick_up_warehouse_location": PickUpWarehouseLocation.objects.filter(seller=request.user),
         "product_obj": product,
+        "states_name" : [state.name for state in States.objects.filter(country__name='INDIA')],
+        "states_id" : [state.id for state in States.objects.filter(country__name='INDIA')],
     }
-    return render(request, 'app_inventory/add_product_step_5.html',context)
-
-
-
-
+    return render(request, 'app_inventory/edit_product_step_5.html',context)
 
 
 def load_subcategory(request):  

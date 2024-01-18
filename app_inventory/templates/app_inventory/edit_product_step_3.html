@@ -40,14 +40,14 @@
 								<nav aria-label="breadcrumb">
 									<ol class="breadcrumb">
 										<li class="breadcrumb-item"><a class="text-dark text-decoration-none" href="/">Home</a></li>
-										<li class="breadcrumb-item active" aria-current="page">Add New Product</li>
+										<li class="breadcrumb-item active" aria-current="page">Edit Product</li>
 									</ol>
 								</nav>
 							</div>
 						</div>
 						<div class="row px-4">
 							<div class="col-md-12 px-3">
-								<h2 class="text-center text-black">Add New Product</h2>
+								<h2 class="text-center text-black">Edit Product</h2>
 							</div>
 						</div>
 						<div class="row mx-2 mb-4">
@@ -117,14 +117,14 @@
                                                                     </label>
                                                                     <textarea class="form-control" placeholder="Store in a dry place"
                                                                         name="storage" id="id_storage"
-                                                                        rows="2"></textarea>
+                                                                        rows="2">{{product_obj.storage|default_if_none:''}}</textarea>
                                                                 </div>
             
                                                                 <div class="form-group col-md-7 mb-4">
                                                                     <label class="form-label form-label-normal-font-style d-flex justify-content-between" for="id_usage"><span>Usage</span>
                                                                         <span class="optional-color">Optional</span></label>
                                                                     <textarea  id="id_usage" name="usage" placeholder="Best Use in common areas"
-                                                                        class="form-control"></textarea>
+                                                                        class="form-control">{{product_obj.usage|default_if_none:''}}</textarea>
                                                                 </div>
             
                                                                 <div class="form-group col-md-7 mb-4">
@@ -132,7 +132,7 @@
                                                                         <span>Installation</span>
                                                                         <span class="optional-color">Optional</span>
                                                                     </label>
-                                                                    <textarea name="installation" title="Mention any fitting / installing / mixing required for the product to be consumed / used." id="id_installation" class="form-control"></textarea>
+                                                                    <textarea name="installation" title="Mention any fitting / installing / mixing required for the product to be consumed / used." id="id_installation" class="form-control">{{product_obj.installation}}</textarea>
                                                                 </div>
             
                                                                 <div class="form-group col-md-7 mb-4">
@@ -140,7 +140,7 @@
                                                                         <span>Handling</span>
                                                                         <span class="optional-color">Optional</span>
                                                                     </label>
-                                                                    <textarea name="product_handling" title="Handling Procedures, if any. This could include Fragile Products , Products prone to breakage , Damage to the product / quality over a particular handling procedure." placeholder="Fragile Product. Handle with care." id="id_product_handling" class="form-control"></textarea>
+                                                                    <textarea name="product_handling" title="Handling Procedures, if any. This could include Fragile Products , Products prone to breakage , Damage to the product / quality over a particular handling procedure." placeholder="Fragile Product. Handle with care." id="id_product_handling" class="form-control">{{product_obj.product_handling}}</textarea>
                                                                 </div>
                                                                 
                                                                 <div class="form-group col-md-7 mb-4">
@@ -151,7 +151,7 @@
                                                                     <select class="form-select mt-2" name="warranty" id="id_warranty">
                                                                         <option value="" disabled selected > </option>
                                                                         {% for warranties in warranty %}
-                                                                            <option value="{{ warranties.0 }}" >{{ warranties.1 }}</option>
+                                                                            <option value="{{ warranties.0}}" {% if warranties.0 == product_obj.warranty %}Selected{% endif %} >{{ warranties.1 }}</option>
                                                                         {% endfor %}
                                                                     </select>
                                                                    
@@ -165,7 +165,7 @@
                                                                     <select class="form-select" name="guarantee" id="id_guarantee">
                                                                         <option value="" disabled selected > </option>
                                                                         {% for guaranties in guarantee %}
-                                                                            <option value="{{ guaranties.0 }}" >{{ guaranties.1 }}</option>
+                                                                            <option value="{{ guaranties.0 }}" {% if guaranties.0 == product_obj.guarantee %}Selected{% endif %} >{{ guaranties.1 }}</option>
                                                                         {% endfor %}
                                                                     </select>
                                                                 </div>
@@ -177,7 +177,7 @@
                                                                     </label>
                                                                     <input class="form-control" title="List the unique items / their quantity included in your product set / unit per order."
                                                                         placeholder="X units of Part A, Y units of Part B included in the product item." type="text" name="components_per_unit"
-                                                                        id="id_components_per_unit">
+                                                                        id="id_components_per_unit" value="{{product_obj.components_per_unit}}">
                                                                 </div>
                                                                  
                                                                 <div class="form-group col-md-7 mb-4">
@@ -185,7 +185,7 @@
                                                                         <span>Packaging size</span>
                                                                         <span class="optional-color">Optional</span>
                                                                     </label>
-                                                                    <input class="form-control" placeholder="50 kgs / 10 litres"
+                                                                    <input class="form-control" placeholder="50 kgs / 10 litres" value="{{product_obj.packaging_size|default_if_none:''}}"
                                                                         type="text" name="packaging_size" id="id_packaging_size">
                                                                 </div>
                                                                  
@@ -196,7 +196,7 @@
                                                                         <span class="optional-color">Optional</span>
                                                                     </label>
                                                                     <input class="form-control" placeholder="Aluminium, Stainless Steel, Glass"
-                                                                        type="text" name="material" id="id_material">
+                                                                        type="text" name="material" id="id_material" value="{{product_obj.material|default_if_none:''}}">
                                                                 </div>
 
                                                                 {% if not product_obj.product_has_variant %}

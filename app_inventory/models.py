@@ -90,6 +90,7 @@ class Product(ModelMixin):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
     product_has_variant = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False) 
 
     # 2. additional details (more info)
     country_of_origin = models.ForeignKey(Country, on_delete=models.CASCADE)
@@ -284,6 +285,6 @@ class ShippingDetails(ModelMixin):
         verbose_name_plural = _("Inventory - Add Shipping Fields")
     
     def __str__(self):
-        return f"{self.product_weight}"
+        return f"{self.product_variant}"
 
 

@@ -117,10 +117,7 @@ def check_mobile_or_email(field_value):
 def auth_login(request, username, password):
     status = False
     msg = ""
-    
     check_status, login_type = check_mobile_or_email(username)
-    print('---->', check_status, login_type)
-
     auth_username = None
     if check_status == True:
         if login_type == UserAuthIdentifierType.EMAIL:
@@ -139,7 +136,6 @@ def auth_login(request, username, password):
                 msg = "invalid credentials for Mobile Number Found."
         else:
             msg = " invalid credentials Found."
-
         if auth_username:
             auth_user = auth.authenticate(
                 username = username,

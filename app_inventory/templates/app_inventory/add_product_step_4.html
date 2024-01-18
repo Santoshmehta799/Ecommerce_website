@@ -150,8 +150,8 @@
                                                                             name="sale_price" required />
                                                                             <!-- onchange="selectData()" -->
                                                                     <span class="d-inline-block font-underline" style="margin-top: 1px;display:block; font-size: 12px !important;">
-                                                                        <a style="color:black;" href="" data-toggle="modal" 
-                                                                        data-target="#showBreakdown" onclick="calcu()">How much do I get</a>
+                                                                        <a style="color:black;" href="" data-bs-toggle="modal" 
+                                                                        data-bs-target="#showBreakdown" onclick="calcu()">How much do I get</a>
                                                                     </span>
                                                                     <div class="text-danger" style="display:none;" id="salePriceError">Sale price cannot be greater than product MRP</div>
                                                                    
@@ -183,9 +183,9 @@
                                                                                     <h5 class="modal-title" id="exampleModalLabel">How
                                                                                         much do I get
                                                                                     </h5>
-                                                                                    <button type="button" class="close"
+                                                                                    <button type="button" class="btn-close"
                                                                                         data-dismiss="modal" aria-label="Close">
-                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                    <span aria-hidden="true"></span>
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
@@ -493,17 +493,17 @@
             var sellingPriceInput = document.getElementById('id_sale_price');
             var gstRateInput = document.getElementById('id_tax_code');
             //var taxableAmountInput = document.getElementById('taxAmount');
-            var shipCheckInput = document.getElementById('shipping_include');
+            var shipCheckInput = document.getElementById('id_shipping_include');
         
             if (poqDropdown.value === 'True') {
                 // If POQ is true, disable and clear the fields
                 markedPriceInput.removeAttribute('required');
-                markedPriceInput.setAttribute('readonly', 'true');
+                markedPriceInput.setAttribute('disabled', 'true');
                 markedPriceInput.value = null;
                 markedPriceInput.classList.add('readonly-only-highlight');
         
                 sellingPriceInput.removeAttribute('required');
-                sellingPriceInput.setAttribute('readonly', 'true');
+                sellingPriceInput.setAttribute('disabled', 'true');
                 sellingPriceInput.value = null;
                 sellingPriceInput.classList.add('readonly-only-highlight');
         
@@ -519,12 +519,12 @@
                 shipCheckInput.classList.add('readonly-only-highlight');
             } else {
                 // If POQ is false, enable and make the fields required
+                markedPriceInput.removeAttribute('disabled');
                 markedPriceInput.setAttribute('required', 'true');
-                markedPriceInput.removeAttribute('readonly');
                 markedPriceInput.classList.remove('readonly-only-highlight');
         
+                sellingPriceInput.removeAttribute('disabled');
                 sellingPriceInput.setAttribute('required', 'true');
-                sellingPriceInput.removeAttribute('readonly');
                 sellingPriceInput.classList.remove('readonly-only-highlight');
         
                 gstRateInput.removeAttribute('disabled');
