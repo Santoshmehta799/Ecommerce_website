@@ -4,16 +4,266 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row p-5">
-        <!-- Messages Start -->
-        {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
-        <!-- Messages END -->
-        <div class="col-12">
-            this is cancellation return policy page 
+  <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+    <ol class="breadcrumb m-0" id="journey" style="background-color: #fff;padding: 2px 20px;">
+        <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">cancellation & returns
+        </li>
+    </ol>
+  </nav>
+  <div class="register-photo" style="padding-top: 10px; background: rgb(255, 255, 255); padding-bottom: 0px">
+    <h1 class="text-center" style="margin: 20px; font-family: 'crimson text' !important; color: black">
+        CANCELLATION & RETURNS
 
-        </div>            
+    </h1>
+
+
+    <div class="text-center canv" style="padding: 0% 15%">
+        <button onclick="topFunction()" id="myBtn" title="Go to top" style="position: sticky;  top:90%; float: right;">
+            <i class="fa fa-chevron-up"></i>
+        </button>
+        <div class="tab-content text-left pt-5 p-4" id="myTabContentJust" style="border: none; color: black">
+            <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+                <h3 class="text-para-small" style="font-size:initial !important;font-weight: 300;">
+                    Cancellations & Returns are a normal part of most sales operations. Seventh Square strives to ensure
+                    that the purchase & sale process is seamless and convenient for both parties.
+
+                    <br /><br />
+                    CANCELLATION :
+
+                    <br /><br />
+                    Seller Cancellation :
+
+                  <br />In cases of orders marked under seller cancellation, sellers are liable to be charged
+                    the Marketplace Fee, including Marketplace commission, Payment Processing Fee, Shipping Charge (if
+                    applicable), Fixed Cancellation Fee and Service Tax for the order item. This charge is adjusted
+                    against any available balance in your account with Seventh Square.
+
+
+                    <br /><br />
+                    Why are seller cancellation charges levied ?
+
+                    <br />
+                    Seller Cancellation Charges are levied to cover the platform expenses for processing the order including Payment Collection, Refund & Buyer Customer Support. Also, cancelled orders are perceived negatively by the buyers, which also hurts the platform & seller’s credibility.
+
+
+                    <br /><br />
+                    Cases under which orders are marked under Seller Cancellation 
+                    <br />
+                    <ol>
+                        <li>Seller manually cancels the order received </li>
+                        <li>Seller fails to update order status appropriately in the Seller Panel, the platform, at its discretion can cancel the order after communicating with the seller regarding the issue.</li>
+                        <li>Seller fails to fulfil the order on time at any order stage, the platform, at its discretion can cancel the order after communicating with the seller regarding the issue.</li>
+                        <li>Cancellations by Buyers in case of delay in Shipping or Delivery of Order when Seller is shipping the product. </li>
+                    </ol>
+                    <br /><br />
+                    Till when can Sellers cancel any order ?
+
+                    <br />
+                    Sellers have the option to cancel any order up until the Ship by date. 
+
+                    <br /><br>Buyer Cancellation : 
+  <br>
+  Buyers can also cancel their order once placed. 
+
+                    <br /><br>
+                    <ul>
+                        <li>Different products have different cancellation timelines before which buyers can successfully cancel their order for full refund. Read the Buyer cancellation policy to know more about this.
+                        </li>
+                        <li>Orders which are customized cannot be canceled once placed. 
+                        </li>
+                    </ul>
+                    <br />
+                    Other Cancellation Cases : 
+
+                    <br />
+                    Order Cancellations can also happen where both Buyer and Seller are not at fault. Some examples include:
+                    <br /><br>
+                    <ol>
+                        <li>
+                            Pick up scheduling error due to technical glitch in the platform 
+                        </li>
+                        <li>
+                            No Pickup for the order when scheduled. 
+                        </li>
+                    </ol>
+  <br>
+  RETURNS : 
+  <br>For any order returned by the customer, refund will be issued to the customer after item/s are returned to the seller. Products which are marked non-returnable by you while adding product, will be non-returnable once delivered and will be shown as ‘non-returnable’ to the customers on the product page.
+  <br>For some return cases, Costs incurred by the platform for processing and delivering the order are passed on to the seller. The same has been defined below where ‘Seller charges are applicable’.
+
+  <br><br>Returns can be classified in two segments : Return in Transit and Return by Customer 
+  <br>
+  Cases of Return in Transit / Return to Origin (RTO) : 
+  <ol>
+    <li>Address not found</li>
+    <li>Buyer not present to accept order</li>
+    <li>Buyer didn’t accept order
+    </li>
+  </ol>
+  <br>
+  Cases of Return by Customer : 
+
+  <ol>
+    
+    <li>Manufacturing defect (Seller Charges applicable)
+    </li>
+    <li>Product not what was ordered (Seller Charges applicable)</li>
+    <li>Order Items incomplete (Seller Charges applicable)</li>
+    <li>Buyer didn’t like the product</li>
+    <li>Damaged product received (Seller Charges applicable)</li>
+    <li>Product different than what was described on the product page (Seller Charges applicable)
+    </li>
+
+  </ol><style>
+    table, th, td {
+      border:1px solid black;
+    }
+    </style>
+    Returnable / Non-Returnable Items : 
+  <br>    
+                    <br>
+                    <table style="width:100%">
+                        <tr>
+                          <th>Category / Product Type</th>
+                          <th>Action Possible</th>
+                          <th>Return Timeline</th>
+                        </tr>
+                        <tr>
+                          <td>Cement</td>
+                          <td>Non Refundable / Returnable / Exchangeable</td>
+                          <td>NA</td>
+                        </tr>
+                        <tr>
+                          <td>Bricks</td>
+                          <td>Non Refundable / Returnable / Exchangeable</td>
+                          <td>NA</td>
+                        </tr>
+                        <tr>
+                            <td>Steel</td>
+                            <td>Non Refundable / Returnable / Exchangeable</td>
+                          <td>NA</td>
+                          </tr>
+                          <tr>
+                            <td>Aggregates</td>
+                            <td>Non Refundable / Returnable / Exchangeable</td>
+                          <td>NA</td>
+                          </tr>
+                          <tr>
+                            <td>Ready Mix Concrete</td>
+                            <td>Non Refundable / Returnable / Exchangeable</td>
+                          <td>NA</td>
+                          </tr>
+                          <tr>
+                            <td>Boards & Sheets</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Architectural Glass</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Pipes & Fittings</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Sanitaryware</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Electrical</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Construction Chemicals</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Doors & Windows</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Flooring & Wall</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Paints & Finishes</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Hardware</td>
+                            <td>Refundable / Returnable / Exchangeable</td>
+                            <td>7 days</td>
+                          </tr>
+                          <tr>
+                            <td>Modular Kitchen & Bath</td>
+                            <td>Non Refundable / Returnable / Exchangeable</td>
+                            <td>NA</td>
+                          </tr>
+                          <tr>
+                            <td>Roofing</td>
+                            <td>Non Refundable / Returnable / Exchangeable</td>
+                            <td>NA</td>
+                          </tr>
+                      </table>
+                      <br>
+                      Note : Your decision, whether to keep your product ‘returnable’ or ‘non-returnable’ is up to you only. Whether or not a product is ‘returnable’ as per our policies, what you choose while adding the product is the final applicability for the particular product. 
+  <br><br>Refund & Replacement : 
+  <br>Customers can return your products for a refund or a replacement. 
+  <br>Cases in which they can ask for a refund : <br><br>
+  <ol>
+    <li>
+        Product is not what was ordered
+
+    </li>
+    <li>Product does not match the description or details provided by the seller
+    </li>
+  </ol>
+  <br>
+  In the following cases, the buyer can ask for / the seller can offer replacement instead of refunding the order : 
+  <br><br>
+  <ol>
+    <li>Manufacturing defect found on delivery
+    </li>
+    <li>Product delivered to buyer is not what was ordered</li>
+    <li>Buyer has received an incomplete order</li>
+    <li>Buyer has received a damaged product</li>
+    <li>Buyer has received a product which is different than what was described on the product page</li>
+    <li>Product is under warranty by manufacturer</li>
+
+  </ol>
+  <br>
+  Cases in which customers cannot ask for replacement / refund : 
+  <br><br>
+  <ol>
+    <li>Product is damaged during the possession of the customer
+    </li>
+    <li>Product handed back is different from what was originally shipped
+    </li>
+    <li>Return & Refund timeline is already passed
+    </li>
+  </ol>
+  <br><br>For products, which are not returnable or have crossed their returnable timelines, customers can avail replacement only in case of product’s warranty, if applicable
+
+  <br><br>It is advised to keep up proper communication and status updates on the platform for smooth order processing. 
+  <br><br>
+  For any queries regarding seller cancellation and related charges, please reach out to us at <br><u>seller@seventhsq.com</u>
+                    <br /><br />
+                </h3>
+            </div>
+        </div>
     </div>
-</div>
+  </div>
+
+
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}

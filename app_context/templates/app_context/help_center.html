@@ -4,16 +4,319 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row p-5">
-        <!-- Messages Start -->
-        {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
-        <!-- Messages END -->
-        <div class="col-12">
-            this is help center page 
 
-        </div>            
-    </div>
-</div>
+    <nav aria-label="breadcrumb" style="font-size: 15px;">
+        <ol class="breadcrumb" id="journey"style="background-color: #fff;padding: 2px 20px;margin-bottom: 0px!important;">
+        <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">help-center<span id="lastword"></span></li>
+        </ol>
+    </nav>
+        <div style="margin: 6px; background-color: #fff;">
+
+            <div style="font-size: 20px;margin: 5px; text-align: center; ">
+                <h1 style="
+            padding-top: 30px;
+            font-size: 30px;
+            color: #4f5052;
+            font-weight: 500;
+            font-family: crimson;">
+                    Help Center
+                </h1>
+            </div>
+
+            <div class="first">
+                <div class="icons">
+                    <a href="/help-center/getting-started">
+                        <img src="{% static 'seventh-square/assets/img/Help Center Icons6.png' %}"
+                            style="margin-bottom: 10px; height:110px; margin-left: 35px;">
+                        <h3 id="subhed" >Getting Started</h3>
+                    </a>
+                </div>
+                <div class="icons">
+                    <a href="/help-center/manage-your-account" >
+                        <img id="imgg" src="{% static 'seventh-square/assets/img/Help Center Icons7.png' %}"
+                            alt="Card image cap">
+                        <h3 id="subhed">Manage your account</h3>
+                    </a>
+                </div>
+                <div class="icons">
+                    <a href="/help-center/adding-products">
+                        <img src="{% static 'seventh-square/assets/img/Help Center Icons8.png' %}"
+                            style="margin-bottom: 10px; height: 110px; margin-left: 35px;">
+                        <h3 id="subhed" >Adding Products</h3>
+                    </a>
+                </div>
+            </div>
+            <style>
+                @media (max-width: 600px) {
+                    #line {
+                    display: none !important;
+                    }
+                }
+            </style>
+            <div id="line">
+                <div class="container" style="
+                border: solid 1px rgb(175, 167, 167);
+                width: 100%;
+            ;">
+                </div>
+            </div>
+            <!-- ----------------------------------------------------------second----------------------------------- -->
+
+            <div class="first">
+                <div class="icons">
+                    <a href="/help-center/processing-orders">
+                        <img src="{% static 'seventh-square/assets/img/Help Center Icons9.png' %}"
+                            style="margin-bottom: 10px;height: 110px; margin-left: 35px;">
+                        <h3 id="secondSubhed" style="
+                        
+                    ">Processing Orders</h3>
+                    </a>
+                </div>
+                <div class="icons">
+                    <a href="/help-center/pricing-payments">
+                        <img src="{% static 'seventh-square/assets/img/Help Center Icons10.png' %}"
+                        id="imggg">
+                        <h3 id="secondSubhed" style="
+                    ">Pricing &
+                            Payments
+                        </h3>
+                    </a>
+                </div>
+                <div class="icons">
+                    <a href="/help-center/shipping-returns">
+                        <img src="{% static 'seventh-square/assets/img/Help Center Icons11.png' %}"
+                            id="imgggg">
+                        <h3 id="secondSubhed" style="
+                    ">Shipping &
+                            Returns
+                        </h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--        
+                <div class="col-3" style="justify-content: space-between;display: grid;">
+                    <a href="Process_order" style="justify-content: space-between;display: grid;">
+        
+                    <i class="fas fa-truck fa-10x" style="align-items: center;justify-content: center;align-content: center;display: flex; color: black;"></i>
+                    
+                            
+                            <p  style="align-items: center;justify-content: center;align-content: center;display: flex;margin: 0;padding: 0;color: black;">
+                                Processing Orders        </p>
+                                </a>
+                
+                </div> -->
+
+
+        <!-- <div class="row">
+            <div class="col-3" style="justify-content: space-between;display: grid;"> -->
+
+        <!-- <img src="/static/staticfiles/email/ruppe.png" width="80%"> -->
+        <!-- <a href="Pricing" style="justify-content: space-between;display: grid;">
+                <i class="fas fa-rupee-sign fa-10x" style="align-items: center;justify-content: center;align-content: center;display: flex; color: black;"></i>
+
+                    <p  style="align-items: center;justify-content: center;align-content: center;display: flex;margin: 0;padding: 0;color: black;">
+
+                    Pricing & Payments    </p>
+    </a>
+            </div> -->
+        <!-- <div class="col-3" style="justify-content: space-between;display: grid;">
+    <a href="Shipping">
+                <i class="fas fa-truck fa-10x" style="align-items: center;justify-content: center;align-content: center;display: flex; color: black;"></i>
+                
+                        
+                        <p  style="align-items: center;justify-content: center;align-content: center;display: flex;margin: 0;padding: 0;color: black;">
+                        Shipping & Returns    </p>
+                        </a>
+            </div> -->
+
+
+        <!-- <div class="col-3"> -->
+        <!-- <img src="/static/staticfiles/email/bag.png">
+                <p style="align-items: center;justify-content: center;align-content: center;display: flex;">Advertising </p>
+                -->
+        <!-- </div> -->
+        <!-- <div class="col-3" style="justify-content: space-between;display: grid;">
+
+                <i class="fas fa-volume-up  fa-10x"  style="align-items: center;justify-content: center;align-content: center;display: flex; color: black;"></i>
+                    <p  style="align-items: center;justify-content: center;align-content: center;display: flex;margin: 0;padding: 0;">
+                    
+                    Advertising </p>
+                
+    </div> -->
+        <!-- </div> -->
+
+
+        <div style="margin: 6px; background-color: #fff;margin-top: 14px; ">
+            <div style="display: flex;justify-content: space-between; margin-bottom: 40px;">
+                <h4> <a id="popular" href="/learningcenter"
+                        >
+                        Popular Articles
+                    </a>
+                </h4>
+                <a id="Learning" href="/learningcenter"
+                    >
+                    Go to Learning Center 
+                </a>
+            </div>
+            <div class="Articles">
+                {% for p in popular_blog %}
+                <div class=" Articles1">
+                    <h6 style="color: #3a3b3c; font-weight: 700;">{{p.title}}</h6>
+                    <p>{{p.created}}</p>
+                    <a style="  text-decoration: underline;" class="date" href="{% url 'detail' p.slug %}">
+                        Read More
+                    </a>
+                </div>
+                {% endfor %}
+
+            </div>
+            </br>
+            <div style="display: flex;justify-content: space-between;  margin-top: 61px;margin-bottom: 30px;">
+                <h4><a id="Queries"
+                        style=" ">
+                        Popular Queries
+                    </a>
+                    
+                </h4>
+                <a href="/faq" id="FAQs"
+                    style="">
+                    Go to FAQs 
+                </a>
+            </div>
+
+            <div class="Articles">
+                {% for p in posts %}
+                <div class=" Articles1">
+                    <h6 style="color: #3a3b3c; font-weight: 700;">{{p.question}}</h6>
+                    <p>{{p.created}}</p>
+                
+                </div>
+                {% endfor %}
+    <!-- 
+                <div class="Articles1">
+                    <h6 style="color: #3a3b3c; font-weight: 700;">start selling .....</h6>
+                    <a style="text-decoration: underline;" href="#">Read More ></a>
+                </div>
+                <div class="Articles1">
+                    <h6 style="color: #3a3b3c; font-weight: 700;">Manage your account </h6>
+                    <a style="text-decoration: underline;" href="#"> Read More ></a>
+                </div>
+                <div class="Articles1">
+                    <h6 style="color: #3a3b3c; font-weight: 700;">Adding Products</h6>
+                    <a style="text-decoration: underline;" href="#"> Read More ></a>
+                </div>
+                <div class="Articles1">
+                    <h6 style="color: #3a3b3c; font-weight: 700;">Processing Orders</h6>
+                    <a href="#"> Read More ></a>
+                </div>
+                <div class="Articles1">
+                    <h6 style="color: #3a3b3c; font-weight: 700;">Processing Orders</h6>
+
+                    <a style="text-decoration: underline;" href="#"> Read More ></a>
+
+                </div> -->
+            </div>
+        </div>
+
+
+        <div class="mt-5" style="
+    background: #fff;
+    margin: 4px;
+    margin-top: 15px;
+    padding: 5px;
+    margin-bottom: -33px;">
+            <h4 style="padding-top: 30px; color: #3a3b3c; text-align: center;font-weight: 700;">
+                Still looking for Help?
+            </h4>
+            <p style="
+        padding-top: 30px;
+        font-size: 20px;
+        color: rgb(156, 147, 147);
+        text-align: center;">
+                Talk to us using any of the options below
+            </p>
+            <div class="contact1">
+                <div class="contact2">
+                    <h4 style="
+            font: 700;
+            font-weight: 700;
+            text-align: center;">
+                        WRITE TO US
+                    </h4>
+                    <form method="post" action="/help-center/">
+                        {% csrf_token %}
+                        <div style="
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px">
+                            <label style="font-size: 13px">Phone / Email</label>
+
+                            <input type="text" name="pho" style="
+                width: 350px;
+                height: 30px;
+                background: #ececec;
+                border: none;" />
+                        </div>
+                        <div style="
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;" >
+                            <label style=" font-size: 13px;">Select Subject</label>
+
+                            <input type="text" name="sub" style="
+                width: 350px;
+                height: 30px;
+                background: #ececec;
+                border: none;" />
+                        </div>
+                        <div style="
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;">
+                            <label style="font-size: 13px">Description</label>
+
+                            <input type="text" name="des" id="name" style="
+                width: 350px;
+                height: 30px;
+                background: #ececec;
+                border: none;" />
+                        </div>  
+                        <div style="
+            margin: 50px;
+            display: flex;
+            justify-content: end;
+            margin-right: 10%;
+            margin-top: 50px;
+            color: #fff; " >
+                            <button onclick="showme()"  type="submit" class="btn btn-dark">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="contact3">
+                    <div class="contact4">
+                        <i style="margin-right: 15px;margin-top: -8px; background-color: #0c0c0c; color: rgb(255, 255, 255); padding: 10px; border-radius: 50%;"
+                            class="fa fa-phone fa-1x"></i>
+                        <h2>Call at +91-9024139976</h2>
+                    </div>
+
+                    <div class="contact4">
+                        <i class="fa fa-envelope"
+                            style="margin-right: 15px; margin-top: -8px; background-color: #0c0c0c; color: rgb(255, 255, 255); padding: 10px; border-radius: 50%;"></i>
+
+                        <h2>Email at seller@seventhsq.com</h2>
+                    </div>
+
+                    <div class="contact4"><a style="color: black;"
+                        href="https://wa.me/message/OLL6KCHRBWPUD1" target="_blank">
+                        <i style="margin-right: 15px;" class="bi bi-whatsapp fa-2x"></i></a>
+                        <h2 style="margin-top: 14px;"><a style="color: black;"
+                            href="https://wa.me/message/OLL6KCHRBWPUD1" target="_blank">Whatsapp at +91-9024139976</h2></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}

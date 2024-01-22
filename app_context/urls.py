@@ -13,7 +13,7 @@ urlpatterns=[
     path('guidelines/', views.guidelines, name="guidelines"),
 
     # resources
-    path('sell-with-us/', views.sell_with_us, name="cancellation-return-policy"),
+    path('sell-with-us/', views.sell_with_us, name="sell-with-us"),
     path('how-it-work/', views.how_it_work, name="how-it-work"),
     path('advertise-with-us/', views.advertise_with_us, name="advertise-with-us"),
     path('pricing-and-commission/', views.pricing_and_commission, name="pricing-and-commission"),

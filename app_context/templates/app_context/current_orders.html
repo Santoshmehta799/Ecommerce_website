@@ -4,16 +4,29 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row p-5">
-        <!-- Messages Start -->
-        {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
-        <!-- Messages END -->
-        <div class="col-12">
-            this is current order page 
-
-        </div>            
+    <div class="container-fluid theme-bg-color">
+        <div class="row py-5 mx-auto">
+            <div class="col-md-12 text-center">
+                <div class="col-md-8 text-center mx-auto">
+                    <h2 class="text-white">Get notified on launch and upcoming offers!</h2>
+                    <form>
+                        <div class="form-row">
+                            <div class="col pr-0 mt-3">
+                                <input type="email" style="height: 56px;" class="form-control d-inline-block w-80 font-size-20" id="emailInput" placeholder="Enter Email">
+                                <button class="btn btn-white border-1 d-inline-block w-20 font-size-17" type="submit" style="height: 56px;">Get Notified</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-8 text-center mx-auto mt-5" style="height:345.35px;">
+                   <img class="d-inline-block" style="width:358.07px;height:345.35px;" src="{% static 'seventh-square/assets/img/box-posing-with-blank.png' %}" ref="Not found">
+                   <img class="d-inline-block align-bottom" style="width:300.38px;height:118.75px;margin-left:-16px;margin-bottom:59px;" src="{% static 'seventh-square/assets/img/image 10.png' %}" ref="Not found">
+                </div>
+                <div class="col-md-8 text-center mx-auto mt-4">
+                    <a href="/" class="btn btn-bg btn-white font-size-20">Back to Homepage</a>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}

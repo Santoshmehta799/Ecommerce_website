@@ -4,16 +4,116 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row p-5">
-        <!-- Messages Start -->
-        {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
-        <!-- Messages END -->
-        <div class="col-12">
-            this is price-commission page 
 
-        </div>            
+    <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+        <ol class="breadcrumb m-0" id="journey" style="background-color: #fff;padding: 2px 20px;">
+            <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Pricing & Commission</li>
+        </ol>
+    </nav>
+    <div class="container">
+
+        <div class="row first">
+            <!-- <div class="row link">
+                <p><a href="#">Home</a> &nbsp; / &nbsp;  Pricing & Commission</p>
+            </div> -->
+            <div class="d-flex main" id="first_row">
+                <div class="col-7 ">
+                    <h1>Pricing & Commission</h1>
+                    <hr>
+                    <h3>Understand the math behind payments and cost at Seventh Square.</h3>                  
+                </div>
+                <div class="col-5 col-sm-7">
+                    <img  src="https://raw.githubusercontent.com/Aastha2891/Seventh_Square/master/Pricing%26Commission/img/Untitled%20design%20(3).png" alt="Image">
+                </div>
+            </div>
+        </div>
+        <div class="row second">
+            <h1>Basics</h1>
+            <div class="row">
+                <div class="ele">
+                    <div class="component">
+                        <p> Sale Price</p>
+                    </div>
+                    <p>Amount paid by the customer on purchase of product</p>
+                </div>
+                <hr class="minus">
+                <div class="ele">
+                    <div class="component">
+                        <p> Marketplace Commission</p>
+                    </div>
+                    <p>Includes Commission based on Product,Payment collection fee (if applicable)</p>
+                </div>
+                <hr class="minus">
+                <div class="ele">
+                    <div class="component">
+                        <p> Service GST 18%</p>
+                    </div>
+                    <p>GST applicable on Marketplace Commission</p>
+                </div>
+                <hr class="equals">
+                <div class="ele">
+                    <div class="component">
+                        <p> Settlement Amount</p>
+                    </div>
+                    <p>Amount transferrable to your account for the product sale</p>
+                </div>
+            </div>
+            <div class="row">
+                <p>For example, if price paid by the customer is INR 1000 (excluding delivery) and Product commission is 5%
+                    and payment collection fee is 1.8%, then the calculation would look something like this below (delivery charges are
+                    separately settled in this case)
+                    </p>
+            </div>
+            <div class="row">
+                <div class="ele">
+                    <div class="component">
+                        1000
+                    </div>
+                </div>  
+                <hr class="minus">
+                <div class="ele">
+                    <div class="component">
+                        68 (50 + 18)
+                    </div>
+                </div>  
+                <hr class="minus">
+                <div class="ele">
+                    <div class="component">
+                        12.24 (68 X 18%)
+                    </div>
+                </div>  
+                <hr class="equals">
+                <div class="ele">
+                    <div class="component">
+                        919.76
+                    </div>
+                </div>  
+            </div>
+            <div class="row">
+                <p>Check the same for any price and situation with our <a href="https://seller.seventhsq.com/pricecalculator/">Price Calculator</a></p>
+            </div>
+        </div>
+        <div class="row third">
+            <h1>How does delivery work?</h1>
+            <p>Sellers have the option to deliver the products themselves or with us. Here's how it looks :<br>
+            <strong>1. Inclusive Delivery</strong> : Delivery charges are included in the product sale price and customer pays no extra
+            shipping.<br>
+            <strong>2. Exclusive Delivery</strong> : Delivery charges are excluded from sale price and customer pays shipping extra as
+            per location and product weight<br>
+            Both these options are available whether seller chooses self shipping or Shipping with Seventh Square
+            </p>
+        </div>
+        <div class="row third">
+            <h1>What is payment collection fee ?</h1>
+            <p>This is the fee charged by payment gateways and delivery operators for collection of payment. This is
+                only applicable if the customer pays using payment gateway on the platform or by cash on delivery.
+                This is flat at 1.8% and is charged from the sale price of the product along with 18% GST on it.
+            </p>
+            <p>Still have some questions ? Check out <a href=" https://seller.seventhsq.com/faq/tag/pricing/">Payment FAQs</a> or reach out to us <a href="/contact-us/">here</a> </p>
+        </div>
     </div>
-</div>
+
 {% endblock content %}
+
 {% block jsblock %}{% endblock jsblock %}

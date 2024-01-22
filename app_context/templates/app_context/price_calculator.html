@@ -4,16 +4,117 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row p-5">
-        <!-- Messages Start -->
-        {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
-        <!-- Messages END -->
-        <div class="col-12">
-            this is price calculation page 
+  <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+    <ol class="breadcrumb m-0" id="journey" style="background-color: #fff;padding: 2px 20px;">
+      <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Price Calculator</li>
+    </ol>
+  </nav>
 
-        </div>            
+  <div class="row" style="margin: 30px 0px;">
+    <div class="col-12 col-md-3"></div>
+    <div class="col">
+      <!-- <div class="wrap-contact100"> -->
+      <form class="contact100-form validate-form"
+        style="padding: 40px 20px; border-radius: 5px; box-shadow: 0px 0px 6px;">
+        <span class="contact100-form-title" style="font-family: 'Source Serif Pro', serif;">Price Calculator</span>
+
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label requiredLabel" for="">Category</label>
+          <div class="col-sm-4">
+
+              <select name="category" class="form-control" id="subCategory">
+
+                  <option disabled="true" selected>-- Select Category --</option>
+                  {% for pickups in cate %}
+                  <option value="{{pickups.name}}">                               
+                  <h1>{{ pickups.name}}</h1>
+                  </option>
+                  {% endfor %}
+              </select>
+          </div>
+          <label class="col-sm-2 col-form-label requiredLabel" for="">Product Type</label>
+          <div class="col-sm-4">
+
+              <select class="form-control" list="datalistOptions" id="productType"
+              placeholder="Type your Product Name" name="subCategory" >
+              <option disabled="true" selected>Firstly Select Category </option>     
+              </select>
+          </div>
+      </div>
+      
+
+        <!-- <div class="wrap-input100 validate-input" data-validate="Name is required">
+          <label><strong>Product Weight(in g)&nbsp;</strong>
+            <i class="fa fa-question-circle-o" data-toggle="tooltip" data-bs-tooltip="" style="font-size: 12px;"
+              title="Final Volumetric Weight Of The Packed Box"></i></label>
+          <div class="input100"><input type="text" name="wt" id="wgt"></div>
+          <span class="focus-input100"></span>
+        </div> -->
+
+        <!-- <div class="form-group"><select required class="form-control" id="cs1" onchange="sasa();"
+            style="width:100%; height:35px; border: none;">
+            <option value=1 selected>Ship With Seventh Square</option>
+            <option value=0>Self Shipping</option>
+          </select></div> -->
+
+        <div class="wrap-input100 validate-input" data-validate="Name is required">
+          <label><strong>Amount That Customer Pays&nbsp;</strong>
+            <i class="fas fa-question-circle" data-toggle="tooltip" data-bs-tooltip="" style="font-size: 12px;"
+              title="Price At Which Customers Purchase This Product"></i></label>
+          <div class="input100"><i class="fa fa-rupee">&nbsp;</i><input type="text" id="sal" placeholder="Enter Amount"
+              oninput="calcu();" ></div>
+          <span class="focus-input100"></span>
+        </div>
+
+        <div style="color: #777;">
+          <h6 style="font-weight: 700;padding-left: 10px;"><i class="fas fa-tags"
+              style="padding-right: 6px;font-size: 20px;"></i>1.8% Payment Gateway Charges <i
+              class="fa fa-rupee"></i>&nbsp;<span id="gateway"></span><br></h6>
+          <!-- <h6 style="font-weight: 700;padding-left: 10px;"><i class="icon ion-pricetags"
+              style="padding-right: 6px;font-size: 20px;"></i>Shipping Charges <i class="fa fa-rupee"></i>&nbsp;<span
+              id="shipping"></span><br></h6> -->
+        <div style="display: flex;">
+
+            <h6 style="font-weight: 700;padding-left: 10px; "><i class="fas fa-tags"
+            style="padding-right: 6px;font-size: 20px;"></i></h6><h6  id="comm2" style="font-weight: 700; ">Calculated as per sub category</h6>
+            <h6  id="comm" style="font-weight: 700; ">{{ans}} </h6>
+            <h6 style="font-weight: 700; " id="percent">%</h6><h6 style="font-weight: 700;">Commission <i class="fa fa-rupee"></i>&nbsp;<span
+            id="com"></span><br></h6>
+
+        </div>
+          <h6 style="font-weight: 700;padding-left: 10px;"><i class="fas fa-tags"
+              style="padding-right: 6px;font-size: 20px;"></i>18% GST <i class="fa fa-rupee"></i>&nbsp;<span
+              id="gst"></span><br></h6>
+
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Name is required" style="margin-top: 20px;">
+          <label><strong>Amount That You Recieve From Our Side &nbsp;</strong><i class="fas fa-question-circle"
+              data-toggle="tooltip" data-bs-tooltip="" style="font-size: 12px;"
+              title="Amount Due To You On Any Order Of This Product"></i></label>
+          <div class="input100"><i class="fa fa-rupee">&nbsp;</i><input type="text" name="cprice" id="sel"
+              placeholder="Enter your price" oninput="cal();" readonly></div>
+          <span class="focus-input100"></span>
+        </div>
+
+        <!-- 
+        <div class="container-contact100-form-btn">
+          <div class="wrap-contact100-form-btn">
+            <div class="contact100-form-bgbtn"></div>
+            <button class="contact100-form-btn">
+              <span>
+                Submit
+                <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+        </div> -->
+      </form>
+      <!-- </div> -->
     </div>
-</div>
+    <div class="col-12 col-md-3"></div>
+  </div>
+
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}

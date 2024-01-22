@@ -4,16 +4,85 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row p-5">
-        <!-- Messages Start -->
-        {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
-        <!-- Messages END -->
-        <div class="col-12">
-            this is adevrtise with us page 
 
-        </div>            
+    <div class="container-fluid">
+        <div class="row first">
+            
+            <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+                <ol class="breadcrumb m-0" id="journey" style="background-color: #fff;padding: 2px 20px;">
+                <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page"> Advertise with us</li>
+                </ol>
+            </nav>
+            <!-- <div class="row link">
+                <p><a href="#">Home</a> > Advertise with us</p>
+            </div> -->
+            <div class="d-lg-flex d-md-flex flex-lg-row align-items-sm-center flex-sm-column-reverse  main" id="first_row">
+                <div class="col-7">
+                    <h1>Advertise with us</h1>
+                    <hr>
+                    <h3>Make a name for yourself
+                        among the right audience.</h3>                  
+                </div>
+                <div class="col-5  ">
+                    <img src="https://raw.githubusercontent.com/Aastha2891/Seventh_Square/master/docs/img/Seventh%20Square%20A%20better%20way%20to%20build%20(1).png" alt="Image">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row second">
+            <h1>How does Advertising help you?</h1>
+            <div class="content">
+                <p>Improve Brand Awareness. Generate leads. Increase sales. Build brand value. Online
+                    advertising is the most effective form of advertising now, and as a specialized marketplace we
+                    can help you reach your target customer base.</p>
+            </div>
+        </div>
+        <br>
+        <div class="row third">
+            <h1>How can you Advertise with us?</h1>
+            <div class="row">
+                <div class="col-4">
+                    <div class="content">
+                        <h3>Sponsored Products</h3>
+                        <p>Whenever a visitor searches for your product category, we'll show your product first in the search results. The most effective way to increase sales and brand awareness.</p>
+                    </div>
+                    <div class="vl"></div>
+                </div>
+                <div class="col-4">
+                    <div class="content">
+                        <h3>Sponsored Brands</h3>
+                        <p>Sponsored brands help
+                            you increase brand
+                            awareness across the
+                            platform to prospect
+                            customers. It is more
+                            general and can be
+                            shown to a larger
+                            audience.</p>
+                    </div>
+                    <div class="vl"></div>
+                </div>
+                <div class="col-4">
+                    <div class="content">
+                        <h3>Promotional Email Advertising</h3>
+                        <p>This helps you reach
+                            even larger
+                            audience and allows
+                            you to put custom
+                            ads to increase your
+                            brand awareness
+                            and showcase your
+                            products.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row Checkout">
+            <p> We'll help you clear any doubts you have in our <a href="https://seller.seventhsq.com/faq/tag/advertising/">Advertising FAQs</a>. If you're looking to advertise, please reach out to partners@seventhsq.com, we'll draw up a proposal for you.</p>
+        </div>
     </div>
-</div>
+
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}

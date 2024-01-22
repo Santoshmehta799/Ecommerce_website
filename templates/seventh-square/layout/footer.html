@@ -25,16 +25,16 @@
               <h5 class="text-light mb-3" style="font-size: 14px;"><strong>Policy</strong></h5>
               <div>
                  <ul class="list-unstyled">
-                    <li class="my-2"><a href="/Cancellation-Return-Policy/"
+                    <li class="my-2"><a href="{% url 'app_context:cancellation-return-policy' %}"
                        class="text-decoration-none footer-color footer-color-hover">Cancellation & return</a>
                     </li>
-                    <li class="my-2"><a href="/shippingpolicy/"
+                    <li class="my-2"><a href="{% url 'app_context:shipping-policy' %}"
                        class="text-decoration-none footer-color footer-color-hover">Shipping</a>
                     </li>
-                    <li class="my-2"><a href="/Paymentpolicy"
+                    <li class="my-2"><a href="{% url 'app_context:payment-policy' %}"
                        class="text-decoration-none footer-color footer-color-hover">Payment<br></a>
                     </li>
-                    <li class="my-2"><a href="/guidelines/"
+                    <li class="my-2"><a href="{% url 'app_context:guidelines' %}"
                        class="text-decoration-none footer-color footer-color-hover">Seller
                        Guidelines<br></a>
                     </li>
@@ -45,21 +45,21 @@
               <h5 class="text-light mb-3" style="font-size: 14px;"><strong>Resources</strong></h5>
               <div>
                  <ul class="list-unstyled">
-                    <li class="my-2"><a href="/sellwithus/"
+                    <li class="my-2"><a href="{% url 'app_context:sell-with-us' %}"
                        class="text-decoration-none footer-color footer-color-hover">Why Sell with Us?</a>
                     </li>
-                    <li class="my-2"><a href="/how-it-works/"
+                    <li class="my-2"><a href="{% url 'app_context:how-it-work' %}"
                        class="text-decoration-none footer-color footer-color-hover">How
                        it Works<br></a>
                     </li>
-                    <li class="my-2"><a href="/advertise-with-us/"
+                    <li class="my-2"><a href="{% url 'app_context:advertise-with-us' %}"
                        class="text-decoration-none footer-color footer-color-hover">Advertise with Us<br></a>
                     </li>
-                    <li class="my-2"><a href="/pricing&commision/"
+                    <li class="my-2"><a href="{% url 'app_context:pricing-and-commission' %}"
                        class="text-decoration-none footer-color footer-color-hover">Pricing
                        & Commissions<br></a>
                     </li>
-                    <li class="my-2"><a href="/pricecalculator/"
+                    <li class="my-2"><a href="{% url 'app_context:price-calculator' %}"
                        class="text-decoration-none footer-color footer-color-hover">Price
                        Calculator<br></a>
                     </li>
@@ -71,27 +71,27 @@
               </h5>
               <div>
                  <ul class="list-unstyled">
-                    <li class="my-2"><a href="/about-us/"
+                    <li class="my-2"><a href="{% url 'app_context:about-us' %}"
                        class="text-decoration-none footer-color footer-color-hover">About Seventh Square <br></a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="my-2"><a href="/"
+                    <li class="my-2"><a href="{% url 'app_context:seller-register' %}"
                        class="text-decoration-none footer-color footer-color-hover">Seller Registration</a>
                     </li>
                     {% else %}
-                    <li class="my-2"><a href="/account/register/"
+                    <li class="my-2"><a href="{% url 'app_context:seller-register' %}"
                        class="text-decoration-none footer-color footer-color-hover">Seller Registration</a>
                     </li>
                     {% endif %}
-                    <li class="my-2"><a href="/forum/"
+                    <li class="my-2"><a href="{% url 'app_context:seller-register' %}"
                        class="text-decoration-none footer-color footer-color-hover">Seller
                        Forum<br></a>
                     </li>
-                    <li class="my-2"><a href="/help-center"
+                    <li class="my-2"><a href="{% url 'app_context:help-center' %}"
                        class="text-decoration-none footer-color footer-color-hover">Help Center<br></a></li>
-                    <li class="my-2"><a href="/learningcenter/"
+                    <li class="my-2"><a href="{% url 'app_context:learning-center' %}"
                        class="text-decoration-none footer-color footer-color-hover">Learning Center<br></a></li>
-                    <li class="my-2"><a href="/faq/"
+                    <li class="my-2"><a href="{% url 'app_context:faq' %}"
                        class="text-decoration-none footer-color footer-color-hover">Frequently
                        Asked Questions<br></a>
                     </li>
@@ -102,19 +102,19 @@
               <h5 class="text-light mb-3" style="font-size: 14px;"><strong>Account</strong></h5>
               <div>
                  <ul class="list-unstyled">
-                    <li class="my-2"><a href="/account/"
+                    <li class="my-2"><a href="{% url 'app_context:profile' %}"
                        class="text-decoration-none footer-color footer-color-hover">Profile <br></a>
                     </li>
-                    <li class="my-2"><a href="/orders/current-orders/"
+                    <li class="my-2"><a href="{% url 'app_context:current-orders' %}"
                        class="text-decoration-none footer-color footer-color-hover">Current Orders</a>
                     </li>
-                    <li class="my-2"><a href="/inventory/active-products/"
+                    <li class="my-2"><a href="{% url 'app_context:active-products' %}"
                        class="text-decoration-none footer-color footer-color-hover">Active Products</a>
                     </li>
-                    <li class="my-2"><a href="/price_on_request/"
+                    <li class="my-2"><a href="{% url 'app_context:customer-enquiry' %}"
                        class="text-decoration-none footer-color footer-color-hover">Customer Enquiry<br></a>
                     </li>
-                    <li class="my-2"><a href="/payments/"
+                    <li class="my-2"><a href="{% url 'app_context:payment-history' %}"
                        class="text-decoration-none footer-color footer-color-hover">Payment History<br></a></li>
                  </ul>
               </div>

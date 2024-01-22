@@ -4,16 +4,94 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row p-5">
-        <!-- Messages Start -->
-        {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
-        <!-- Messages END -->
-        <div class="col-12">
-            this is how it work page 
 
-        </div>            
+    <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+        <ol class="breadcrumb m-0" id="journey" style="background-color: #fff;padding: 2px 20px;">
+        <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">How it works</li>
+        </ol>
+    </nav>
+    <div class="container-fluid">
+        <div class="row first" style="background-color: #f5f5f5">
+
+            <div class="d-lg-flex d-md-flex flex-lg-row align-items-sm-center flex-column-reverse main" id="howitworks">
+                <div class="col-7 ">
+                    <h1>How it works</h1>
+                    <hr>
+                    <h3>Learn from the beginning how we help you make money.</h3>                  
+                </div>
+                <div class="col-5 col-sm-7 ">
+                    <img src="https://raw.githubusercontent.com/Aastha2891/Seventh_Square/master/How%20it%20works/img/Untitled%20design%20(4).png " alt="Image">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row second">
+            <h1>Setup your Profile</h1>
+            <div class="content">
+                <ul class="list">
+                    <li>Start by registering yourself as a seller at <a href="https://seller.seventhsq.com/">seller.seventhsq.com</a> This creates an account
+                        for yourself from where you can upload your products, manage orders and receive
+                        payments.</li>
+                    <li>After completing registration, it's best to complete your <a href="https://seller.seventhsq.com/account/">profile</a>, so you don't have to
+                        worry about the same details repeatedly.</li>
+                    <li>Once profile is completed, start
+                        {% if user.is_authenticated %}
+                        <a href="/inventory/add-new-product/">Adding New Products</a>.
+                        {% else %}
+                        <a href="/account/login/">Adding New Product</a>
+                        {% endif %}
+                    
+                        Better the info, better they would be perceived by the customer. If you're new and want some help, please reach out to us at seller@seventhsq.com and we'll guide you through it.</li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div class="row Checkout">
+            <p>Check out our <a href="https://seller.seventhsq.com/faq/?gs=Getting%20Started#G">Registration</a> and <a href="https://seller.seventhsq.com/faq/?mya=Manage%20your%20account#M">Account FAQs</a> for related questions.</p>
+        </div>
+        <br>
+        <div class="row second">
+            <h1>Manage orders</h1>
+            <div class="content">
+                <ul class="list">
+                    <li>Your added products will shortly be live on the platform and ready for purchases.
+                    </li>
+                    <li>When a customer purchases your product, we'll notify you with details over your seller
+                        account, phone and email. Be sure to check these regularly.</li>
+                    <li>Once received the order, you can start packaging and coordinate delivery.
+                    </li>
+                    <li>At every stage, we update the customer and estimated delivery time.
+                    </li>
+                    <li>Timely dispatch is important to build customer's trust.
+                    </li>
+                </ul>
+            </div>
+        </div><br>
+        <div class="row Checkout">
+            <p>Check out our <a href="https://seller.seventhsq.com/faq/?po=Processing%20Orders#PO">Processing Orders FAQs</a> for related questions.</p>
+        </div>
+        <br>
+        <div class="row second">
+            <h1>Receive Payments</h1>
+            <div class="content">
+                <ul class="list">
+                    <li>On purchase, a customer can pay through multiple options
+                        including cards, net banking, e-wallets and Cash-on-delivery.
+                    </li>
+                    <li>We collect the payments through all the methods and transfer
+                        them to your bank account.</li>
+                    <li>This takes place on successful delivery to the customer, as per payments policy.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <br>
+        <div class="row Checkout">
+            <p>Check out our <a href="https://seller.seventhsq.com/faq/?pp=Pricing%20Payments#PP">Pricing & Payments</a> and <a href="https://seller.seventhsq.com/faq/?sr=Shipping%20Returns#SR">Shipping & Returns FAQs</a> for related questions.</p>
+        </div>
     </div>
-</div>
+
 {% endblock content %}
+
 {% block jsblock %}{% endblock jsblock %}

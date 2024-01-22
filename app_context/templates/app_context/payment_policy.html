@@ -4,16 +4,66 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row p-5">
-        <!-- Messages Start -->
-        {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
-        <!-- Messages END -->
-        <div class="col-12">
-            this is payment policy page 
 
-        </div>            
+  <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
+    <ol class="breadcrumb m-0" id="journey" style="background-color: #fff;padding: 2px 20px;">
+      <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Payment Policy</li>
+    </ol>
+  </nav>
+  <div class="register-photo" style="padding-top: 10px; background: rgb(255, 255, 255); padding-bottom: 0px">
+    <h1 class="text-center" style="margin: 20px; font-family: 'crimson text' !important; color: black">
+      Payment Policy
+    </h1>
+
+
+    <div class="text-center canv" style="padding: 0% 15%">
+      <button onclick="topFunction()" id="myBtn" title="Go to top" style="position: sticky;  top:90%; float: right;"> <i
+          class="fa fa-chevron-up"></i>
+      </button>
+      <div class="tab-content text-left pt-5 p-4" id="myTabContentJust" style="border: none; color: black">
+        <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+          <p class="text-para-small" style="font-size:initial !important;font-weight: 300;">
+            Seventh Square strives to make the payment process easy, convenient & secure for both buyers and
+            sellers.<br /><br />
+            With our Payment Gateway partner, we are providing numerous payment methods for consumers
+            including Credit Cards, Debit Cards, Net Banking, EMI, PostPaid Options, Mobile Payment Options and
+            
+            
+            Cash-on-delivery (With Courier Partners).
+            <br /><br />To simplify the process for the seller, we disburse the amount due to the seller straight to the
+            seller’s bank
+            Account through NEFT.
+            <br /><br />
+            ‘Net Payable Amount on an order’ to seller is the Total Order Item Value minus Seventh Square’s
+            Marketplace Fee
+            <br /><br />
+            Marketplace Fee includes Marketplace Commission (varies as per the product category and type), Payment
+            Processing Fee, Service Tax, Shipping Charges (if applicable) and any other charges as applicable
+            <br /><br />
+            Net Payable Amount is ‘available’ for transfer to the seller on successful delivery to the buyer, i.e. lapse
+            of the return period after delivery (on delivery accepted by the buyer in case of non-returnable product). Any
+            Order Amount from orders with disputes, complaints or return requests are held until the dispute is resolved
+            and not available for transfer to the seller. Any Charges / Fee not described under the Marketplace fee (for
+            example, Seller Cancellation Charges or Advertising fee) can be adjusted against the available amount in the
+            seller’s account with Seventh Square.
+            Total Available amount will be remitted on a weekly basis to the sellers
+            <br /><br />
+            As an introductory offer, Any available amount will be remitted to the seller within 1 working day (from the
+            time it is marked as ‘available’).
+
+            <br /><br />
+            This offer can be offered to all or selected sellers and can be discontinued at the discretion of the
+            platform. No claims can be raised based on the validity and eligibility for the offer.
+
+            <br /><br />
+            You can reach out to our team at <u>seller@seventhsq.com</u> for any
+            queries regarding this policy.<br /><br />
+          </p>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}
