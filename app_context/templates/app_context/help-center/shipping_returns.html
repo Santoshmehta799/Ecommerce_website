@@ -1,0 +1,148 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}{% endblock cssblock %}
+{% block content %}
+    <nav aria-label="breadcrumb" style="font-size: 15px;">
+        <ol class="breadcrumb" id="journey"style="background-color: #fff;padding: 2px 20px;margin-bottom: 0px!important;">
+        <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+        <li class="breadcrumb-item"><a href="/help-center/" id="last2word" style="color:#01011e">help-center</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><span id="lastword">shipping-returns</span></li>
+        </ol>
+    </nav>
+    <div class="mt-2">
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-12 col-md-6 order-md-last" style="display: flex; justify-content: center;">
+                    <img src="{% static 'seventh-square/assets/img/help-center/shipping-returns/shippingreturnsmainimage.png' %}" width="60%" class="d-block d-md-none">
+                    <img src="{% static 'seventh-square/assets/img/help-center/shipping-returns/shippingreturnsmainimage.png' %}"style="width:327px;height:327px;" class="d-none d-md-block float-right">
+                </div>
+                <div class="col-12 col-md-6 order-md-first">
+                    <h1 style="font-family:crimson text">Shipping & Returns</h1>
+                    <p class="mt-4">Shipping forms an important part of your journey in E-Commerce as well as Customer Experience. Learn all about Delivering your products to your customers with Seventh Square</p>
+                    <br>
+                    <a {% if user.is_authenticated %} href="/payments/" {% else %} href="/account/login/" {% endif %}>
+                        <button class="btn mt-5" style="background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">Go To __________</button>
+                    </a>
+                </div>
+            </div>
+            
+            <br>
+
+
+            <div class="col">
+
+                <h4 style="font-family:crimson text; font-size: 26px;">Shipping Options</h4>
+                <p>For shipping orders on Seventh Square, you can either ship them yourself under 'Self Shipping' or
+                    'Ship with Seventh Square'</p>
+            </div>
+            <div class="col">
+
+                <p style="font-weight: 700;">Self Shipping</p>
+                <p>In this selection, you have your own courier or tied-up with a logistics provider to deliver your online orders. If you select Self Shipping, your shipping
+                    costs have to be included in the sale price, so when you're adding your products on the portal, make sure to adjust for your average shipping costs (If
+                    you've added already, you can edit it again <a style="text-decoration: underline;">here</a>)
+                    .</p>
+            </div>
+            <div class="col">
+
+                <p style="font-weight: 700;"> Shipping with seventh square</p>
+                <p>Seventh Square has tied up with many leading logistics solutions providers in India to help you deliver your products to your customers on the portal.
+                    With this, we are providing you with quality service and competitive & dynamic pricing to fulfill your delivery requirements. Along with regular ecommerce shipments, we also provide delivery for Bulky building materials as per your requirements.
+                    In this selection, the shipping costs can be both inclusive and exclusive of the sale price, as per your choice while you add your product.</p>
+                
+            </div>
+            <div class="col">
+
+                <p class="ml-5" >Pricing:</p>
+                <p class="ml-5">Seventh Square Shipping Prices are based on product weight and distance to be covered. These prices
+                    are accessible in your seller agreement.</p>
+            </div>
+            <div class="col">
+
+                <p style="font-weight: 700;">Selecting your preferred and shipping option</p>
+                <p>You can select your preferred Shipping option for each product when you add the product to the portal
+                    in the <a style="text-decoration: underline;">Add new product</a> form.</p>
+            </div>
+
+            <!-- <div class="col">
+
+                <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+                <ol>
+                    <li>Does Seventh Square offer Shipping / Delivery for orders? </li>
+                    <li> I want to ship my orders myself. How do I choose the relevant settings?</li>
+                    <li>I manufacture bulky construction material and shipping is key to my sales. How do I best utilise
+                        the platform?</li>
+                    <li>I have my own logistics network in certain cities / regions. Can I use Seventh Square shipping
+                        only where I don't have my own network?</li>
+                    <li>I can ship some of my products by myself. Is it possible?</li>
+                    <li>I have multiple delivery and storage hubs for my products. How do I proceed with shipping? </li>
+                
+                </ol>
+            </div> -->
+
+            <div class="col">
+
+                <p style="font-weight: 700;">Returns</p>
+                <p>Returns are a normal part of selling whether online or offline However, not all products can be
+                    returned by nature, including bulky materials, fragile items or customised products. Since, this
+                    industry is vast and all products have different features, we have provided you with the option to
+                    select whether your product is returnable or not. <br>All returnable products come under a general
+                    return policy of the platform which ensures fair trade and satisfactory transaction between both
+                    parties. However, you can also set your own return policy which will be duly displayed to the
+                    visitors.</p>
+            </div>
+            <div class="col">
+
+                <p style="font-weight: 700;">Returns Guidelines</p>
+                <p>Review Policy for this</p>
+
+            </div>
+
+            <div class="col">
+
+                <p style="font-weight: 700;">Returned Product Cost</p>
+                <p>Review Policy for this</p>
+
+            </div>
+
+            <!-- <div class="col">
+
+                <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+                <ol>
+                    <li>The customer returned a different product than what was delivered. What do I do?</li>
+                    <li>My products are bulky / fragile and Customer returns will be too costly for me. Is there any
+                        solution to this?</li>
+                    <li>Can the buyer partially return the shipment?</li>
+                    <li>If my shipment is returned, do I have to bear any costs? </li>
+                    <li> In which cases can an item be returned by the customer?</li>
+                </ol>
+            </div> -->
+            <div class="col mt-5">
+                <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+            <div id="accordionExample"  class="col ">
+                {% for i in posts %}
+            
+                <div id="f{{i.id}}" class="card-" >
+                <h6 class="mb-0 "><span data-toggle="collapse" data-target="#f{{i.id}}-1" aria-expanded="false"
+                aria-controls="f{{i.id}}-1" class="d-block  text-dark  py-1"><strong>-</strong>
+                &nbsp;{{i.question}}
+                </span></h6>
+                <div id="f{{i.id}}-1" aria-labelledby="f{{i.id}}" data-parent="#accordionExample" class="collapse">
+                <div class="card-body p-3">
+                    <p class="font-weight-light m-0">{{i.answer|safe}} </p>
+                </div>
+            </div>
+            </div>
+                {% endfor %}
+            </div></div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+{% endblock content %}
+{% block jsblock %}{% endblock jsblock %}

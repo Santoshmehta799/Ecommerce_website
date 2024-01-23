@@ -75,15 +75,15 @@
                        class="text-decoration-none footer-color footer-color-hover">About Seventh Square <br></a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="my-2"><a href="{% url 'app_context:seller-register' %}"
+                    <li class="my-2"><a href="{% url 'app_dashboard:dashboard-page' %}"
                        class="text-decoration-none footer-color footer-color-hover">Seller Registration</a>
                     </li>
                     {% else %}
-                    <li class="my-2"><a href="{% url 'app_context:seller-register' %}"
+                    <li class="my-2"><a href="/?#register-section"
                        class="text-decoration-none footer-color footer-color-hover">Seller Registration</a>
                     </li>
                     {% endif %}
-                    <li class="my-2"><a href="{% url 'app_context:seller-register' %}"
+                    <li class="my-2"><a href="{% url 'app_user:auth-signup' %}"
                        class="text-decoration-none footer-color footer-color-hover">Seller
                        Forum<br></a>
                     </li>
@@ -102,19 +102,19 @@
               <h5 class="text-light mb-3" style="font-size: 14px;"><strong>Account</strong></h5>
               <div>
                  <ul class="list-unstyled">
-                    <li class="my-2"><a href="{% url 'app_context:profile' %}"
+                    <li class="my-2"><a href="{% url 'app_user:profile' %}"
                        class="text-decoration-none footer-color footer-color-hover">Profile <br></a>
                     </li>
-                    <li class="my-2"><a href="{% url 'app_context:current-orders' %}"
+                    <li class="my-2"><a href="{% url 'app_context:page-not-found' %}"
                        class="text-decoration-none footer-color footer-color-hover">Current Orders</a>
                     </li>
-                    <li class="my-2"><a href="{% url 'app_context:active-products' %}"
+                    <li class="my-2"><a href="{% url 'app_inventory:inventory' %}"
                        class="text-decoration-none footer-color footer-color-hover">Active Products</a>
                     </li>
-                    <li class="my-2"><a href="{% url 'app_context:customer-enquiry' %}"
+                    <li class="my-2"><a href="{% url 'app_context:page-not-found' %}"
                        class="text-decoration-none footer-color footer-color-hover">Customer Enquiry<br></a>
                     </li>
-                    <li class="my-2"><a href="{% url 'app_context:payment-history' %}"
+                    <li class="my-2"><a href="{% url 'app_context:page-not-found' %}"
                        class="text-decoration-none footer-color footer-color-hover">Payment History<br></a></li>
                  </ul>
               </div>

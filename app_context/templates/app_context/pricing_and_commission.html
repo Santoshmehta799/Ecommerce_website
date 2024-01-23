@@ -2,7 +2,300 @@
 {% load static %}
 {% block title %}{% endblock title %}
 {% block metablock %}{% endblock metablock %}
-{% block cssblock %}{% endblock cssblock %}
+{% block cssblock %}
+
+    {% comment %} <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" /> {% endcomment %}
+    {% comment %} <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.css" rel="stylesheet" /> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% endcomment %}
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap');
+        *{
+        margin: 0;
+        padding: 0;
+        }
+        #rac{
+        color:#C7C7C7
+        }
+        body{
+        background-color: #f8f9fa;
+        font-family: 'Mukta';
+        overflow-x: hidden;
+        }
+        .container{
+        background-size: cover;
+        max-width: 100%;
+        margin: 0;
+        min-height: 100vh;
+        }
+        .head{
+        background-color: rgb(39, 39, 41);
+        padding: 10px;
+        }
+        .head .logo img{
+        max-width: 100px;
+        }
+        .first{
+        background-color: #fff;
+        }
+        .first a{
+        text-decoration: none;
+        color: #757575;
+        }
+        .first .link{
+        margin: 5px;
+        color: #4f4f4f;
+        width: 70%;
+        }
+        .first .main{
+        width: 90%;
+        margin: auto;
+        }
+        .first .main .col-7{
+        justify-content: center;
+        align-items: center;
+        margin:auto;
+        }
+        .first .main h1,.second h1,.third h1{
+        font-family: 'Crimson Text';
+        font-weight: 800;
+        font-size:calc(1.375rem + 1.5vw);
+        }
+        .first .main .col-7 hr{
+        height: 2px;
+        border-radius: 10px;
+        opacity: 1;
+        width: 60%;
+        }
+        .first .main .col-7 h3{
+        width: 50%;
+        }
+        .first .main .col-5 img{
+        max-width: 250px;
+        margin: 20px 0;
+        }
+
+        .second,.third {
+        margin-top: 20px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        font-size: 19px;
+        }
+        .second h1,.third h1{
+        margin-bottom: 10px;
+        text-align: center;
+        }
+        .second .row{
+        margin: auto;
+        width: 95%;
+        }
+        .second .minus{
+        width: 1%;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1%;
+        border-radius: 10px;
+        opacity: 1;
+        height: 2px;
+
+        }
+        .second .equals{
+        width: 1%;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1%;
+        color: #fff;
+        border-top: 10px double black;
+        opacity:1; 
+        }
+        .ele{
+        display: inline-block;
+        width: 22%;
+        }
+        .ele .component{
+        flex-wrap: wrap;
+        background-color: #e9ecef;
+        width: 90%;
+        margin: auto;
+        padding: 5px;
+        }
+        .ele .component p{
+        margin: 0;
+        }
+        .second p{
+        margin-top: 5px;
+        }
+
+        .third p{
+        width: 70%;
+        margin: 10px auto;
+        line-height: 30px;
+        }
+        .container a{
+        text-decoration: underline;
+        color: black;
+        }
+
+
+        @media (max-width:900px) {
+        .first .main .col-5 img {
+            max-width: 300px;
+        }
+        .second .minus,.second .equals{
+            width: 0.5%;
+        }   
+        }
+        @media(max-width:760px){
+        .first .main .col-7 h3 {
+            width: 70%;
+        }
+        .first .main .col-5 img {
+            max-width: 250px;
+        }
+        .second .minus, .second .equals {
+            width: 0.25%;
+            margin-top: 2%;
+        }
+        }
+
+        @media(max-width:700px){
+        .first .main .col-7 h3 {
+            font-size: 25px;
+        }
+        .second,.third{
+            font-size: 15px;
+        }
+        .second .minus, .second .equals {
+            width: 0.05%;
+            margin-top: 2%;
+        }
+        .ele{
+            width: 21%;
+        }
+        }
+        @media(max-width:630px){
+        .first .main .col-5 img {
+            max-width: 200px;
+        }
+        }
+        @media(max-width:550px){
+        .first .main h1,.second h1,.third h1{
+            font-size: 30px;
+        }
+        .first .main .col-7 h3 {
+            font-size: 22px;
+        }
+        .second .minus, .second .equals {
+            width: 2%;
+            margin-left: 48%;
+        }
+        .ele {
+            width: 80%;
+            margin:auto;
+        }
+        .ele .component{
+            width: 60%;
+        }
+        .ele p{
+            margin-bottom: 2px;
+        }
+        }
+        @media(max-width:500px){   
+        .first .main .col-5 img {
+            max-width: 150px;
+        }
+        .first .main h1,.second h1,.third h1{
+            font-size: 27px;
+            font-weight: 700;
+        }
+        .first .main .col-7 h3 {
+            width: 90%;
+            font-size: 20px;
+        }
+        .first .main .col-7 hr {
+            width: 90%;
+        }
+        }
+        @media(max-width:400px){
+        .first .main {
+            width: 100%;
+        }
+        .first .main .col-5 img {
+            max-width: 120px;
+        }
+        .first .main .col-7 h3 {
+            width: 100%;
+            font-size: 18px;
+        }
+        .first .main .col-7 hr {
+            width: 100%;
+        }
+        .ele {
+            width: 90%;
+        }
+        .ele .component{
+            width: 80%;
+        }
+        .third p {
+            width: 90%;      
+            line-height: 25px;
+        }
+        }
+
+        @media screen and (max-width:992px) and (min-width:700px){
+        .second .minus, .second .equals {
+            width: 0.05%;
+            margin-top: 2%;
+        }
+        .ele{
+            width: 21%;
+        }
+        }
+
+        @media screen and (max-width:992px) {
+        #first_row{
+            display: flex;
+            align-items: center;
+            flex-direction: column-reverse;
+            width: 100%;
+            text-align: center;
+        }
+        #first_row .col-7{
+            margin-top: 1rem;
+        }
+        #first_row .col-7 > hr{
+            display: none;
+        }
+        #first_row .col-5 img{
+            height:40%;
+        }
+        #first_row .col-7 > h1{
+            font-size:  calc(1.375rem + 1.5vw);;
+        }
+        #first_row .col-7 >h3{
+            font-size: 19px;
+            width: 100%;
+        }
+        p{
+            font-size: 12px;
+        }
+
+
+        }
+    </style>
+    <style>
+        @media only screen and (max-width: 600px) {
+            #journey{
+                display: none !important;
+            }
+        
+        }
+    </style> 
+
+{% endblock cssblock %}
 {% block content %}
 
     <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">

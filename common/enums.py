@@ -104,6 +104,11 @@ class TaxCodeEnums(TextChoices):
     TWENTYEIGHT = (28, '28%')
     
 
+class ChoicesBlogTypeEnums(TextChoices):
+    ADD_NEW_PRODUCT = ('add_new_product', 'Add New Product')
+    PLATFORM_GUIDE = ('platform_guide', 'Platform Guide')
+    TIPS_AND_TRICKS =('tips_and_tricks', 'Trips And Tricks')
+    PLATFORM_UPDATES = ('platform_updates', 'Platform Updates')
 class WarrantyEnums(TextChoices):
     MONTH_1 = ('1-month', '1 month')
     MONTHS_2 = ('2-months', '2 months') 

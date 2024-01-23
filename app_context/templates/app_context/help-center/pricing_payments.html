@@ -1,0 +1,201 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}{% endblock cssblock %}
+{% block content %}
+
+    <nav aria-label="breadcrumb" style="font-size: 15px;">
+        <ol class="breadcrumb" id="journey"style="background-color: #fff;padding: 2px 20px;margin-bottom: 0px!important;">
+        <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+        <li class="breadcrumb-item"><a href="/help-center/" id="last2word" style="color:#01011e">help-center</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><span id="lastword">pricing-payments</span></li>
+        </ol>
+    </nav>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-md-6 order-md-1 order-2">
+                <h1 style="font-family:crimson text">Pricing & Payments</h1>
+                <p>Seventh Square has the simplest and one of the lowest charges across marketplaces. Learn all about how we price our services and how your payments are managed.</p>
+                <br>
+                <a {% if user.is_authenticated %} href="/payments/" {% else %} href="/account/login/" {% endif %}>
+                <button class="btn" style="background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">Go To Payment History</button>
+                </a>
+            </div>
+            <div class="col-md-6 order-md-2 order-1 text-center">
+                <img style="width:200px;height:200px;" src="{% static 'seventh-square/assets/img/help-center/pricing-payments/pricingpaymentsmainimage.png' %}" >
+            </div>
+        </div>
+        
+        <br>
+        <h3 style="font-family:crimson text">Pricing Basics</h3>
+        <p>Understand the math behind cost at Seventh Square.
+
+        </p>
+        <div class="container ">
+        <div class="row mt-5">
+            <div class="col-md-3">
+                <button class="btn" style="width: 200px; background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">
+                    Sale Price</button>
+                    <hr style="margin-top: -21px;margin-left: 210px; width: 60px; border: 1px solid rgb(0, 0, 0);;">
+                    <p style="width: 200px; text-align: justify;">Amount paid by the
+                        customer on purchase of
+                        a product
+                    </p>                        
+            </div>
+            
+            <div class="col-md-3">
+                <button class="btn" style="width: 200px; background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">
+                    Marketplace Fee</button>
+                    <hr style="margin-top: -21px;margin-left: 209px; width: 60px; border: 1px solid rgb(0, 0, 0);;">
+                    <p style="width: 165px; text-align: justify;">Includes Commission on
+                        sale, Payment Collection
+                        Fee and Shipping Fee
+                        
+                    </p>  
+            </div>
+
+            <div class="col-md-3">
+                <button class="btn" style="width: 200px; background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">
+                    Service GST 18%</button>
+                    <hr style="margin-top: -23px;margin-left: 208px; width: 60px; border: 1px solid rgb(0, 0, 0);;">
+                    <hr style="margin-top: -12px;margin-left: 208px; width: 60px; border: 1px solid rgb(0, 0, 0);;">
+                    <p style="width: 156px; text-align: justify;">Tax applicable on
+                        Marketplace Fee. Can be
+                        claimed as ITC by the
+                        sellers.
+                        
+                        
+                    </p>  
+            </div>
+
+            <div class="col-md-3">
+                <button class="btn" style="width: 200px;background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">
+                    Net Disbursement</button>
+                    <p style="width: 156px; text-align: justify;">Amount receivable by
+                        seller for a successful
+                        delivery.
+                        
+                        
+                    </p>  
+            </div>
+
+        </div>
+        </div>
+
+        <p class="mt-5">For example, if your product is priced at INR 100 (inclusive of tax), the product is shipped by Seventh Square, Product commission is 5% and Payment
+            Collection Fee is 1.8%, then the calculation (excluding delivery charges) would look something like this :
+            
+        </p>
+
+        <div class="container ">
+            <div class="row mt-5">
+                <div class="col-md-3 mt-3">
+                    <button class="btn" style="width: 200px; background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">
+                        100 </button>
+                        <hr style="margin-top: -21px;margin-left: 210px; width: 60px; border: 1px solid rgb(0, 0, 0);;">
+                                            
+                </div>
+                
+                <div class="col-md-3 mt-3">
+                    <button class="btn" style="width: 200px; background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">
+                        6.8 (5 + 1.8)</button>
+                        <hr style="margin-top: -21px;margin-left: 209px; width: 60px; border: 1px solid rgb(0, 0, 0);;">
+                    
+                </div>
+        
+                <div class="col-md-3 mt-3">
+                    <button class="btn" style="width: 200px; background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">
+                        1.22 (6.8 X 18%)</button>
+                        <hr style="margin-top: -23px;margin-left: 208px; width: 60px; border: 1px solid rgb(0, 0, 0);;">
+                        <hr style="margin-top: -12px;margin-left: 208px; width: 60px; border: 1px solid rgb(0, 0, 0);;">
+                    
+                </div>
+    
+                <div class="col-md-3 mt-3">
+                    <button class="btn" style="width: 200px; background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">
+                        91.98</button>
+                        
+                </div>
+    
+            </div>
+            </div>
+
+            
+        <p class="mt-5" style="text-align: center;">Check the same for any price and situation with our<a style="text-decoration: underline;"> Price Calculator</a>
+        </p>
+
+
+        <!-- <div class="col">
+
+            <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+            <ol>
+                <li>How much 'Marketplace Commission' is charged by Seventh Square?</li>
+                <li>How are Shipping Charges calculated when Shipping with Seventh Square?</li>
+                <li>What is Payment Collection Fee? Why is it charged?</li>
+                <li>How do I price my product to receive my desired amount?</li>
+                <li>Can I charge different prices for different quantities? </li>
+                <li>Who decides the price at which the consumer buys my product?</li>
+            </ol>
+        </div> -->
+    
+        <div class="col">
+
+            <h4 style="font-family:crimson text">Payments</h4>
+            <p>Receiving Payments on time or at all is a hassle in the Building Materials industry. This is why, we have
+                made our Payments structure extremely simplified, so that we can genuinely be a part of your growth
+                story. To understand in detail about every order and it's related transactions, visit <a {% if user.is_authenticated %} href="/payments/" {% else %} href="/account/login/" {% endif %} style="text-decoration: underline;">Payment History.</a> 
+            </p>
+        </div>
+        <div class="col">
+
+            <h4 style="font-family:crimson text">Payout Value & Process</h4>
+            <p>To simplify the process for the seller, we disburse the amount due to the seller straight to the seller's
+                bank Account through NEFT. <br><br>'Net Payable Amount on an order to seller is the Total Order Item Value
+                minus Seventh Square's Marketplace Fee. Marketplace Fee includes Marketplace Commission (varies as
+                per the product category and type), Payment Processing Fee, Service Tax, Shipping Charges (if
+                applicable) and any other charges as applicable. <br><br>Net Payable Amount is 'available' for transfer to the
+                seller on successful delivery to the buyer, i.e. lapse of the return period after delivery (on delivery
+                accepted by the buyer in case of non-returnable product). Any Order Amount from orders with
+                disputes, complaints or return requests are held until the dispute is resolved and not available for
+                transfer to the seller.Any Charges / Fee not described under the Marketplace fee (for example,
+                Seller Cancellation Charges or Advertising fee) can be adjusted against the available amount in the
+                seller's account with Seventh Square. <br><br>Total Available Amount will be remitted to the seller on a
+                daily basis so you receive payments for successful deliveries within 24 hours.</p>
+        </div>
+
+        <!-- <div class="col">
+
+            <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+            <ol>
+                <li>How do I receive Payments</li>
+                <li>Where do I check my pending transactions? </li>
+        
+
+            </ol>
+        </div> -->
+        <div class="col mt-5">
+            <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+        <div id="accordionExample"  class="col ">
+            {% for i in posts %}
+        
+            <div id="f{{i.id}}" class="card-" >
+            <h6 class="mb-0 "><span data-toggle="collapse" data-target="#f{{i.id}}-1" aria-expanded="false"
+            aria-controls="f{{i.id}}-1" class="d-block  text-dark  py-1"><strong>-</strong>
+            &nbsp;{{i.question}}
+            </span></h6>
+            <div id="f{{i.id}}-1" aria-labelledby="f{{i.id}}" data-parent="#accordionExample" class="collapse">
+            <div class="card-body p-3">
+                <p class="font-weight-light m-0">{{i.answer|safe}} </p>
+            </div>
+        </div>
+        </div>
+            {% endfor %}
+        </div></div>
+
+
+    </div>
+
+{% endblock content %}
+
+{% block jsblock %}{% endblock jsblock %}

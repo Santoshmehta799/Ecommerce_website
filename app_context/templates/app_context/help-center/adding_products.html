@@ -1,0 +1,188 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}{% endblock cssblock %}
+{% block content %}
+    <nav aria-label="breadcrumb" style="font-size: 15px;">
+        <ol class="breadcrumb" id="journey"
+            style="background-color: #f8f8f8;padding: 2px 20px;margin-bottom: 0px!important;">
+            <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+            <li class="breadcrumb-item"><a href="/help-center/" id="last2word" style="color:#01011e">help-center</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page"><span id="lastword">adding-products</span></li>
+        </ol>
+    </nav>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6 order-md-last text-center">
+                <img style="width:327px;height:250px;" src="{% static 'seventh-square/assets/img/help-center/adding-products/addingproductsmainimage.png' %}">
+            </div>
+            <div class="col-md-6 order-md-first">
+                <h1 style="font-family:crimson text">Adding Products</h1>
+                <p>After completing your profile, you can add and list your products online. Adding your portfolio on seventh Square is extremely easy to understand. Follow this page to learn how to upload your portfolio.</p>
+                <br>
+                <a {% if user.is_authenticated %} href="/inventory/add-new-product/" {% else %} href="/account" {% endif %}>
+                    <button class="btn" style="background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">Add New Product</button>
+                </a>
+            </div>
+        </div>
+        
+        <br>
+        <div class="col mt-2">
+            <h4 style="font-family:crimson text">How to Add Product</h4>
+            <p>Follow this step to list your product to Seveth Square:</p>
+            <ul>
+                <li>login to your account</li>
+                <li>Go to '<a style="text-decoration: underline;">Add new Product</a> ' in the left menu bar</li>
+                <li>Fill in the required details, review and submit </li>
+                <li>Check Added products under ' <a style="text-decoration: underline;">Active Products</a>'</li>
+                <li>Review Products, Finalise Edits and list it online on the Active Product page </li>
+            </ul>
+
+        </div>
+        <!-- <div class="col">
+
+            <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+            <ol>
+                <li>I have a complete file with product and details. Do i have to upload products individually?</li>
+                <li>Where can i see the products i have add?</li>
+                <li>Can i get help listing my catalogue/portfolio?</li>
+                <li>How long does it take to active the product I add?</li>
+            </ol>
+        </div> -->
+        <div class="col mt-5">
+            <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+        <div id="accordionExample"  class="col ">
+            {% for i in posts %}
+        
+            <div id="f{{i.id}}" class="card-" >
+            <p class="mb-0 "><span data-toggle="collapse" data-target="#f{{i.id}}-1" aria-expanded="false"
+            aria-controls="f{{i.id}}-1" class="d-block  text-dark py-1"><strong>-</strong>
+            &nbsp;{{i.question}}
+            </span></p>
+            <div id="f{{i.id}}-1" aria-labelledby="f{{i.id}}" data-parent="#accordionExample" class="collapse">
+            <div class="card-body p-3">
+                <p class="font-weight-light m-0">{{i.answer|safe}} </p>
+            </div>
+        </div>
+        </div>
+            {% endfor %}
+        </div></div>
+        <div class="col">
+
+            <h4 style="font-family:crimson text">Adding Product Form</h4>
+            <p>We've described the Add new Product form here to help you navigate the form better. Please find the info
+                required and field descriptions below. To understand any field in detail, please click on the field name
+                below :</p>
+            <p>Section - 1 : Basic Info</p>
+            <ul>
+                <li>
+                    Product Title
+                </li>
+                <li>
+                    Product Category & Type
+                </li>
+                <li>
+                    Brand Name
+                </li>
+                <li>
+                    HSN Code
+                </li>
+                <li>
+                    Shipping Method
+                </li>
+                <li>
+                    Images
+                </li>
+            </ul>
+            <p>Section - 2 : More Info</p>
+            <ul>
+                <li>
+                    About the Brand
+                </li>
+                <li>
+                    Storage
+                </li>
+                <li>
+                    Usage
+                </li>
+                <li>
+                    Installation
+                </li>
+                <li>
+                    Handling
+                </li>
+                <li>
+                    Warranty & Guarantee
+                </li>
+                <li>
+                    Minimum Order Quantity
+                </li>
+                <li>
+                    Variants
+                </li>
+            </ul>
+            <p>Section - 3 : Pricing</p>
+            <ul>
+                <li>
+                    Price on Request
+                </li>
+                <li>
+                    MRP & Sale Price
+                </li>
+                <li>
+                    Taxes & Shipping
+                </li>
+                <li>
+                    Packaging
+                </li>
+                <li>
+                    Components per unit
+                </li>
+
+            </ul>
+            <p>Section - 4 : Shipping</p>
+            <ul>
+                <li>
+                    Product Weight
+                </li>
+                <li>
+                    Country of Origin
+                </li>
+                <li>
+                    Returnable Product
+                </li>
+                <li>
+                    Product & Packed Box Dimensions
+                </li>
+                <li>
+                    Material
+                </li>
+                <li>
+                    Serviced Regions
+                </li>
+                <li>
+                    Pick Up Location
+                </li>
+            </ul>
+        </div>
+
+        <div class="col">
+            <h4 style="font-family:crimson text">Guidelines while Adding Products:</h4>
+
+            <p>Follow these guidelines while adding new products :</p>
+            <ul>
+                <li>Provide Accurate Information for the Products </li>
+                <li>Provide complete Information for the Products </li>
+                <li>Never Misrepresent any info related to the products </li>
+                <li>Follow Trademark and Copyright rules </li>
+                <li>Keep Inventory Updated and update on the portal when out of Inventory for any product </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+{% endblock content %}
+{% block jsblock %}{% endblock jsblock %}

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     # third party pakages
     'widget_tweaks',
+    'ckeditor',
 
     # django app
     'app_user',
@@ -234,3 +235,18 @@ SANDBOX_PAN_VERIFY_URL = "https://api.sandbox.co.in/pans"
 SANDBOX_BANK_VERIFY_URL = "https://api.sandbox.co.in/bank"
 SANDBOX_API_KEY = "key_live_zZJHlCovjAIx5mg7FZio1G3jFG5mnMyv"
 SANDBOX_SECRET_KEY = "secret_live_Fwu14Q1dlNRhbVFmVOx7XVingFi6abUu"
+
+
+# #CKEditor Configs
+CKEDITOR_CONFIGS = {
+    "default": {
+        "removePlugins": "stylesheetparser",
+        "allowedContent":True,
+        "width": "100%",
+    }
+}
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+X_FRAME_OPTIONS = 'SAMEORIGIN'

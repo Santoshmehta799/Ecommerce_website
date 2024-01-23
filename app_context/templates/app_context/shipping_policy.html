@@ -2,120 +2,122 @@
 {% load static %}
 {% block title %}{% endblock title %}
 {% block metablock %}{% endblock metablock %}
-{% block cssblock %}{% endblock cssblock %}
+{% block cssblock %}
+  <style>
+    .list-group .active {
+      background-color:rgba(200, 214, 229,0.5)!important; 
+      border:rgba(200, 214, 229,1.0)!important;
+      color:black; 
+    }
+  </style>
+{% endblock cssblock %}
 {% block content %}
-  <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
-    <ol class="breadcrumb m-0" id="journey" style="background-color: #fff;padding: 2px 20px;">
-      <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Shipping Policy</li>
-    </ol>
-  </nav>
-  <div class="register-photo" style="padding-top: 10px;background: rgb(255,255,255);padding-bottom: 0px;">
-    <h1 class="text-center" style="margin: 20px;font-family: 'crimson text'; color: black;">Shipping
-            Policy</h1>
-            <!-- <div class="row"> -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Messages Start -->
+    {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
+    <!-- Messages END -->
 
-              
 
-                <div class="container">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="/" class="text-dark text-decoration-none" >Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Shipping Policy</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-12">
+      <h1 class="text-center" style="margin: 20px;font-family: 'crimson text'; color: black;">Shipping Policy</h1>
+        <div class="row">
+          <div class="col-sm-3">
+              <div id="list-example" class="list-group">
+                <a class="list-group-item list-group-item-action" href="#" style="background: rgba(211, 211, 211, 0.849); ">  Contents:</a>
+                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-1">Disclaimer </a>
+                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-2">Shipment Models </a>
+                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-3">Shipping Cost</a>
+                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-4">Ownership of Product </a>
+                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-5">Shipping defaults, liability & obligations</a>
+                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-6">Contact</a>
+              </div>
+          </div>
+
+          <div class="col-md-9">
+            <div class="tab-pane fade show active mb-5" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
+              <button onclick="topFunction()" id="myBtn" title="Go to top" style="position: sticky; top:90%; float: right;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                </svg>
+              </button>
+              <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+                <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">
+                  <p  class="text-para-small" style="font-size:initial !important; font-weight: 300;" >
+                    <p class="text-para-small mb-0" style="font-size:initial !important; font-weight: 300; " id="list-item-1">Disclaimer:</p>
+                    <p  class="text-para-small" style="font-size:initial !important; font-weight: 300;">
+                      Seventh Square partners with various logistics providers to ensure efficient delivery of orders. We strive
+                      to ensure product safety and timely delivery to customers. However, we are a marketplace and provide
+                      shipping only as a service to sellers on the platform. We are not liable for any issues regarding shipping
+                      and courier as communicated in the marketplace agreement and Terms & Conditions. The terms and conditions in this policy are in addition to and are not intended to eliminate any rights seventhsq.com or any of its Affiliates may have, or any obligations Seller or any of its Affiliates may have, under any agreement currently in effect between Seller or its Affiliates and seventhsq.com or its Affiliates concerning the offer and/or sale by Seller or its Affiliates of products or services via the seventhsq.com Site ("Seller Agreement").<br>
+                    </p>
+                  </p>
+                  <p class="text-para-small mb-0" style="font-size:initial !important;font-weight: 300;" id="list-item-2"> Shipping Models:</p>    
+                  <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">
+                    The default fulfillment model provided by company for the delivery of purchased Products to the Buyers
+                    is the Seventh Square LMD (Last Mile Delivery) Model as detailed herein below. Company may, at its
+                    discretion, introduce other Fulfillment models listed in this Clause, at any time in the future. On
+                    introduction of such other Fulfillment models, Company may, at its discretion, offer these options to all
+                    or select Sellers. All Three (3) models are detailed below for the Sellers’ information.
+                    <br>  1. Model 1 – Seventh Square LMD Model – Seller will be responsible for packaging and shipping the right Product and right quantity to the Buyer via courier through Seventh Square LMD
+                    network. Company will assign Courier partner for each shipment and designated courier partner shall
+                    collect the shipments from Seller's pick up center or warehouses. Seller should communicate the pick up locations to the platform using options available in the Seller Dashboard. 
+                    <br>  2. Model 2– Self Shipping – Seller will be responsible for packaging and shipping the Product to the
+                    Buyer via any courier service identified by the seller  and informed to the company. The seller, as per agreement, uses invoice generated by the company for all products sold on the platform. Managing delivery in this case is the seller’s responsibility and he/she should keep the company updated on the order delivery as and when required.
+                    <br>
+                  </p>
+                  <p class="text-para-small mb-0" style="font-size:initial !important;font-weight: 300;" id="list-item-3"> Shipping Cost:</p>    
+                  <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">                    
+                    Shipping Cost is based on the distance / location of the buyer and weight of the product. Shipping Cost can be ‘inclusive’ in the sale price offered to buyers or ‘exclusive’ from the sale price offered to buyers. In case of ‘exclusive’, Buyers pay extra shipping on the product, the cost of which is pre-defined by the platform or the seller, as the case may be. Seller can select whether to keep Shipping Cost ‘inclusive’ in the product sale price while adding the product. 
+                    <br>
+                    a. When Shipping with Seventh Square and Shipping Cost is ‘inclusive’ in the product sale price - Buyer pays no extra shipping on the Product Sale Price. Shipping Cost, as per Seventh Square’s Shipping Schedule, is deducted from the total order amount before payout to seller. 
+                    <br> b.When Shipping with Seventh Square and Shipping Cost is ‘exclusive’ from the product sale price- Buyer pays extra shipping when placing an order for the product, based on Seventh Square’s Shipping Schedule. Shipping Cost in this case is borne by the buyer and not deducted from the total order amount before payout to seller. 
+                    <br> c.When Self-Shipping and Shipping Cost is ‘inclusive’ in the product sale price - Buyer pays no extra shipping on the product sale price. Shipping is borne by the seller. Shipping and associated costs are the seller's own domain and not charged or accounted for in transactions with the Platform, in this case.
+                    <br> d.When Self-Shipping and Shipping Cost is ‘exclusive’ from the product sale price - Buyer pays extra shipping based on the Seller’s Shipping Schedule. Shipping Cost in this case is borne by the buyer. Total Order Amount, including Product Sale Price and Shipping Cost, are processed by Seventh Square and relevant charges (for example, Marketplace Commission, Payment Processing Fee and Taxes) are deducted before payout to seller. 
+                  </p>
+                  <p class="text-para-small mb-0" style="font-size:initial !important;font-weight: 300;" id="list-item-4">  Ownership of Product:</p>    
                   
+                  <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">                   
+                    Ownership of the Product rests with the seller in both Shipping methods till the delivery of the product. Once Delivered, ownership of product transfers to the buyer. 
+                  </p>
+                  <p class="text-para-small mb-0" style="font-size:initial !important;font-weight: 300;" id="list-item-5">  Shipping defaults, liability & obligations:</p>    
+                  <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">
+                    1.When Self-Shipping , the seller is required to ship the order within the Handling Time / Estimated Shipping Date as provided.
+                    <br>
+                    2.Seller should confirm shipment status in the seller dashboard within 24 hours of shipping order and / or Estimated Shipping Date, whichever is earlier. 
+                    <br>
+                    3. In case of failure/delay to ship the product or updating the status appropriately, Seventh Square, at its discretion, can cancel the order and the same will be marked under Seller Cancellation.
+                    <br>
+                    4.When Shipping with Seventh Square , the seller should update the seller panel in the event of any default or delay by Seller to deliver the product to the courier partner on time. In such an event, the platform is at its discretion to convey the same to the buyer or cancel such order and mark them under seller cancellation. 
+                  </p>
+                  <p class="text-para-small mb-0" style="font-size:initial !important;font-weight: 300;" id="list-item-6">Contact:</p>    
+  
+                  <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">
+                      For any queries related to shipping, sellers can reach out to 
+                  <u>seller@seventhsq.com</u> </p>
+                </p>
+              </div>
+            </div>
+          </div>
 
-                    <div class="row" style="padding-right: 10px;">
-                      <div class="col-sm-3">
-                        <div class="" style="position: sticky; top:100px;">
-                            <div id="list-example" class="list-group">
-                                <a class="list-group-item list-group-item-action" href="#" style="
-                                background: rgba(211, 211, 211, 0.849);
-                            ">  Contents:</a>
-                                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-1">Disclaimer </a>
-                                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-2">Shipment Models </a>
-                                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-3">Shipping Cost</a>
-                                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-4">Ownership of Product </a>
-                                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-5">Shipping defaults, liability & obligations</a>
-                                <a class="list-group-item list-group-item-action text-para-small"  style="font-size:initial !important; font-weight: 300;" href="#list-item-6">Contact</a>
-                              </div>
-            
-                        </div>  
-            
-                      </div>
-                      <div class="col-md">
-                        <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
-                          <button onclick="topFunction()" id="myBtn" title="Go to top" style="position: sticky; top:90%; float: right;">
-                            <i class="fa fa-chevron-up"></i>
-                        </button>
-                  
-                            <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-                          
-                
-                            
-                          <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">
-                            
-          
-                          <p  class="text-para-small" style="font-size:initial !important; font-weight: 300;" >
-                            <p class="text-para-small" style="font-size:initial !important; font-weight: 300;" id="list-item-1">Disclaimer:</p>
-                            <p  class="text-para-small" style="font-size:initial !important; font-weight: 300;">
-                          
-                              Seventh Square partners with various logistics providers to ensure efficient delivery of orders. We strive
-                              to ensure product safety and timely delivery to customers. However, we are a marketplace and provide
-                              shipping only as a service to sellers on the platform. We are not liable for any issues regarding shipping
-                              and courier as communicated in the marketplace agreement and Terms & Conditions. The terms and conditions in this policy are in addition to and are not intended to eliminate any rights seventhsq.com or any of its Affiliates may have, or any obligations Seller or any of its Affiliates may have, under any agreement currently in effect between Seller or its Affiliates and seventhsq.com or its Affiliates concerning the offer and/or sale by Seller or its Affiliates of products or services via the seventhsq.com Site ("Seller Agreement").<br>
-                          </p>
-                          </p>
-                          <p class="text-para-small" style="font-size:initial !important;font-weight: 300;" id="list-item-2"> Shipping Models:</p>    
-                          <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">
-          
-                    
-                            The default fulfillment model provided by company for the delivery of purchased Products to the Buyers
-                            is the Seventh Square LMD (Last Mile Delivery) Model as detailed herein below. Company may, at its
-                            discretion, introduce other Fulfillment models listed in this Clause, at any time in the future. On
-                            introduction of such other Fulfillment models, Company may, at its discretion, offer these options to all
-                            or select Sellers. All Three (3) models are detailed below for the Sellers’ information.
-                          <br>  1. Model 1 – Seventh Square LMD Model – Seller will be responsible for packaging and shipping the right Product and right quantity to the Buyer via courier through Seventh Square LMD
-                            network. Company will assign Courier partner for each shipment and designated courier partner shall
-                            collect the shipments from Seller's pick up center or warehouses. Seller should communicate the pick up locations to the platform using options available in the Seller Dashboard. 
-                          <br>  2. Model 2– Self Shipping – Seller will be responsible for packaging and shipping the Product to the
-                            Buyer via any courier service identified by the seller  and informed to the company. The seller, as per agreement, uses invoice generated by the company for all products sold on the platform. Managing delivery in this case is the seller’s responsibility and he/she should keep the company updated on the order delivery as and when required.
-                            <br>
-                              
-                          </p>
-                          <p class="text-para-small" style="font-size:initial !important;font-weight: 300;" id="list-item-3"> Shipping Cost:</p>    
-                          <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">                    
-                            Shipping Cost is based on the distance / location of the buyer and weight of the product. Shipping Cost can be ‘inclusive’ in the sale price offered to buyers or ‘exclusive’ from the sale price offered to buyers. In case of ‘exclusive’, Buyers pay extra shipping on the product, the cost of which is pre-defined by the platform or the seller, as the case may be. Seller can select whether to keep Shipping Cost ‘inclusive’ in the product sale price while adding the product. 
-  <br>
-                          a. When Shipping with Seventh Square and Shipping Cost is ‘inclusive’ in the product sale price - Buyer pays no extra shipping on the Product Sale Price. Shipping Cost, as per Seventh Square’s Shipping Schedule, is deducted from the total order amount before payout to seller. 
-                            <br> b.When Shipping with Seventh Square and Shipping Cost is ‘exclusive’ from the product sale price- Buyer pays extra shipping when placing an order for the product, based on Seventh Square’s Shipping Schedule. Shipping Cost in this case is borne by the buyer and not deducted from the total order amount before payout to seller. 
-                            <br> c.When Self-Shipping and Shipping Cost is ‘inclusive’ in the product sale price - Buyer pays no extra shipping on the product sale price. Shipping is borne by the seller. Shipping and associated costs are the seller's own domain and not charged or accounted for in transactions with the Platform, in this case.
-                            <br> d.When Self-Shipping and Shipping Cost is ‘exclusive’ from the product sale price - Buyer pays extra shipping based on the Seller’s Shipping Schedule. Shipping Cost in this case is borne by the buyer. Total Order Amount, including Product Sale Price and Shipping Cost, are processed by Seventh Square and relevant charges (for example, Marketplace Commission, Payment Processing Fee and Taxes) are deducted before payout to seller. 
-                            </p>
-                          <p class="text-para-small" style="font-size:initial !important;font-weight: 300;" id="list-item-4">  Ownership of Product:</p>    
-                          
-                          <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">                   
-                            Ownership of the Product rests with the seller in both Shipping methods till the delivery of the product. Once Delivered, ownership of product transfers to the buyer. 
-
-                          </p>
-                          <p class="text-para-small" style="font-size:initial !important;font-weight: 300;" id="list-item-5">  Shipping defaults, liability & obligations:</p>    
-                          <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">
-  1.When Self-Shipping , the seller is required to ship the order within the Handling Time / Estimated Shipping Date as provided.
-  <br>
-  2.Seller should confirm shipment status in the seller dashboard within 24 hours of shipping order and / or Estimated Shipping Date, whichever is earlier. 
-  <br>
-  3. In case of failure/delay to ship the product or updating the status appropriately, Seventh Square, at its discretion, can cancel the order and the same will be marked under Seller Cancellation.
-  <br>
-  4.When Shipping with Seventh Square , the seller should update the seller panel in the event of any default or delay by Seller to deliver the product to the courier partner on time. In such an event, the platform is at its discretion to convey the same to the buyer or cancel such order and mark them under seller cancellation. 
-                          </p>
-                          <p class="text-para-small" style="font-size:initial !important;font-weight: 300;" id="list-item-6">Contact:</p>    
-          
-                          <p  class="text-para-small" style="font-size:initial !important;font-weight: 300;">
-                              For any queries related to shipping, sellers can reach out to 
-                          <u>seller@seventhsq.com</u> </p>
-                          </p>
-                      </div>
-                      </div>
-                      </div>
-                  
-                    </div>
-                  </div>
-            
+        </div>
   </div>
+</div>
 {% endblock content %}
-{% block jsblock %}{% endblock jsblock %}
+{% block jsblock %}
+  <script>
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
+
+{% endblock jsblock %}

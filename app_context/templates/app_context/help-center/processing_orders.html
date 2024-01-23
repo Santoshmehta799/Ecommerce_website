@@ -1,0 +1,177 @@
+{% extends 'seventh-square/layout/base.html' %}
+{% load static %}
+{% block title %}{% endblock title %}
+{% block metablock %}{% endblock metablock %}
+{% block cssblock %}{% endblock cssblock %}
+{% block content %}
+    <nav aria-label="breadcrumb" style="font-size: 15px;">
+        <ol class="breadcrumb" id="journey"style="background-color: #fff;padding: 2px 20px;margin-bottom: 0px!important;">
+        <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+        <li class="breadcrumb-item"><a href="/help-center/" id="last2word" style="color:#01011e">help-center</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><span id="lastword">processing-orders</span></li>
+        </ol>
+    </nav>
+
+    <div class="container  ">
+        <div class="row">
+            <div class="col-md-6 order-md-1 order-2 mt-5">
+                <h1 style="font-family:crimson text">Processing Orders</h1>
+                <p>Once you've successfully listed your products on the platform, the visitors will be able to see your products and purchase them. Find out everything related to orders on this page.</p>
+                <br>
+                <a href="/orders/current-orders/">
+                    <button class="btn mt-4" style="background-color: #C7D0D8 !important;border-radius: 0;box-shadow: none;">Go To Current Orders</button>
+                </a>
+            </div>
+            <div class="col-md-6 order-md-2 order-1 pt-5 text-center">
+                <img style="width:327px;height:200px;" src="{% static 'seventh-square/assets/img/help-center/processing-orders/processingordersmainimage.png' %}" >
+            </div>
+        </div>
+        
+        <br>
+        <div class="col ">
+
+            <h4 style="color: black;font-family:crimson text">Order Journey</h4>
+
+            <ol>
+                <li> Customer places order for your product on the marketplace portal.</li>
+                <li>Order received for your product is displayed on the portal under '<a
+                        style="text-decoration: underline; color: #4f4f6e;" href="/orders/current-orders/">Current
+                        Orders</a>'.</li>
+                <li>You are also duly notified on the portal, phone, whatsapp, email as per your settings. </li>
+                <li>Check order details and prepare to dispatch by / before the ship by date. This includes Shipping
+                    Label (as applicable), invoice, packaging (as applicable) and Delivery Challan / E-Way Bills (as
+                    applicable).</li>
+                <li>Keep the customer updated marking the status in Current Orders including once order is
+                    dispatched. </li>
+                <li>Check the <a style="text-decoration: underline; color: #4f4f6e;" href="/payments/">Payment
+                        History</a> page once order is successfully
+                    delivered. </li>
+            </ol>
+        </div>
+    <!-- 
+        <div class="col">
+
+            <h4 style="font-family:crimson text;color: black;">Commonly Asked Questions</h4>
+            <ol>
+                <li>How do I know if I've received any order?</li>
+                <li>I'm not receiving order notifications. What do I do? </li>
+                <li>I ran out of inventory. I won't be able to fulfill the order. What do I do? </li>
+                <li>Should I always keep inventory? </li>
+                <li>I ran out of inventory but I can fulfill the order after 1/2 days. Can I still follow up with
+                    the order?</li>
+                <li>I want to set my own return policy. How do I proceed?</li>
+                <li>Where can I see all my orders?</li>
+                <li>My Product orders work on sampling of the product. Is there any product sampling service on
+                    Seventh Square?</li>
+            </ol>
+        </div> -->
+        <div class="col">
+
+            <h4 style="font-family:crimson text;color: black;">Enquiries</h4>
+            <p>Building Materials Sales is often personalised based on Quantity and Delivery Location. Many products
+                also have fluctuating pricing which makes them unable to list at fixed prices. <br> We have solved
+                this issue for both the consumers and the seller by offering to the consumers industry-level
+                procurement tools such as Request for Quote. <br>Once an enquiry is raised for your product, it is
+                displayed under '<a style="text-decoration: underline; color: #4f4f6e;">Customer Enquiry
+                </a>' with all the details to help you decide whether you want to
+                fulfil the enquiry or not.</p>
+        </div>
+
+        <!-- <div class="col">
+
+            <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+            <ol>
+                <li>Where can I see all the enquiries I have received?</li>
+                <li>How do I respond to the enquiry?</li>
+                <li>Will the enquiries be confirmly converted into orders? </li>
+                <li>How do you determine what enquiries will I receive? </li>
+                <li>Can I change my quotation once provided? </li>
+                <li>How does Blanket Purchase Orders work? </li>
+                <li>How does Procurement Services / Tools bring in orders for you? </li>
+            </ol>
+        </div> -->
+        <div class="col mt-5">
+            <h4 style="font-family:crimson text">Commonly Asked Questions</h4>
+        <div id="accordionExample"  class="col ">
+            {% for i in posts %}
+        
+            <div id="f{{i.id}}" class="card-" >
+            <h6 class="mb-0 "><span data-toggle="collapse" data-target="#f{{i.id}}-1" aria-expanded="false"
+            aria-controls="f{{i.id}}-1" class="d-block  text-dark  py-1"><strong>-</strong>
+            &nbsp;{{i.question}}
+            </span></h6>
+            <div id="f{{i.id}}-1" aria-labelledby="f{{i.id}}" data-parent="#accordionExample" class="collapse">
+            <div class="card-body p-3">
+                <p class="font-weight-light m-0">{{i.answer|safe}} </p>
+            </div>
+        </div>
+        </div>
+            {% endfor %}
+        </div></div>
+        <div id="order-pro" class="col">
+
+            <h4 style="font-family:crimson text;color: black;">Order Terms & Settings</h4>
+            <div class="col">
+
+                <p style="font-weight: 800;">-order Processing Time</p>
+                <p>Order Processing Time or Order Handling time refers to the time it takes for you or any of your
+                    products to be packed for shipment. You can set this
+                    time for all your products as default in your <a
+                        style="text-decoration: underline; color: #4f4f6e;" href="/account/">seller profile</a>
+                    or for individual products while <a style="text-decoration: underline; color: #4f4f6e;"
+                        href="/inventory/add-new-product/">you upload them.</a> </p>
+            </div>
+            <div id="order-cutoff" class="col">
+
+                <p style="font-weight: 800;">-order cutoff Time</p>
+                <p>This represents the time when you'll last accept orders for the day. It is useful in estimating
+                    shipping and delivery timelines. <br> <br>For example,<br> If your warehouse labour for shipping
+                    new orders leaves at 5pm everyday. Then you can set your order cut off time for 5pm. In this
+                    way, even if you're
+                    dispatching the product on the same day for the rest of the orders, every order received after
+                    5pm will automatically be required to be delivered the
+                    next day only.
+                </p>
+
+                <p>Read more about <a style="text-decoration: underline; color: #4f4f6e;">Order Processing Time</a>
+                    and <a style="text-decoration: underline; color: #4f4f6e;">Order Cut off Time.</a>
+                </p>
+
+            </div>
+
+
+        </div>
+        <div class="col">
+
+
+            <h4 style="color: black; font-family:crimson text">Sampling</h4>
+            <p>Some Building Materials often require sampling as part of the purchase process. In this scenario,
+                sellers for the segments have worked over expectations in providing samples to their prospecting
+                customers. <br> We 've made it easier for you. For products requiring sampling from any buyer on
+                Seventh Square, we'll arrange the pick and drop for you, so you can increase your sales even in such
+                a product segment. <br> To enable sampling for your account, please reach out to us at
+                seller@seventhsq.com or contact your relationship manager. </p>
+
+        </div>
+        <div class="col">
+
+
+            <h4 style="color: black; font-family:crimson text">Guidelines</h4>
+            <ol>
+                <li>Respond to every order received as soon as possible. Every Customer awaits updates on their
+                    order and providing these are form a big part of
+                    Customer Experience online. Whether you want to cancel the order , delay shipment or prepone
+                    delivery, update your response.
+                </li>
+                <li>Keep your contact information up to date so you never miss out on any order or payment updates
+                    sent by us. Also, Check your phone / email
+                    regularly in case you miss an update</li>
+
+            </ol>
+
+        </div>
+
+    </div>
+
+{% endblock content %}
+{% block jsblock %}{% endblock jsblock %}

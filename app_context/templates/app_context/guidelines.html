@@ -4,98 +4,103 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-    <nav aria-label="breadcrumb" style="font-size: 14px;border-bottom: 1px solid rgb(245, 245, 245);">
-        <ol class="breadcrumb m-0" id="journey" style="background-color: #fff;padding: 2px 20px;">
-            <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Seller Guidelines</li>
-        </ol>
-    </nav>
 
+<div class="container-fluid">
+    <div class="row">
+      <!-- Messages Start -->
+      {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
+      <!-- Messages END -->
+  
+      <div class="col-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item"><a href="/" class="text-dark text-decoration-none" >Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Seller Guidelines</li>
+          </ol>
+        </nav>
+      </div>
 
-    <div class="row" style="margin: 30px 0px;">
-        
-        <div class="col-12 col-md-2">
-            
+      <div class="col-12">
+        <h1 class="text-center"> Seller Guidelines </h1>
+      </div>
+
+      <div class="col-md-9 mx-auto">
+        <button onclick="topFunction()" id="myBtn" title="Go to top" style="position: sticky;  top:90%; float: right;">   
+            <i class="fa fa-chevron-up"></i>
+        </button>   
+                
+        <div class="row" style="margin: 20px;"><span>At Seventh Square, we strive to provide you the best
+                merchant
+                platform available and are constantly working to make the selling experience better for you. We
+                also
+                ensure fair and trustworthy buyer and seller experience. We expect you to adhere to certain
+                guidelines
+                which act as Code of Conduct for sellers on the platform. Violation of the guidelines may result
+                into
+                loss of selling privileges on the platform and suspension of your account from Seventh
+                Square.</span>
         </div>
-        
-        <div class="col">
-            <button onclick="topFunction()" id="myBtn" title="Go to top" style="position: sticky;  top:90%; float: right;">   
-                <i class="fa fa-chevron-up"></i>
-            </button>   
-            <h1 class="text-center my-4" style="font-family: 'crimson text' !important; color: black;">
-                Seller
-                    Guidelines</h1>
-        
-                    
-                <div class="row" style="margin: 20px;"><span>At Seventh Square, we strive to provide you the best
-                        merchant
-                        platform available and are constantly working to make the selling experience better for you. We
-                        also
-                        ensure fair and trustworthy buyer and seller experience. We expect you to adhere to certain
-                        guidelines
-                        which act as Code of Conduct for sellers on the platform. Violation of the guidelines may result
-                        into
-                        loss of selling privileges on the platform and suspension of your account from Seventh
-                        Square.</span>
-                </div>
-                <h2 style="font-size: 18px; margin: 20px; font-family: 'Source Serif Pro', serif; color: black;">
-                    <strong>Seventh
-                        Square Seller Principles:</strong></h2>
-                <div class="row" style="margin: 20px;">
+        <h2 style="font-size: 18px; margin: 20px; font-family: 'Source Serif Pro', serif; color: black;">
+            <strong>Seventh
+                Square Seller Principles:</strong>
+        </h2>
+        <div class="row" style="margin: 20px;">
+            <ul>
+                <li style="margin: 7px 0px;">Adhere to all applicable laws and abide by all Seventh Square
+                    policies and terms.</li>
+                <li style="margin: 7px 0px;">Maintain current account information.</li>
+                <li style="margin: 7px 0px;">Never misrepresent yourself.</li>
+                <li style="margin: 7px 0px;">Maintain Confidential Information.</li>
+                <li style="margin: 7px 0px;">Never use Seventh Square’s Intellectual Property for any use
+                    without permission. Intellectual Property includes, but not limited to, trademarks, patents,
+                    copyrights, designs, content, domain names, know how, technology, brands and all
+                    confidential and sensitive information of the Company including operations, budgets and
+                    business plans, etc.</li>
+                <li style="margin: 7px 0px;">Always act in a manner that ensures a trustworthy experience for
+                    Seventh Square customers.</li>
+                <li style="margin: 7px 0px;"> Never list products that may cause harm to Seventh Square
+                    customers.</li>
+                <li style="margin: 7px 0px;"> Never engage in Unethical Dealings with any company associate,
+                    employee, affiliate, partner, seller or customer. Unethical dealings include without
+                    limitation, bribery or corruption, colluding with users/buyers, malpractice, etc.</li>
+                <li style="margin: 7px 0px;"> Never engage in any misleading, inappropriate or offensive
+                    behaviour. This applies to all your activities, including but not limited to:</li>
+                <ul style="padding-bottom: 20px;"> 
+                    <li style="margin: 7px 0px;"> Information provided on your account.</li>
+                    <li style="margin: 7px 0px;"> Information provided in listings, content or images.</li>
+                    <li style="margin: 7px 0px;"> Communication between you and Seventh Square or you and our
+                        customers.</li>
+                </ul>
+                <li style="margin: 7px 0px;"> Act fairly at all times. Unfair behaviour includes but is not
+                    limited to the following:</li>
+                <ul> 
+                    <li style="margin: 7px 0px;"> Behaviour that could be deemed as manipulation or "gaming" of
+                        any part of the buying or selling experience.</li>
+                    <li style="margin: 7px 0px;"> Actions that could be perceived as manipulating customer
+                        reviews, including by directly or indirectly contributing false, misleading or
+                        inauthentic content.</li>
+                    <li style="margin: 7px 0px;"> Activities that could be perceived as attempting to manipulate
+                        Seventh Square's search results or sales rankings.</li>
+                    <li style="margin: 7px 0px;"> Actions that intentionally damage another seller, their
+                        listings or their ratings.</li>
+                    <li style="margin: 7px 0px;"> Only maintain one Seller account for each region in which you
+                        sell, unless you have a legitimate business need to open a second account and all of
+                        your accounts are in good standing. Examples of a legitimate business justification
+                        include:</li>
                     <ul>
-                        <li style="margin: 7px 0px;">Adhere to all applicable laws and abide by all Seventh Square
-                            policies and terms.</li>
-                        <li style="margin: 7px 0px;">Maintain current account information.</li>
-                        <li style="margin: 7px 0px;">Never misrepresent yourself.</li>
-                        <li style="margin: 7px 0px;">Maintain Confidential Information.</li>
-                        <li style="margin: 7px 0px;">Never use Seventh Square’s Intellectual Property for any use
-                            without permission. Intellectual Property includes, but not limited to, trademarks, patents,
-                            copyrights, designs, content, domain names, know how, technology, brands and all
-                            confidential and sensitive information of the Company including operations, budgets and
-                            business plans, etc.</li>
-                        <li style="margin: 7px 0px;">Always act in a manner that ensures a trustworthy experience for
-                            Seventh Square customers.</li>
-                        <li style="margin: 7px 0px;"> Never list products that may cause harm to Seventh Square
-                            customers.</li>
-                        <li style="margin: 7px 0px;"> Never engage in Unethical Dealings with any company associate,
-                            employee, affiliate, partner, seller or customer. Unethical dealings include without
-                            limitation, bribery or corruption, colluding with users/buyers, malpractice, etc.</li>
-                        <li style="margin: 7px 0px;"> Never engage in any misleading, inappropriate or offensive
-                            behaviour. This applies to all your activities, including but not limited to:</li>
-                        <ul style="padding-bottom: 20px;"> 
-                            <li style="margin: 7px 0px;"> Information provided on your account.</li>
-                            <li style="margin: 7px 0px;"> Information provided in listings, content or images.</li>
-                            <li style="margin: 7px 0px;"> Communication between you and Seventh Square or you and our
-                                customers.</li>
-                        </ul>
-                        <li style="margin: 7px 0px;"> Act fairly at all times. Unfair behaviour includes but is not
-                            limited to the following:</li>
-                        <ul> 
-                            <li style="margin: 7px 0px;"> Behaviour that could be deemed as manipulation or "gaming" of
-                                any part of the buying or selling experience.</li>
-                            <li style="margin: 7px 0px;"> Actions that could be perceived as manipulating customer
-                                reviews, including by directly or indirectly contributing false, misleading or
-                                inauthentic content.</li>
-                            <li style="margin: 7px 0px;"> Activities that could be perceived as attempting to manipulate
-                                Seventh Square's search results or sales rankings.</li>
-                            <li style="margin: 7px 0px;"> Actions that intentionally damage another seller, their
-                                listings or their ratings.</li>
-                            <li style="margin: 7px 0px;"> Only maintain one Seller account for each region in which you
-                                sell, unless you have a legitimate business need to open a second account and all of
-                                your accounts are in good standing. Examples of a legitimate business justification
-                                include:</li>
-                            <ul>
-                                  <li style="margin: -10px 0px;"> You own multiple brands and maintain separate
-                                    businesses for each.</li>
-                                  <li style="margin: -10px 0px;"> You manufacture products for two distinct and separate
-                                    companies.</li>
-                            </ul>
-                        </ul>
+                          <li style="margin: -10px 0px;"> You own multiple brands and maintain separate
+                            businesses for each.</li>
+                          <li style="margin: -10px 0px;"> You manufacture products for two distinct and separate
+                            companies.</li>
                     </ul>
-                </div>
+                </ul>
+            </ul>
         </div>
-        <div class="col-12 col-md-2"></div>
+
+      </div>
+
     </div>
+</div>
 
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}

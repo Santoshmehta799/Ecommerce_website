@@ -2,7 +2,25 @@
 {% load static %}
 {% block title %}{% endblock title %}
 {% block metablock %}{% endblock metablock %}
-{% block cssblock %}{% endblock cssblock %}
+{% block cssblock %}
+    <style>
+        .theme-bg-color{
+            background-color:rgba(76, 88, 100, 1)!important;
+        }
+
+        .w-80{width:75%;}
+        .w-20{width:20%;}
+
+        .font-size-20{
+            font-size:20px;
+        }
+
+        .font-size-17{
+            font-size:17px;
+        }
+
+    </style>
+{% endblock cssblock %}
 {% block content %}
     <div class="container-fluid theme-bg-color">
         <div class="row py-5 mx-auto">
@@ -19,8 +37,8 @@
                     </form>
                 </div>
                 <div class="col-md-8 text-center mx-auto mt-5" style="height:345.35px;">
-                   <img class="d-inline-block" style="width:358.07px;height:345.35px;" src="{% static 'seventh-square/assets/img/box-posing-with-blank.png' %}" ref="Not found">
-                   <img class="d-inline-block align-bottom" style="width:300.38px;height:118.75px;margin-left:-16px;margin-bottom:59px;" src="{% static 'seventh-square/assets/img/image 10.png' %}" ref="Not found">
+                   <img class="d-inline-block" style="width:358.07px;height:345.35px;" src="{% static 'seventh-square/assets/img/customer-enquiry/customerenquiryimage1.png' %}" ref="Not found">
+                   <img class="d-inline-block align-bottom" style="width:300.38px;height:118.75px;margin-left:-16px;margin-bottom:59px;" src="{% static 'seventh-square/assets/img/customer-enquiry/customerenquiryimage2.png' %}" ref="Not found">
                 </div>
                 <div class="col-md-8 text-center mx-auto mt-4">
                     <a href="/" class="btn btn-bg btn-white font-size-20">Back to Homepage</a>

@@ -4,16 +4,163 @@
 {% block metablock %}{% endblock metablock %}
 {% block cssblock %}{% endblock cssblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row p-5">
-        <!-- Messages Start -->
-        {% comment %} {% include 'seventh-square/layout/messages.html' %} {% endcomment %}
-        <!-- Messages END -->
-        <div class="col-12">
-            this is learing center page 
 
-        </div>            
+    <nav aria-label="breadcrumb" style="font-size: 15px;">
+        <ol class="breadcrumb" id="journey"style="background-color: #fff;padding: 2px 20px;margin-bottom: 0px!important;">
+        <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+
+        <li class="breadcrumb-item active" aria-current="page"><a href="/learningcenter"  style="color:#01011e" id="lastword">learningcenter</a></li>
+        </ol>
+    </nav>
+
+    <div style="margin: 6px; background-color: rgb(255, 255, 255);">
+        <div id="sidehd">
+            <h4> <a href="/help-center" style="color: #4f5052;margin-left: 60px; text-decoration: underline;">Help
+                    Center</a></h4>
+            <h4><a  href="/" style="color: #4f5052; margin-right: 60px;text-decoration: underline">Dashboard</a>
+            </h4>
+        </div>
+        <div class="main" style="font-size: 20px;margin: 5px; text-align: center; ">
+            <h1 style="
+    
+        font-size: 40px;
+        color: #000000;
+        font-weight: 700;
+        font-family: cr;">
+                Learning Center
+            </h1>
+        </div>
+
+        <div class="first">
+            <div class="icons">
+                <a href="?sort=adp">
+                    <h3>Add new product</h3>
+                </a>
+            </div>
+            <div class="icons">
+                <a href="?sort=pg">
+                    <h3>Platform Guide</h3>
+                </a>
+            </div>
+            <div class="icons">
+                <a href="?sort=tt">
+                    <h3>Tips & Tricks</h3>
+                </a>
+            </div>
+            <div class="icons">
+                <a href="?sort=pu">
+                    <h3>Platform Updates</h3>
+                </a>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; display: flex; justify-content: right;">
+
+            <div id="sort">
+                <div class="dropdown">
+                    <button class="btn btn-light " type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        SORT BY &nbsp<i class="fa fa-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% if sort == 'asc' or sort == 'desc' %}
+                            <li><a class="dropdown-item" href="?sort=asc">A to Z</a></li>
+                            <li><a class="dropdown-item" href="?sort=desc">Z to A</a></li>
+                        {% elif sort == 'adp' %}
+                            <li><a class="dropdown-item" href="?sort=adp&order=asc">A to Z</a></li>
+                            <li><a class="dropdown-item" href="?sort=adp&order=desc">Z to A</a></li>
+                        {% elif sort == 'pg' %}
+                            <li><a class="dropdown-item" href="?sort=pg&order=asc">A to Z</a></li>
+                            <li><a class="dropdown-item" href="?sort=pg&order=desc">Z to A</a></li>
+                        {% elif sort == 'tt' %}
+                            <li><a class="dropdown-item" href="?sort=tt&order=asc">A to Z</a></li>
+                            <li><a class="dropdown-item" href="?sort=tt&order=desc">Z to A</a></li>
+                        {% elif sort == 'pu' %}
+                            <li><a class="dropdown-item" href="?sort=pu&order=asc">A to Z</a></li>
+                            <li><a class="dropdown-item" href="?sort=pu&order=desc">Z to A</a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="?sort=asc">A to Z</a></li>
+                            <li><a class="dropdown-item" href="?sort=desc">Z to A</a></li>
+                        
+                        {% endif %}
+                    </ul>
+                    
+                    
+                </div>
+
+            </div>
+
+
+        </div>
+
+
     </div>
-</div>
+
+    <div class="container mt-5 mb-5">
+        <div class="blog row mt-5">
+            {% for p in blog_objs %}
+
+            <div class="col-md-3 mb-5">
+                <img src="{{p.image.url}}" alt="Card image cap" style="height: 150px;">
+            </div>
+            <div class="col-md-3">
+
+                <h5 class="card-title" style="width:250px">{{p.title}}</h5>
+                <p class="text card-text">{{p.slug}}</p>
+
+                <a href="" style="border-radius: 0; margin-top: 11px;"
+                    class="btn btn-dark">Read More</a>
+
+            </div>
+
+            {% endfor %}
+        </div>
+        <nav aria-label="Page navigation example">
+            <ul class="mt-5 pagination justify-content-center">
+                {% if objects.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ objects.previous_page_number }}&sort={{ sort }}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                {% endif %}
+                {% for i in objects.paginator.page_range %}
+                    <li class="page-item {% if objects.number == i %}active{% endif %}">
+                        <a class="page-link" href="?page={{ i }}&sort={{ sort }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+                {% if objects.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ objects.next_page_number }}&sort={{ sort }}">Next</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Next</span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        
+    </div>
+
+    <div class="container " style="height: 120px; background-color:rgb(240, 237, 237);">
+
+        <h2 id="font">Get
+            updated whenever a new article is published</h2>
+        <div style="display: flex; justify-content: center;">
+            <form method="post" action="/learningcenter/">
+                {% csrf_token %}
+
+                <input type="email" name="email" id="email" placeholder="Enter your email here" />
+                <button href="" type="submit" onclick="showme()" style="border-radius: 0;" class="btn btn-dark"
+                    value="submit">Subscribe</button>
+
+            </form>
+
+        </div>
+    </div>
+
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}
