@@ -20,11 +20,13 @@
       </nav>
     </div>  
 
-    <div class="col-12 col-md-9 mx-auto">
-      <h1 class="text-center" style="margin: 20px; font-family: 'crimson text' !important; color: black"> CANCELLATION & RETURNS</h1>
+    <div class="col-12 col-md-9 pt-4 mx-auto">
+      <h1 class="text-center"> CANCELLATION & RETURNS</h1>
       <div class="">
         <button onclick="topFunction()" id="myBtn" title="Go to top" style="position: sticky;  top:90%; float: right;">
-            <i class="fa fa-chevron-up"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+          </svg>
         </button>
         <div class="tab-content text-left pt-5 p-4" id="myTabContentJust" style="border: none; color: black">
             <div class="tab-pane fade show active" id="home-just" role="tabpanel" aria-labelledby="home-tab-just">
@@ -275,4 +277,12 @@
 
 
 {% endblock content %}
-{% block jsblock %}{% endblock jsblock %}
+{% block jsblock %}
+  <script>
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
+
+{% endblock jsblock %}

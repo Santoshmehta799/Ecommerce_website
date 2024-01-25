@@ -23,12 +23,12 @@
           <label class="col-sm-2 col-form-label requiredLabel" for="">Category</label>
           <div class="col-sm-4">
 
-              <select name="category" class="form-control" id="subCategory">
+              <select name="category" class="form-control" id="productType">
 
                   <option disabled="true" selected>-- Select Category --</option>
                   {% for pickups in cate %}
                   <option value="{{pickups.name}}">                               
-                  <h1>{{ pickups.name}}</h1>
+                    <h1>{{ pickups.name}}</h1>
                   </option>
                   {% endfor %}
               </select>
@@ -37,7 +37,7 @@
           <div class="col-sm-4">
 
               <select class="form-control" list="datalistOptions" id="productType"
-              placeholder="Type your Product Name" name="subCategory" >
+              placeholder="Type your Product Name" name="productType" >
               <option disabled="true" selected>Firstly Select Category </option>     
               </select>
           </div>
@@ -117,4 +117,160 @@
   </div>
 
 {% endblock content %}
-{% block jsblock %}{% endblock jsblock %}
+{% block jsblock %}
+  <script>
+    var l = window.location.pathname.split('/')[1];
+    document.getElementById('lastword').innerHTML = l;
+  </script>
+
+  <script>
+    function calcu() {
+        
+        var sale_price = parseFloat($('#sal').val());
+        var av = document.getElementById("comm").innerText;
+
+        console.log("av")
+        console.log(av)
+
+        var gstt = parseFloat(av);
+        console.log("gstt")
+        console.log(gstt)
+        
+        if(av=="₹3"){
+          var sale_price = parseFloat($('#sal').val());
+          var showCommission = "3 / bag"
+          var showDiv = document.getElementById("percent");
+          showDiv.style.display = "none";
+          var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+        var add= parseFloat(showPayment) + 3;
+        console.log(showCommission)
+        console.log("showPayment")
+        console.log(showPayment)
+        console.log("add")
+        console.log(add)
+        var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+        var added =parseFloat(3)+parseFloat(showPayment)+parseFloat(showGst);
+        var showRecieve = (sale_price - added).toFixed(2);
+        $('#showSale').val(sale_price);
+        document.getElementById("gateway").innerHTML = showPayment;
+        document.getElementById("com").innerHTML = "3 / bag";
+        document.getElementById("gst").innerHTML = showGst;
+        document.getElementById("sel").value = showRecieve;
+        }else if(av=="₹2"){
+          var sale_price = parseFloat($('#sal').val());
+          var showCommission = "2 / bag"
+          var showDiv = document.getElementById("percent");
+          showDiv.style.display = "none";
+          var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+        var add= parseFloat(showPayment) + 3;
+        console.log(showCommission)
+        console.log("showPayment")
+        console.log(showPayment)
+        console.log("add")
+        console.log(add)
+        var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+        var added =parseFloat(2)+parseFloat(showPayment)+parseFloat(showGst);
+        var showRecieve = (sale_price - added).toFixed(2);
+        $('#showSale').val(sale_price);
+        document.getElementById("gateway").innerHTML = showPayment;
+        document.getElementById("com").innerHTML = "2 / bag";
+        document.getElementById("gst").innerHTML = showGst;
+        document.getElementById("sel").value = showRecieve;
+        }else{
+          var showDiv = document.getElementById("percent");
+          showDiv.style.display = "block";
+          var showCommission = ((gstt / 100) * sale_price).toFixed(2);
+        var showPayment = ((18 / 1000) * sale_price).toFixed(2);
+        var add= parseFloat(showPayment) + parseFloat(showCommission);
+        console.log(showCommission)
+        console.log(showPayment)
+        console.log("add")
+        console.log(add)
+        var showGst = ((0.18) * parseFloat(add)).toFixed(2);
+        var added =parseFloat(showCommission)+parseFloat(showPayment)+parseFloat(showGst);
+        var showRecieve = (sale_price - added).toFixed(2);
+        $('#showSale').val(sale_price);
+        document.getElementById("gateway").innerHTML = showPayment;
+        document.getElementById("com").innerHTML = showCommission;
+        document.getElementById("gst").innerHTML = showGst;
+        document.getElementById("sel").value = showRecieve;
+
+      }
+    }
+
+    function cal(ship) {
+      return ship / 400
+    }
+  </script>
+  <script>
+    $("#subCategory").change(function () {
+        var url = '/pricecalculator/load_sub_price/';
+        console.log("url")
+        console.log(url)
+        // get the url of the `load_courses` view
+        var programmingId = $(this).val();  // get the selected programming ID from the HTML input
+        console.log(programmingId)
+        $.ajax({                       // initialize an AJAX request
+          url: url, 
+          type:"GET",                   // set the url of the request (= localhost:8000/load-courses/)
+          data: {
+            "abc":  programmingId      // add the programming id to the GET parameters
+          },
+          success: function (data) {   // `data` is the return of the `load_courses` view function
+            $("#productType").html(data);  // replace the contents of the course input with the data that came from the server
+          }
+        });
+  
+    });
+    $("#productType").change(function () {
+        var url = '/pricecalculator/load_sub_precent/'
+        var cat = document.getElementById('subCategory').value;
+        // var cat = $('#subCategory').value;
+        //cat = cat.replace(/ +/g,'');
+        //console.log("cat");
+        // console.log(cat)
+        // console.log("url")
+        // console.log(url)
+        // get the url of the `load_courses` view
+        var programmingId = $(this).val();  // get the selected programming ID from the HTML input
+        console.log("subcat")
+        console.log('programmingId ->',programmingId)
+        $.ajax({                       // initialize an AJAX request
+          url: url,                    // set the url of the request (= localhost:8000/load-courses/)
+          data: {
+            "subc":  programmingId,
+            "cat":cat
+            // "abc":  programmingId,
+                  // add the programming id to the GET parameters
+          },
+          success: function (data) {   // `data` is the return of the `load_courses` view function
+            console.log("data", data.data)
+            if(data.data=="0,3"){
+              console.log("hi")
+              $("#comm").html(" ₹3");  // replace the contents of the course input with the data that came from the server
+              $("#gsttt").html("3");
+              var showCommission = "3 / bag"
+              $("#com").html("3 / bag");
+              var showDiv = document.getElementById("percent");
+              showDiv.style.display = "none";
+            }else if(data=="0,2"){
+              console.log("hi")
+              $("#comm").html(" ₹2");  // replace the contents of the course input with the data that came from the server
+              $("#gsttt").html("2");
+              var showCommission = "2 / bag"
+              $("#com").html("2 / bag");
+              var showDiv = document.getElementById("percent");
+              showDiv.style.display = "none";
+            }
+            else{
+              console.log(data)
+              $("#comm2").html("");
+              $("#comm").html(data.data);  // replace the contents of the course input with the data that came from the server
+              $("#gsttt").html(data.data);  // replace the contents of the course input with the data that came from the server
+            }
+          }
+        }); 
+  
+      });
+  </script>
+{% endblock jsblock %}

@@ -60,7 +60,7 @@ class ServiceRegionsAdmin(admin.ModelAdmin):
 
 @admin.register(models.PriceStructure)
 class PriceStructureAdmin(admin.ModelAdmin):
-    list_display  = ('id', 'product_variant', 'sale_price', 'created_at', 'updated_at')
+    list_display  = ('id', 'product_variant', 'mrp', 'sale_price', 'created_at', 'updated_at')
     search_fields = ['product_variant']
     readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
 

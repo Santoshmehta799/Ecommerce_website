@@ -243,7 +243,6 @@ def add_inventory_step_4(request, product_id):
         shipping_include = request.POST.get('shipping_include')
         minimum_order_qunatity = request.POST.get('minimum_order_qunatity')
         minimum_order_qunatity_unit = request.POST.get('minimum_order_qunatity_unit')
-
         # print('shipping_include  -->', price_on_request, shipping_include)
 
         if product.product_has_variant:
@@ -255,12 +254,8 @@ def add_inventory_step_4(request, product_id):
                 price_structure_obj = PriceStructure.objects.filter(product_variant__product=product.id)
                 for price_structure in price_structure_obj:
                     price_structure.hsn_code = hsn_code
+                    price_structure.tax_code = tax_code
                     price_structure.product_variant.product.shipping_include = shipping_include
-                    if price_structure.product_variant.price_on_request == True:
-                        pass
-                    else:
-                        price_structure.tax_code = tax_code
-                        
                     price_structure.product_variant.product.save()
                     price_structure.product_variant.save()
                     price_structure.save()
@@ -465,7 +460,7 @@ def edit_inventory_step_2(request, product_id):
         default_variant = request.POST.getlist('default_variant',[])
         price_in_request = request.POST.getlist('price_in_request',[])
         var_added = product.product_has_variant
-
+        
         if var_added == True:
             for varient_index in range (len(final_varient_name_list)):
                 delimiter = '*'
@@ -489,6 +484,11 @@ def edit_inventory_step_2(request, product_id):
                     }
                 )
 
+                if not created:
+                    price_structure_obj.sale_price = sale_price_list[varient_index]
+                    price_structure_obj.mrp = mrp_list[varient_index]
+                    price_structure_obj.save()
+                
 
                 images_prefix = 'picture_'
                 varient_prefix = images_prefix + final_varient_name_list[varient_index]\
@@ -608,7 +608,6 @@ def edit_inventory_step_4(request, product_id):
         minimum_order_qunatity_unit = request.POST.get('minimum_order_qunatity_unit')
 
         # print('shipping_include  -->', price_on_request, shipping_include)
-
         if product.product_has_variant:
             product.minimum_order_qunatity = minimum_order_qunatity
             product.minimum_order_qunatity_unit = minimum_order_qunatity_unit
@@ -619,11 +618,7 @@ def edit_inventory_step_4(request, product_id):
                 for price_structure in price_structure_obj:
                     price_structure.hsn_code = hsn_code
                     price_structure.product_variant.product.shipping_include = shipping_include
-                    if price_structure.product_variant.price_on_request == True:
-                        pass
-                    else:
-                        price_structure.tax_code = tax_code
-                        
+                    price_structure.tax_code = tax_code
                     price_structure.product_variant.product.save()
                     price_structure.product_variant.save()
                     price_structure.save()

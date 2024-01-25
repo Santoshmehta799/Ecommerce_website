@@ -2,321 +2,518 @@
 {% load static %}
 {% block title %}{% endblock title %}
 {% block metablock %}{% endblock metablock %}
-{% block cssblock %}{% endblock cssblock %}
+{% block cssblock %}
+{% comment %} 
+<link rel="stylesheet" href="/static/staticfiles/css/Bootstrap-Tags-Input.css">
+<link rel="shortcut icon" type="image/x-icon" href="/static/staticfiles/img/favicon.ico">
+<script src="/static/staticfiles/js/Collapsible-sidebar-left-or-right--Content-overlay.js"></script>
+<link rel="stylesheet"
+	href="https://bootstrap-tagsinput.github.io/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+<link rel="stylesheet" href="/static/staticfiles/css/responsive.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bs-stepper/dist/css/bs-stepper.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+{% endcomment %}
+<style>
+	.first {
+	width: '100%';
+	display: flex;
+	justify-content: center;
+	margin-top: 15px;
+	}
+	.icons {
+	display: flex;
+	flex-direction: column;
+	margin: 35px;
+	align-items: center;
+	}
+	@media (min-width: 118px) {
+	.first {
+	flex-direction: column;
+	}
+	}
+	@media (min-width: 668px) {
+	.first {
+	flex-direction: row;
+	}
+	.icon h3 {
+	font: 400;
+	font-size: 20px;
+	font-family: 'Open Sans';
+	}
+	}
+	@media (min-width: 1200px) {
+	.first {
+	flex-direction: row;
+	}
+	.icon h3 {
+	font: 500;
+	font-size: 28px;
+	font-family: 'Open Sans';
+	}
+	}
+	/* --------------------------------- */
+	@media (min-width: 100px) {
+	.Articles {
+	display: flex;
+	justify-content: end;
+	flex-direction: column;
+	margin-left: 20px;
+	}
+	.Articles1 {
+	width: 350px;
+	}
+	.Articles1 h3 {
+	font: 400;
+	font-size: 18px;
+	}
+	}
+	@media (min-width: 376px) {
+	.Articles {
+	display: flex;
+	justify-content: end;
+	flex-direction: column;
+	margin-left: 50px;
+	}
+	}
+	@media (min-width: 570px) {
+	.Articles {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	}
+	.Articles1 {
+	width: 350px;
+	}
+	.Articles1 h3 {
+	font: 400;
+	font-size: 18px;
+	}
+	}
+	@media (min-width: 650px) {
+	.Articles {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+	margin-left: 40px;
+	}
+	.Articles1 {
+	width: 150px;
+	height: 80px;
+	margin-bottom: 30px;
+	}
+	.Articles1 p {
+	font-size: 14px;
+	}
+	}
+	@media (min-width: 100px) {
+	.Articles2 {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	}
+	}
+	@media (min-width: 460px) {
+	.Articles2 {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	}
+	}
+	@media (min-width: 650px) {
+	.Articles2 {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+	margin-bottom: 8%;
+	}
+	}
+	/* ------------------------- */
+	.contact1 {
+	display: flex;
+	flex-direction: column;
+	width: 75%;
+	}
+	@media (min-width: 200px) {
+	.contact1 {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	}
+	.line {
+	display: none;
+	}
+	}
+	@media (min-width: 650px) {
+	.contact1 {
+	flex-direction: row;
+	}
+	}
+	@media (min-width: 100px) {
+	.contact2 {
+	width: 100%;
+	border-right: none;
+	}
+	.contact2 Button {
+	border-radius: 0;
+	height: 43px;
+	background-color: rgb(0, 0, 0);
+	}
+	}
+	@media (min-width: 650px) {
+	.contact2 {
+	width: 50%;
+	border-right: solid 2px gray;
+	margin-top: 20px;
+	}
+	.contact3 {
+	width: 500px;
+	margin-left: 10%;
+	margin-top: 4%;
+	margin-bottom: 10%;
+	}
+	.contact4 h2 {
+	font: 500;
+	font-size: 25px;
+	color: gray;
+	}
+	}
+	.contact3 {
+	margin-left: 5%;
+	margin-top: 4%;
+	}
+	.icon1 {
+	font-size: 4rem;
+	margin-right: 15px;
+	}
+	@media (min-width: 100px) {
+	.contact4 {
+	display: flex;
+	justify-content: left;
+	margin-top: 40px;
+	}
+	.contact4 h2 {
+	font: 500;
+	font-size: 16px;
+	color: gray;
+	}
+	.contact3 {
+	margin-left: 11%;
+	margin-top: 4%;
+	margin-bottom: 10%;
+	}
+	}
+	#imgg {
+	margin-bottom: 10px ;
+	height: 110px; 
+	margin-left: 75px;
+	}
+	#imggg{
+	margin-bottom: 10px; height: 110px; margin-left: 75px;
+	}
+	#imgggg{
+	margin-bottom: 10px; height: 110px; margin-left: 35px;
+	}
+	@media (min-width: 570px) and (max-width: 830px) {
+	#subhed {
+	margin-left: 42px;
+	}
+	#imgg {
+	margin-bottom: 10px ;
+	height: 110px;
+	margin-left: 34px;
+	}
+	#secondSubhed {
+	font-size: 22px;
+	font-weight: 700;
+	color: #686868;
+	margin-left: 30px;
+	}
+	#imggg{
+	margin-left: 35px;
+	}
+	#imgggg{
+	margin-left: 11px;
+	margin-bottom: 10px; height: 110px;
+	}
+	}
+	#subhed {
+	font-size: 22px;
+	font-weight: 700;
+	color: #686868;
+	margin-top: 10px;
+	}
+	#secondSubhed {
+	font-size: 22px;
+	font-weight: 700;
+	color: #686868;
+	}
+	@media (max-width: 600px) {
+	#journey {
+	display: none !important;
+	}
+	}
+</style>
+<style>
+	#Learning{
+	font-size: 20px;margin-right: 50px; text-decoration: underline; color: rgb(79, 79, 197)
+	}
+	#popular{
+	color: #3a3b3c; font-family: crimson text; font-weight: 800; padding: 18px;
+	}
+	#Queries{
+	color: #3a3b3c;font-family: crimson text; font-weight: 800; padding: 18px;
+	}
+	#FAQs{
+	font-size: 20px;margin-right: 50px; text-decoration: underline; color: rgb(79, 79, 197)
+	}
+	@media (max-width: 600px) {
+	#Learning {
+	font-size: 15px;margin-right: 0px; text-decoration: underline; color: rgb(79, 79, 197)
+	}
+	#popular{
+	padding: 0px;
+	}
+	#Queries{
+	padding: 0px;
+	}
+	#FAQs{
+	font-size: 15px;margin-right: 0px; 
+	}
+	}
+</style>
+{% endblock cssblock %}
 {% block content %}
-
-    <nav aria-label="breadcrumb" style="font-size: 15px;">
-        <ol class="breadcrumb" id="journey"style="background-color: #fff;padding: 2px 20px;margin-bottom: 0px!important;">
-        <li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">help-center<span id="lastword"></span></li>
-        </ol>
-    </nav>
-        <div style="margin: 6px; background-color: #fff;">
-
-            <div style="font-size: 20px;margin: 5px; text-align: center; ">
-                <h1 style="
-            padding-top: 30px;
-            font-size: 30px;
-            color: #4f5052;
-            font-weight: 500;
-            font-family: crimson;">
-                    Help Center
-                </h1>
-            </div>
-
-            <div class="first">
-                <div class="icons">
-                    <a href="/help-center/getting-started">
-                        <img src="{% static 'seventh-square/assets/img/help-center/gettingstartedimage.png' %}"
-                            style="margin-bottom: 10px; height:110px; margin-left: 35px;">
-                        <h3 id="subhed" >Getting Started</h3>
-                    </a>
-                </div>
-                <div class="icons">
-                    <a href="/help-center/manage-your-account" >
-                        <img id="img" src="{% static 'seventh-square/assets/img/help-center/manageaccountimage.png' %}"
-                        style="margin-bottom: 10px; height:110px; margin-left: 35px;"  alt="Card image cap">
-                        <h3 id="subhed">Manage your account</h3>
-                    </a>
-                </div>
-                <div class="icons">
-                    <a href="/help-center/adding-products">
-                        <img src="{% static 'seventh-square/assets/img/help-center/addingproductimage.png' %}"
-                            style="margin-bottom: 10px; height: 110px; margin-left: 35px;">
-                        <h3 id="subhed" >Adding Products</h3>
-                    </a>
-                </div>
-            </div>
-            <style>
-                @media (max-width: 600px) {
-                    #line {
-                    display: none !important;
-                    }
-                }
-            </style>
-            <div id="line">
-                <div class="container" style="
-                border: solid 1px rgb(175, 167, 167);
-                width: 100%;
-            ;">
-                </div>
-            </div>
-            <!-- ----------------------------------------------------------second----------------------------------- -->
-
-            <div class="first">
-                <div class="icons">
-                    <a href="/help-center/processing-orders">
-                        <img src="{% static 'seventh-square/assets/img/help-center/processingorderimage.png' %}"
-                            style="margin-bottom: 10px;height: 110px; margin-left: 35px;">
-                        <h3 id="secondSubhed" style="
-                        
-                    ">Processing Orders</h3>
-                    </a>
-                </div>
-                <div class="icons">
-                    <a href="/help-center/pricing-payments">
-                        <img src="{% static 'seventh-square/assets/img/help-center/pricingpaymentimage.png' %}"
-                          style="margin-bottom: 10px; height:110px; margin-left: 35px;" id="imggg">
-                        <h3 id="secondSubhed" style="
-                    ">Pricing &
-                            Payments
-                        </h3>
-                    </a>
-                </div>
-                <div class="icons">
-                    <a href="/help-center/shipping-returns">
-                        <img src="{% static 'seventh-square/assets/img/help-center/shippingreturnimage.png' %}"
-                         style="margin-bottom: 10px; height:110px; margin-left: 35px;" id="imgggg">
-                        <h3 id="secondSubhed" style="
-                    ">Shipping &
-                            Returns
-                        </h3>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!--        
-                <div class="col-3" style="justify-content: space-between;display: grid;">
-                    <a href="Process_order" style="justify-content: space-between;display: grid;">
-        
-                    <i class="fas fa-truck fa-10x" style="align-items: center;justify-content: center;align-content: center;display: flex; color: black;"></i>
-                    
-                            
-                            <p  style="align-items: center;justify-content: center;align-content: center;display: flex;margin: 0;padding: 0;color: black;">
-                                Processing Orders        </p>
-                                </a>
-                
-                </div> -->
-
-
-        <!-- <div class="row">
-            <div class="col-3" style="justify-content: space-between;display: grid;"> -->
-
-        <!-- <img src="/static/staticfiles/email/ruppe.png" width="80%"> -->
-        <!-- <a href="Pricing" style="justify-content: space-between;display: grid;">
-                <i class="fas fa-rupee-sign fa-10x" style="align-items: center;justify-content: center;align-content: center;display: flex; color: black;"></i>
-
-                    <p  style="align-items: center;justify-content: center;align-content: center;display: flex;margin: 0;padding: 0;color: black;">
-
-                    Pricing & Payments    </p>
-    </a>
-            </div> -->
-        <!-- <div class="col-3" style="justify-content: space-between;display: grid;">
-    <a href="Shipping">
-                <i class="fas fa-truck fa-10x" style="align-items: center;justify-content: center;align-content: center;display: flex; color: black;"></i>
-                
-                        
-                        <p  style="align-items: center;justify-content: center;align-content: center;display: flex;margin: 0;padding: 0;color: black;">
-                        Shipping & Returns    </p>
-                        </a>
-            </div> -->
-
-
-        <!-- <div class="col-3"> -->
-        <!-- <img src="/static/staticfiles/email/bag.png">
-                <p style="align-items: center;justify-content: center;align-content: center;display: flex;">Advertising </p>
-                -->
-        <!-- </div> -->
-        <!-- <div class="col-3" style="justify-content: space-between;display: grid;">
-
-                <i class="fas fa-volume-up  fa-10x"  style="align-items: center;justify-content: center;align-content: center;display: flex; color: black;"></i>
-                    <p  style="align-items: center;justify-content: center;align-content: center;display: flex;margin: 0;padding: 0;">
-                    
-                    Advertising </p>
-                
-    </div> -->
-        <!-- </div> -->
-
-
-        <div style="margin: 6px; background-color: #fff;margin-top: 14px; ">
-            <div style="display: flex;justify-content: space-between; margin-bottom: 40px;">
-                <h4> <a id="popular" href="/learningcenter"
-                        >
-                        Popular Articles
-                    </a>
-                </h4>
-                <a id="Learning" href="/learningcenter"
-                    >
-                    Go to Learning Center 
-                </a>
-            </div>
-            <div class="Articles">
-                {% for p in popular_blog %}
-                <div class=" Articles1">
-                    <h6 style="color: #3a3b3c; font-weight: 700;">{{p.title}}</h6>
-                    <p>{{p.created}}</p>
-                    <a style="  text-decoration: underline;" class="date" href="{% url 'detail' p.slug %}">
-                        Read More
-                    </a>
-                </div>
-                {% endfor %}
-
-            </div>
-            </br>
-            <div style="display: flex;justify-content: space-between;  margin-top: 61px;margin-bottom: 30px;">
-                <h4><a id="Queries"
-                        style=" ">
-                        Popular Queries
-                    </a>
-                    
-                </h4>
-                <a href="/faq" id="FAQs"
-                    style="">
-                    Go to FAQs 
-                </a>
-            </div>
-
-            <div class="Articles">
-                {% for p in posts %}
-                <div class=" Articles1">
-                    <h6 style="color: #3a3b3c; font-weight: 700;">{{p.question}}</h6>
-                    <p>{{p.created}}</p>
-                
-                </div>
-                {% endfor %}
-    <!-- 
-                <div class="Articles1">
-                    <h6 style="color: #3a3b3c; font-weight: 700;">start selling .....</h6>
-                    <a style="text-decoration: underline;" href="#">Read More ></a>
-                </div>
-                <div class="Articles1">
-                    <h6 style="color: #3a3b3c; font-weight: 700;">Manage your account </h6>
-                    <a style="text-decoration: underline;" href="#"> Read More ></a>
-                </div>
-                <div class="Articles1">
-                    <h6 style="color: #3a3b3c; font-weight: 700;">Adding Products</h6>
-                    <a style="text-decoration: underline;" href="#"> Read More ></a>
-                </div>
-                <div class="Articles1">
-                    <h6 style="color: #3a3b3c; font-weight: 700;">Processing Orders</h6>
-                    <a href="#"> Read More ></a>
-                </div>
-                <div class="Articles1">
-                    <h6 style="color: #3a3b3c; font-weight: 700;">Processing Orders</h6>
-
-                    <a style="text-decoration: underline;" href="#"> Read More ></a>
-
-                </div> -->
-            </div>
-        </div>
-
-
-        <div class="mt-5" style="
-    background: #fff;
-    margin: 4px;
-    margin-top: 15px;
-    padding: 5px;
-    margin-bottom: -33px;">
-            <h4 style="padding-top: 30px; color: #3a3b3c; text-align: center;font-weight: 700;">
-                Still looking for Help?
-            </h4>
-            <p style="
-        padding-top: 30px;
-        font-size: 20px;
-        color: rgb(156, 147, 147);
-        text-align: center;">
-                Talk to us using any of the options below
-            </p>
-            <div class="contact1">
-                <div class="contact2">
-                    <h4 style="
-            font: 700;
-            font-weight: 700;
-            text-align: center;">
-                        WRITE TO US
-                    </h4>
-                    <form method="post" action="/help-center/">
-                        {% csrf_token %}
-                        <div style="
-            display: flex;
-            justify-content: space-around;
-            margin-top: 40px">
-                            <label style="font-size: 13px">Phone / Email</label>
-
-                            <input type="text" name="pho" style="
-                width: 350px;
-                height: 30px;
-                background: #ececec;
-                border: none;" />
-                        </div>
-                        <div style="
-            display: flex;
-            justify-content: space-around;
-            margin-top: 40px;" >
-                            <label style=" font-size: 13px;">Select Subject</label>
-
-                            <input type="text" name="sub" style="
-                width: 350px;
-                height: 30px;
-                background: #ececec;
-                border: none;" />
-                        </div>
-                        <div style="
-            display: flex;
-            justify-content: space-around;
-            margin-top: 40px;">
-                            <label style="font-size: 13px">Description</label>
-
-                            <input type="text" name="des" id="name" style="
-                width: 350px;
-                height: 30px;
-                background: #ececec;
-                border: none;" />
-                        </div>  
-                        <div style="
-            margin: 50px;
-            display: flex;
-            justify-content: end;
-            margin-right: 10%;
-            margin-top: 50px;
-            color: #fff; " >
-                            <button onclick="showme()"  type="submit" class="btn btn-dark">Submit</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="contact3">
-                    <div class="contact4">
-                        <i style="margin-right: 15px;margin-top: -8px; background-color: #0c0c0c; color: rgb(255, 255, 255); padding: 10px; border-radius: 50%;"
-                            class="fa fa-phone fa-1x"></i>
-                        <h2>Call at +91-9024139976</h2>
-                    </div>
-
-                    <div class="contact4">
-                        <i class="fa fa-envelope"
-                            style="margin-right: 15px; margin-top: -8px; background-color: #0c0c0c; color: rgb(255, 255, 255); padding: 10px; border-radius: 50%;"></i>
-
-                        <h2>Email at seller@seventhsq.com</h2>
-                    </div>
-
-                    <div class="contact4"><a style="color: black;"
-                        href="https://wa.me/message/OLL6KCHRBWPUD1" target="_blank">
-                        <i style="margin-right: 15px;" class="bi bi-whatsapp fa-2x"></i></a>
-                        <h2 style="margin-top: 14px;"><a style="color: black;"
-                            href="https://wa.me/message/OLL6KCHRBWPUD1" target="_blank">Whatsapp at +91-9024139976</h2></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<nav aria-label="breadcrumb" style="font-size: 15px;">
+	<ol class="breadcrumb" id="journey"style="background-color: #fff;padding: 2px 20px;margin-bottom: 0px!important;">
+		<li class="breadcrumb-item"><a href="/" style="color:#01011e">Home</a></li>
+		<li class="breadcrumb-item active" aria-current="page">help-center<span id="lastword"></span></li>
+	</ol>
+</nav>
+<div style="margin: 6px; background-color: #fff;">
+	<div style="font-size: 20px;margin: 5px; text-align: center; ">
+		<h1 style="
+			padding-top: 30px;
+			font-size: 30px;
+			color: #4f5052;
+			font-weight: 500;
+			font-family: crimson;">
+			Help Center
+		</h1>
+	</div>
+	<div class="first">
+		<div class="icons">
+			<a href="/help-center/getting-started" class="link-underline-light">
+				<img src="{% static 'seventh-square/assets/img/help-center/gettingstartedimage.png' %}"
+					style="margin-bottom: 10px; height:110px; margin-left: 35px;">
+				<h3 id="subhed" >Getting Started</h3>
+			</a>
+		</div>
+		<div class="icons">
+			<a href="/help-center/manage-your-account" class="link-underline-light">
+				<img id="img" src="{% static 'seventh-square/assets/img/help-center/manageaccountimage.png' %}"
+					style="margin-bottom: 10px; height:110px; margin-left: 35px;"  alt="Card image cap">
+				<h3 id="subhed">Manage your account</h3>
+			</a>
+		</div>
+		<div class="icons">
+			<a href="/help-center/adding-products" class="link-underline-light">
+				<img src="{% static 'seventh-square/assets/img/help-center/addingproductimage.png' %}"
+					style="margin-bottom: 10px; height: 110px; margin-left: 35px;">
+				<h3 id="subhed" >Adding Products</h3>
+			</a>
+		</div>
+	</div>
+	<style>
+		@media (max-width: 600px) {
+		#line {
+		display: none !important;
+		}
+		}
+	</style>
+	<div id="line">
+		<div class="container" style="
+			border: solid 1px rgb(175, 167, 167);
+			width: 100%;
+			;">
+		</div>
+	</div>
+	<!-- ----------------------------------------------------------second----------------------------------- -->
+	<div class="first">
+		<div class="icons">
+			<a href="/help-center/processing-orders" class="link-underline-light">
+				<img src="{% static 'seventh-square/assets/img/help-center/processingorderimage.png' %}"
+					style="margin-bottom: 10px;height: 110px; margin-left: 35px;">
+				<h3 id="secondSubhed" style="
+					">Processing Orders</h3>
+			</a>
+		</div>
+		<div class="icons">
+			<a href="/help-center/pricing-payments" class="link-underline-light">
+				<img src="{% static 'seventh-square/assets/img/help-center/pricingpaymentimage.png' %}"
+					style="margin-bottom: 10px; height:110px; margin-left: 35px;" id="imggg">
+				<h3 id="secondSubhed" style="
+					">Pricing &
+					Payments
+				</h3>
+			</a>
+		</div>
+		<div class="icons">
+			<a href="/help-center/shipping-returns" class="link-underline-light">
+				<img src="{% static 'seventh-square/assets/img/help-center/shippingreturnimage.png' %}"
+					style="margin-bottom: 10px; height:110px; margin-left: 35px;" id="imgggg">
+				<h3 id="secondSubhed" style="
+					">Shipping &
+					Returns
+				</h3>
+			</a>
+		</div>
+	</div>
+</div>
+<div style="margin: 6px; background-color: #fff;margin-top: 14px;" >
+	<div style="display: flex;justify-content: space-between; margin-bottom: 40px;">
+		<h4> <a id="popular" href="/learningcenter" class="link-underline-light"
+			>
+			Popular Articles
+			</a>
+		</h4>
+		<a id="Learning" href="/learningcenter"
+			>
+		Go to Learning Center 
+		</a>
+	</div>
+	<div class="Articles">
+		{% for p in popular_blog %}
+		<div class=" Articles1">
+			<h6 style="color: #3a3b3c; font-weight: 700;">{{p.title}}</h6>
+			<p>{{p.created}}</p>
+			<a style="  text-decoration: underline;" class="date" href="{% url 'detail' p.slug %}">
+			Read More
+			</a>
+		</div>
+		{% endfor %}
+	</div>
+	</br>
+	<div style="display: flex;justify-content: space-between;  margin-top: 61px;margin-bottom: 30px;">
+		<h4><a id="Queries"
+			style=" ">
+			Popular Queries
+			</a>
+		</h4>
+		<a href="/faq" id="FAQs"
+			style="">
+		Go to FAQs 
+		</a>
+	</div>
+	<div class="Articles">
+		{% for p in posts %}
+		<div class=" Articles1">
+			<h6 style="color: #3a3b3c; font-weight: 700;">{{p.question}}</h6>
+			<p>{{p.created}}</p>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+<div class="mt-5" style="
+	background: #fff;
+	margin: 4px;
+	margin-top: 15px;
+	padding: 5px;
+	margin-bottom: -33px;">
+	<h4 style="padding-top: 30px; color: #3a3b3c; text-align: center;font-weight: 700;">
+		Still looking for Help?
+	</h4>
+	<p style="
+		padding-top: 30px;
+		font-size: 20px;
+		color: rgb(156, 147, 147);
+		text-align: center;">
+		Talk to us using any of the options below
+	</p>
+	<div class="contact1 pb-5 pt-2">
+		<div class="contact2">
+			<h4 style="
+				font: 700;
+				font-weight: 700;
+				text-align: center;">
+				WRITE TO US
+			</h4>
+			<form method="post" action="/help-center/">
+				{% csrf_token %}
+				<div style="
+					display: flex;
+					justify-content: space-around;
+					margin-top: 40px">
+					<label style="font-size: 13px">Phone / Email</label>
+					<input type="text" name="pho" style="
+						width: 350px;
+						height: 30px;
+						background: #ececec;
+						border: none;" />
+				</div>
+				<div style="
+					display: flex;
+					justify-content: space-around;
+					margin-top: 40px;" >
+					<label style=" font-size: 13px;">Select Subject</label>
+					<input type="text" name="sub" style="
+						width: 350px;
+						height: 30px;
+						background: #ececec;
+						border: none;" />
+				</div>
+				<div style="
+					display: flex;
+					justify-content: space-around;
+					margin-top: 40px;">
+					<label style="font-size: 13px">Description</label>
+					<input type="text" name="des" id="name" style="
+						width: 350px;
+						height: 30px;
+						background: #ececec;
+						border: none;" />
+				</div>
+				<div style="
+					margin: 50px;
+					display: flex;
+					justify-content: end;
+					margin-right: 10%;
+					margin-top: 50px;
+					color: #fff; " >
+					<button onclick="showme()"  type="submit" class="btn btn-dark">Submit</button>
+				</div>
+			</form>
+		</div>
+		<div class="contact3">
+			<div class="contact4">
+				<span class="bg-black py-2 px-2 rounded-circle text-white">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+						<path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+					</svg>
+				</span>
+				<h2 class="p-2">Call at +91-9024139976</h2>
+			</div>
+			<div class="contact4">
+				<span class="bg-black py-2 px-2 rounded-circle text-white">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+						<path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
+					</svg>
+				</span>
+				<h2 class="p-2">Email at seller@seventhsq.com</h2>
+			</div>
+			<div class="contact4">
+				<a style="color: black;" href="https://wa.me/message/OLL6KCHRBWPUD1" target="_blank">
+					<span class="py-2 px-2 rounded-circle text-black">
+						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+							<path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
+						</svg>
+					</span>
+				</a>
+				<h2 class="mt-2"><a style="color: black;"
+					href="https://wa.me/message/OLL6KCHRBWPUD1" target="_blank">Whatsapp at +91-9024139976</h2>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock content %}
 {% block jsblock %}{% endblock jsblock %}

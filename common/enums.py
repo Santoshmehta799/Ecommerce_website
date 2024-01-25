@@ -109,6 +109,19 @@ class ChoicesBlogTypeEnums(TextChoices):
     PLATFORM_GUIDE = ('platform_guide', 'Platform Guide')
     TIPS_AND_TRICKS =('tips_and_tricks', 'Trips And Tricks')
     PLATFORM_UPDATES = ('platform_updates', 'Platform Updates')
+
+class ChoicesTypeEnums(TextChoices):
+    GETTING_STARTED = ('getting_started', 'Getting Started')
+    MANAGE_YOUR_ACCOUNT = ('manage_your_account', 'Manage your account')
+    ADDING_PRODUCTS = ('adding_products', 'Adding Products')
+    PROCESSING_ORDERS = ('processing_orders', 'Processing Orders')
+    PRICING_PAYMENTS = ('pricing_payments', 'Pricing & Payments')
+    SHIPPING_RETURNS = ('shipping_returns', 'Shipping & Returns')
+    ADVERTISING = ('advertising ', 'Advertising ')
+    POLICY_SECURITY = ('policy_security', 'Policy & Security')
+    ENQUIRIES = ('enquiries', 'Enquiries')
+    DISPUTES_RESOLUTION = ('disputes_resolution', 'Disputes & Resolution')
+
 class WarrantyEnums(TextChoices):
     MONTH_1 = ('1-month', '1 month')
     MONTHS_2 = ('2-months', '2 months') 

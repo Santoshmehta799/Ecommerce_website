@@ -429,7 +429,7 @@
             
                                                                 <div class="form-group col-md-8" id="wholepick">
                                                                     <label for="id_pick_up_location" class="form-label form-label-normal-font-style">Select Pick Up Location </label>
-                                                                    <p> dadsf {% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}{% if obj.product_variant_shipping_details %}{% if obj.product_variant_shipping_details.pick_up_location.all %}{% for pickup_address in obj.product_variant_shipping_details.pick_up_location.all %}{{pickup_address.id}}{% endfor %}{% endif %}{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %}</p>
+                                                                    <p> {% if product_obj.product_has_variant == True %}{% if product_obj.product_variant.all %}{% for obj in product_obj.product_variant.all %}{% if obj.default_variant == True %}{% if obj.product_variant_shipping_details %}{% if obj.product_variant_shipping_details.pick_up_location.all %}{% for pickup_address in obj.product_variant_shipping_details.pick_up_location.all %}{{pickup_address.id}}{% endfor %}{% endif %}{% endif %}{% endif %}{% endfor %}{% endif %}{% endif %}</p>
             
                                                                     <select class="w-100 form-select" title="Delivery Pick up location for your product. These are added first in the Seller Profile and can be selected in multiple for every product." 
                                                                         name="pick_up_location" placeholder="Select pickup location" required  id="id_pick_up_location" 
@@ -444,7 +444,8 @@
                                                                 </div>
                                                             </div>
 
-                                                            <button class="btn btn-dark mt-3">PREV</button>
+                                                            <button class="btn btn-dark mt-3" onclick="stepperForm.previous()">PREV</button>
+
                                                             <button class="btn btn-brand mt-3 btn-next-form">Next</button>
                                                         </form>
                                                     </div>
