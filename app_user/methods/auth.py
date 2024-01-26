@@ -119,6 +119,7 @@ def auth_login(request, username, password):
     msg = ""
     check_status, login_type = check_mobile_or_email(username)
     auth_username = None
+    print("===============>>>",login_type)
     if check_status == True:
         if login_type == UserAuthIdentifierType.EMAIL:
             try:

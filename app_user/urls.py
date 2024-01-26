@@ -38,4 +38,8 @@ urlpatterns = [
 
     # profile 
     path('profile/', views.profile, name="profile"),
+
+
+    # import old db data scripts square_source/projects/django/SellerWebsite/output_data.xlsx
+    path('one-to-one-xlsx-import/', views.one_to_one_xlsx_import, name="one-to-one-xlsx-import"),
 ]
