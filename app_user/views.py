@@ -563,7 +563,6 @@ def one_to_one_xlsx_import(request):
             )
 
             if not created:
-                print("===========yessss")
                 user_obj.last_login = value['last_login']
                 user_obj.save()
 

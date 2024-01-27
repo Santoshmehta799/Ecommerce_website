@@ -114,37 +114,41 @@ def check_mobile_or_email(field_value):
         login_type = UserAuthIdentifierType.UnKNOWN.value
     return status, login_type
 
+
 def auth_login(request, username, password):
     status = False
     msg = ""
+    
     check_status, login_type = check_mobile_or_email(username)
+
     auth_username = None
-    print("===============>>>",login_type)
     if check_status == True:
         if login_type == UserAuthIdentifierType.EMAIL:
             try:
                 user = User.objects.filter(email = username.lower()).first()
-                auth_username = user.email
+                auth_username = user.username
             except:
                 msg = "invalid credentials for Email Found."
 
         elif login_type == UserAuthIdentifierType.PH_NUMBER:
             try:
                 phone_number = UserPhoneVerified.objects.filter(ph_number = username, 
-                    is_verified=UserStatusEnums.VERIFIED).first().user.email
-                auth_username = phone_number
+                    is_verified=UserStatusEnums.VERIFIED).first()
+                auth_username = phone_number.seller.username
             except:
                 msg = "invalid credentials for Mobile Number Found."
         else:
             msg = " invalid credentials Found."
         if auth_username:
             auth_user = auth.authenticate(
-                username = username,
+                username = auth_username,
                 password=password
             )
             if auth_user is not None:
-                auth.login(request, user)
+                auth.login(request, auth_user)
                 status = True
+            else:
+                msg = "invalid credentials Found."
         else:
             msg = "invalid credentials Found."
     else:
