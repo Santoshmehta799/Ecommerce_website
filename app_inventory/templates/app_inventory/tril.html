@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Selection Form</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Add your styles and other scripts as needed -->
+    <style>
+        /* Add your styles here */
+    </style>
+</head>
+<body>
+
+<form id="imageForm" action="#" method="post">
+    <label for="imageInput">Select an Image:</label>
+    <input type="text" id="imageInput" name="selectedImage" readonly>
+    <button type="button" id="selectImageButton">Select Image</button>
+    <span id="errorText" style="color: red;"></span>
+
+    <!-- Add your other form fields here -->
+
+    <input type="submit" value="Submit">
+</form>
+
+<!-- Your popup model with images -->
+<div id="imagePopup" style="display: none;">
+    <img src="image1.jpg" alt="Image 1" class="popupImage" data-image="image1.jpg">
+    <img src="image2.jpg" alt="Image 2" class="popupImage" data-image="image2.jpg">
+    <!-- Add more images as needed -->
+
+    <button type="button" id="submitImage">Submit</button>
+</div>
+
+<script>
+    $(document).ready(function() {
+        let selectedImage = null;
+
+        // Show the popup when the "Select Image" button is clicked
+        $('#selectImageButton').click(function() {
+            $('#imagePopup').show();
+        });
+
+        // Handle image selection in the popup
+        $('.popupImage').click(function() {
+            // Highlight the selected image
+            $('.popupImage').removeClass('selected');
+            $(this).addClass('selected');
+            selectedImage = $(this).data('image');
+        });
+
+        // Handle form submission
+        $('#imageForm').submit(function(e) {
+            if (!selectedImage) {
+                // Show error if no image is selected
+                $('#errorText').text('Please select an image.');

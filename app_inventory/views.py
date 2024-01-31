@@ -555,19 +555,18 @@ def edit_inventory_step_3(request, product_id):
 
 
         if not product.product_has_variant:
-            pass
-            # product_varient_obj = product_variant_obj.first()
-            # product_varient_obj.default_variant = True
-            # product_varient_obj.save()
-            # for i in range(1, 11):
-            #     picture_name = f"picture{i}"
-            #     pictures = request.FILES.get(picture_name)
-            #     if pictures:
-            #         print("=-======>",pictures)
-            #         product_image_obj = ProductImage(product_variant=product_varient_obj)
-            #         print("======>>update", product_image_obj)
-            #         product_image_obj.picture = pictures
-            #         product_image_obj.save()
+            product_varient_obj = product_variant_obj.first()
+            product_varient_obj.default_variant = True
+            product_varient_obj.save()
+            for i in range(1, 11):
+                picture_name = f"picture{i}"
+                pictures = request.FILES.get(picture_name)
+                if pictures:
+                    print("=-======>",pictures)
+                    product_image_obj = ProductImage(product_variant=product_varient_obj)
+                    print("======>>update", product_image_obj)
+                    product_image_obj.picture = pictures
+                    product_image_obj.save()
 
         return redirect('app_inventory:edit_inventory_step_4', product_id=product.id)
     

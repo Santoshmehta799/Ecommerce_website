@@ -220,7 +220,7 @@
     
         function addTag(tagText) {
           const tag = document.createElement('span');
-          tag.className = 'tag justify-content-between m-1 px-3';
+          tag.className = 'tag justify-content-between m-1 px-2 py-2';
           tag.style.minWidth = '125px';
           tag.style.backgroundColor = 'rgba(76, 88, 100, 0.3)';
           
@@ -229,7 +229,7 @@
           tagTextElement.textContent = tagText;
           
           const tagRemove = document.createElement('span');
-          tagRemove.className = 'tag-remove mr-1 ml-5';
+          tagRemove.className = 'tag-remove mr-1 ml-5 py-1 px-2';
           tagRemove.style.fontSize = '25px';
           tagRemove.textContent = '×';
           tagRemove.addEventListener('click', () => {

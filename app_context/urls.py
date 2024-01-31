@@ -33,10 +33,16 @@ urlpatterns=[
     path('help-center/shipping-returns', views.shipping_returns, name="shipping-returns"),
 
 
-    # account
+    # privacy policy
+    path('privacy-policy/', views.privacy_policy, name="privacy-policy"),
+    
+    
     # path('current-orders/', views.current_orders, name="current-orders"),
     path('page-not-found/', views.page_not_found, name="page-not-found"),
     path('active-products/', views.active_products, name="active-products"),
     # path('customer-enquiry/', views.customer_enquiry, name="customer-enquiry"),
     # path('payment-history/', views.payment_history, name="payment-history"),
+
+
+
 ]

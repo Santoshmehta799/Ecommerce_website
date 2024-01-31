@@ -145,6 +145,8 @@ class WarrantyEnums(TextChoices):
     YEARS_8 = ('8-years', '8 years')
     YEARS_9 = ('9-years', '9 years')
     YEARS_10 = ('10-years', '10 years')
+
+    
 class MinimumOrderQuantityEnums(TextChoices):
     PIECE = ('piece', 'Piece')
     BAG = ('bag', 'Bag')

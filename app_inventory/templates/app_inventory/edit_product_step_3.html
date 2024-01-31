@@ -5,9 +5,6 @@
 {% block cssblock %}
     <link rel="stylesheet" href="{% static 'seventh-square/assets/css/bs-stepper/bs-stepper.min.css' %}" />
     <style>
-        .custom-model-min-width{
-            min-width: 44.5%;
-        }
 
         .active .bs-stepper-circle {
             background-color: #4C5864;
@@ -107,7 +104,7 @@
                                                     </div>
 
                                                     <div id="stepper-form-3"  role="tabpanel" class="bs-stepper-pane fade active" aria-labelledby="stepperFormTrigger3">
-                                                        <form class="needs-validation"  method="POST" id="basic-info-form" novalidate="" enctype="multipart/form-data">
+                                                        <form class="needs-validation"  method="POST" id="basic-info-form" novalidate="" onsubmit="return validateForm()" enctype="multipart/form-data">
                                                             {% csrf_token %}
                                                             
                                                             <div class="form-row">
@@ -132,7 +129,7 @@
                                                                         <span>Installation</span>
                                                                         <span class="optional-color">Optional</span>
                                                                     </label>
-                                                                    <textarea name="installation" title="Mention any fitting / installing / mixing required for the product to be consumed / used." id="id_installation" class="form-control">{{product_obj.installation}}</textarea>
+                                                                    <textarea name="installation" title="Mention any fitting / installing / mixing required for the product to be consumed / used." id="id_installation" class="form-control">{{product_obj.installation|default_if_none:''}}</textarea>
                                                                 </div>
             
                                                                 <div class="form-group col-md-7 mb-4">
@@ -140,7 +137,7 @@
                                                                         <span>Handling</span>
                                                                         <span class="optional-color">Optional</span>
                                                                     </label>
-                                                                    <textarea name="product_handling" title="Handling Procedures, if any. This could include Fragile Products , Products prone to breakage , Damage to the product / quality over a particular handling procedure." placeholder="Fragile Product. Handle with care." id="id_product_handling" class="form-control">{{product_obj.product_handling}}</textarea>
+                                                                    <textarea name="product_handling" title="Handling Procedures, if any. This could include Fragile Products , Products prone to breakage , Damage to the product / quality over a particular handling procedure." placeholder="Fragile Product. Handle with care." id="id_product_handling" class="form-control">{{product_obj.product_handling|default_if_none:''}}</textarea>
                                                                 </div>
                                                                 
                                                                 <div class="form-group col-md-7 mb-4">
@@ -177,7 +174,7 @@
                                                                     </label>
                                                                     <input class="form-control" title="List the unique items / their quantity included in your product set / unit per order."
                                                                         placeholder="X units of Part A, Y units of Part B included in the product item." type="text" name="components_per_unit"
-                                                                        id="id_components_per_unit" value="{{product_obj.components_per_unit}}">
+                                                                        id="id_components_per_unit" value="{{product_obj.components_per_unit|default_if_none:''}}">
                                                                 </div>
                                                                  
                                                                 <div class="form-group col-md-7 mb-4">
@@ -199,579 +196,87 @@
                                                                         type="text" name="material" id="id_material" value="{{product_obj.material|default_if_none:''}}">
                                                                 </div>
 
-                                                                {% if not product_obj.product_has_variant %}
+                                                                
                                                                 <div class="form-group col-md-7 mb-4">
                                                                     <label class="form-label" for="id_picture">
                                                                         <span>Upload Images</span>
                                                                     </label>
-                                                                    <input class="form-control text-left" placeholder="Upload Image"
-                                                                        type="button" name="picture"  data-bs-toggle="modal" data-bs-target="#showBreakd" id="id_picture">
+                                                                        
+                                                                    <input class="form-control text-left" placeholder="Upload Image" type="button" name="picture" data-bs-toggle="modal" data-bs-target="#showBreakd" id="id_picture" onclick="checkMainImageUpload();">
+                                                                    <div id="mainImageError" style="display: none; margin-top: 5px; color: red; font-size: 12px;">Main Display Image is required.</div>
                                                                     
-                                                                    <div class="modal fade" id="showBreakd" tabindex="-1" role="dialog"
-                                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    
+                                                                    <!-- Your popup model with images -->
+                                                                    <div class="modal fade" id="showBreakd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                         <div class="modal-dialog modal-lg" role="document">
-            
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">Upload Image
-                                                                                    </h5>
-                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                                            aria-label="Close">
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">Upload Image</h5>
+                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                                                                         <span aria-hidden="true"></span>
                                                                                     </button>
                                                                                 </div>
                                                                                 <div class="modal-body">
-                                                                                    <div class="row ">
-                                                                                        <div class="col-md-3">
-                                                                                            <h6>Main Display Image</h6>
-            
-                                                                                            <div class="mt-2"
-                                                                                                style="width: 135px; background-color: #ffffff; height: 131px; display: flex; align-items: center; justify-content: center;">
-                                                                                                <img id="uploadedimage"
-                                                                                                    style="height: 132px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
-                                                                                                <h6 id="uploadtext" style="text-align: center;">
-                                                                                                    + Upload</h6>
-                                                                                            </div>
-            
-                                                                                            <div class="mt-2">
-                                                                                                <input type="file" id="MainImagesUpload" required
-                                                                                                    style="width: 135px; background-color: #ffffff; height: 32px; border: none;"
-                                                                                                    placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture1"
-                                                                                                    onchange="showImage(this)">
-                                                                                            </div>
-                                                                                            <div id="uploadImageErrorMessage2" style="display: none; margin-top: 5px; color: red; font-size: 12px;">Please upload an image.</div>
-            
-            
+                                                                                    <div class="row px-2">
+                                                                                        {% if not product_obj.product_has_variant %}
+                                                                                            {% if product_obj.product_variant.all %}
+                                                                                                {% for obj in product_obj.product_variant.all %}
+                                                                                                    {% if obj.default_variant == True %}
+                                                                                                        {% if obj.product_variant_image %} 
+                                                                                                            {% for images in obj.product_variant_image.all %}
+                                                                                                                {% if forloop.first %}
+                                                                                                                    <div class="col-md-3 py-2">
+                                                                                                                        <h6>Main Display Image</h6>
+                                                                                                                        <div style="width: 135px; background-color: #ffffff; height: 131px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                            <img id="uploadedimage" {% if images.picture %}src="{{images.picture.url}}"{% endif %} style="height: 120px; width: 136px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                            <h6 id="uploadtext" style="text-align: center;">+ Upload</h6>
+                                                                                                                        </div>
+                                                                                                                        <div class="mt-2">
+                                                                                                                            <input type="file" value="{{images.picture.url}}" class="image-upload" required style="width: 135px; background-color: #ffffff; height: 32px; border: none;" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture{{forloop.counter}}" onchange="showImage(this)">
+                                                                                                                            <div class="upload-error-message" style="display: none; margin-top: 5px; color: red; font-size: 12px;">Please upload an image.</div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                {% else %}
+                                                                                                                    <div class="col-md-3 py-2">
+                                                                                                                        <h6>Additional Image {{forloop.counter}}</h6>
+                                                                                                                        <div style="width: 115px; background-color: #ffffff; height: 120px; display: flex; align-items: center; justify-content: center;">
+                                                                                                                            <img {% if images.picture %}src="{{images.picture.url}}"{% endif %} id="uploaded-image{{forloop.counter}}" style="height: 132px; width: 136px; margin-left: 1px; margin-top: 1px; display: block; position: absolute;">
+                                                                                                                            <label id="upload-label{{forloop.counter}}" style="text-align: center;">+ Upload</label>
+                                                                                                                        </div>
+                                                                                                                        <div class="mt-3" style="width: 115px; background-color: #ffffff; height: 32px;">
+                                                                                                                            <input type="file"  value="{{images.picture.url}}"  class="image-upload" style="width: 115px; background-color: #ffffff; height: 32px; border: none;" placeholder="Add Alt Text" accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" name="picture{{forloop.counter}}" onchange="showAdditionalImage(this, 'uploaded-image{{forloop.counter}}', 'upload-label{{forloop.counter}}')">
+                                                                                                                            <div class="upload-error-message" style="display: none; margin-top: 5px; color: red; font-size: 12px;">Please upload an image.</div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                {% endif %}
+                                                                                                            {% endfor %}
+                                                                                                        {% endif %}
+                                                                                                    {% endif %}
+                                                                                                {% endfor %}
+                                                                                            {% endif %}
+
+                                                                                        <div class="col-12 mt-5">
+                                                                                            <ui>
+                                                                                                <li>Images will be displayed to the customer in the
+                                                                                                    order shown here.</li>
+                                                                                                <li>Only JPEG,JPG and PNG files are allowed.</li>
+                                                                                            </ui>
                                                                                         </div>
-            
-                                                                                        <script>
-                                                                                            function showImage(fileInput) {
-                                                                                                const input = event.target;
-                                                                                                const image = document.querySelector('#uploadedimage');
-                                                                                                const uploadText = document.querySelector('#uploadtext');
-                                                                                                const image2 = document.querySelector('#uploaded-imag');
-                                                                                                const reader = new FileReader();
-                                                                                                reader.onload = () => {
-                                                                                                    image.src = reader.result;
-                                                                                                    image.style.display = 'block';
-                                                                                                    uploadText.style.display = 'none'; // Hide the "+ Upload" text
-                                                                                                    image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                    image2.style.display = 'block';
-                                                                                                };
-                                                                                                reader.readAsDataURL(input.files[0]);
-                                                                                                const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                    alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                    fileInput.value = '';
-                                                                                                    return false;
-                                                                                                }
-                                                                                            }
-                                                                                        </script>
-                                                                                        <div class="row col-md-9">
-                                                                                            <h6>Additional Image</h6>
-                                                                                            <div class="col-md-3">
-                                                                                                <div
-                                                                                                    style="width:115px; background-color: #ffffff; height: 101px; display: flex; align-items: center; justify-content: center;">
-                                                                                                    <img id="uploaded-image1"
-                                                                                                        style="height: 102px; width: 117px; margin-left: 2px; margin-top: 1px; display: block; position: absolute;">
-                                                                                                    <label id="upload-label1"
-                                                                                                        style="text-align: center;">+
-                                                                                                        Upload</label>
-                                                                                                </div>
-                                                                                                <div class="mt-2"
-                                                                                                    style="width: 115px; background-color: #ffffff; height: 32px;">
-                                                                                                    <input
-                                                                                                        style="width: 115px; background-color: #ffffff; height: 32px; border: none;"
-                                                                                                        placeholder="Add Alt Text"
-                                                                                                        accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" type="file"
-                                                                                                        name="picture2"
-                                                                                                        onchange="showImage1(this)">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <script>
-                                                                                                function showImage1(fileInput) {
-                                                                                                    const input = event.target;
-                                                                                                    const image = document.querySelector('#uploaded-image1');
-                                                                                                    const uploadLabel = document.querySelector('#upload-label1');
-                                                                                                    const image2 = document.querySelector('#uploaded-image11');
-                                                                                                    const reader = new FileReader();
-            
-                                                                                                    reader.onload = () => {
-                                                                                                        image.src = reader.result;
-                                                                                                        image.style.display = 'block';
-                                                                                                        image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                        image2.style.display = 'block';
-                                                                                                        uploadLabel.style.display = 'none'; // Hide the upload label
-                                                                                                    };
-            
-                                                                                                    reader.readAsDataURL(input.files[0]);
-                                                                                                    const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                    if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                        alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                        fileInput.value = '';
-                                                                                                        return false;
-                                                                                                    }
-                                                                                                }
-                                                                                            </script>
-            
-                                                                                            <div class="col-md-3 ">
-                                                                                                <div style="width:115px;
-                                                                                                            background-color: #ffff;
-                                                                                                            height: 101px;
-                                                                                                            display: flex;
-                                                                                                            align-items: center;
-                                                                                                            justify-content: center;
-                                                                                                        ">
-                                                                                                    <img id="uploaded-image2" style="height: 102px;
-                                                                                                                                    width: 117px;
-                                                                                                                                    margin-left: 2px;
-                                                                                                                                    margin-top: 1px;
-                                                                                                                                    display: block;
-                                                                                                                                    position: absolute;">
-                                                                                                    <label id="upload-label2"
-                                                                                                        style="text-align: center;text-align: center;">+
-                                                                                                        Upload</label>
-                                                                                                </div>
-                                                                                                <div class="mt-2" style="width: 115px;
-                                                                                                                        background-color: #ffff;
-                                                                                                                        height: 32px;
-                                                                                                                        "><input style="width: 115px;
-                                                                                                                background-color: #ffff;
-                                                                                                                height: 32px; border: none;" placeholder="Add Alt Text"
-                                                                                                        accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" type="file"
-                                                                                                        name="picture3"
-                                                                                                        onchange="showImage2(this)"></div>
-                                                                                            </div>
-                                                                                            <script>
-                                                                                                function showImage2(fileInput) {
-                                                                                                    const input = event.target;
-                                                                                                    const image = document.querySelector('#uploaded-image2');
-                                                                                                    const image2 = document.querySelector('#uploaded-image22');
-                                                                                                    const uploadLabel = document.querySelector('#upload-label2');
-                                                                                                    const reader = new FileReader();
-                                                                                                    reader.onload = () => {
-                                                                                                        image.src = reader.result;
-                                                                                                        image.style.display = 'block';
-                                                                                                        image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                        image2.style.display = 'block';
-                                                                                                        uploadLabel.style.display = 'none';
-                                                                                                    };
-                                                                                                    reader.readAsDataURL(input.files[0]);
-                                                                                                    const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                    if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                        alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                        fileInput.value = '';
-                                                                                                        return false;
-                                                                                                    }
-                                                                                                }
-                                                                                            </script>
-                                                                                            <div class="col-md-3 ">
-                                                                                                <div style="width:115px;
-                                                                                                            background-color: #fff;
-                                                                                                            height: 101px;
-                                                                                                            display: flex;
-                                                                                                            align-items: center;
-                                                                                                            justify-content: center;
-                                                                                                        ">
-                                                                                                    <img id="uploaded-image3" style="height: 102px;
-                                                                                                                                    width: 117px;
-                                                                                                                                    margin-left: 2px;
-                                                                                                                                    margin-top: 1px;
-                                                                                                                                    display: block;
-                                                                                                                                    position: absolute;">
-                                                                                                    <label id="upload-label3"
-                                                                                                        style="text-align: center;text-align: center;">+
-                                                                                                        Upload</label>
-                                                                                                </div>
-                                                                                                <div class="mt-2" style="width: 115px;
-                                                                                                                        background-color: #ffff;
-                                                                                                                        height: 32px;
-                                                                                                                        "><input style="width: 115px;
-                                                                                                                background-color: #fff;
-                                                                                                                height: 32px; border: none;" placeholder="Add Alt Text"
-                                                                                                        accept=".jpg, .png, .jpeg, .mp4, .avi, .mov"
-                                                                                                        name="picture4" type="file"
-                                                                                                        onchange="showImage3(this)">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <script>
-                                                                                                function showImage3(fileInput) {
-                                                                                                    const input = event.target;
-                                                                                                    const image = document.querySelector('#uploaded-image3');
-                                                                                                    const image2 = document.querySelector('#uploaded-image33');
-                                                                                                    const uploadLabel = document.querySelector('#upload-label3');
-            
-            
-                                                                                                    const reader = new FileReader();
-                                                                                                    reader.onload = () => {
-                                                                                                        image.src = reader.result;
-                                                                                                        image.style.display = 'block';
-                                                                                                        image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                        image2.style.display = 'block';
-                                                                                                        uploadLabel.style.display = 'none';
-                                                                                                    };
-                                                                                                    reader.readAsDataURL(input.files[0]);
-                                                                                                    const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                    if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                        alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                        fileInput.value = '';
-                                                                                                        return false;
-                                                                                                    }
-                                                                                                }
-                                                                                            </script>
-            
-                                                                                            <div class="col-md-3 ">
-                                                                                                <div style="width:115px;
-                                                                                                            background-color: #fff;
-                                                                                                            height: 101px;
-                                                                                                            display: flex;
-                                                                                                            align-items: center;
-                                                                                                            justify-content: center;
-                                                                                                        ">
-                                                                                                    <img id="uploaded-image4" style="height: 102px;
-                                                                                                                                    width: 117px;
-                                                                                                                                    margin-left: 2px;
-                                                                                                                                    margin-top: 1px;
-                                                                                                                                    display: block;
-                                                                                                                                    position: absolute;">
-                                                                                                    <label id="upload-label4"
-                                                                                                        style="text-align: center;text-align: center;">+
-                                                                                                        Upload</label>
-                                                                                                </div>
-                                                                                                <div class="mt-2" style="width: 115px;
-                                                                                                                        background-color: #fff;
-                                                                                                                        height: 32px;
-                                                                                                                        "><input style="width: 115px;
-                                                                                                                background-color: #fff;
-                                                                                                                height: 32px; border: none;" placeholder="Add Alt Text"
-                                                                                                        accept=".jpg, .png, .jpeg, .mp4, .avi, .mov"
-                                                                                                        name="picture5" type="file"
-                                                                                                        onchange="showImage4(this)">
-                                                                                                </div>
-                                                                                                <script>
-                                                                                                    function showImage4(fileInput) {
-                                                                                                        const input = event.target;
-                                                                                                        const image = document.querySelector('#uploaded-image4');
-                                                                                                        const image2 = document.querySelector('#uploaded-image44');
-                                                                                                        const uploadLabel = document.querySelector('#upload-label4');
-            
-                                                                                                        const reader = new FileReader();
-                                                                                                        reader.onload = () => {
-                                                                                                            image.src = reader.result;
-                                                                                                            image.style.display = 'block';
-                                                                                                            image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                            image2.style.display = 'block';
-                                                                                                            uploadLabel.style.display = 'none'; // Hide the upload label
-            
-                                                                                                        };
-                                                                                                        reader.readAsDataURL(input.files[0]);
-                                                                                                        const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                        if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                            alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                            fileInput.value = '';
-                                                                                                            return false;
-                                                                                                        }
-                                                                                                    }
-                                                                                                </script>
-                                                                                            </div>
-            
-                                                                                        </div>
-                                                                                        <div class="row mt-3 col-md-12">
-            
-                                                                                            <div class="col-md-2">
-                                                                                                <div style="width:115px;
-                                                                                                            background-color: #fff;
-                                                                                                            height: 101px;
-                                                                                                            display: flex;
-                                                                                                            align-items: center;
-                                                                                                            justify-content: center;
-                                                                                                        "> <img id="uploaded-image5" style="height: 102px;
-                                                                                                                                    width: 117px;
-                                                                                                                                    margin-left: 2px;
-                                                                                                                                    margin-top: 1px;
-                                                                                                                                    display: block;
-                                                                                                                                    position: absolute;">
-                                                                                                    <label id="upload-label5"
-                                                                                                        style="text-align: center;">+
-                                                                                                        Upload</label>
-                                                                                                </div>
-                                                                                                <div class="mt-2" style="width: 115px;
-                                                                                                                        background-color: #fff;
-                                                                                                                        height: 32px;
-                                                                                                                        "><input style="width: 115px;
-                                                                                                                background-color: #fff;
-                                                                                                                height: 32px; border: none;" placeholder="Add Alt Text"
-                                                                                                        accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" type="file"
-                                                                                                        name="picture6"
-                                                                                                        onchange="showImage5(this)"></div>
-                                                                                            </div>
-                                                                                            <script>
-                                                                                                function showImage5(fileInput) {
-                                                                                                    const input = event.target;
-                                                                                                    const image = document.querySelector('#uploaded-image5');
-                                                                                                    const image2 = document.querySelector('#uploaded-image55');
-                                                                                                    const uploadLabel = document.querySelector('#upload-label5');
-            
-                                                                                                    const reader = new FileReader();
-                                                                                                    reader.onload = () => {
-                                                                                                        image.src = reader.result;
-                                                                                                        image.style.display = 'block';
-                                                                                                        image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                        image2.style.display = 'block';
-                                                                                                        uploadLabel.style.display = 'none'; // Hide the upload label
-            
-                                                                                                    };
-                                                                                                    reader.readAsDataURL(input.files[0]);
-                                                                                                    const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                    if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                        alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                        fileInput.value = '';
-                                                                                                        return false;
-                                                                                                    }
-                                                                                                }
-                                                                                            </script>
-                                                                                            <div class="col-md-2">
-                                                                                                <div style="width:115px;
-                                                                                                            background-color: #fff;
-                                                                                                            height: 101px;
-                                                                                                            display: flex;
-                                                                                                            align-items: center;
-                                                                                                            justify-content: center;
-                                                                                                        "> <img id="uploaded-image6" style="height: 102px;
-                                                                                                                                    width: 117px;
-                                                                                                                                    margin-left: 2px;
-                                                                                                                                    margin-top: 1px;
-                                                                                                                                    display: block;
-                                                                                                                                    position: absolute;">
-                                                                                                    <label name=""
-                                                                                                        style="text-align: center;text-align: center;">+
-                                                                                                        Upload</label>
-                                                                                                </div>
-                                                                                                <div class="mt-2" style="width: 115px;
-                                                                                                                        background-color: #fff;
-                                                                                                                        height: 32px;
-                                                                                                                        "><input style="width: 115px;
-                                                                                                                background-color: #fff;
-                                                                                                                height: 32px; border: none;" placeholder="Add Alt Text"
-                                                                                                        accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" type="file"
-                                                                                                        name="picture7"
-                                                                                                        onchange="showImage6(this)"></div>
-                                                                                            </div>
-                                                                                            <script>
-                                                                                                function showImage6(fileInput) {
-                                                                                                    const input = event.target;
-                                                                                                    const image = document.querySelector('#uploaded-image6');
-                                                                                                    const image2 = document.querySelector('#uploaded-image66');
-                                                                                                    const uploadLabel = document.querySelector('#upload-label1');
-            
-                                                                                                    const reader = new FileReader();
-                                                                                                    reader.onload = () => {
-                                                                                                        image.src = reader.result;
-                                                                                                        image.style.display = 'block';
-                                                                                                        image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                        image2.style.display = 'block';
-                                                                                                        uploadLabel.style.display = 'none'; // Hide the upload label
-            
-                                                                                                    };
-                                                                                                    reader.readAsDataURL(input.files[0]);
-                                                                                                    const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                    if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                        alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                        fileInput.value = '';
-                                                                                                        return false;
-                                                                                                    }
-                                                                                                }
-                                                                                            </script>
-                                                                                            <div class="col-md-2 ">
-                                                                                                <div style="width:115px;
-                                                                                                            background-color: #fff;
-                                                                                                            height: 101px;
-                                                                                                            display: flex;
-                                                                                                            align-items: center;
-                                                                                                            justify-content: center;
-                                                                                                        ">
-                                                                                                    <img id="uploaded-image7" style="height: 102px;
-                                                                                                                                    width: 117px;
-                                                                                                                                    margin-left: 2px;
-                                                                                                                                    margin-top: 1px;
-                                                                                                                                    display: block;
-                                                                                                                                    position: absolute;">
-                                                                                                    <label id="upload-label7"
-                                                                                                        style="text-align: center;text-align: center;">+
-                                                                                                        Upload</label>
-                                                                                                </div>
-                                                                                                <div class="mt-2" style="width: 115px;
-                                                                                                                        background-color: #fff;
-                                                                                                                        height: 32px;
-                                                                                                                        "><input style="width: 115px;
-                                                                                                                background-color: #fff;
-                                                                                                                height: 32px; border: none;" placeholder="Add Alt Text"
-                                                                                                        accept=".jpg, .png, .jpeg, .mp4, .avi, .mov" type="file"
-                                                                                                        name="picture8"
-                                                                                                        onchange="showImage7(this)"></div>
-                                                                                            </div>
-                                                                                            <script>
-                                                                                                function showImage7(fileInput) {
-                                                                                                    const input = event.target;
-                                                                                                    const image = document.querySelector('#uploaded-image7');
-                                                                                                    const image2 = document.querySelector('#uploaded-image77');
-                                                                                                    const uploadLabel = document.querySelector('#upload-label7');
-            
-                                                                                                    const reader = new FileReader();
-                                                                                                    reader.onload = () => {
-                                                                                                        image.src = reader.result;
-                                                                                                        image.style.display = 'block';
-                                                                                                        image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                        image2.style.display = 'block';
-                                                                                                        uploadLabel.style.display = 'none'; // Hide the upload label
-            
-                                                                                                    };
-                                                                                                    reader.readAsDataURL(input.files[0]);
-                                                                                                    const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                    if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                        alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                        fileInput.value = '';
-                                                                                                        return false;
-                                                                                                    }
-                                                                                                }
-                                                                                            </script>
-                                                                                            <div class="col-md-2 ">
-                                                                                                <div style="width:115px;
-                                                                                                            background-color: #fff;
-                                                                                                            height: 101px;
-                                                                                                            display: flex;
-                                                                                                            align-items: center;
-                                                                                                            justify-content: center;
-                                                                                                        ">
-                                                                                                    <img id="uploaded-image8" style="height: 102px;
-                                                                                                                                    width: 117px;
-                                                                                                                                    margin-left: 2px;
-                                                                                                                                    margin-top: 1px;
-                                                                                                                                    display: block;
-                                                                                                                                    position: absolute;">
-                                                                                                    <label id="upload-label8"
-                                                                                                        style="text-align: center;text-align: center;">+
-                                                                                                        Upload</label>
-                                                                                                </div>
-                                                                                                <div class="mt-2" style="width: 115px;
-                                                                                                                        background-color: #fff;
-                                                                                                                        height: 32px;
-                                                                                                                        "><input style="width: 115px;
-                                                                                                                background-color: #fff;
-                                                                                                                height: 32px; border: none;" placeholder="Add Alt Text"
-                                                                                                        accept=".jpg, .png, .jpeg, .mp4, .avi, .mov"
-                                                                                                        name="picture9" type="file"
-                                                                                                        onchange="showImage8(this)">
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <script>
-                                                                                                function showImage8(fileInput) {
-                                                                                                    const input = event.target;
-                                                                                                    const image = document.querySelector('#uploaded-image8');
-                                                                                                    const image2 = document.querySelector('#uploaded-image88');
-                                                                                                    const uploadLabel = document.querySelector('#upload-label8');
-            
-            
-                                                                                                    const reader = new FileReader();
-                                                                                                    reader.onload = () => {
-                                                                                                        image.src = reader.result;
-                                                                                                        image.style.display = 'block';
-                                                                                                        image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                        image2.style.display = 'block';
-                                                                                                        uploadLabel.style.display = 'none'; // Hide the upload label
-            
-                                                                                                    };
-                                                                                                    reader.readAsDataURL(input.files[0]);
-                                                                                                    const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                    if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                        alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                        fileInput.value = '';
-                                                                                                        return false;
-                                                                                                    }
-                                                                                                }
-                                                                                            </script>
-            
-                                                                                            <div class="col-md-2 ">
-                                                                                                <div style="width:115px;
-                                                                                                            background-color: #fff;
-                                                                                                            height: 101px;
-                                                                                                            display: flex;
-                                                                                                            align-items: center;
-                                                                                                            justify-content: center;
-                                                                                                        ">
-                                                                                                    <img id="uploaded-image9" style="height: 102px;
-                                                                                                                                    width: 117px;
-                                                                                                                                    margin-left: 2px;
-                                                                                                                                    margin-top: 1px;
-                                                                                                                                    display: block;
-                                                                                                                                    position: absolute;">
-                                                                                                    <label id="upload-label9"
-                                                                                                        style="text-align: center;text-align: center;">+
-                                                                                                        Upload</label>
-                                                                                                </div>
-                                                                                                <div class="mt-2" style="width: 115px;
-                                                                                                                        background-color: #fff;
-                                                                                                                        height: 32px;
-                                                                                                                        "><input style="width: 115px;
-                                                                                                                background-color: #fff;
-                                                                                                                height: 32px; border: none;" placeholder="Add Alt Text"
-                                                                                                        accept=".jpg, .png, .jpeg, .mp4, .avi, .mov"
-                                                                                                        name="picture10" type="file"
-                                                                                                        onchange="showImage9(this)">
-                                                                                                </div>
-                                                                                                <script>
-                                                                                                    function showImage9(fileInput) {
-                                                                                                        const input = event.target;
-                                                                                                        const image = document.querySelector('#uploaded-image9');
-                                                                                                        const image2 = document.querySelector('#uploaded-image99');
-                                                                                                        const uploadLabel = document.querySelector('#upload-label9');
-            
-                                                                                                        const reader = new FileReader();
-                                                                                                        reader.onload = () => {
-                                                                                                            image.src = reader.result;
-                                                                                                            image.style.display = 'block';
-                                                                                                            image2.src = reader.result; // Set the src of the second image to the same as the first
-                                                                                                            image2.style.display = 'block';
-                                                                                                            uploadLabel.style.display = 'none'; // Hide the upload label
-            
-                                                                                                        };
-                                                                                                        reader.readAsDataURL(input.files[0]);
-                                                                                                        const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
-                                                                                                        if (!allowedExtensions.exec(fileInput.value)) {
-                                                                                                            alert('Invalid file type. Only .png and .jpeg files are allowed.');
-                                                                                                            fileInput.value = '';
-                                                                                                            return false;
-                                                                                                        }
-                                                                                                    }
-                                                                                                </script>
-                                                                                            </div>
-                                                                                        </div>
-            
                                                                                     </div>
-            
-                                                                                    <div class="container mt-5">
-                                                                                        <ui>
-            
-                                                                                            <li>Images will be displayed to the customer in the
-                                                                                                order shown here.</li>
-                                                                                            <li>Only JPEG,JPG and PNG files are allowed.</li>
-                                                                                        </ui>
-                                                                                    </div>
-            
-                                                                                </div>
-                                                                                <div class="container mb-5"
-                                                                                    style="display: flex; justify-content: right;">
-                                                                                    <button type="button" class="btn px-3 m-1 btn-brand" data-bs-dismiss="modal">save</button>
+                                                                                    <button type="button" data-bs-dismiss="modal" class="btn px-3 mt-3 btn-brand" id="submitImage">Save</button>
                                                                                 </div>
                                                                             </div>
-            
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 {% endif %}
                                                             </div>
                                                             
-                                                            <button class="btn btn-dark mt-3" onclick="stepperForm.previous()">PREV</button>
+                                                            {% if product_obj.product_has_variant == True %}
+                                                                <a class="btn btn-dark mt-3" href="{% url 'app_inventory:edit_inventory_step_2' product_obj.id %}">PREV</a>
+                                                            {% else %}
+                                                                <a class="btn btn-dark mt-3" href="{% url 'app_inventory:edit_inventory_step_1' product_obj.id %}">PREV</a>
+                                                            {% endif %}
                                                             <button class="btn btn-brand mt-3 btn-next-form">Next</button>
                                                         </form>
                                                     </div>
@@ -784,10 +289,7 @@
                                                         step 5
                                                     </div>
 
-
-
                                                 </div>
-
 
                                             </div>
                                         </div>
@@ -803,7 +305,41 @@
 </div>
 {% endblock content %}
 {% block jsblock %}
-    <script rel="stylesheet" href="{% static 'seventh-square/assets/js/bs-stepper/bs-stepper.min.js' %}"></script>  
+    <script rel="stylesheet" href="{% static 'seventh-square/assets/js/bs-stepper/bs-stepper.min.js' %}"></script>
+    <script>
+        function checkMainImageUpload() {
+            const mainImage = document.querySelector('#uploadedimage');
+            const mainImageError = document.querySelector('#mainImageError');
+    
+            if (!mainImage.src || mainImage.src === 'data:,') {
+                // Main image is not uploaded
+                mainImageError.style.display = 'block';
+            } else {
+                // Main image is uploaded, hide the error message
+                mainImageError.style.display = 'none';
+                // Trigger the modal
+                const myModal = new bootstrap.Modal(document.getElementById('showBreakd'));
+                myModal.show();
+            }
+        }
+    
+        function validateForm() {
+            const mainImage = document.querySelector('#uploadedimage');
+            const mainImageError = document.querySelector('#mainImageError');
+    
+            if (!mainImage.src || mainImage.src === 'data:,') {
+                // Main image is not uploaded
+                mainImageError.style.display = 'block';
+                // Prevent form submission
+                return false;
+            } else {
+                // Main image is uploaded, hide the error message
+                mainImageError.style.display = 'none';
+                // Allow form submission
+                return true;
+            }
+        }
+    </script> 
     <script>
 					
 		$(document).ready(function () {
@@ -814,4 +350,73 @@
 
 		{% comment %} except-user-phone-number-check/ {% endcomment %}
 	</script>
+
+    <script>
+        function resetErrorMessages() {
+            const uploadErrorMessages = document.querySelectorAll('.upload-error-message');
+            uploadErrorMessages.forEach(errorMessage => {
+                errorMessage.style.display = 'none';
+            });
+        }
+    
+        function showImage(fileInput) {
+            resetErrorMessages();
+            const input = fileInput;
+            const image = document.querySelector('#uploadedimage');
+            const uploadText = document.querySelector('#uploadtext');
+            const reader = new FileReader();
+    
+            reader.onload = () => {
+                image.src = reader.result;
+                image.style.display = 'block';
+                uploadText.style.display = 'none';
+            };
+    
+            reader.readAsDataURL(input.files[0]);
+    
+            const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
+            const uploadErrorMessage = document.querySelector('#uploadImageErrorMessage');
+    
+            if (!allowedExtensions.exec(fileInput.value)) {
+                uploadErrorMessage.style.display = 'block';
+                fileInput.value = '';
+                return false;
+            } else {
+                uploadErrorMessage.style.display = 'none';
+            }
+        }
+    
+        function showAdditionalImage(fileInput, imageId, uploadLabelId, errorMessageId) {
+            resetErrorMessages();
+            const input = fileInput;
+            const image = document.querySelector(`#${imageId}`);
+            const uploadLabel = document.querySelector(`#${uploadLabelId}`);
+            const reader = new FileReader();
+    
+            reader.onload = () => {
+                image.src = reader.result;
+                image.style.display = 'block';
+                uploadLabel.style.display = 'none';
+            };
+    
+            reader.readAsDataURL(input.files[0]);
+    
+            const allowedExtensions = /(\.jpg|\.png|\.jpeg)$/i;
+            const uploadErrorMessage = document.querySelector(`#${errorMessageId}`);
+    
+            if (!allowedExtensions.exec(fileInput.value)) {
+                uploadErrorMessage.style.display = 'block';
+                fileInput.value = '';
+                return false;
+            } else {
+                uploadErrorMessage.style.display = 'none';
+            }
+        }
+    
+        // Reset error messages when the modal is closed
+        document.getElementById('showBreakd').addEventListener('hidden.bs.modal', function () {
+            resetErrorMessages();
+        });
+    </script>
+    
 {% endblock jsblock %}

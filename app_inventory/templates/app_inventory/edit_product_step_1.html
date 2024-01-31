@@ -152,7 +152,7 @@
                                                                     <label class="w-100 form-label d-flex justify-content-between" for="id_product_description">
                                                                         <span>Product Description</span>
                                                                     </label>
-                                                                    <textarea class="form-control" id="id_product_description" name="description" required="required" title="Write about your product's features, applications, benefits and USPs." spellcheck="false">{{product_objs.description}}</textarea>
+                                                                    <textarea class="form-control" id="id_product_description" name="description" required="required" title="Write about your product's features, applications, benefits and USPs." spellcheck="false">{{product_objs.description|default_if_none:''}}</textarea>
                                                                     <div class="invalid-feedback"></div>
                                                                 </div>
         
@@ -161,7 +161,7 @@
                                                                         <span>About Brand</span>
                                                                         <span class="optional-color">Optional</span>
                                                                     </label>
-                                                                    <input type="text" id="id_about_brand" name="about_the_brand" value="{{product_objs.about_the_brand}}" class="form-control"
+                                                                    <input type="text" id="id_about_brand" name="about_the_brand" value="{{product_objs.about_the_brand|default_if_none:''}}" class="form-control"
                                                                     title="Include Brand Name , Year of Inception , Products sold by the company. Any recognitions and registrations, and any other specialities that define your brand." >
                                                                     <div class="invalid-feedback"></div>
                                                                 </div>

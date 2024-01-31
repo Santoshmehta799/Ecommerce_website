@@ -21,8 +21,8 @@ class PickUpWarehouseLocation(ModelMixin):
     location_name = models.CharField(max_length=255, null=True, blank=True)
     street = models.CharField(max_length=255, null=True, blank=True)
     landmark = models.TextField(max_length=255, null=True, blank=True)
-    state = models.ForeignKey(States, on_delete=models.DO_NOTHING)
-    city = models.ForeignKey(Cities, on_delete=models.DO_NOTHING)
+    state = models.ForeignKey(States,null=True, blank=True, on_delete=models.DO_NOTHING)
+    city = models.ForeignKey(Cities, null=True, blank=True, on_delete=models.DO_NOTHING)
     pin_code = models.CharField(max_length=6,validators=[validators.pin_validator], 
         null=True, blank=True)
 
@@ -56,7 +56,7 @@ class ProductType(ModelMixin):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True,
         blank=True, related_name="product_types")
     name = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to='product_type', blank=True, null=True)
     commission_type = models.CharField(max_length=25, choices=enums.CommissionTypeEnums.choices,
         default=enums.CommissionTypeEnums.COMMISSION_PERCENTAGE) 
@@ -80,11 +80,11 @@ class ProductType(ModelMixin):
 class Product(ModelMixin):
     # 0. basic details
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    product_title = models.CharField(max_length=150, blank=True, null=True)
-    slug = models.SlugField(max_length=150, blank=True, null=True)
+    product_title = models.CharField(max_length=1000, blank=True, null=True)
+    slug = models.SlugField(max_length=1000, blank=True, null=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE,related_name="seller_product")
-    about_the_brand = models.CharField(max_length=225,blank=True,null=True)
-    product_brand = models.CharField(max_length=255,blank=True, null=True)
+    about_the_brand = models.CharField(max_length=1000,blank=True,null=True)
+    product_brand = models.CharField(max_length=1000,blank=True, null=True)
 
     # 1. categoy and sub category
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -119,7 +119,6 @@ class Product(ModelMixin):
     minimum_order_qunatity = models.CharField(max_length=555,blank=True,null=True)
     minimum_order_qunatity_unit = models.CharField(max_length=555,
         choices=enums.MinimumOrderQuantityEnums.choices, blank=True,null=True)
-
 
 
     # gst_rate = models.CharField(max_length=100,blank=True,null=True)
@@ -189,7 +188,7 @@ class ProductBelongDetails(ModelMixin):
         verbose_name_plural = _("Inventory - Product Belong Details")
 
     def __str__(self):
-        return f"{self.product__id} - {self.product_fetch_id}"
+        return f"{self.product.id} - {self.product_fetch_id}"
       
 
 class ProductVariant(ModelMixin):
@@ -242,7 +241,7 @@ class PriceStructure(ModelMixin):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     product_variant = models.OneToOneField(ProductVariant, on_delete=models.CASCADE,
         related_name="product_variant_price_structure")
-    hsn_code = models.CharField(max_length=8,blank=True,null=True)
+    hsn_code = models.CharField(max_length=15,blank=True,null=True)
     sale_price = models.CharField(max_length=100,blank=True,null=True)
     mrp = models.CharField(max_length=100, blank=True, null=True)
     tax_code = models.CharField(max_length=100, 

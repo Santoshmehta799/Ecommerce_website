@@ -125,6 +125,9 @@ def page_not_found(request):
     return render(request, 'app_context/page_not_found.html')
 
 
+def privacy_policy(request):
+    return render(request, 'app_context/privacy_policy.html')
+
 def learning_center(request):
     blog_objs = Blog.objects.all()
     

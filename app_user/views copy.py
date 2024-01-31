@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from app import settings
-from app_inventory.models import Category, PickUpWarehouseLocation, PriceStructure, Product, ProductBelongDetails, ProductImage, ProductType, ProductVariant, ShippingDetails
+from app_inventory.models import Category, PickUpWarehouseLocation, Product, ProductType, ShippingDetails
 from app_user.forms.auth import LoginForm, RegisterForm
 from app_verification.methods import bank_details_verification, bank_excel_details_verification, cin_excel_verification_step, cin_verification_step, generate_otp, gst_excel_verification_step, pan_excel_verification_step, pan_verification_step, registration_otp_send, update_gst_verification_step
 from app_user.methods.auth import auth_login
@@ -15,12 +15,11 @@ from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_encode
 from django.utils.http import urlsafe_base64_decode
 from app_user.tokens import account_activation_token
-import math
 from django.contrib import auth
-from app_dashboard.models import Cities, Country, States
+from app_dashboard.models import Cities, States
 import pandas as pd
 from app_verification.models import BankVerification, CompanyAddressDetail, CompanyBasicDetail, GstDetail, PanCinDetails, RepresentativeDetail, TempPhoneVerified, UserPhoneVerified
-from common.enums import OrderCuttOffTimeEnums, OrderHandlingTimeEnums, PanCinDetailEnums, ProductBelongEnums, ServicedRegionsEnums, UserAuthIdentifierType, UserStatusEnums
+from common.enums import OrderCuttOffTimeEnums, OrderHandlingTimeEnums, PanCinDetailEnums, UserAuthIdentifierType, UserStatusEnums
 # Create your views here.
 
 
@@ -511,221 +510,21 @@ def auth_logout(request):
 
 
 @login_required()
-def inventory_xlsx_import(request):
-    '''
-        http://127.0.0.1:8000/user/inventory-import/
-    '''
-    user = request.user
-    
-
-    if user.is_superuser:
-        base_url = settings.BASE_DIR
-        inventory_file_location = f'{base_url}'+'/static/seventh-square/assets/xlsx/inventory_data.xlsx'
-        one_to_one_file_location = f'{base_url}'+'/static/seventh-square/assets/xlsx/one_to_one_field.xlsx'
-
-            
-        inventory_df = pd.read_excel(inventory_file_location)
-        inventory_df_dict = inventory_df.to_dict(orient='index')
-
-        one_to_one_df = pd.read_excel(one_to_one_file_location)
-        one_to_one_df_dict = one_to_one_df.to_dict(orient='index')
-        total_product = []
-        for inventory_key, inventory_value in inventory_df_dict.items():
-            print('product id ->',inventory_value['id'])
-            try:
-
-                username = None
-                for one_to_one_key, one_to_one_value in one_to_one_df_dict.items():
-                    if inventory_value['account_id'] == one_to_one_value['user_id']:
-                        username=one_to_one_value['email']
-
-                if inventory_value['is_amazon_product'] == True:
-                    product_belong_to = ProductBelongEnums.AMAZON
-                else:
-                    product_belong_to = ProductBelongEnums.SEVENTHSQ
-
-                try:
-                    filter_country = inventory_value['countryOfOrigin'].upper()
-                    country_of_origin = Country.objects.get(name=filter_country)
-                except:
-                    country_of_origin = Country.objects.get(name='INDIA')
-
-                if inventory_value['servicedRegi'] == True:
-                    serviced_regions = ServicedRegionsEnums.TO_PAN_INDIA
-                else:
-                    serviced_regions = ServicedRegionsEnums.TO_SPECIFIED_STATES_CITIES
-
-                
-                category_obj = Category.objects.get(name=inventory_value['category'])
-                sub_category_obj = ProductType.objects.get(category=category_obj, name=inventory_value['subCategory'])
-                # print('cat, sub-cat -->',category_obj,sub_category_obj)
-                product_obj = Product.objects.create(
-                    seller = User.objects.get(username=username),
-                    category = category_obj,
-                    product_type = sub_category_obj,
-                    product_title = inventory_value['name'],
-                    product_has_variant = inventory_value['var_added'],
-                    about_the_brand = inventory_value['aboutBrand'] if str(inventory_value['aboutBrand']) !='nan' else None,
-                    product_brand = inventory_value['brand_name'] if str(inventory_value['brand_name']) !='nan' else None,
-                    guarantee = str(inventory_value['guarantee']).lower().replace(' ','-'),
-                    warranty =  str(inventory_value['warranty']).lower().replace(' ','-'),
-                    description = inventory_value['description'] if str(inventory_value['description']) !='nan' else None,
-                    shipping_include = inventory_value['incl_shipping'],
-                    serviced_regions = serviced_regions,
-                    usage = inventory_value['aboutUsage'] if str(inventory_value['aboutUsage']) !='nan' else None,
-                    storage = inventory_value['aboutStorage'] if str(inventory_value['aboutStorage']) !='nan' else None,
-                    installation = inventory_value['aboutInstallation'] if str(inventory_value['aboutInstallation']) !='nan' else None,
-                    components_per_unit = inventory_value['components'] if str(inventory_value['components']) !='nan' else None,
-                    packaging_size = inventory_value['packagingSize'] if str(inventory_value['packagingSize']) !='nan' else None,
-                    material = inventory_value['material'] if str(inventory_value['material']) !='nan' else None,
-                    is_active = inventory_value['inventoryStatus'],
-                    country_of_origin = country_of_origin,
-                    product_belong_to =  product_belong_to,
-                    product_handling = inventory_value['aboutHandling'] if str(inventory_value['aboutHandling']) !='nan' else None,
-                    minimum_order_qunatity =  inventory_value['qty'],
-                    minimum_order_qunatity_unit =  str(inventory_value['qtyUnit']).replace(' ', '_').lower(),
-                                                    
-                )
-                # print(product_obj.id)
-
-                if inventory_value['is_amazon_product'] == True:
-                    product_belong_details_obj, product_belong_details_created = ProductBelongDetails.objects.get_or_create(
-                        product=product_obj, defaults={
-                            'product_fetch_id':inventory_value['amazon_product_id'],
-                            'product_fetch_status':False,
-                            'product_fetch_json':inventory_value['amazon_product_json'],
-                        }
-                )
-
-                product_variant_obj, product_variant_created = ProductVariant.objects.get_or_create(
-                    product=product_obj,
-                    defaults={
-                        'name':None,
-                        'value':None,
-                        'price_on_request':inventory_value['Price_on_request'],
-                        'default_variant':inventory_value['variant_default']
-                    }
-                )
-
-                for picture_number in range(1, 11):
-                    picture_key = f'picture{picture_number}'
-                    # print('picture_number ->',picture_number, str(inventory_value[picture_key]))
-                    # print(str(inventory_value[picture_key]), type(str(inventory_value[picture_key])))
-                    if str(inventory_value[picture_key]) != 'nan':
-                        pricture_created = ProductImage.objects.create(
-                            product_variant=product_variant_obj, picture=inventory_value[picture_key],
-                        )
-
-
-                if str(inventory_value['gstRate']) !='nan':
-                    tax_code = int(inventory_value['gstRate'])
-                else:
-                    tax_code = None
-
-                price_structure_obj, price_structure_created = PriceStructure.objects.get_or_create(
-                    product_variant=product_variant_obj,
-                    defaults={
-                        'hsn_code': inventory_value['HSN'],
-                        'sale_price':inventory_value['sellingPrice'],
-                        'mrp':inventory_value['markedPrice'],
-                        'tax_code':tax_code
-
-                    }
-                )
-                # shipping_obj, shipping_created = ShippingDetails.objects.get_or_create(
-                #     product_variant=product_variant_obj,
-                #     pick_up_location = PickUpWarehouseLocation.objects.get(pick_up_location = ),
-                #     defaults={
-                #         'product_weight':inventory_value['Product_Weigh'],
-                #         'product_weight_unit':inventory_value['productUnit'],
-                #         'returnable_product':inventory_value['returnable'],
-                #         'return_policy':inventory_value['return_policy'],
-                #         'shipping_method':inventory_value['shippingMethod'],
-                #         'packed_box_dimensions_unit':inventory_value['productdimensionUnitBox'],
-                #         'packed_box_dimensions_width':inventory_value['packedWidth'],
-                #         'packed_box_dimensions_length':inventory_value['packedLength'],
-                #         'packed_box_dimensions_height':inventory_value['packedHeight'],
-
-                #         'product_dimensions_unit':inventory_value['productdimensionUnit'],
-                #         'product_dimensions_length':inventory_value['length'],
-                #         'product_dimensions_width':inventory_value['width'],
-                #         'product_dimensions_height':inventory_value['height'],
-                #     }
-                # )
-
-            except Exception as e:
-                print('Error MAIN :', e, inventory_value['id'])
-            total_product.append(inventory_value['id'])
-        print('total_product -->',len(total_product))
-    return HttpResponse("Excel file has successfully imported")
-
-
-@login_required()
-def location_xlsx_import(request):
-    '''
-        http://127.0.0.1:8000/user/location-import/
-    '''
-
-    user = request.user
-
-    if user.is_superuser:
-        base_url = settings.BASE_DIR
-        pickup_location_file_location = f'{base_url}'+'/static/seventh-square/assets/xlsx/location_data.xlsx'
-        one_to_one_file_location = f'{base_url}'+'/static/seventh-square/assets/xlsx/one_to_one_field.xlsx'
-            
-        location_df = pd.read_excel(pickup_location_file_location)
-        location_df_dict = location_df.to_dict(orient='index')
-
-        one_to_one_df = pd.read_excel(one_to_one_file_location)
-        one_to_one_df_dict = one_to_one_df.to_dict(orient='index')
-
-        
-
-        for location_key, location_value in location_df_dict.items():
-            city_name = location_value['pickupCity1']
-            state_name = location_value['pickupState1']
-            city_obj = None
-            try:
-                city_obj =  Cities.objects.get(name__iexact=city_name, state__name__iexact = state_name)
-            except Exception as e:
-                print(f"this is error message:{e}")
-
-            username = None
-            for one_to_one_key, one_to_one_value in one_to_one_df_dict.items():
-                if location_value['account_id'] == one_to_one_value['user_id']:
-                    username=one_to_one_value['email']
-            pickup_obj =  PickUpWarehouseLocation.objects.create(
-                    seller = User.objects.get(username=username),
-                    location_name=location_value['pickupLocation1'],
-                    plot_no=location_value['pickupPlotNo1'],
-                    pin_code=location_value['pickupPin1'],
-                    state = city_obj.state if city_obj else None,
-                    city = city_obj if city_obj else None,
-                    landmark=location_value['pickupLandmark1'],
-                    street=location_value['pickupStreet1'],
-                )
-            
-        return HttpResponse("Excel file has successfully imported")
-
-
-
-@login_required()
 def category_xlsx_import(request):
-    '''
-        http://127.0.0.1:8000/user/category-import/
-    '''
     user = request.user
 
     if user.is_superuser:
         base_url = settings.BASE_DIR
         category_file_location = f'{base_url}'+'/static/seventh-square/assets/xlsx/category_data.xlsx'
         subcategory_file_location = f'{base_url}'+'/static/seventh-square/assets/xlsx/subcategory_data.xlsx'
+        inventory_file_location = f'{base_url}'+'/static/seventh-square/assets/xlsx/inventory_data.xlsx'
+        one_to_one_file_location = f'{base_url}'+'/static/seventh-square/assets/xlsx/one_to_one_field.xlsx'
 
 
         cat_df = pd.read_excel(category_file_location)
         cat_df_dict = cat_df.to_dict(orient='index')
         for cat_key, cat_value in cat_df_dict.items():
-            category_obj, category_created = Category.objects.get_or_create(name=cat_value['name'], defaults={
+            category_obj, created = Category.objects.get_or_create(name=cat_value['name'], defaults={
                 'slug':cat_value['slug']
             })
             
@@ -737,14 +536,95 @@ def category_xlsx_import(request):
                     if value['commision_type'] == 'commision_percentage':
                         value['commision_type'] = 'commission_percentage'
 
-                    product_type_obj, product_type_created = ProductType.objects.get_or_create(category=category_obj, name=value['name'],
+                    product_type_obj, created = ProductType.objects.get_or_create(category=category_obj, name=value['name'],
                         defaults={
                             'slug':value['slug'],
                             'commission_type':value['commision_type'],
                             'commission_value':value['commision_value'],
                             'returnable_product':value['returnable_product']
                         })
-    return HttpResponse("Category and Sub Category successfully imported")
+            
+                    inventory_df = pd.read_excel(inventory_file_location)
+                    inventory_df_dict = inventory_df.to_dict(orient='index')
+
+                    one_to_one_df = pd.read_excel(one_to_one_file_location)
+                    one_to_one_df_dict = one_to_one_df.to_dict(orient='index')
+
+                    final_list = {}
+                    for inventory_key, inventory_value in inventory_df_dict.items():
+                        print("-----upper=-->",inventory_value['variant_default'])
+                        username = None
+                        # for one_to_one_key, one_to_one_value in one_to_one_df_dict.items():
+                        #     pass
+                            # if inventory_value['account_id'] == one_to_one_value['user_id']:
+                            #     username=one_to_one_value['username']
+
+                        varient_id = inventory_value['variant_product_id']
+
+                        if str(varient_id) in final_list:
+                            print("-----if-->",inventory_value['variant_default'])
+                            # print("------varient----==>",inventory_value['variant_default'])
+                            if inventory_value['variant_default'] == True:
+                                print("-------------id---")
+                                final_list[str(varient_id)]['main_varient'].append(inventory_value)
+                            else:
+                                print("--------------else--")
+                                final_list[str(varient_id)]['sub_varient'].append(inventory_value)
+
+                            # print(inventory_value['variant_default'])
+                            
+                        else:
+                            final_list[str(varient_id)] = {
+                                'main_varient' : [],
+                                'sub_varient' : []
+                            }
+
+                    # print("-------------??>>",final_list)
+                        # if inventory_value['var_added'] == True:
+                        #     print('with varient product')
+                        #     if inventory_value['variant_default'] == True:
+                        #         varient_id = inventory_value['variant_product_id']
+                        #         final_list['main_varient'] = main_varient.append(inventory_value)
+                        #         for inner_inventory_key, inner_inventory_value in inventory_df_dict.items():
+                        #             if inventory_value['var_added'] == True:
+                        #                 if inventory_value['variant_default'] == False and varient_id==inner_inventory_value['variant_product_id']:
+                        #                     final_list['sub_varient'] = sub_varient.append(inner_inventory_value)
+
+
+
+                        #             # product_obj, created = Product.objects.get_or_create(
+                        #             #     seller__username = one_to_one_value['username'],
+                        #             #     category = category_obj,
+                        #             #     product_type =product_type_obj,
+                        #             #     country_of_origin__name = inventory_value['countryOfOrigin'],
+                        #             #     defaults={
+                        #             #         'about_the_brand':inventory_value['aboutBrand'],
+                        #             #         'product_brand':inventory_value['brand_name'],
+                        #             #         'guarantee':inventory_value['guarantee'],
+                        #             #         'warranty': inventory_value['warranty'],
+                        #             #         'shipping_include':inventory_value['incl_shipping'],
+                        #             #         'serviced_regions':inventory_value['servicedRegions'],
+                        #             #         'usage':inventory_value['aboutUsage'],
+                        #             #         'storage':inventory_value['aboutStorage'],
+                        #             #         'installation':inventory_value['aboutInstallation'],
+                        #             #         'components_per_unit':inventory_value['components'],
+                        #             #         'packaging_size':inventory_value['packagingSize'],
+                        #             #         'material':inventory_value['material'],
+                        #             #         'description':inventory_value['description'],
+                        #             #         'is_active':inventory_value['inventoryStatus'],
+
+                        #             #     }
+                        #             # )
+                        # else:
+                        #     final_list['main_varient'] = main_varient.append(inventory_value)
+
+            # for arrange_product in final_list:
+            #     print('final_list ->',arrange_product)        
+                    
+
+
+
+    return HttpResponse("Excel file has successfully imported")
 
 
 

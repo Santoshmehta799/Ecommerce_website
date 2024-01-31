@@ -42,4 +42,7 @@ urlpatterns = [
 
     # import old db data scripts square_source/projects/django/SellerWebsite/output_data.xlsx
     path('one-to-one-xlsx-import/', views.one_to_one_xlsx_import, name="one-to-one-xlsx-import"),
+    path('category-import/', views.category_xlsx_import, name="category-import"),
+    path('inventory-import/', views.inventory_xlsx_import, name="inventory-import"),
+    path('location-import/', views.location_xlsx_import, name="location-import"),
 ]
