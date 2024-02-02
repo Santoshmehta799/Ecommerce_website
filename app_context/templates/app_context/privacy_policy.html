@@ -2,7 +2,187 @@
 {% load static %}
 {% block title %}{% endblock title %}
 {% block metablock %}{% endblock metablock %}
-{% block cssblock %}{% endblock cssblock %}
+{% block cssblock %}
+
+    <style>
+
+        #side a:hover {
+            text-decoration: none;
+        }
+        body {
+            font-family: ''open sans'; !important;
+            /* color:"black"; */
+            overflow-x: hidden !important;
+        }
+        .search__container .input{
+            border: 0;
+            outline: none;
+            color: #8b7d77;  
+        }
+        .search_wrap{
+            width: 50%;
+            margin:auto;
+        }
+        .search_wrap .search_box{
+            position: relative;
+            width: 100%;
+            height: 50px;
+        }
+        .search_wrap .search_box .input{
+            position: absolute;
+            top:80%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            color: black;
+        }
+        .search_wrap .search_box .btn{
+            position: absolute;
+            top: 80%;
+            right: 0;
+            width: 60px;
+            height: 100%;
+            background: #f36962;
+            z-index: 1;
+            cursor: pointer;
+        }
+        .search_wrap .search_box .btn:hover{
+            background: #f5bea3;
+        }
+        .search_wrap .search_box .btn.btn_common .fas{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            font-size:15px;
+            color: #fff;
+        }
+        .search_wrap.search_wrap_1 .search_box .btn{
+            right: 0;
+            border-top-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+        .search_wrap.search_wrap_1 .search_box .input{
+            padding-right: 80px;
+        }
+
+        #heading-mobile{
+            margin: 20px 0 0 3%;
+            font-weight: 500;
+            display: none;
+        }
+        #mobile-menu-container{
+            justify-content: center;
+            margin: 3%;
+            display: none;
+        }
+
+        .icon{
+            padding-right:20px;
+        }
+
+        #mobile-bar{
+            padding: .5%;
+            margin-top:1%;
+        }
+        #mobile-menu{
+            width: 100%;
+            background: white;
+            border: 2px solid rgba(156,156,156,0.43) ;
+        }
+        .icon-mobile-menu{
+            font-size: 1.5rem;
+            color: black;
+        }
+        #mobile-menu.curr{
+            width: 100%;
+            background: black;
+            border: 2px solid rgba(245, 242, 242, 0.43) ;
+        }
+        #mobile-menu.curr .icon-mobile-menu{
+            color: white;
+        }
+        #mobile-menu.curr .menu-label{
+            color: #fff;
+            margin: 10px 0px;
+            font-weight: 700;
+        }
+        #mobile-menu .menu-label{
+            color: #01012e;
+            margin: 10px 0px;
+            font-weight: 700;
+        }
+        #contact-mobile{
+            padding: 2% 10% 0% 10%;
+            border-top: 2px solid #e0e1e6;
+        }
+        #contact-mobile h1{
+            margin-bottom: 20px;
+            color: black;
+            font-weight: 700;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        @media (max-width : 770px){
+            .search_wrap{
+                width: 80%;
+            }
+        }
+        @media (max-width :768px){
+            #mobile-menu-container{
+                display: flex;
+            } 
+            #side-bar{
+                display: none;
+            }
+            #heading-mobile{
+                display: inline;
+            }
+        }
+        @media (max-width :656px){
+            #mobile-menu {
+                padding: 10px 0 0 0
+            }
+        }
+        @media (max-width :556px){
+            #contact-mobile{
+                flex-direction: column;
+            }
+            #sub{
+                flex-direction: row;
+                width: 100%;
+                display: flex;
+                align-items: center;
+            }
+            #sub p{
+                padding-left: 10px;
+            }
+        }
+
+        @media (max-width :500px){
+            .icon-mobile-menu {
+                font-size: 1.2rem;
+            }
+            #mobile-menu .menu-label {
+                margin: 5px 0px;
+            }
+            #mobile-menu {
+                min-height: 100px;
+            }
+        }
+    </style>
+    <style>
+        @media only screen and (max-width: 600px) {
+            #journey{
+                display: none !important;
+            }
+        }
+    </style> 
+
+{% endblock cssblock %}
 {% block content %}
     <div class="register-photo" style="padding-top: 10px;background: rgb(255,255,255);padding-bottom: 0px;">
         <h1 class="text-center" style="margin: 20px;font-family: 'Source Serif Pro', serif; color: black;"><strong>Privacy

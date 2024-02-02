@@ -28,6 +28,7 @@ def makelistofvariationstagbycomma(value):
 
 @register.filter()
 def make_options_list_by_obj(value):
+    print('make_options_list_by_obj ->', value)
     if value.product_has_variant == True:
 
         if value.product_variant.all():
@@ -39,7 +40,7 @@ def make_options_list_by_obj(value):
                     print('main name  ->', varient_dict)
 
             for sub_obj in value.product_variant.all():
-                print('enter hear .....................', sub_obj.name)
+                print('enter hear .....................', sub_obj.name.split('*'))
                 if sub_obj.default_variant == False:
                     # for sub_var in value['sub']:
                     for sub_name_count in range(len(sub_obj.name.split('*'))):

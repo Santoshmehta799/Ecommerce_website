@@ -63,13 +63,13 @@ class ServiceRegionsAdmin(admin.ModelAdmin):
 @admin.register(models.PriceStructure)
 class PriceStructureAdmin(admin.ModelAdmin):
     list_display  = ('id', 'product_variant', 'mrp', 'tax_code', 'hsn_code', 'sale_price', 'created_at', 'updated_at')
-    search_fields = ['product_variant']
+    search_fields = ['product_variant__id']
     readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
 
 @admin.register(models.ShippingDetails)
 class ShippingDetailsAdmin(admin.ModelAdmin):
     list_display  = ('id', 'product_variant', 'product_weight', 'returnable_product', 'created_at', 'updated_at')
-    search_fields = ['product_variant']
+    search_fields = ['product_variant__id']
     readonly_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
 
 

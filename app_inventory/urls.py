@@ -23,4 +23,15 @@ urlpatterns=[
     # Ajax load
     path('add/load-subcategory/',views.load_subcategory, name='load_subcategory'),  
     # path('add/', views.add_inventory, name="add_inventory"),
+
+    # apis
+    # category and subcategory
+
+    path('api/categories/', views.CategoryViewSet.as_view(), name='category-list'),
+    path('api/categories/<slug:category_slug>/', views.CategoryViewSet.as_view(), name='category-signle'),
+    path('api/categories/<slug:category_slug>/product_types/', views.ProductTypeViewList.as_view(), name='product-type-list'),
+    path('api/categories/<slug:category_slug>/product_types/<slug:producttype_slug>/', views.ProductTypeViewList.as_view(), name='product-type-single'),
+
+    path('api/inventory-data/<uuid:seller_id>/', views.AllInventoryDataView.as_view(), name='all-inventory-data')
+
 ]

@@ -430,7 +430,7 @@
                                                                     <label for="id_pick_up_location" class="form-label form-label-normal-font-style">Select Pick Up Location </label>
             
                                                                     <select class="w-100 form-select" title="Delivery Pick up location for your product. These are added first in the Seller Profile and can be selected in multiple for every product." 
-                                                                        name="pick_up_location" placeholder="Select pickup location" required  id="id_pick_up_location" multiple>
+                                                                        name="pick_up_location" placeholder="Select pickup location" id="id_pick_up_location" multiple>
 
                                                                         {% for pickups in pick_up_warehouse_location %}
                                                                             <option value="{{pickups.id}}" >
@@ -509,9 +509,9 @@
                     packed_box_dimensions_height:{
                         required: true
                     },
-                    pick_up_location:{
-                        required: true
-                    },
+                    //pick_up_location:{
+                    //    required: true
+                    //},
 
                 },
                 messages: {
@@ -551,9 +551,9 @@
                     packed_box_dimensions_height:{
                         required: "This field is required."
                     },
-                    pick_up_location: {
-                        required: "This field is required."
-                    },
+                    //pick_up_location: {
+                    //    required: "This field is required."
+                    //},
                 }
             });
 		});

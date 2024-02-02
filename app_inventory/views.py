@@ -2,7 +2,10 @@ import requests
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, Http404
 from app_dashboard.models import Country, States
-from app_inventory.models import Category, PickUpWarehouseLocation, PriceStructure, Product, ProductImage, ProductType, ProductVariant, ShippingDetails
+from app_inventory.models import Category, PickUpWarehouseLocation, \
+    PriceStructure, Product, ProductImage, ProductType, ProductVariant, ShippingDetails
+
+from app_inventory.serializers import CategoryViewSerializer, ProductSerializer, ProductTypeViewSerializer, ShippingDetailsSerializer
 
 from common.enums import ProductDimensionUnitEnums, ServicedRegionsEnums,\
     ShippingMethodEnums, PackedBoxDimensionsUnitEnums,\
@@ -11,7 +14,10 @@ from common.enums import ProductDimensionUnitEnums, ServicedRegionsEnums,\
 from django.contrib.auth.decorators import login_required
 from django.http.response import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from rest_framework import generics
+from django.http import HttpResponse
+from rest_framework.response import Response
+from rest_framework.generics import RetrieveAPIView
 
 # Create your views here.
 
@@ -462,45 +468,59 @@ def edit_inventory_step_2(request, product_id):
         var_added = product.product_has_variant
         
         if var_added == True:
+            print("-----------")
             for varient_index in range (len(final_varient_name_list)):
                 delimiter = '*'
                 product_varient_obj_name = delimiter.join(variants_name_list)
-                product_varient_obj, created = ProductVariant.objects.get_or_create(
-                    product=product,
-                    name=product_varient_obj_name,
-                    value=str(final_varient_name_list[varient_index]).replace(', ', '*').replace(',', '*'),
-                    defaults={
-                        'price_on_request': str(final_varient_name_list[varient_index])
-                            .replace(', ', '*').replace(',', '*') in price_in_request,
-                        'default_variant': str(final_varient_name_list[varient_index])
-                            .replace(', ', '*').replace(',', '*') in default_variant,
-                    }
-                )
-                price_structure_obj, created = PriceStructure.objects.get_or_create(
-                    product_variant=product_varient_obj,
-                    defaults={
-                        'sale_price': sale_price_list[varient_index],
-                        'mrp': mrp_list[varient_index],
-                    }
-                )
+                try:
+                    # Get the existing ProductVariant
+                    product_varient_obj = ProductVariant.objects.get(
+                        product=product,
+                        name=product_varient_obj_name,
+                        value=str(final_varient_name_list[varient_index]).replace(', ', '*').replace(',', '*')
+                    )
 
-                if not created:
-                    price_structure_obj.sale_price = sale_price_list[varient_index]
-                    price_structure_obj.mrp = mrp_list[varient_index]
-                    price_structure_obj.save()
+                    # Update existing ProductVariant
+                    print("-----price_in_request",price_in_request)
+                    print("==default_variant==>",default_variant)
+                    print("====>>",str(final_varient_name_list[varient_index]).replace(', ', '*').replace(',', '*') in price_in_request)
+                    
+                    if str(final_varient_name_list[varient_index]).replace(', ', '*').replace(',', '*') in price_in_request:
+                        product_varient_obj.price_on_request = True
+                    else:
+                        product_varient_obj.price_on_request = False
+
+                    if str(final_varient_name_list[varient_index]).replace(', ', '*').replace(',', '*') in default_variant:
+                        product_varient_obj.default_variant = True
+                    else:
+                        product_varient_obj.default_variant = False
+                    product_varient_obj.save()
+                    
+                    # Update existing PriceStructure
+                    try:
+                        price_structure_obj = PriceStructure.objects.get(product_variant=product_varient_obj)
+                        price_structure_obj.sale_price = sale_price_list[varient_index]
+                        price_structure_obj.mrp = mrp_list[varient_index]
+                        price_structure_obj.save()
+                        print("-------price===>>>",price_structure_obj)
+                    except Exception as e:
+                        print(f"price structure Error:{e}")
                 
 
-                images_prefix = 'picture_'
-                varient_prefix = images_prefix + final_varient_name_list[varient_index]\
-                    .replace(', ', '*').replace(',','*')+'|'
-                for count in range(1,11):
-                    images_name = varient_prefix + str(count)
-                    # print('fatch value ====->',count ,request.FILES.get(f"{images_name}"))
-                    if request.FILES.get(f"{images_name}"):
-                        product_image_obj = ProductImage()
-                        product_image_obj.product_variant = product_varient_obj
-                        product_image_obj.picture = request.FILES.get(f"{images_name}")
-                        product_image_obj.save()
+                    # images_prefix = 'picture_'
+                    # varient_prefix = images_prefix + final_varient_name_list[varient_index]\
+                    #     .replace(', ', '*').replace(',','*')+'|'
+                    # for count in range(1,11):
+                    #     images_name = varient_prefix + str(count)
+                    #     # print('fatch value ====->',count ,request.FILES.get(f"{images_name}"))
+                    #     if request.FILES.get(f"{images_name}"):
+                    #         product_image_obj = ProductImage()
+                    #         product_image_obj.product_variant = product_varient_obj
+                    #         product_image_obj.picture = request.FILES.get(f"{images_name}")
+                    #         product_image_obj.save()
+
+                except Exception as e:
+                    print(f"Error:{e}")
                 
         else:
             pass
@@ -624,8 +644,9 @@ def edit_inventory_step_4(request, product_id):
             except Exception as e:
                 print(f'ERROR : {e}')
         
-        else:
-            price_structure_obj, created = PriceStructure.objects.get_or_create(product_variant=product_variant_obj.first())
+        elif product_variant_obj.exists():
+            # Check if there are variants before updating PriceStructure
+            price_structure_obj = PriceStructure.objects.get(product_variant=product_variant_obj.first())
             price_structure_obj.hsn_code = hsn_code
             if price_on_request == 'True':
                 # print('enter if', price_structure_obj.product_variant.price_on_request)
@@ -663,14 +684,14 @@ def edit_inventory_step_5(request, product_id):
     user = request.user
     try:
         product = Product.objects.get(id=product_id, seller=user)
-    except:
+    except Product.DoesNotExist:
         raise Http404("Given query not found....")
-    
+
     try:
         product_variant_obj = ProductVariant.objects.filter(product=product)
-    except:
-        raise Http404("Given Varient query not found....")
-    
+    except ProductVariant.DoesNotExist:
+        raise Http404("Given Variant query not found....")
+
     if request.method == 'POST':
         product_weight = request.POST.get('product_weight')
         product_weight_unit = request.POST.get('product_weight_unit')
@@ -688,16 +709,13 @@ def edit_inventory_step_5(request, product_id):
         serviced_regions = request.POST.get('serviced_regions')
         pick_up_location = request.POST.getlist('pick_up_location')
 
-   
+        for product_variant in product_variant_obj:
+            try:
+                shipping_detail_obj = ShippingDetails.objects.get(product_variant=product_variant)
+            except ShippingDetails.DoesNotExist:
+                pass
 
-        product_varient_obj = ProductVariant.objects.filter(product = product.id)
-        # pick_up_ware_house_location_obj = PickUpWarehouseLocation
-        
-        for product_varient in product_varient_obj:
-            shipping_detail_obj, created = ShippingDetails.objects.get_or_create(
-                product_variant=product_varient
-            )
-            shipping_detail_obj.product_weight = product_weight
+            # Update shipping details
             shipping_detail_obj.product_weight = product_weight
             shipping_detail_obj.product_weight_unit = product_weight_unit
             shipping_detail_obj.returnable_product = returnable_product
@@ -712,24 +730,21 @@ def edit_inventory_step_5(request, product_id):
             shipping_detail_obj.packed_box_dimensions_width = packed_box_dimensions_width
             shipping_detail_obj.packed_box_dimensions_height = packed_box_dimensions_height
 
+            # Clear and set pick up location
             shipping_detail_obj.pick_up_location.clear()
+            shipping_detail_obj.pick_up_location.set(pick_up_location)
 
-            print("Before setting pick_up_location:", shipping_detail_obj.pick_up_location.all())
-            shipping_detail_obj.pick_up_location.set(list(pick_up_location))
-            print("After setting pick_up_location:", shipping_detail_obj.pick_up_location.all())
-
-            # shipping_detail_obj.pick_up_location.set(list(pick_up_location))
-
+            # Update serviced regions
             if serviced_regions == "True":
                 shipping_detail_obj.product_variant.product.serviced_regions = ServicedRegionsEnums.TO_PAN_INDIA
-            else:    
+            else:
                 shipping_detail_obj.product_variant.product.serviced_regions = ServicedRegionsEnums.TO_SPECIFIED_STATES_CITIES
 
             shipping_detail_obj.product_variant.product.save()
             shipping_detail_obj.save()
 
         return redirect('app_dashboard:dashboard-page')
-    
+
     context = {
         "success": success,
         "error": error,
@@ -739,10 +754,10 @@ def edit_inventory_step_5(request, product_id):
         "product_weight": ProductWeighteEnums.choices,
         "pick_up_warehouse_location": PickUpWarehouseLocation.objects.filter(seller=request.user),
         "product_obj": product,
-        "states_name" : [state.name for state in States.objects.filter(country__name='INDIA')],
-        "states_id" : [state.id for state in States.objects.filter(country__name='INDIA')],
+        "states_name": [state.name for state in States.objects.filter(country__name='INDIA')],
+        "states_id": [state.id for state in States.objects.filter(country__name='INDIA')],
     }
-    return render(request, 'app_inventory/edit_product_step_5.html',context)
+    return render(request, 'app_inventory/edit_product_step_5.html', context)
 
 
 def load_subcategory(request):  
@@ -768,6 +783,83 @@ def load_subcategory(request):
                 "status" : False,
             }
             return JsonResponse(context) 
+
+
+# apis category and subcategory 
+
+   
+class CategoryViewSet(generics.ListAPIView):
+    '''
+        http://127.0.0.1:8000/inventory/api/categories/
+    '''  
+    queryset = Category.objects.all().order_by('id')
+    serializer_class = CategoryViewSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        category_slug = self.kwargs.get('category_slug')
+        if category_slug:
+            # If 'category_slug' is provided, filter categories and their subcategories
+            return Category.objects.filter(slug=category_slug)
+        else:
+            # If 'category_slug' is not provided, return all categories
+            return Category.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+
+class ProductTypeViewList(generics.ListAPIView):
+    '''
+        http://127.0.0.1:8000/inventory/api/categories//bricks-blocks/product_types/
+    '''
+    queryset = ProductType.objects.all().order_by('id')
+    serializer_class = ProductTypeViewSerializer
+    pagination_class = None
+
+    def get_queryset(self):
+        category_slug = self.kwargs.get('category_slug')
+        producttype_slug = self.kwargs.get('producttype_slug')
+        if category_slug and producttype_slug:
+            # If 'category_slug' is provided, filter categories and their subcategories
+            return ProductType.objects.filter(category__slug=category_slug, slug=producttype_slug)
+        else:
+            # If 'category_slug' is not provided, return all categories
+            return ProductType.objects.filter(category__slug=category_slug, )
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+
+
+# class all_inventory_data(generics.ListAPIView):
+#     serializer_class = ProductSerializer
+
+#     def get_queryset(self):
+#         seller_id = self.kwargs['seller_id']
+#         product_obj = Product.objects.filter(id=seller_id)
+
+#         print("--------->>",product_obj)
+
+class AllInventoryDataView(RetrieveAPIView):
+    serializer_class = ProductSerializer
+    queryset = Product.objects.all()
+    lookup_field = 'seller_id'
+
+    def get_object(self):
+        return self.queryset.get(id=self.kwargs['seller_id'])
+    
+    def shipping_details_api(request):
+        shipping_details = ShippingDetails.objects.all()
+        serializer = ShippingDetailsSerializer(shipping_details, many=True)
+        serialized_data = serializer.data
+
+        return JsonResponse(serialized_data, safe=False)
+
 
 
 
