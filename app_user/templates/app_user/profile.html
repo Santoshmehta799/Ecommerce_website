@@ -70,7 +70,7 @@
 																	<div class="col-md-12">
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_first_name" class="col-form-label">Name</label> </div>
-																			<div class="col-12"> <input type="text" value="{{request.user.first_name}}" required id="id_first_name" name="first_name" class="form-control"> </div>
+																			<div class="col-12"> <input type="text" value="{{request.user.seller_representative_detail.representative_name}}" required id="id_first_name" name="first_name" class="form-control"> </div>
 																		</div>
 																		<div class="row my-3">
 																			<div class="col-12"> <label for="id_mobile_number" class="col-form-label">Mobile Number</label> </div>
@@ -116,7 +116,7 @@
 											<div class="col-12 col-md-9">
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_first_name" class="col-form-label">Name</label> </div>
-													<div class="col-9"> <input readonly type="text" id="id_verify_first_name" value="{{ request.user.first_name }}" class="form-control"> </div>
+													<div class="col-9"> <input readonly type="text" id="id_verify_first_name" value="{{ request.user.seller_representative_detail.representative_name}}" class="form-control"> </div>
 												</div>
 												<div class="row my-3">
 													<div class="col-3"> <label for="id_verify_phone_number" class="col-form-label">Phone Number</label> </div>

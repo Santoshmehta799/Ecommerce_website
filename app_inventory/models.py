@@ -120,50 +120,6 @@ class Product(ModelMixin):
     minimum_order_qunatity_unit = models.CharField(max_length=555,
         choices=enums.MinimumOrderQuantityEnums.choices, blank=True,null=True)
 
-
-    # gst_rate = models.CharField(max_length=100,blank=True,null=True)
-    # packed_length = models.CharField(max_length=100,blank=True,null=True)
-    # packed_width = models.CharField(max_length=100,blank=True,null=True)
-    # packed_height = models.CharField(max_length=100,blank=True,null=True)
-    # prod_commissions = models.CharField(max_length=100,blank=True,null=True)
-    # Payment_gateway_charge = models.CharField(max_length=100,blank=True,null=True)
-    # gst_on_product = models.CharField(max_length=100,blank=True,null=True)
-    # our_commissions = models.CharField(max_length=100,blank=True,null=True)
-    # final_price = models.CharField(max_length=100,blank=True,null=True)
-    # default_sp = models.CharField(max_length=100,blank=True,null=True)
-    # default_mp = models.CharField(max_length=100,blank=True,null=True)
-    # default_var = models.CharField(max_length=100,blank=True,null=True)
-    # net = models.CharField(max_length=100,blank=True,null=True)
-    # select_variant_data = models.CharField(max_length=100,blank=True,null=True)
-    # tag_variant = models.CharField(max_length=100,blank=True,null=True)
-    # selected_variant_data = models.CharField(max_length=100,blank=True,null=True)
-    # variant_mp_data = models.CharField(max_length=100,blank=True,null=True)
-    # variant_sp_data = models.CharField(max_length=100,blank=True,null=True)
-    # variant_on_request_all_data = models.CharField(max_length=100,blank=True,null=True)
-    # var_is_default_all_data = models.CharField(max_length=100,blank=True,null=True)
-    # product_dimension_unit_box = models.CharField(max_length=100,blank=True,null=True)
-    # variant = models.CharField(max_length=500,blank=True,null=True)
-    # product_tags = TaggableManager(verbose_name="product_tags",blank=True)
-    # incl_gst = models.BooleanField(default=False,null=True)
-    # views = models.FloatField(default=1)
-    # mostsells = models.FloatField(default=1)
-    # variant_name = models.CharField(max_length=128, null=True, blank=True)
-    # variant_value = models.CharField(max_length=128, null=True, blank=True)
-    # variant_default = models.BooleanField(default=False)
-    # default_poq = models.CharField(max_length=100,blank=True,null=True)
-    # marked = models.CharField(max_length=100,blank=True,null=True)
-    # colors = models.CharField(max_length=100,default='',null=True,blank=True)
-    # product_status = models.BooleanField(default=False)
-    # shipping_with_seventh_square = models.BooleanField(default=True)
-    # var_added = models.BooleanField(default=False)
-    # qty = models.FloatField(validators=[MinValueValidator(0)])
-    # qty_unit = models.CharField(max_length=555,blank=True,null=True)
-    # marked_price = models.FloatField(default=0.0)
-    # selling_price = models.FloatField(default=0.0)
-    # commercial_price = models.FloatField(validators=[MinValueValidator(0)], default=0.0, blank=True,null=True)
-    # discount = models.FloatField(blank=True,null=True)
-    # objects = ProductSectionQuerySet.as_manager()
-
     class meta:
         verbose_name = _("Inventory - Add Product")
         verbose_name_plural = _("Inventory - Add Product")
@@ -204,7 +160,7 @@ class ProductVariant(ModelMixin):
         verbose_name_plural = _("Inventory - Add Product Variant")
 
     def __str__(self):
-        return f"{self.product} - {self.id}"
+        return f"{self.product.id} - {self.id}"
 
 
 class ProductImage(ModelMixin):
